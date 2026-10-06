@@ -73,6 +73,8 @@
   .cassa .tot { font-family: var(--ui); font-size: 30px; font-weight: 800; line-height: 1; color: var(--banana); }
   .cassa .rit { font-size: 13px; color: var(--spento); margin-top: 3px; }
   .riga-tot { display: flex; align-items: center; gap: 8px; }
+  .versione-gioco { text-align: center; color: var(--spento); font-size: 12px; margin: 14px 0 0; opacity: .8; }
+  .foglio-basso textarea.codice-trasf { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; word-break: break-all; min-height: 130px; }
   .info-i {
     width: 24px; height: 24px; flex: none; border-radius: 50%; border: 1.5px solid var(--spento); background: none;
     color: var(--spento); font: italic 700 14px/1 Georgia, "Times New Roman", serif; display: grid; place-items: center; padding: 0;
@@ -753,12 +755,15 @@
       <button class="pulsante secondario piccolo" id="bImpLingua" data-t="cambia"></button>
     </div>
     <div class="azioni">
+      <button class="pulsante secondario" id="bEsporta">📤 <span data-t="imp_esporta"></span></button>
+      <button class="pulsante secondario" id="bImporta">📥 <span data-t="imp_importa"></span></button>
       <button class="pulsante secondario" id="bInstalla" hidden>📲 <span data-t="imp_home"></span></button>
       <button class="pulsante secondario" id="bTutorial">📖 <span data-t="tut_rivedi"></span></button>
       <button class="pulsante secondario" id="bMenuPrincipale">🏠 <span data-t="menu_principale"></span></button>
       <button class="pulsante secondario" id="bChiudiImpostazioni" data-t="chiudi"></button>
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
+    <p class="versione-gioco">Scimmie infinite · versione 11</p>
   </div>
 </div>
 
@@ -792,6 +797,21 @@
       <button class="pulsante" id="bInstallaOra" hidden data-t="inst_btn"></button>
       <button class="pulsante" id="bInstFatto" data-t="inst_fatto"></button>
       <button class="pulsante secondario" id="bInstDopo" data-t="inst_dopo"></button>
+    </div>
+  </div>
+</div>
+
+<!-- =============== ESPORTA / IMPORTA PARTITA =============== -->
+<div class="velo basso sopra" id="veloTrasferisci">
+  <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="titTrasf">
+    <div class="maniglia"></div>
+    <h2 id="titTrasf"></h2>
+    <p class="sotto" id="sottoTrasf"></p>
+    <textarea id="codiceTrasf" class="codice-trasf" rows="6" spellcheck="false" autocomplete="off" autocapitalize="off"></textarea>
+    <p class="stato-cl" id="statoTrasf"></p>
+    <div class="azioni">
+      <button class="pulsante" id="bTrasfAzione"></button>
+      <button class="pulsante secondario" id="bTrasfChiudi" data-t="chiudi"></button>
     </div>
   </div>
 </div>
@@ -1018,7 +1038,19 @@
       inst_btn: "📲 Installa ora",
       inst_fatto: "Fatto!",
       inst_dopo: "Più tardi",
-      imp_home: "Aggiungi alla schermata Home"
+      imp_home: "Aggiungi alla schermata Home",
+      imp_esporta: "Esporta partita",
+      imp_importa: "Importa partita",
+      tr_esp_sotto: "Copia questo codice e incollalo in «Importa partita» sull'altro telefono o nell'altra versione del gioco.",
+      tr_imp_sotto: "Incolla qui il codice copiato da «Esporta partita». La partita su questo dispositivo verrà sostituita.",
+      tr_copia: "Copia",
+      tr_copiato: "Codice copiato!",
+      tr_copia_mano: "Tieni premuto sul codice, scegli Seleziona tutto e poi Copia.",
+      tr_importa_btn: "Importa",
+      tr_ok: "Partita importata! Bentornato 🐒",
+      tr_errore: "Codice non valido: controlla di averlo copiato tutto.",
+      tr_conferma_tit: "Sostituire la partita?",
+      tr_conferma_testo: "La partita su questo dispositivo verrà sostituita da quella importata."
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -1151,7 +1183,19 @@
       inst_btn: "📲 Install now",
       inst_fatto: "Done!",
       inst_dopo: "Later",
-      imp_home: "Add to Home Screen"
+      imp_home: "Add to Home Screen",
+      imp_esporta: "Export game",
+      imp_importa: "Import game",
+      tr_esp_sotto: "Copy this code and paste it into “Import game” on the other phone or in the other version of the game.",
+      tr_imp_sotto: "Paste the code copied from “Export game” here. The game on this device will be replaced.",
+      tr_copia: "Copy",
+      tr_copiato: "Code copied!",
+      tr_copia_mano: "Press and hold the code, choose Select All, then Copy.",
+      tr_importa_btn: "Import",
+      tr_ok: "Game imported! Welcome back 🐒",
+      tr_errore: "Invalid code: make sure you copied all of it.",
+      tr_conferma_tit: "Replace the game?",
+      tr_conferma_testo: "The game on this device will be replaced by the imported one."
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -1284,7 +1328,19 @@
       inst_btn: "📲 Instalar ahora",
       inst_fatto: "¡Hecho!",
       inst_dopo: "Más tarde",
-      imp_home: "Añadir a la pantalla de inicio"
+      imp_home: "Añadir a la pantalla de inicio",
+      imp_esporta: "Exportar partida",
+      imp_importa: "Importar partida",
+      tr_esp_sotto: "Copia este código y pégalo en «Importar partida» en el otro teléfono o en la otra versión del juego.",
+      tr_imp_sotto: "Pega aquí el código copiado de «Exportar partida». La partida de este dispositivo se reemplazará.",
+      tr_copia: "Copiar",
+      tr_copiato: "¡Código copiado!",
+      tr_copia_mano: "Mantén pulsado el código, elige Seleccionar todo y luego Copiar.",
+      tr_importa_btn: "Importar",
+      tr_ok: "¡Partida importada! Bienvenido de nuevo 🐒",
+      tr_errore: "Código no válido: comprueba que lo has copiado entero.",
+      tr_conferma_tit: "¿Reemplazar la partida?",
+      tr_conferma_testo: "La partida de este dispositivo se reemplazará por la importada."
     },
 
     // ------------------------------------------------------------- 中文
@@ -1417,7 +1473,19 @@
       inst_btn: "📲 立即安装",
       inst_fatto: "完成！",
       inst_dopo: "以后再说",
-      imp_home: "添加到主屏幕"
+      imp_home: "添加到主屏幕",
+      imp_esporta: "导出存档",
+      imp_importa: "导入存档",
+      tr_esp_sotto: "复制这段代码，然后在另一部手机或另一个版本的游戏里粘贴到“导入存档”。",
+      tr_imp_sotto: "把从“导出存档”复制的代码粘贴到这里。这台设备上的存档会被替换。",
+      tr_copia: "复制",
+      tr_copiato: "代码已复制！",
+      tr_copia_mano: "长按代码，选择“全选”，再选择“复制”。",
+      tr_importa_btn: "导入",
+      tr_ok: "存档已导入！欢迎回来 🐒",
+      tr_errore: "代码无效：请确认已完整复制。",
+      tr_conferma_tit: "替换存档？",
+      tr_conferma_testo: "这台设备上的存档会被导入的存档替换。"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -1550,7 +1618,19 @@
       inst_btn: "📲 Installer maintenant",
       inst_fatto: "C'est fait !",
       inst_dopo: "Plus tard",
-      imp_home: "Ajouter à l'écran d'accueil"
+      imp_home: "Ajouter à l'écran d'accueil",
+      imp_esporta: "Exporter la partie",
+      imp_importa: "Importer une partie",
+      tr_esp_sotto: "Copie ce code et colle-le dans « Importer une partie » sur l'autre téléphone ou dans l'autre version du jeu.",
+      tr_imp_sotto: "Colle ici le code copié depuis « Exporter la partie ». La partie sur cet appareil sera remplacée.",
+      tr_copia: "Copier",
+      tr_copiato: "Code copié !",
+      tr_copia_mano: "Maintiens le doigt sur le code, choisis Tout sélectionner puis Copier.",
+      tr_importa_btn: "Importer",
+      tr_ok: "Partie importée ! Bon retour 🐒",
+      tr_errore: "Code invalide : vérifie que tu l'as copié en entier.",
+      tr_conferma_tit: "Remplacer la partie ?",
+      tr_conferma_testo: "La partie sur cet appareil sera remplacée par celle importée."
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -1684,7 +1764,19 @@
       inst_btn: "📲 Установить",
       inst_fatto: "Готово!",
       inst_dopo: "Позже",
-      imp_home: "Добавить на главный экран"
+      imp_home: "Добавить на главный экран",
+      imp_esporta: "Экспорт игры",
+      imp_importa: "Импорт игры",
+      tr_esp_sotto: "Скопируй этот код и вставь его в «Импорт игры» на другом телефоне или в другой версии игры.",
+      tr_imp_sotto: "Вставь сюда код из «Экспорт игры». Игра на этом устройстве будет заменена.",
+      tr_copia: "Копировать",
+      tr_copiato: "Код скопирован!",
+      tr_copia_mano: "Удерживай код, выбери «Выбрать всё», затем «Скопировать».",
+      tr_importa_btn: "Импортировать",
+      tr_ok: "Игра импортирована! С возвращением 🐒",
+      tr_errore: "Неверный код: проверь, что скопировал его целиком.",
+      tr_conferma_tit: "Заменить игру?",
+      tr_conferma_testo: "Игра на этом устройстве будет заменена импортированной."
     }
   };
 
@@ -3868,6 +3960,85 @@
     apri("veloInstalla");
   }
 
+  // ---------- esporta / importa la partita (per passare da Claude al sito, o da un telefono all'altro) ----------
+  function inBase64(byte) {
+    let bin = "";
+    for (let i = 0; i < byte.length; i += 0x8000) bin += String.fromCharCode.apply(null, byte.subarray(i, i + 0x8000));
+    return btoa(bin);
+  }
+  function daBase64(testo) {
+    const bin = atob(testo);
+    const byte = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) byte[i] = bin.charCodeAt(i);
+    return byte;
+  }
+  async function codicePartita() {
+    const json = JSON.stringify({ ...G, ts: Date.now() });
+    try {
+      if (typeof CompressionStream === "function") {
+        const flusso = new Blob([json]).stream().pipeThrough(new CompressionStream("deflate-raw"));
+        return "SCIMMIEZ:" + inBase64(new Uint8Array(await new Response(flusso).arrayBuffer()));
+      }
+    } catch (e) {}
+    return "SCIMMIE1:" + inBase64(new TextEncoder().encode(json));
+  }
+  async function leggiCodicePartita(codice) {
+    codice = (codice || "").replace(/\s+/g, "");
+    if (codice.startsWith("SCIMMIEZ:")) {
+      const flusso = new Blob([daBase64(codice.slice(9))]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+      return JSON.parse(await new Response(flusso).text());
+    }
+    if (codice.startsWith("SCIMMIE1:")) return JSON.parse(new TextDecoder().decode(daBase64(codice.slice(9))));
+    throw new Error("codice non valido");
+  }
+  async function apriEsporta() {
+    R.trasferimento = "esporta";
+    $("titTrasf").textContent = "📤 " + t("imp_esporta");
+    $("sottoTrasf").textContent = t("tr_esp_sotto");
+    $("codiceTrasf").readOnly = true;
+    $("codiceTrasf").value = "…";
+    $("statoTrasf").textContent = "";
+    $("bTrasfAzione").textContent = t("tr_copia");
+    apri("veloTrasferisci");
+    salva();
+    $("codiceTrasf").value = await codicePartita();
+  }
+  function apriImporta() {
+    R.trasferimento = "importa";
+    $("titTrasf").textContent = "📥 " + t("imp_importa");
+    $("sottoTrasf").textContent = t("tr_imp_sotto");
+    $("codiceTrasf").readOnly = false;
+    $("codiceTrasf").value = "";
+    $("statoTrasf").textContent = "";
+    $("bTrasfAzione").textContent = t("tr_importa_btn");
+    apri("veloTrasferisci");
+  }
+  async function azioneTrasferimento() {
+    const area = $("codiceTrasf");
+    if (R.trasferimento === "esporta") {
+      area.focus(); area.select(); area.setSelectionRange(0, area.value.length);
+      let copiato = false;
+      try { await navigator.clipboard.writeText(area.value); copiato = true; } catch (e) {}
+      if (!copiato) { try { copiato = document.execCommand("copy"); } catch (e) {} }
+      $("statoTrasf").textContent = copiato ? t("tr_copiato") : t("tr_copia_mano");
+      return;
+    }
+    let dati = null;
+    try { dati = await leggiCodicePartita(area.value); } catch (e) {}
+    const g = dati && prepara(dati);
+    if (!g) { $("statoTrasf").textContent = t("tr_errore"); return; }
+    chiudi("veloTrasferisci");
+    chiedi(t("tr_conferma_tit"), t("tr_conferma_testo"), () => {
+      const nelMenu = R.nelMenu;
+      avvia(g);
+      R.nelMenu = nelMenu;
+      R.haSalvataggio = true;
+      salva();
+      if (nelMenu) scriviMenuIniziale();
+      avviso(t("tr_ok"));
+    });
+  }
+
   function dopoTutorial() {
     if (G.convertitoVel) {
       avviso(t("convertito_vel"));
@@ -4130,6 +4301,11 @@
     $("volEffetti").onchange = () => { salva(); Suono.clic(); };
     $("bImpLingua").onclick = apriLingue;
     $("bInfoBanane").onclick = () => apri("veloInfo");
+    $("bEsporta").onclick = () => { chiudi("veloImpostazioni"); apriEsporta(); };
+    $("bImporta").onclick = () => { chiudi("veloImpostazioni"); apriImporta(); };
+    $("bTrasfAzione").onclick = azioneTrasferimento;
+    $("bTrasfChiudi").onclick = () => chiudi("veloTrasferisci");
+    $("veloTrasferisci").onclick = e => { if (e.target.id === "veloTrasferisci") chiudi("veloTrasferisci"); };
     $("bChiudiInfo").onclick = () => chiudi("veloInfo");
     $("veloInfo").onclick = e => { if (e.target.id === "veloInfo") chiudi("veloInfo"); };
     $("bInstalla").onclick = () => { chiudi("veloImpostazioni"); apriInstalla(); };
