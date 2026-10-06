@@ -1,12 +1,11 @@
 // Classifica online di Scimmie infinite (Firebase).
-// Finché qui c'è "null", il gioco funziona normalmente ma senza classifica.
-// Quando hai creato il progetto Firebase, sostituisci null con i dati del tuo progetto, così:
-//
-// window.CLASSIFICA_FIREBASE = {
-//   apiKey: "AIza...",
-//   authDomain: "nome-progetto.firebaseapp.com",
-//   projectId: "nome-progetto",
-//   appId: "1:1234567890:web:abc123"
-// };
+// Progetto: InfiniteMonkeys (infinitemonkeys-29db6)
 
-window.CLASSIFICA_FIREBASE = null;
+window.CLASSIFICA_FIREBASE = {
+  apiKey: "AIzaSyBktt3iYz9n2tQOw4lee3aJzbzRihIx8Ko",
+  authDomain: "infinitemonkeys-29db6.firebaseapp.com",
+  projectId: "infinitemonkeys-29db6",
+  storageBucket: "infinitemonkeys-29db6.firebasestorage.app",
+  messagingSenderId: "382675452701",
+  appId: "1:382675452701:web:6e8ded68c3868f476b97f4"
+};
