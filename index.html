@@ -11,6 +11,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Scimmie">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<!-- configurazione della classifica online (facoltativa): vedi il file classifica-config.js -->
+<script src="classifica-config.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Scimmie Infinite</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -70,6 +72,16 @@
   .cassa .ico { font-size: 30px; line-height: 1; }
   .cassa .tot { font-family: var(--ui); font-size: 30px; font-weight: 800; line-height: 1; color: var(--banana); }
   .cassa .rit { font-size: 13px; color: var(--spento); margin-top: 3px; }
+  .riga-tot { display: flex; align-items: center; gap: 8px; }
+  .info-i {
+    width: 24px; height: 24px; flex: none; border-radius: 50%; border: 1.5px solid var(--spento); background: none;
+    color: var(--spento); font: italic 700 14px/1 Georgia, "Times New Roman", serif; display: grid; place-items: center; padding: 0;
+  }
+  .info-lista { list-style: none; padding: 0; margin: 4px 0 12px; display: grid; gap: 10px; }
+  .info-lista li { background: var(--foglia-2); border-radius: 14px; padding: 11px 13px; line-height: 1.45; font-size: 15px; }
+  .info-fine { color: var(--spento); font-size: 14.5px; margin: 0 0 6px; }
+  .passi-inst { padding-left: 22px; margin: 6px 0 12px; display: grid; gap: 10px; font-size: 15.5px; line-height: 1.4; }
+  .nota-inst { color: var(--spento); font-size: 13.5px; margin: 0 0 10px; }
   .gettone {
     display: flex; align-items: center; gap: 5px; padding: 6px 10px; border-radius: 999px;
     background: var(--foglia-1); border: 1px solid var(--bordo); font-weight: 600; font-size: 13.5px; white-space: nowrap;
@@ -551,7 +563,6 @@
     <p class="tut-passo" id="tutPasso"></p>
     <p class="tut-testo" id="tutTesto"></p>
     <div class="tut-azioni">
-      <button class="pulsante secondario piccolo" id="bTutSalta" data-t="tut_salta"></button>
       <button class="pulsante piccolo" id="bTutAvanti"></button>
     </div>
   </div>
@@ -563,7 +574,7 @@
     <div class="cassa">
       <span class="ico" aria-hidden="true">🍌</span>
       <div>
-        <div class="tot" id="hBanane">0</div>
+        <div class="riga-tot"><div class="tot" id="hBanane">0</div><button class="info-i" id="bInfoBanane" data-t-aria="info_tit">i</button></div>
         <div class="rit" id="hBananeS"></div>
       </div>
     </div>
@@ -610,8 +621,9 @@
         <div><small data-t="record_max"></small><strong id="sMax"></strong></div>
         <div><small data-t="st_lettere"></small><strong id="sLettere"></strong></div>
         <div><small data-t="st_raccolto"></small><strong id="sRaccolto"></strong></div>
+        <div><small data-t="st_parole"></small><strong id="sParole"></strong></div>
+        <div><small data-t="st_parola_max"></small><strong id="sParolaMax"></strong></div>
       </div>
-      <p class="nota-banane" data-t="nota_banane"></p>
     </div>
   </section>
 
@@ -733,10 +745,6 @@
       <span class="valore" id="valEffetti"></span>
     </div>
     <input class="cursore-vol" type="range" min="0" max="100" step="5" id="volEffetti" data-t-aria="imp_effetti">
-    <div class="impostazione" id="rigaVibrazione">
-      <span class="testo"><b>📳 <span data-t="imp_vibrazione"></span></b><small id="vibSotto"></small></span>
-      <button class="interruttore" id="bVibrazione" data-t-aria="imp_vibrazione"></button>
-    </div>
     <div class="impostazione">
       <span class="testo"><b>🎨 <span data-t="imp_tema"></span></b><small id="impTemaNome"></small></span>
       <button class="pulsante secondario piccolo" id="bImpTema" data-t="cambia"></button>
@@ -746,6 +754,7 @@
       <button class="pulsante secondario piccolo" id="bImpLingua" data-t="cambia"></button>
     </div>
     <div class="azioni">
+      <button class="pulsante secondario" id="bInstalla" hidden>📲 <span data-t="imp_home"></span></button>
       <button class="pulsante secondario" id="bTutorial">📖 <span data-t="tut_rivedi"></span></button>
       <button class="pulsante secondario" id="bMenuPrincipale">🏠 <span data-t="menu_principale"></span></button>
       <button class="pulsante secondario" id="bChiudiImpostazioni" data-t="chiudi"></button>
@@ -767,6 +776,40 @@
     <p class="stato-cl" data-cl="stato"></p>
     <ol class="classifica" data-cl="lista"></ol>
     <div class="azioni"><button class="pulsante secondario" id="bChiudiClassifica" data-t="chiudi"></button></div>
+  </div>
+</div>
+
+<!-- =============== COME SI GUADAGNANO LE BANANE =============== -->
+<div class="velo basso sopra" id="veloInfo">
+  <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="titInfo">
+    <div class="maniglia"></div>
+    <h2 id="titInfo" data-t="info_tit"></h2>
+    <ul class="info-lista">
+      <li data-t="info_1"></li>
+      <li data-t="info_2"></li>
+      <li data-t="info_3"></li>
+      <li data-t="info_4"></li>
+      <li data-t="info_5"></li>
+      <li data-t="info_6"></li>
+    </ul>
+    <p class="info-fine" data-t="info_fine"></p>
+    <div class="azioni"><button class="pulsante" id="bChiudiInfo" data-t="ho_capito"></button></div>
+  </div>
+</div>
+
+<!-- =============== AGGIUNGI ALLA SCHERMATA HOME (solo versione web) =============== -->
+<div class="velo basso sopra" id="veloInstalla">
+  <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="titInst">
+    <div class="maniglia"></div>
+    <h2 id="titInst" data-t="inst_tit"></h2>
+    <p class="sotto" data-t="inst_sotto"></p>
+    <ol class="passi-inst" id="passiInst"></ol>
+    <p class="nota-inst" id="notaInst" data-t="inst_nota"></p>
+    <div class="azioni">
+      <button class="pulsante" id="bInstallaOra" hidden data-t="inst_btn"></button>
+      <button class="pulsante" id="bInstFatto" data-t="inst_fatto"></button>
+      <button class="pulsante secondario" id="bInstDopo" data-t="inst_dopo"></button>
+    </div>
   </div>
 </div>
 
@@ -880,8 +923,6 @@
       bib_mio: "Fai scrivere il mio testo", chiudi: "Chiudi",
       imp_musica: "Musica", imp_musica_sotto: "Una melodia rilassata in sottofondo",
       imp_effetti: "Effetti sonori", imp_effetti_sotto: "Pulsanti, acquisti, record e traguardi",
-      imp_vibrazione: "Vibrazione", imp_vib_sotto: "Vibra quando tocchi i pulsanti e compri",
-      vib_no: "Il tuo telefono potrebbe non permettere al gioco di vibrare",
       prova_suono: "Prova il suono", menu_principale: "Menu principale", ricomincia: "Ricomincia da zero",
       deve_scrivere: "Deve scrivere:", di_fila_ora: "Di fila ora", suo_record: "Il suo record", tasti_battuti: "Tasti battuti",
       fine_tit: "Opera completata!", scegli_bib: "Scegli dalla biblioteca", rit_tit: "Bentornato!", raccogli: "Raccogli",
@@ -948,10 +989,9 @@
       intro_testo: "Il teorema afferma che un primate che preme i tasti di una tastiera a caso per un tempo infinito riuscirà quasi certamente a comporre qualsiasi testo prefissato.", intro_tocca: "Tocca lo schermo per iniziare", tut_1: "📜 Questo è il testo che le scimmie devono scrivere. Battono tasti a caso: quando una azzecca una lettera dopo l'altra, la vedi comparire in nero. Basta un errore e ricomincia da capo.", tut_2: "⭐ Il record è la serie più lunga di caratteri giusti scritta da una sola scimmia. Ogni nuovo record ti regala banane.", tut_3: "🍌 Ogni lettera giusta battuta da una scimmia vale una banana. Più tasti battono, più ne guadagni, anche mentre il gioco è chiuso.", tut_4: "🛒 In Potenzia spendi le banane per avere più scimmie e farle battere più veloci. Più tentativi, più possibilità.", tut_5: "🐒 Qui c'è l'ufficio: ogni scimmia ha la sua scrivania. Toccane una per vedere cosa sta scrivendo.", tut_6: "🏆 Completa i traguardi: ognuno ti regala una parte delle banane raccolte finora.", tut_7: "📓 Nel Diario trovi i tempi stimati, la classifica globale e la cronaca dei record.", tut_7_web: "📓 Nel Diario trovi i tempi stimati e la cronaca dei record.", tut_8: "📚 Quando un'opera è completa, passa alla prossima. Ogni carattere in più la rende molto più difficile: i testi lunghi sono la vera sfida!", tut_fine: "Tutto qui! Lascia lavorare le scimmie e buon divertimento.", tut_avanti: "Avanti", tut_salta: "Salta", tut_inizia: "Gioca!", tut_rivedi: "Rivedi il tutorial",
       imp_modo: "Difficoltà", modo_facile: "Facile", modo_normale: "Normale", modo_realistica: "Realistica", modo_desc_facile: "Solo lettere, niente spazi: {n} tasti", modo_desc_normale: "Lettere minuscole e spazi: {n} tasti", modo_desc_realistica: "Come una vera macchina da scrivere: maiuscole, punteggiatura e spazi, {n} tasti", modo_cambiato: "Difficoltà {modo}: le scimmie ricominciano questo testo",
       premio_pct: "🎁 +{p}% del raccolto: {n} banane", premio_pct_breve: "🎁 +{p}% del raccolto (almeno {m} banane)",
-      nota_banane: "🍌 Ogni lettera giusta battuta da una scimmia vale 1 banana (2 in Realistica). Ogni nuovo record ne vale 10 per lettera, i traguardi una parte del raccolto, e un'opera completata viene comprata da un editore per metà del raccolto.",
       st_raccolto: "Banane raccolte",
       st_lettere: "Lettere giuste",
-      tut_a1: "👋 Benvenuto! In questo gioco hai un ufficio pieno di scimmie che battono tasti a caso. Il tuo obiettivo: far scrivere a una di loro una frase famosa, lettera per lettera, senza sbagliare.",
+      tut_a1: "👋 Benvenuto! Il teorema dice che delle scimmie che battono tasti a caso, prima o poi, scrivono qualsiasi testo. Il tuo obiettivo: far scrivere a una di loro una frase famosa, lettera per lettera, senza sbagliare. Per ora il tuo ufficio è vuoto: tra poco assumerai la prima scimmia!",
       tut_a2: "📜 Questa è la frase da scrivere. Le lettere in nero sono quelle che la scimmia più brava ha già azzeccato di fila. Basta un tasto sbagliato e ricomincia da capo: per questo servono tante scimmie!",
       tut_a3: "🍌 Ogni lettera giusta fa guadagnare una banana. Le banane si accumulano qui da sole, anche quando chiudi il gioco. Per iniziare te ne regaliamo 150!",
       tut_a4: "👉 Con le banane potenzi il tuo ufficio. Tocca Potenzia.",
@@ -969,7 +1009,33 @@
       sez_ogg: "⌨️ Oggetti per scrivere",
       sez_ogg_sotto: "Ogni oggetto aggiunge tasti al secondo a ogni scimmia",
       eff_ogg: "{testo}: +{n} tasti/s a ogni scimmia",
-      convertito_vel: "⚡ Velocità rinnovata: i tuoi vecchi potenziamenti unici sono diventati oggetti per scrivere, con la stessa velocità di prima"
+      convertito_vel: "⚡ Velocità rinnovata: i tuoi vecchi potenziamenti unici sono diventati oggetti per scrivere, con la stessa velocità di prima",
+      info_tit: "🍌 Come si guadagnano le banane",
+      info_1: "✍️ Lettere giuste: ogni volta che una scimmia batte la lettera giusta della frase, ricevi 1 banana (2 in Realistica).",
+      info_2: "📝 Parole: se una scimmia scrive per caso una parola vera di almeno 2 lettere, ricevi un premio. Più la parola è lunga, più vale.",
+      info_3: "⭐ Record: quando una scimmia scrive più lettere giuste di fila di tutte le altre, ricevi 25 banane per ogni lettera.",
+      info_4: "📜 Frasi completate: quando la frase è finita, un editore te la compra. È il premio più grande.",
+      info_5: "🏆 Traguardi: quando ne completi uno, tocca Riscuoti.",
+      info_6: "🌙 Anche a gioco chiuso le scimmie continuano a lavorare.",
+      info_fine: "In breve: più scimmie e più velocità = più tasti battuti = più banane.",
+      ho_capito: "Ho capito",
+      st_parole: "Parole trovate",
+      st_parola_max: "Parola più lunga",
+      cr_parola: "📝 {chi} ha scritto la parola «{w}» ({car})",
+      parola_trovata: "📝 {chi} ha scritto «{w}»! +{n} 🍌",
+      inst_tit: "📲 Gioca come un'app",
+      inst_sotto: "Aggiungi il gioco alla schermata Home: avrà la sua icona, si aprirà a schermo intero e funzionerà anche offline.",
+      inst_ios_1: "Tocca il pulsante Condividi ⬆️ nella barra di Safari",
+      inst_ios_2: "Scorri e scegli «Aggiungi alla schermata Home» ➕",
+      inst_ios_3: "Tocca «Aggiungi» e apri il gioco dalla sua icona 🐒",
+      inst_and_1: "Apri il menu ⋮ del browser (in alto a destra)",
+      inst_and_2: "Scegli «Installa app» o «Aggiungi a schermata Home»",
+      inst_and_3: "Conferma e apri il gioco dalla sua icona 🐒",
+      inst_nota: "Su iPhone l'app salva i progressi per conto suo: conviene installarla subito, prima di iniziare a giocare.",
+      inst_btn: "📲 Installa ora",
+      inst_fatto: "Fatto!",
+      inst_dopo: "Più tardi",
+      imp_home: "Aggiungi alla schermata Home"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -990,8 +1056,6 @@
       bib_mio: "Type my text", chiudi: "Close",
       imp_musica: "Music", imp_musica_sotto: "A relaxing tune in the background",
       imp_effetti: "Sound effects", imp_effetti_sotto: "Buttons, purchases, records and achievements",
-      imp_vibrazione: "Vibration", imp_vib_sotto: "Vibrates when you tap buttons and buy",
-      vib_no: "Your phone may not let the game vibrate",
       prova_suono: "Test sound", menu_principale: "Main menu", ricomincia: "Start over",
       deve_scrivere: "Must type:", di_fila_ora: "In a row now", suo_record: "Its record", tasti_battuti: "Keys typed",
       fine_tit: "Work completed!", scegli_bib: "Choose from the library", rit_tit: "Welcome back!", raccogli: "Collect",
@@ -1058,10 +1122,9 @@
       intro_testo: "The theorem states that a primate pressing the keys of a keyboard at random for an infinite amount of time will almost surely type any given text.", intro_tocca: "Tap the screen to start", tut_1: "📜 This is the text the monkeys have to type. They hit keys at random: when one gets letter after letter right, you see it appear in black. One mistake and it starts over.", tut_2: "⭐ The record is the longest run of correct characters typed by a single monkey. Every new record gives you bananas.", tut_3: "🍌 Every correct letter a monkey types is worth one banana. The more keys they type, the more you earn, even while the game is closed.", tut_4: "🛒 In Upgrades you spend bananas to get more monkeys and make them type faster. More attempts, more chances.", tut_5: "🐒 Here's the office: every monkey has its own desk. Tap one to see what it's typing.", tut_6: "🏆 Complete achievements: each one gives you a share of the bananas harvested so far.", tut_7: "📓 In the Journal you'll find time estimates, the global leaderboard and the record chronicle.", tut_7_web: "📓 In the Journal you'll find time estimates and the record chronicle.", tut_8: "📚 When a work is complete, move on to the next. Every extra character makes it much harder: long texts are the real challenge!", tut_fine: "That's it! Let the monkeys work and have fun.", tut_avanti: "Next", tut_salta: "Skip", tut_inizia: "Play!", tut_rivedi: "Replay the tutorial",
       imp_modo: "Difficulty", modo_facile: "Easy", modo_normale: "Normal", modo_realistica: "Realistic", modo_desc_facile: "Letters only, no spaces: {n} keys", modo_desc_normale: "Lowercase letters and spaces: {n} keys", modo_desc_realistica: "Like a real typewriter: capitals, punctuation and spaces, {n} keys", modo_cambiato: "{modo} difficulty: the monkeys start this text over",
       premio_pct: "🎁 +{p}% of your harvest: {n} bananas", premio_pct_breve: "🎁 +{p}% of your harvest (at least {m} bananas)",
-      nota_banane: "🍌 Every correct letter a monkey types is worth 1 banana (2 on Realistic). Every new record is worth 10 per letter, achievements give a share of your harvest, and a publisher buys every completed work for half your harvest.",
       st_raccolto: "Bananas harvested",
       st_lettere: "Correct letters",
-      tut_a1: "👋 Welcome! In this game you run an office full of monkeys hitting keys at random. Your goal: get one of them to type a famous phrase, letter by letter, without a single mistake.",
+      tut_a1: "👋 Welcome! The theorem says that monkeys hitting keys at random will sooner or later type any text. Your goal: get one of them to type a famous phrase, letter by letter, without a single mistake. Your office is empty for now: you'll hire your first monkey in a moment!",
       tut_a2: "📜 This is the phrase to type. The letters in black are the ones the best monkey has already got right in a row. One wrong key and it starts over: that's why you need lots of monkeys!",
       tut_a3: "🍌 Every correct letter earns a banana. Bananas pile up here by themselves, even when the game is closed. To get you started, here are 150 as a gift!",
       tut_a4: "👉 Use bananas to upgrade your office. Tap Upgrades.",
@@ -1079,7 +1142,33 @@
       sez_ogg: "⌨️ Typing gear",
       sez_ogg_sotto: "Each item adds keys per second to every monkey",
       eff_ogg: "{testo}: +{n} keys/s for every monkey",
-      convertito_vel: "⚡ Speed revamped: your old one-time upgrades have become typing gear, with the same speed as before"
+      convertito_vel: "⚡ Speed revamped: your old one-time upgrades have become typing gear, with the same speed as before",
+      info_tit: "🍌 How to earn bananas",
+      info_1: "✍️ Correct letters: every time a monkey types the right next letter of the phrase, you get 1 banana (2 on Realistic).",
+      info_2: "📝 Words: if a monkey happens to type a real word of at least 2 letters, you get a prize. The longer the word, the more it's worth.",
+      info_3: "⭐ Records: when a monkey types more correct letters in a row than all the others, you get 25 bananas per letter.",
+      info_4: "📜 Completed phrases: when the phrase is finished, a publisher buys it from you. It's the biggest prize.",
+      info_5: "🏆 Goals: when you complete one, tap Claim.",
+      info_6: "🌙 Even when the game is closed, the monkeys keep working.",
+      info_fine: "In short: more monkeys and more speed = more keys typed = more bananas.",
+      ho_capito: "Got it",
+      st_parole: "Words found",
+      st_parola_max: "Longest word",
+      cr_parola: "📝 {chi} typed the word “{w}” ({car})",
+      parola_trovata: "📝 {chi} typed “{w}”! +{n} 🍌",
+      inst_tit: "📲 Play it like an app",
+      inst_sotto: "Add the game to your home screen: it gets its own icon, opens full screen and works offline too.",
+      inst_ios_1: "Tap the Share button ⬆️ in Safari's toolbar",
+      inst_ios_2: "Scroll down and choose “Add to Home Screen” ➕",
+      inst_ios_3: "Tap “Add” and open the game from its icon 🐒",
+      inst_and_1: "Open the browser menu ⋮ (top right)",
+      inst_and_2: "Choose “Install app” or “Add to Home screen”",
+      inst_and_3: "Confirm and open the game from its icon 🐒",
+      inst_nota: "On iPhone the app keeps its own progress: it's best to install it right away, before you start playing.",
+      inst_btn: "📲 Install now",
+      inst_fatto: "Done!",
+      inst_dopo: "Later",
+      imp_home: "Add to Home Screen"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -1100,8 +1189,6 @@
       bib_mio: "Escribir mi texto", chiudi: "Cerrar",
       imp_musica: "Música", imp_musica_sotto: "Una melodía relajante de fondo",
       imp_effetti: "Efectos de sonido", imp_effetti_sotto: "Botones, compras, récords y logros",
-      imp_vibrazione: "Vibración", imp_vib_sotto: "Vibra al tocar botones y al comprar",
-      vib_no: "Puede que tu teléfono no permita vibrar al juego",
       prova_suono: "Probar sonido", menu_principale: "Menú principal", ricomincia: "Empezar de cero",
       deve_scrivere: "Debe escribir:", di_fila_ora: "Seguidos ahora", suo_record: "Su récord", tasti_battuti: "Teclas pulsadas",
       fine_tit: "¡Obra completada!", scegli_bib: "Elegir de la biblioteca", rit_tit: "¡Bienvenido de nuevo!", raccogli: "Recoger",
@@ -1168,10 +1255,9 @@
       intro_testo: "El teorema afirma que un primate que pulse las teclas de un teclado al azar durante un tiempo infinito escribirá casi con toda seguridad cualquier texto dado.", intro_tocca: "Toca la pantalla para empezar", tut_1: "📜 Este es el texto que los monos deben escribir. Pulsan teclas al azar: cuando uno acierta una letra tras otra, la ves aparecer en negro. Basta un error y vuelve a empezar.", tut_2: "⭐ El récord es la serie más larga de caracteres correctos escrita por un solo mono. Cada nuevo récord te da plátanos.", tut_3: "🍌 Cada letra correcta que teclea un mono vale un plátano. Cuantas más teclas pulsan, más ganas, incluso con el juego cerrado.", tut_4: "🛒 En Mejoras gastas plátanos para tener más monos y hacer que tecleen más rápido. Más intentos, más posibilidades.", tut_5: "🐒 Aquí está la oficina: cada mono tiene su escritorio. Toca uno para ver lo que está escribiendo.", tut_6: "🏆 Completa logros: cada uno te regala una parte de los plátanos cosechados hasta ahora.", tut_7: "📓 En el Diario encontrarás los tiempos estimados, la clasificación global y la crónica de récords.", tut_7_web: "📓 En el Diario encontrarás los tiempos estimados y la crónica de récords.", tut_8: "📚 Cuando una obra esté completa, pasa a la siguiente. Cada carácter de más la hace mucho más difícil: ¡los textos largos son el verdadero reto!", tut_fine: "¡Eso es todo! Deja trabajar a los monos y diviértete.", tut_avanti: "Siguiente", tut_salta: "Saltar", tut_inizia: "¡Jugar!", tut_rivedi: "Ver el tutorial de nuevo",
       imp_modo: "Dificultad", modo_facile: "Fácil", modo_normale: "Normal", modo_realistica: "Realista", modo_desc_facile: "Solo letras, sin espacios: {n} teclas", modo_desc_normale: "Minúsculas y espacios: {n} teclas", modo_desc_realistica: "Como una máquina de escribir de verdad: mayúsculas, puntuación y espacios, {n} teclas", modo_cambiato: "Dificultad {modo}: los monos empiezan este texto de nuevo",
       premio_pct: "🎁 +{p}% de tu cosecha: {n} plátanos", premio_pct_breve: "🎁 +{p}% de tu cosecha (al menos {m} plátanos)",
-      nota_banane: "🍌 Cada letra correcta que teclea un mono vale 1 plátano (2 en Realista). Cada nuevo récord vale 10 por letra, los logros dan una parte de la cosecha y un editor compra cada obra completada por la mitad de la cosecha.",
       st_raccolto: "Plátanos cosechados",
       st_lettere: "Letras correctas",
-      tut_a1: "👋 ¡Bienvenido! En este juego tienes una oficina llena de monos que pulsan teclas al azar. Tu objetivo: que uno de ellos escriba una frase famosa, letra a letra, sin equivocarse.",
+      tut_a1: "👋 ¡Bienvenido! El teorema dice que unos monos que pulsan teclas al azar, tarde o temprano, escriben cualquier texto. Tu objetivo: que uno de ellos escriba una frase famosa, letra a letra, sin equivocarse. Por ahora tu oficina está vacía: ¡enseguida contratarás a tu primer mono!",
       tut_a2: "📜 Esta es la frase que hay que escribir. Las letras en negro son las que el mejor mono ya ha acertado seguidas. Una tecla equivocada y vuelve a empezar: ¡por eso hacen falta muchos monos!",
       tut_a3: "🍌 Cada letra correcta da un plátano. Los plátanos se acumulan aquí solos, incluso con el juego cerrado. Para empezar, ¡te regalamos 150!",
       tut_a4: "👉 Con los plátanos mejoras tu oficina. Toca Mejoras.",
@@ -1189,7 +1275,33 @@
       sez_ogg: "⌨️ Objetos para escribir",
       sez_ogg_sotto: "Cada objeto añade teclas por segundo a cada mono",
       eff_ogg: "{testo}: +{n} teclas/s a cada mono",
-      convertito_vel: "⚡ Velocidad renovada: tus antiguas mejoras únicas se han convertido en objetos para escribir, con la misma velocidad que antes"
+      convertito_vel: "⚡ Velocidad renovada: tus antiguas mejoras únicas se han convertido en objetos para escribir, con la misma velocidad que antes",
+      info_tit: "🍌 Cómo se ganan los plátanos",
+      info_1: "✍️ Letras correctas: cada vez que un mono teclea la siguiente letra correcta de la frase, recibes 1 plátano (2 en Realista).",
+      info_2: "📝 Palabras: si un mono escribe por casualidad una palabra real de al menos 2 letras, recibes un premio. Cuanto más larga, más vale.",
+      info_3: "⭐ Récords: cuando un mono escribe más letras correctas seguidas que todos los demás, recibes 25 plátanos por letra.",
+      info_4: "📜 Frases completadas: cuando la frase está terminada, un editor te la compra. Es el premio más grande.",
+      info_5: "🏆 Logros: cuando completes uno, toca Cobrar.",
+      info_6: "🌙 Incluso con el juego cerrado, los monos siguen trabajando.",
+      info_fine: "En resumen: más monos y más velocidad = más teclas pulsadas = más plátanos.",
+      ho_capito: "Entendido",
+      st_parole: "Palabras encontradas",
+      st_parola_max: "Palabra más larga",
+      cr_parola: "📝 {chi} escribió la palabra «{w}» ({car})",
+      parola_trovata: "📝 ¡{chi} ha escrito «{w}»! +{n} 🍌",
+      inst_tit: "📲 Juega como una app",
+      inst_sotto: "Añade el juego a la pantalla de inicio: tendrá su icono, se abrirá a pantalla completa y funcionará también sin conexión.",
+      inst_ios_1: "Toca el botón Compartir ⬆️ en la barra de Safari",
+      inst_ios_2: "Desliza y elige «Añadir a pantalla de inicio» ➕",
+      inst_ios_3: "Toca «Añadir» y abre el juego desde su icono 🐒",
+      inst_and_1: "Abre el menú ⋮ del navegador (arriba a la derecha)",
+      inst_and_2: "Elige «Instalar aplicación» o «Añadir a pantalla de inicio»",
+      inst_and_3: "Confirma y abre el juego desde su icono 🐒",
+      inst_nota: "En iPhone la app guarda su propio progreso: conviene instalarla ya, antes de empezar a jugar.",
+      inst_btn: "📲 Instalar ahora",
+      inst_fatto: "¡Hecho!",
+      inst_dopo: "Más tarde",
+      imp_home: "Añadir a la pantalla de inicio"
     },
 
     // ------------------------------------------------------------- 中文
@@ -1210,8 +1322,6 @@
       bib_mio: "打我的文字", chiudi: "关闭",
       imp_musica: "音乐", imp_musica_sotto: "轻松的背景旋律",
       imp_effetti: "音效", imp_effetti_sotto: "按钮、购买、纪录和成就",
-      imp_vibrazione: "振动", imp_vib_sotto: "点按按钮和购买时振动",
-      vib_no: "你的手机可能不允许游戏振动",
       prova_suono: "试听声音", menu_principale: "主菜单", ricomincia: "从头开始",
       deve_scrivere: "要打的文字：", di_fila_ora: "当前连续", suo_record: "它的纪录", tasti_battuti: "按键数",
       fine_tit: "作品完成！", scegli_bib: "从图书馆选择", rit_tit: "欢迎回来！", raccogli: "领取",
@@ -1278,10 +1388,9 @@
       intro_testo: "该定理指出：一只灵长类动物在键盘上随机敲击按键，只要时间无限，几乎必然能打出任何指定的文字。", intro_tocca: "点击屏幕开始", tut_1: "📜 这是猴子们要打出的文字。它们随机按键：当某只猴子连续打对字母时，你会看到它们以黑色出现。只要错一个，就得从头再来。", tut_2: "⭐ 纪录是单只猴子连续打对的最长字符数。每创造一个新纪录，你都会获得香蕉。", tut_3: "🍌 猴子每打对一个字母就值一根香蕉。它们按键越多，你赚得越多，即使游戏关闭时也一样。", tut_4: "🛒 在“升级”里花香蕉，获得更多猴子并让它们打得更快。尝试越多，机会越大。", tut_5: "🐒 这里是办公室：每只猴子都有自己的办公桌。点一只猴子，看看它在打什么。", tut_6: "🏆 完成成就：每个成就都会奖励你目前收获香蕉的一部分。", tut_7: "📓 在日志里可以看到预计时间、全球排行榜和纪录大事记。", tut_7_web: "📓 在日志里可以看到预计时间和纪录大事记。", tut_8: "📚 完成一部作品后，就换下一部。每多一个字符都会难得多：长篇文字才是真正的挑战！", tut_fine: "就这些！让猴子们工作，玩得开心。", tut_avanti: "下一步", tut_salta: "跳过", tut_inizia: "开始游戏！", tut_rivedi: "重看教程",
       imp_modo: "难度", modo_facile: "简单", modo_normale: "普通", modo_realistica: "写实", modo_desc_facile: "只有字母，没有空格：{n} 个键", modo_desc_normale: "小写字母和空格：{n} 个键", modo_desc_realistica: "像真正的打字机：大写字母、标点和空格，{n} 个键", modo_cambiato: "难度：{modo}。猴子们重新开始打这段文字",
       premio_pct: "🎁 收成的 +{p}%：{n} 根香蕉", premio_pct_breve: "🎁 收成的 +{p}%（至少 {m} 根香蕉）",
-      nota_banane: "🍌 猴子每打对一个字母得 1 根香蕉（写实难度得 2 根）。每个新纪录每个字母奖励 10 根，成就奖励一部分收成，完成的作品会被出版商以一半收成的价格买下。",
       st_raccolto: "收获的香蕉",
       st_lettere: "打对的字母",
-      tut_a1: "👋 欢迎！在这个游戏里，你有一间满是猴子的办公室，它们随机敲击按键。你的目标：让其中一只猴子一个字母一个字母地打出一句名言，一个错误都不能有。",
+      tut_a1: "👋 欢迎！定理说，随机敲键的猴子迟早能打出任何文字。你的目标：让其中一只猴子一个字母一个字母地打出一句名言，一个错误都不能有。你的办公室现在还是空的：马上你就会雇用第一只猴子！",
       tut_a2: "📜 这就是要打的句子。黑色的字母是最厉害的那只猴子已经连续打对的部分。只要按错一个键，它就得从头再来：所以需要很多猴子！",
       tut_a3: "🍌 每打对一个字母就得一根香蕉。香蕉会自动在这里累积，即使关闭游戏也一样。作为开始，送你 150 根！",
       tut_a4: "👉 用香蕉升级你的办公室。点“升级”。",
@@ -1299,7 +1408,33 @@
       sez_ogg: "⌨️ 打字装备",
       sez_ogg_sotto: "每件装备让每只猴子每秒多按几次键",
       eff_ogg: "{testo}：每只猴子 +{n} 键/秒",
-      convertito_vel: "⚡ 速度系统已更新：你以前的一次性升级已转换为打字装备，速度和以前一样"
+      convertito_vel: "⚡ 速度系统已更新：你以前的一次性升级已转换为打字装备，速度和以前一样",
+      info_tit: "🍌 如何赚香蕉",
+      info_1: "✍️ 打对字母：猴子每打对句子里的下一个字母，你就得到 1 根香蕉（写实难度得 2 根）。",
+      info_2: "📝 单词：如果猴子碰巧打出一个至少 2 个字母的真实单词，你会得到奖励。单词越长，奖励越多。",
+      info_3: "⭐ 纪录：当一只猴子连续打对的字母比其他猴子都多时，每个字母奖励 25 根香蕉。",
+      info_4: "📜 完成句子：句子打完后，出版商会买下它。这是最大的奖励。",
+      info_5: "🏆 成就：完成一个后，点“领取”。",
+      info_6: "🌙 即使游戏关闭，猴子们也会继续工作。",
+      info_fine: "简单来说：猴子越多、速度越快 = 按的键越多 = 香蕉越多。",
+      ho_capito: "明白了",
+      st_parole: "找到的单词",
+      st_parola_max: "最长的单词",
+      cr_parola: "📝 {chi}打出了单词“{w}”（{car}）",
+      parola_trovata: "📝 {chi}打出了“{w}”！+{n} 🍌",
+      inst_tit: "📲 像应用一样玩",
+      inst_sotto: "把游戏添加到主屏幕：它会有自己的图标，全屏打开，离线也能玩。",
+      inst_ios_1: "点 Safari 工具栏里的“分享”按钮 ⬆️",
+      inst_ios_2: "向下滑动，选择“添加到主屏幕” ➕",
+      inst_ios_3: "点“添加”，然后从图标打开游戏 🐒",
+      inst_and_1: "打开浏览器菜单 ⋮（右上角）",
+      inst_and_2: "选择“安装应用”或“添加到主屏幕”",
+      inst_and_3: "确认后，从图标打开游戏 🐒",
+      inst_nota: "在 iPhone 上，应用会单独保存进度：最好现在就安装，再开始玩。",
+      inst_btn: "📲 立即安装",
+      inst_fatto: "完成！",
+      inst_dopo: "以后再说",
+      imp_home: "添加到主屏幕"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -1320,8 +1455,6 @@
       bib_mio: "Écrire mon texte", chiudi: "Fermer",
       imp_musica: "Musique", imp_musica_sotto: "Une mélodie relaxante en fond",
       imp_effetti: "Effets sonores", imp_effetti_sotto: "Boutons, achats, records et succès",
-      imp_vibrazione: "Vibration", imp_vib_sotto: "Vibre quand tu touches les boutons et achètes",
-      vib_no: "Ton téléphone ne permet peut-être pas au jeu de vibrer",
       prova_suono: "Tester le son", menu_principale: "Menu principal", ricomincia: "Recommencer à zéro",
       deve_scrivere: "Doit écrire :", di_fila_ora: "D'affilée", suo_record: "Son record", tasti_battuti: "Touches frappées",
       fine_tit: "Œuvre terminée !", scegli_bib: "Choisir dans la bibliothèque", rit_tit: "Bon retour !", raccogli: "Récupérer",
@@ -1388,10 +1521,9 @@
       intro_testo: "Le théorème affirme qu'un primate qui frappe au hasard les touches d'un clavier pendant un temps infini finira presque sûrement par écrire n'importe quel texte donné.", intro_tocca: "Touche l'écran pour commencer", tut_1: "📜 Voici le texte que les singes doivent écrire. Ils frappent les touches au hasard : quand l'un d'eux trouve une lettre après l'autre, tu la vois apparaître en noir. Une seule erreur et il recommence.", tut_2: "⭐ Le record est la plus longue série de caractères justes écrite par un seul singe. Chaque nouveau record te rapporte des bananes.", tut_3: "🍌 Chaque lettre juste tapée par un singe vaut une banane. Plus ils frappent de touches, plus tu gagnes, même quand le jeu est fermé.", tut_4: "🛒 Dans Améliorer, tu dépenses des bananes pour avoir plus de singes et les faire taper plus vite. Plus d'essais, plus de chances.", tut_5: "🐒 Voici le bureau : chaque singe a son pupitre. Touche-en un pour voir ce qu'il écrit.", tut_6: "🏆 Termine des succès : chacun t'offre une part des bananes récoltées jusqu'ici.", tut_7: "📓 Dans le Journal, tu trouveras les temps estimés, le classement mondial et la chronique des records.", tut_7_web: "📓 Dans le Journal, tu trouveras les temps estimés et la chronique des records.", tut_8: "📚 Quand une œuvre est terminée, passe à la suivante. Chaque caractère en plus la rend bien plus difficile : les longs textes sont le vrai défi !", tut_fine: "C'est tout ! Laisse travailler les singes et amuse-toi bien.", tut_avanti: "Suivant", tut_salta: "Passer", tut_inizia: "Jouer !", tut_rivedi: "Revoir le tutoriel",
       imp_modo: "Difficulté", modo_facile: "Facile", modo_normale: "Normale", modo_realistica: "Réaliste", modo_desc_facile: "Lettres seules, sans espaces : {n} touches", modo_desc_normale: "Minuscules et espaces : {n} touches", modo_desc_realistica: "Comme une vraie machine à écrire : majuscules, ponctuation et espaces, {n} touches", modo_cambiato: "Difficulté {modo} : les singes recommencent ce texte",
       premio_pct: "🎁 +{p} % de ta récolte : {n} bananes", premio_pct_breve: "🎁 +{p} % de ta récolte (au moins {m} bananes)",
-      nota_banane: "🍌 Chaque lettre juste tapée par un singe vaut 1 banane (2 en Réaliste). Chaque nouveau record vaut 10 bananes par lettre, les succès donnent une part de la récolte, et un éditeur achète chaque œuvre terminée pour la moitié de la récolte.",
       st_raccolto: "Bananes récoltées",
       st_lettere: "Lettres justes",
-      tut_a1: "👋 Bienvenue ! Dans ce jeu, tu diriges un bureau plein de singes qui frappent les touches au hasard. Ton but : qu'un d'entre eux écrive une phrase célèbre, lettre par lettre, sans se tromper.",
+      tut_a1: "👋 Bienvenue ! Le théorème dit que des singes qui frappent des touches au hasard finiront par écrire n'importe quel texte. Ton but : qu'un d'entre eux écrive une phrase célèbre, lettre par lettre, sans se tromper. Pour l'instant ton bureau est vide : tu vas engager ton premier singe dans un instant !",
       tut_a2: "📜 Voici la phrase à écrire. Les lettres en noir sont celles que le meilleur singe a déjà trouvées d'affilée. Une seule touche fausse et il recommence : c'est pour ça qu'il faut beaucoup de singes !",
       tut_a3: "🍌 Chaque lettre juste rapporte une banane. Les bananes s'accumulent ici toutes seules, même quand le jeu est fermé. Pour commencer, on t'en offre 150 !",
       tut_a4: "👉 Avec les bananes, tu améliores ton bureau. Touche Améliorer.",
@@ -1409,7 +1541,33 @@
       sez_ogg: "⌨️ Objets pour écrire",
       sez_ogg_sotto: "Chaque objet ajoute des touches par seconde à chaque singe",
       eff_ogg: "{testo} : +{n} touches/s pour chaque singe",
-      convertito_vel: "⚡ Vitesse revue : tes anciennes améliorations uniques sont devenues des objets pour écrire, avec la même vitesse qu'avant"
+      convertito_vel: "⚡ Vitesse revue : tes anciennes améliorations uniques sont devenues des objets pour écrire, avec la même vitesse qu'avant",
+      info_tit: "🍌 Comment gagner des bananes",
+      info_1: "✍️ Lettres justes : chaque fois qu'un singe tape la bonne lettre suivante de la phrase, tu reçois 1 banane (2 en Réaliste).",
+      info_2: "📝 Mots : si un singe écrit par hasard un vrai mot d'au moins 2 lettres, tu reçois une prime. Plus le mot est long, plus il rapporte.",
+      info_3: "⭐ Records : quand un singe tape plus de lettres justes d'affilée que tous les autres, tu reçois 25 bananes par lettre.",
+      info_4: "📜 Phrases terminées : quand la phrase est finie, un éditeur te l'achète. C'est la plus grosse prime.",
+      info_5: "🏆 Succès : quand tu en termines un, touche Récupérer.",
+      info_6: "🌙 Même quand le jeu est fermé, les singes continuent de travailler.",
+      info_fine: "En bref : plus de singes et plus de vitesse = plus de touches frappées = plus de bananes.",
+      ho_capito: "J'ai compris",
+      st_parole: "Mots trouvés",
+      st_parola_max: "Mot le plus long",
+      cr_parola: "📝 {chi} a écrit le mot « {w} » ({car})",
+      parola_trovata: "📝 {chi} a écrit « {w} » ! +{n} 🍌",
+      inst_tit: "📲 Joue comme avec une appli",
+      inst_sotto: "Ajoute le jeu à l'écran d'accueil : il aura son icône, s'ouvrira en plein écran et fonctionnera même hors ligne.",
+      inst_ios_1: "Touche le bouton Partager ⬆️ dans la barre de Safari",
+      inst_ios_2: "Fais défiler et choisis « Sur l'écran d'accueil » ➕",
+      inst_ios_3: "Touche « Ajouter » et ouvre le jeu depuis son icône 🐒",
+      inst_and_1: "Ouvre le menu ⋮ du navigateur (en haut à droite)",
+      inst_and_2: "Choisis « Installer l'application » ou « Ajouter à l'écran d'accueil »",
+      inst_and_3: "Confirme et ouvre le jeu depuis son icône 🐒",
+      inst_nota: "Sur iPhone, l'appli garde sa propre progression : mieux vaut l'installer tout de suite, avant de commencer à jouer.",
+      inst_btn: "📲 Installer maintenant",
+      inst_fatto: "C'est fait !",
+      inst_dopo: "Plus tard",
+      imp_home: "Ajouter à l'écran d'accueil"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -1430,8 +1588,6 @@
       bib_mio: "Напечатать мой текст", chiudi: "Закрыть",
       imp_musica: "Музыка", imp_musica_sotto: "Спокойная мелодия на фоне",
       imp_effetti: "Звуковые эффекты", imp_effetti_sotto: "Кнопки, покупки, рекорды и достижения",
-      imp_vibrazione: "Вибрация", imp_vib_sotto: "Вибрация при нажатии кнопок и покупках",
-      vib_no: "Возможно, твой телефон не позволяет игре вибрировать",
       prova_suono: "Проверить звук", menu_principale: "Главное меню", ricomincia: "Начать заново",
       deve_scrivere: "Должна напечатать:", di_fila_ora: "Подряд сейчас", suo_record: "Её рекорд", tasti_battuti: "Нажато клавиш",
       fine_tit: "Произведение готово!", scegli_bib: "Выбрать в библиотеке", rit_tit: "С возвращением!", raccogli: "Забрать",
@@ -1499,10 +1655,9 @@
       intro_testo: "Теорема утверждает, что примат, нажимающий клавиши наугад в течение бесконечного времени, почти наверняка напечатает любой заданный текст.", intro_tocca: "Коснись экрана, чтобы начать", tut_1: "📜 Это текст, который должны напечатать обезьяны. Они жмут клавиши наугад: когда одна попадает буква за буквой, ты видишь их чёрным цветом. Одна ошибка — и она начинает сначала.", tut_2: "⭐ Рекорд — самая длинная серия верных символов, напечатанная одной обезьяной. За каждый новый рекорд ты получаешь бананы.", tut_3: "🍌 Каждая верная буква, напечатанная обезьяной, стоит один банан. Чем больше клавиш они нажимают, тем больше ты зарабатываешь, даже когда игра закрыта.", tut_4: "🛒 В разделе «Улучшить» трать бананы, чтобы получить больше обезьян и ускорить их. Больше попыток — больше шансов.", tut_5: "🐒 Это офис: у каждой обезьяны свой стол. Нажми на обезьяну, чтобы увидеть, что она печатает.", tut_6: "🏆 Выполняй достижения: каждое дарит часть собранных бананов.", tut_7: "📓 В Дневнике — ожидаемое время, мировой рейтинг и хроника рекордов.", tut_7_web: "📓 В Дневнике — ожидаемое время и хроника рекордов.", tut_8: "📚 Когда произведение готово, переходи к следующему. Каждый лишний символ делает его гораздо сложнее: длинные тексты — настоящий вызов!", tut_fine: "Вот и всё! Пусть обезьяны работают, а ты развлекайся.", tut_avanti: "Далее", tut_salta: "Пропустить", tut_inizia: "Играть!", tut_rivedi: "Пройти обучение снова",
       imp_modo: "Сложность", modo_facile: "Лёгкая", modo_normale: "Обычная", modo_realistica: "Реалистичная", modo_desc_facile: "Только буквы, без пробелов. Клавиш: {n}", modo_desc_normale: "Строчные буквы и пробелы. Клавиш: {n}", modo_desc_realistica: "Как настоящая пишущая машинка: заглавные, знаки препинания и пробелы. Клавиш: {n}", modo_cambiato: "Сложность «{modo}»: обезьяны начинают этот текст заново",
       premio_pct: "🎁 +{p}% урожая: {n} 🍌", premio_pct_breve: "🎁 +{p}% урожая (минимум {m} 🍌)",
-      nota_banane: "🍌 Каждая верная буква, напечатанная обезьяной, стоит 1 банан (2 в «Реалистичной»). Каждый новый рекорд — 10 бананов за букву, достижения дают часть урожая, а издатель покупает каждое готовое произведение за половину урожая.",
       st_raccolto: "Собрано бананов",
       st_lettere: "Верных букв",
-      tut_a1: "👋 Добро пожаловать! В этой игре у тебя офис, полный обезьян, которые жмут клавиши наугад. Твоя цель — чтобы одна из них напечатала знаменитую фразу, букву за буквой, без единой ошибки.",
+      tut_a1: "👋 Добро пожаловать! Теорема гласит, что обезьяны, нажимающие клавиши наугад, рано или поздно напечатают любой текст. Твоя цель — чтобы одна из них напечатала знаменитую фразу, букву за буквой, без единой ошибки. Пока твой офис пуст: сейчас ты наймёшь первую обезьяну!",
       tut_a2: "📜 Это фраза, которую нужно напечатать. Чёрные буквы — те, что лучшая обезьяна уже угадала подряд. Одна неверная клавиша — и она начинает сначала: поэтому нужно много обезьян!",
       tut_a3: "🍌 Каждая верная буква приносит банан. Бананы копятся здесь сами, даже когда игра закрыта. Для начала дарим тебе 150!",
       tut_a4: "👉 На бананы ты улучшаешь свой офис. Нажми «Улучшить».",
@@ -1520,7 +1675,33 @@
       sez_ogg: "⌨️ Предметы для печати",
       sez_ogg_sotto: "Каждый предмет добавляет нажатия в секунду каждой обезьяне",
       eff_ogg: "{testo}: +{n} нажатий/с каждой обезьяне",
-      convertito_vel: "⚡ Скорость обновлена: твои старые разовые улучшения превратились в предметы для печати, скорость та же"
+      convertito_vel: "⚡ Скорость обновлена: твои старые разовые улучшения превратились в предметы для печати, скорость та же",
+      info_tit: "🍌 Как зарабатывать бананы",
+      info_1: "✍️ Верные буквы: каждый раз, когда обезьяна печатает следующую верную букву фразы, ты получаешь 1 банан (2 в «Реалистичной»).",
+      info_2: "📝 Слова: если обезьяна случайно напечатает настоящее слово хотя бы из 2 букв, ты получишь приз. Чем длиннее слово, тем он больше.",
+      info_3: "⭐ Рекорды: когда обезьяна напечатает подряд больше верных букв, чем все остальные, ты получишь 25 бананов за букву.",
+      info_4: "📜 Готовые фразы: когда фраза допечатана, её покупает издатель. Это самый большой приз.",
+      info_5: "🏆 Награды: выполнив цель, нажми «Забрать».",
+      info_6: "🌙 Даже когда игра закрыта, обезьяны продолжают работать.",
+      info_fine: "Коротко: больше обезьян и скорости = больше нажатий = больше бананов.",
+      ho_capito: "Понятно",
+      st_parole: "Найдено слов",
+      st_parola_max: "Самое длинное слово",
+      cr_parola: "📝 {chi} напечатала слово «{w}» ({car})",
+      parola_trovata: "📝 {chi} напечатала «{w}»! +{n} 🍌",
+      inst_tit: "📲 Играй как в приложении",
+      inst_sotto: "Добавь игру на главный экран: у неё будет своя иконка, она откроется на весь экран и будет работать даже без интернета.",
+      inst_ios_1: "Нажми кнопку «Поделиться» ⬆️ на панели Safari",
+      inst_ios_2: "Прокрути и выбери «На экран „Домой“» ➕",
+      inst_ios_3: "Нажми «Добавить» и открой игру с её иконки 🐒",
+      inst_and_1: "Открой меню браузера ⋮ (справа вверху)",
+      inst_and_2: "Выбери «Установить приложение» или «Добавить на главный экран»",
+      inst_and_3: "Подтверди и открой игру с её иконки 🐒",
+      inst_nota: "На iPhone приложение хранит прогресс отдельно: лучше установить его сразу, до начала игры.",
+      inst_btn: "📲 Установить",
+      inst_fatto: "Готово!",
+      inst_dopo: "Позже",
+      imp_home: "Добавить на главный экран"
     }
   };
 
@@ -1878,9 +2059,9 @@
     return LINGUE[cod] ? cod : "it";
   }
   // potenziamenti aggiunti dopo: nomi e descrizioni in tabelle separate
-  const NOMI_EXTRA = {"it": {"v0b": "Guanti senza dita", "v1b": "Tasti lubrificati", "v2b": "Sedia ergonomica", "v4b": "Turni a staffetta", "v5b": "Tastiera meccanica", "v6b": "Fibra ottica", "v7b": "Rete di supercomputer", "v9": "Tastiera tra i mondi", "lezioni": "Lezioni di dattilografia"}, "en": {"v0b": "Fingerless gloves", "v1b": "Oiled keys", "v2b": "Ergonomic chair", "v4b": "Relay shifts", "v5b": "Mechanical keyboard", "v6b": "Fiber optics", "v7b": "Supercomputer network", "v9": "Keyboard between worlds", "lezioni": "Typing lessons"}, "es": {"v0b": "Guantes sin dedos", "v1b": "Teclas engrasadas", "v2b": "Silla ergonómica", "v4b": "Turnos de relevo", "v5b": "Teclado mecánico", "v6b": "Fibra óptica", "v7b": "Red de superordenadores", "v9": "Teclado entre mundos", "lezioni": "Clases de mecanografía"}, "zh": {"v0b": "无指手套", "v1b": "润滑过的按键", "v2b": "人体工学椅", "v4b": "接力轮班", "v5b": "机械键盘", "v6b": "光纤", "v7b": "超级计算机网络", "v9": "跨越世界的键盘", "lezioni": "打字课"}, "fr": {"v0b": "Mitaines", "v1b": "Touches huilées", "v2b": "Chaise ergonomique", "v4b": "Équipes en relais", "v5b": "Clavier mécanique", "v6b": "Fibre optique", "v7b": "Réseau de superordinateurs", "v9": "Clavier entre les mondes", "lezioni": "Cours de dactylographie"}, "ru": {"v0b": "Перчатки без пальцев", "v1b": "Смазанные клавиши", "v2b": "Эргономичное кресло", "v4b": "Работа посменно", "v5b": "Механическая клавиатура", "v6b": "Оптоволокно", "v7b": "Сеть суперкомпьютеров", "v9": "Клавиатура между мирами", "lezioni": "Уроки машинописи"}};
-  const DESC_EXTRA = {"it": {"v0b": "Mani calde, dita libere", "v1b": "Scorrono senza attrito", "v2b": "Niente mal di schiena, più ritmo", "v4b": "Le macchine non si fermano mai", "v5b": "Tasti che rimbalzano da soli", "v6b": "I tasti viaggiano alla velocità della luce", "v7b": "Migliaia di supercomputer insieme", "v9": "Ogni tasto si preme in tutti i mondi"}, "en": {"v0b": "Warm hands, free fingers", "v1b": "They glide without friction", "v2b": "No backache, more rhythm", "v4b": "The typewriters never stop", "v5b": "Keys that bounce back on their own", "v6b": "Keystrokes travel at light speed", "v7b": "Thousands of supercomputers together", "v9": "Every key is pressed in every world"}, "es": {"v0b": "Manos calientes, dedos libres", "v1b": "Se deslizan sin fricción", "v2b": "Sin dolor de espalda, más ritmo", "v4b": "Las máquinas nunca se detienen", "v5b": "Teclas que rebotan solas", "v6b": "Las pulsaciones viajan a la velocidad de la luz", "v7b": "Miles de superordenadores juntos", "v9": "Cada tecla se pulsa en todos los mundos"}, "zh": {"v0b": "手暖，手指灵活", "v1b": "按起来毫无阻力", "v2b": "不再腰酸背痛，节奏更快", "v4b": "打字机从不停歇", "v5b": "按键自己弹回来", "v6b": "按键以光速传输", "v7b": "成千上万台超级计算机协同工作", "v9": "每个按键在所有世界同时按下"}, "fr": {"v0b": "Mains au chaud, doigts libres", "v1b": "Elles glissent sans frottement", "v2b": "Plus de mal de dos, plus de rythme", "v4b": "Les machines ne s'arrêtent jamais", "v5b": "Des touches qui rebondissent toutes seules", "v6b": "Les frappes voyagent à la vitesse de la lumière", "v7b": "Des milliers de superordinateurs ensemble", "v9": "Chaque touche est frappée dans tous les mondes"}, "ru": {"v0b": "Тёплые руки, свободные пальцы", "v1b": "Нажимаются без трения", "v2b": "Спина не болит, ритм выше", "v4b": "Машинки никогда не простаивают", "v5b": "Клавиши пружинят сами", "v6b": "Нажатия летят со скоростью света", "v7b": "Тысячи суперкомпьютеров вместе", "v9": "Каждая клавиша нажимается во всех мирах"}};
-  const ALIAS_POT = { stretch: "v0", o0: "v0b", o1: "v1", o2: "v2b", o3: "v2", o4: "v5", o5: "v5b", o6: "v6", o7: "v7", o8: "v8", o9: "v9" };
+  const NOMI_EXTRA = {"it": {"v0b": "Guanti senza dita", "v1b": "Tasti lubrificati", "v2b": "Sedia ergonomica", "v4b": "Turni a staffetta", "v5b": "Tastiera meccanica", "v6b": "Fibra ottica", "v7b": "Rete di supercomputer", "v9": "Tastiera tra i mondi", "lezioni": "Lezioni di dattilografia", "o1": "Lampada da scrivania"}, "en": {"v0b": "Fingerless gloves", "v1b": "Oiled keys", "v2b": "Ergonomic chair", "v4b": "Relay shifts", "v5b": "Mechanical keyboard", "v6b": "Fiber optics", "v7b": "Supercomputer network", "v9": "Keyboard between worlds", "lezioni": "Typing lessons", "o1": "Desk lamp"}, "es": {"v0b": "Guantes sin dedos", "v1b": "Teclas engrasadas", "v2b": "Silla ergonómica", "v4b": "Turnos de relevo", "v5b": "Teclado mecánico", "v6b": "Fibra óptica", "v7b": "Red de superordenadores", "v9": "Teclado entre mundos", "lezioni": "Clases de mecanografía", "o1": "Lámpara de escritorio"}, "zh": {"v0b": "无指手套", "v1b": "润滑过的按键", "v2b": "人体工学椅", "v4b": "接力轮班", "v5b": "机械键盘", "v6b": "光纤", "v7b": "超级计算机网络", "v9": "跨越世界的键盘", "lezioni": "打字课", "o1": "台灯"}, "fr": {"v0b": "Mitaines", "v1b": "Touches huilées", "v2b": "Chaise ergonomique", "v4b": "Équipes en relais", "v5b": "Clavier mécanique", "v6b": "Fibre optique", "v7b": "Réseau de superordinateurs", "v9": "Clavier entre les mondes", "lezioni": "Cours de dactylographie", "o1": "Lampe de bureau"}, "ru": {"v0b": "Перчатки без пальцев", "v1b": "Смазанные клавиши", "v2b": "Эргономичное кресло", "v4b": "Работа посменно", "v5b": "Механическая клавиатура", "v6b": "Оптоволокно", "v7b": "Сеть суперкомпьютеров", "v9": "Клавиатура между мирами", "lezioni": "Уроки машинописи", "o1": "Настольная лампа"}};
+  const DESC_EXTRA = {"it": {"v0b": "Mani calde, dita libere", "v1b": "Scorrono senza attrito", "v2b": "Niente mal di schiena, più ritmo", "v4b": "Le macchine non si fermano mai", "v5b": "Tasti che rimbalzano da soli", "v6b": "I tasti viaggiano alla velocità della luce", "v7b": "Migliaia di supercomputer insieme", "v9": "Ogni tasto si preme in tutti i mondi", "o1": "Con più luce le scimmie trovano i tasti più in fretta"}, "en": {"v0b": "Warm hands, free fingers", "v1b": "They glide without friction", "v2b": "No backache, more rhythm", "v4b": "The typewriters never stop", "v5b": "Keys that bounce back on their own", "v6b": "Keystrokes travel at light speed", "v7b": "Thousands of supercomputers together", "v9": "Every key is pressed in every world", "o1": "With more light, monkeys find the keys faster"}, "es": {"v0b": "Manos calientes, dedos libres", "v1b": "Se deslizan sin fricción", "v2b": "Sin dolor de espalda, más ritmo", "v4b": "Las máquinas nunca se detienen", "v5b": "Teclas que rebotan solas", "v6b": "Las pulsaciones viajan a la velocidad de la luz", "v7b": "Miles de superordenadores juntos", "v9": "Cada tecla se pulsa en todos los mundos", "o1": "Con más luz, los monos encuentran las teclas más rápido"}, "zh": {"v0b": "手暖，手指灵活", "v1b": "按起来毫无阻力", "v2b": "不再腰酸背痛，节奏更快", "v4b": "打字机从不停歇", "v5b": "按键自己弹回来", "v6b": "按键以光速传输", "v7b": "成千上万台超级计算机协同工作", "v9": "每个按键在所有世界同时按下", "o1": "光线更好，猴子找键更快"}, "fr": {"v0b": "Mains au chaud, doigts libres", "v1b": "Elles glissent sans frottement", "v2b": "Plus de mal de dos, plus de rythme", "v4b": "Les machines ne s'arrêtent jamais", "v5b": "Des touches qui rebondissent toutes seules", "v6b": "Les frappes voyagent à la vitesse de la lumière", "v7b": "Des milliers de superordinateurs ensemble", "v9": "Chaque touche est frappée dans tous les mondes", "o1": "Avec plus de lumière, les singes trouvent les touches plus vite"}, "ru": {"v0b": "Тёплые руки, свободные пальцы", "v1b": "Нажимаются без трения", "v2b": "Спина не болит, ритм выше", "v4b": "Машинки никогда не простаивают", "v5b": "Клавиши пружинят сами", "v6b": "Нажатия летят со скоростью света", "v7b": "Тысячи суперкомпьютеров вместе", "v9": "Каждая клавиша нажимается во всех мирах", "o1": "При хорошем свете обезьяны быстрее находят клавиши"}};
+  const ALIAS_POT = { stretch: "v0", o0: "v0b", o2: "v2b", o3: "v2", o4: "v5", o5: "v5b", o6: "v6", o7: "v7", o8: "v8", o9: "v9" };
   const nomePot = id => { id = ALIAS_POT[id] || id; return NOMI_EXTRA[L][id] || NOMI_POT[L][ID_POT.indexOf(id)]; };
   const descUnico = id => { id = ALIAS_POT[id] || id; return DESC_EXTRA[L][id] || DESC_POT[L][ID_POT.indexOf(id) - 9]; };
   const titoloOpera = o => o.titolo;
@@ -1907,7 +2088,7 @@
   const ICONE_MODO = { facile: "🌱", normale: "⌨️", realistica: "🎩" };
   const modoCorrente = () => (G && G.imp && MODI.includes(G.imp.modo) ? G.imp.modo : "normale");
   const scrittura = s => ((s.match(/[а-яё]/gi) || []).length > (s.match(/[a-z]/gi) || []).length ? "cir" : "lat");
-  const SCIMMIE_INIZIALI = 5;
+  const SCIMMIE_INIZIALI = 0;   // si parte con l'ufficio vuoto: la prima scimmia si compra nel tutorial
   const VELOCITA_BASE = 4;
   const TELECAMERA = 40;
   const MAX_PASSI_FRAME = 3000;
@@ -2183,21 +2364,6 @@
   })();
 
   // =====================================================================
-  //  VIBRAZIONE: solo dove il browser la permette (Android). Su iPhone le pagine web non possono
-  //  far vibrare il telefono, quindi l'opzione non viene mostrata.
-  // =====================================================================
-  const Vibra = {
-    tattile: false,
-    supportata() { return typeof navigator.vibrate === "function"; },
-    tocco(ms = 15) {
-      if (!G || !G.imp.vibrazione) return;
-      try {
-        if (navigator.vibrate) { navigator.vibrate(ms); return; }
-      } catch (e) {}
-    }
-  };
-
-  // =====================================================================
   //  PIXEL ART: la scimmietta alla scrivania
   // =====================================================================
   const PAL = {
@@ -2358,7 +2524,7 @@
   // Oggetti per scrivere: si comprano a pezzi (come le scimmie), ognuno aggiunge tasti al secondo a ogni scimmia.
   // [id, icona, tasti/s in più per scimmia, costo del primo pezzo]
   const OGGETTI = [
-    ["o0", "🧤", 1, 30], ["o1", "🎞️", 6, 1.2e5], ["o2", "🪑", 36, 4.8e8], ["o3", "🔌", 216, 1.9e12],
+    ["o0", "🧤", 1, 30], ["o1", "💡", 6, 1.2e5], ["o2", "🪑", 36, 4.8e8], ["o3", "🔌", 216, 1.9e12],
     ["o4", "📠", 1300, 7.7e15], ["o5", "⌨️", 7800, 3.1e19], ["o6", "💻", 4.7e4, 1.2e23], ["o7", "🖥️", 2.8e5, 4.9e26],
     ["o8", "🚀", 1.7e6, 2e30], ["o9", "🌠", 1e7, 7.9e33]
   ];
@@ -2444,8 +2610,8 @@
     for (const p of POT) liv[p.id] = 0;
     return {
       operaId: "eureka", testoMio: "", record: 0, recordChi: 0, recordTs: 0, opereFatte: [],
-      archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
-      imp: { musica: 70, effetti: 80, vibrazione: true, lingua: linguaIniziale(), tema: "giungla", modo: "normale" },
+      archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, ufficioVuoto: true, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
+      imp: { musica: 70, effetti: 80, lingua: linguaIniziale(), tema: "giungla", modo: "normale" },
       liv, cuccioli: 1, banane: 150, tasti: 0, tempo: 0, completate: 0,
       diario: [], ts: Date.now()
     };
@@ -2508,7 +2674,6 @@
     const adesso = performance.now();
     if (!ripetuto || adesso - (R.ultimoSuonoAcquisto || 0) > 120) {
       Suono.compra();
-      Vibra.tocco(15);
       R.ultimoSuonoAcquisto = adesso;
     }
     p.el.classList.remove("comprato"); void p.el.offsetWidth; p.el.classList.add("comprato");
@@ -2611,7 +2776,6 @@
     if (k >= lung) { operaCompletata(chi); return; }
     if (!R.caricamento) {
       Suono.record();
-      Vibra.tocco(30);
       avviso(t("rec_nuovo", { car: caratteri(k) }) + " +" + fmt(premioRec) + " 🍌");
       const el = $("tRecord");
       el.classList.remove("festa"); void el.offsetWidth; el.classList.add("festa");
@@ -2679,6 +2843,71 @@
   //  essere miliardi, con la statistica: ogni tasto è giusto con probabilità 1/27.
   // =====================================================================
   const idCasuale = N => 1 + Math.floor(Math.random() * Math.max(1, Math.floor(N)));
+
+  // =====================================================================
+  //  PAROLE: a volte una scimmia scrive per caso una parola vera (almeno 2 lettere)
+  //  Più la parola è lunga (e quindi rara), più banane vale. In media le parole rendono
+  //  QUOTA_PAROLE delle banane delle lettere giuste.
+  // =====================================================================
+  const DIZIONARI = {"it": "il lo la le gli un uno una di da in con su per tra fra ma se no si ne ci vi mi ti io tu lui lei noi voi ho ha hai qui ora poi gia mai piu che chi cui non oro re mare sole luna cane gatto casa amore vita cuore mano notte giorno tempo mondo terra cielo acqua fuoco vento fiore albero libro parola scimmia banana tasto lettera foglio penna carta verso rima poeta poesia sogno pace luce ombra fine anno uomo donna bimbo amico porta strada citta paese isola monte fiume lago bosco neve pioggia stella mela pane vino latte sale miele rosa verde rosso blu nero bianco gioco festa musica canto ballo arte storia scuola lavoro tavolo sedia finestra macchina telefono computer infinito teorema tastiera scrittore capolavoro meraviglia felicita fantasia avventura biblioteca", "en": "an at be by do go he hi if in is it me my no of oh ok on or so to up us we am as ox the and for are but not you all any can her was one our out day get has him his how man new now old see two way who boy did its let put say she too use cat dog sun sea sky car bus run fun red big yes yet love book word time life hand home moon star tree fire wind rain snow city game play song king ring blue gold door girl baby milk cake fish bird frog lion monkey banana typing letter paper poem poet rhyme dream peace light world water house happy music dance heart night sweet apple green black white river ocean island forest flower friend school garden window computer keyboard infinite theorem universe adventure wonderful masterpiece", "es": "el la lo los las un una de en con por sin mas que se si no ni ya yo tu mi te le me al del son sol mar paz luz dia mes voz pan sal oro rey ojo mano casa amor vida cielo agua fuego viento flor arbol libro gato perro luna noche tiempo mundo tierra nube rosa verde rojo azul negro blanco fiesta musica canto baile arte mono platano tecla letra papel poema poeta verso amigo puerta calle ciudad pueblo isla monte lago bosque nieve lluvia estrella manzana leche vino queso miel juego escuela trabajo mesa silla ventana coche telefono infinito teorema teclado escritor maravilla aventura biblioteca felicidad", "fr": "le la les un une de des du en et au aux ce se sa son ma mon ta ton tu il on ne pas oui non qui que je me te moi toi lui eux nous vous mer sol ciel eau feu air vent sel ami amie roi rue lit nez main pied tete coeur amour vie mot nuit jour temps monde terre lune soleil chat chien maison livre arbre fleur rose vert rouge bleu noir blanc fete jeu chant danse art singe banane touche lettre papier poeme poete vers reve paix porte ville pays ile mont lac bois neige pluie etoile pomme pain vin lait miel ecole travail table chaise fenetre voiture telephone infini theoreme clavier ecrivain merveille aventure bibliotheque bonheur", "ru": "да нет он она оно мы вы ты не ни но на по за из от до как так что кто где все мир дом кот лес сад мак сыр чай мед лед сон дым нос рот глаз рука нога мама папа брат сестра друг кошка собака солнце луна море небо река гора поле цвет роза день ночь утро вечер время жизнь любовь сердце книга слово буква лист поэт поэма стих мечта свет тень вода огонь ветер дождь снег звезда яблоко хлеб молоко вино игра песня танец школа работа стол стул окно машина телефон компьютер обезьяна банан клавиша клавиатура бесконечность теорема писатель шедевр чудо счастье приключение библиотека", "zh": "ni wo ta de le bu shi you he zai ren da xiao hao ai mi ma ba ge di yi er san si wu liu qi jiu nian yue ri tian shan shui huo feng yu xue hua cao shu niu yang gou mao men kou shou xin jia guo hai jiang chun xia qiu dong pengyou laoshi xuesheng houzi xiangjiao zimu jianpan dazi shiren shige mengxiang heping guang ying shijie shijian taiyang yueliang xingxing pingguo mianbao niunai youxi yinyue tiaowu xuexiao gongzuo zhuozi yizi chuanghu qiche dianhua diannao wuxian dingli zuojia qiji xingfu maoxian tushuguan"};
+  const QUOTA_PAROLE = 0.2;
+  const cacheDiz = {};
+  function dizionario() {
+    const chiave = scrittura(R.target) === "cir" ? "ru" : (L === "ru" ? "en" : L);
+    if (!cacheDiz[chiave]) {
+      const parole = [...new Set(DIZIONARI[chiave].split(/\s+/).filter(w => w.length >= 2))];
+      const perLung = {};
+      for (const w of parole) (perLung[w.length] = perLung[w.length] || []).push(w);
+      cacheDiz[chiave] = { tot: parole.length, perLung };
+    }
+    return cacheDiz[chiave];
+  }
+  function poisson(media) {
+    const limite = Math.exp(-media);
+    let k = 0, p = 1;
+    do { k++; p *= Math.random(); } while (p > limite);
+    return k - 1;
+  }
+  // probabilità (in logaritmo) che a un certo tasto finisca una parola di "lung" lettere:
+  // la parola deve essere preceduta e seguita da uno spazio (in Facile non ci sono spazi)
+  const logProbParola = lung => -(modoCorrente() === "facile" ? lung : lung + 2) * Math.log(R.nTasti);
+  const premioParola = lung => {
+    const diz = dizionario();
+    const premio = valoreLettera() * QUOTA_PAROLE / (R.nTasti * diz.tot) * Math.exp(-logProbParola(lung));
+    return Math.max(1, Math.min(premio, Math.max(100, 3600 * bananeAlSecondo())));   // al massimo un'ora di banane
+  };
+  function cercaParole(tps, dt) {
+    if (R.fermo || tps <= 0 || dt <= 0) return;
+    const diz = dizionario();
+    let banane = 0, quante = 0, migliore = 0;
+    for (const [k, lista] of Object.entries(diz.perLung)) {
+      const lung = +k;
+      const attese = tps * dt * lista.length * Math.exp(logProbParola(lung));
+      if (attese < 1e-12) continue;
+      const n = attese < 30 ? poisson(attese) : Math.round(attese);
+      if (!n) continue;
+      banane += n * premioParola(lung);
+      quante += n;
+      if (lung > migliore) migliore = lung;
+    }
+    if (!quante) return;
+    G.banane += banane;
+    G.raccolto += banane;
+    G.parole = (G.parole || 0) + quante;
+    const lista = diz.perLung[migliore];
+    const parola = lista[Math.floor(Math.random() * lista.length)];
+    const chi = idCasuale(numScimmie());
+    const nuovaMax = !G.parolaMax || migliore > G.parolaMax.l;
+    if (nuovaMax) {
+      G.parolaMax = { p: parola, l: migliore };
+      aggiungiDiario({ tipo: "parola", chi, w: parola, n: migliore });
+    }
+    const adesso = Date.now();
+    if (nuovaMax || (migliore >= 3 && adesso - (R.ultimoAvvisoParola || 0) > 20000)) {
+      R.ultimoAvvisoParola = adesso;
+      avviso(t("parola_trovata", { chi: chiScimmia(chi), w: parola, n: fmt(premioParola(migliore)) }));
+    }
+  }
 
   function serieMassimaSuTasti(K) {
     const P_GIUSTO = 1 / R.nTasti;
@@ -2776,6 +3005,7 @@
     const N = numScimmie(), v = velocitaScimmia();
     G.tasti += N * v * dt;
     raccogli(bananeAlSecondo(N * v) * dt);
+    cercaParole(N * v, dt);
     sincronizzaTelecamera();
     muoviTelecamera(v * dt);
     if (R.fermo) return;
@@ -2966,7 +3196,7 @@
       const el = document.createElement("div");
       el.className = "scrivania";
       el.dataset.id = id;
-      el.onclick = () => { Suono.clic(); Vibra.tocco(); apriScimmia(id); };
+      el.onclick = () => { Suono.clic(); apriScimmia(id); };
       el.innerHTML = `<canvas width="40" height="30"></canvas>` +
         `<div class="targa">n°${fmtId(id)}<span></span></div><div class="carta-s"><bdi></bdi></div>`;
       box.appendChild(el);
@@ -3037,7 +3267,7 @@
         `<button class="riscuoti"></button><span class="fatto"></span>`;
       d.querySelector(".riscuoti").onclick = () => {
         const premio = riscuoti(tr);
-        if (premio) { Suono.moneta(); Vibra.tocco(20); avviso(t("riscosso", { n: fmt(premio) })); }
+        if (premio) { Suono.moneta(); avviso(t("riscosso", { n: fmt(premio) })); }
         disegnaTraguardi(); disegnaBadge();
       };
       tr.el = d;
@@ -3074,8 +3304,9 @@
     $("dQuando").textContent = G.recordTs ? `${fmtFa(G.recordTs)} (${fmtData(G.recordTs)})` : "—";
     const lRate = Math.log10(Math.max(1e-9, tastiAlSecondo()));
     const lTasti = Math.log10(R.nTasti);
-    $("dProssimo").textContent = R.fermo ? "—" : fmtTempoLog((G.record + 1) * lTasti - lRate);
-    $("dAttesa").textContent = R.fermo ? t("fatto") : fmtTempoLog(lung * lTasti - lRate);
+    const ferme = tastiAlSecondo() <= 0;   // nessuna scimmia al lavoro
+    $("dProssimo").textContent = R.fermo || ferme ? "—" : fmtTempoLog((G.record + 1) * lTasti - lRate);
+    $("dAttesa").textContent = R.fermo ? t("fatto") : ferme ? "—" : fmtTempoLog(lung * lTasti - lRate);
   }
   function disegnaStatistiche() {
     $("sTasti").textContent = fmt(G.tasti);
@@ -3084,6 +3315,8 @@
     $("sMax").textContent = caratteri(recordMassimo());
     $("sLettere").textContent = fmt(G.lettere);
     $("sRaccolto").textContent = fmt(G.raccolto);
+    $("sParole").textContent = fmt(G.parole || 0);
+    $("sParolaMax").textContent = G.parolaMax ? "«" + G.parolaMax.p + "»" : "—";
   }
   function aggiungiDiario(voce) {
     voce.quando = Date.now();
@@ -3096,6 +3329,7 @@
       ? G.diario.map(v => {
           const chi = chiScimmia(v.chi);
           const quando = `<small>${fmtFa(v.quando)}</small>`;
+          if (v.tipo === "parola") return `<li>${t("cr_parola", { chi, w: v.w, car: caratteri(v.n) })}${quando}</li>`;
           if (v.tipo === "opera") {
             const titolo = v.operaId ? operaCorrente(v.operaId).titolo : (v.titolo || "");
             return `<li class="grande">${t("cr_opera", { chi, titolo })}${quando}</li>`;
@@ -3169,6 +3403,8 @@
       }
       if (!g.linguaOpera) { const o = OPERE.find(x => x.id === g.operaId); g.linguaOpera = o && o.orig ? o.orig : g.imp.lingua; }
       if (dati.tutorialFatto === undefined) g.tutorialFatto = true;
+      // prima si partiva con 5 scimmie gratis: nei salvataggi vecchi diventano 5 scimmie comprate
+      if (!dati.ufficioVuoto) { g.liv.s0 = (g.liv.s0 || 0) + 5; g.ufficioVuoto = true; }
       let vecchioMolt = 1, aveva = false;
       for (const [id, molt] of Object.entries(VECCHI_UNICI_VEL)) {
         if (g.liv[id]) { vecchioMolt *= molt; aveva = true; }
@@ -3208,7 +3444,7 @@
     const tps = tastiAlSecondo();
     const N0 = numScimmie();
     const tasti = tps * (g > 0 ? Math.expm1(g * assente) / g : assente);
-    const banane = bananeAlSecondo(tasti) * efficienzaNotte();
+    const banane = bananeAlSecondo(tasti) * efficienzaNotte() * (1 + QUOTA_PAROLE);
     if (g > 0) G.cuccioli *= Math.exp(g * assente);
     G.tasti += tasti;
     raccogli(banane);
@@ -3374,13 +3610,24 @@
   //  ONLINE: salvataggio sul server di Claude e classifica globale
   //  Funziona solo nella versione pubblicata del gioco; altrove resta il salvataggio nel browser.
   // =====================================================================
+  function caricaScript(src) {
+    return new Promise((ok, errore) => {
+      const sc = document.createElement("script");
+      sc.src = src; sc.onload = ok; sc.onerror = errore;
+      document.head.appendChild(sc);
+    });
+  }
   const Online = {
     db: null, user: null, id: null, pronto: false, disponibile: null, solaLettura: false,
     righe: [], ultimoSalvato: "", salvando: false, ultimaRiga: "", scrivendoRiga: false,
 
     async collega() {
       try {
-        if (!window.claude || typeof window.claude.use !== "function") { this.nonDisponibile(); return; }
+        if (!window.claude || typeof window.claude.use !== "function") {
+          // sul sito (GitHub Pages) la classifica usa Firebase, se è stato configurato in classifica-config.js
+          if (window.CLASSIFICA_FIREBASE) return this.collegaFirebase(window.CLASSIFICA_FIREBASE);
+          this.nonDisponibile(); return;
+        }
         const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
         this.db = db; this.user = user;
         if (!db || !user) { this.nonDisponibile(); return; }
@@ -3403,6 +3650,26 @@
         this.pubblicaRiga();
       } catch (e) { this.nonDisponibile(); }
     },
+    // classifica del sito: Firebase con accesso anonimo (ogni giocatore scrive solo la sua riga)
+    async collegaFirebase(cfg) {
+      try {
+        const V = "10.12.2";
+        for (const parte of ["app", "auth", "firestore"]) await caricaScript(`https://www.gstatic.com/firebasejs/${V}/firebase-${parte}-compat.js`);
+        if (!firebase.apps.length) firebase.initializeApp(cfg);
+        const credenziali = await firebase.auth().signInAnonymously();
+        this.id = credenziali.user.uid;
+        this.fb = firebase.firestore();
+        this.tipo = "firebase";
+        this.disponibile = true;
+        this.pronto = true;
+        document.body.classList.remove("senza-classifica");
+        this.fb.collection("classifica").orderBy("frase", "desc").limit(100).onSnapshot(
+          snap => { this.righe = snap.docs.map(d => ({ id: d.id, ...d.data() })); this.disegna(); },
+          () => { this.disegna(); }
+        );
+        this.pubblicaRiga();
+      } catch (e) { this.nonDisponibile(); }
+    },
     // senza il database di Claude niente classifica: i pulsanti e il riquadro spariscono
     nonDisponibile() {
       this.disponibile = false;
@@ -3422,7 +3689,7 @@
       else if (R.ritorno) { scriviRitorno(); apri("veloRitorno"); }
     },
     async salvaOnline() {
-      if (!this.pronto || !this.id || this.salvando) return;
+      if (!this.pronto || !this.id || this.salvando || this.tipo === "firebase") return;   // sul sito si salva nel browser
       const testo = JSON.stringify(G);
       if (testo === this.ultimoSalvato) return;
       this.salvando = true;
@@ -3444,7 +3711,8 @@
       if (chiave === this.ultimaRiga) return;
       this.scrivendoRiga = true;
       try {
-        await this.db.collection("classifica").doc(this.id).set({ ...riga, agg: Date.now() });
+        if (this.tipo === "firebase") await this.fb.collection("classifica").doc(this.id).set({ ...riga, agg: Date.now() });
+        else await this.db.collection("classifica").doc(this.id).set({ ...riga, agg: Date.now() });
         this.ultimaRiga = chiave;
       } catch (e) {
         if (e && e.code === "invalid_argument") { this.solaLettura = true; this.disegna(); }
@@ -3476,7 +3744,7 @@
         const li = document.createElement("li");
         if (r.id === this.id) li.classList.add("io");
         const p = profili[r.id] || {};
-        const nome = (typeof r.nick === "string" && r.nick.trim()) || p.name || t("cl_anonimo");
+        const nome = (typeof r.nick === "string" && r.nick.trim()) || p.name || (t("cl_anonimo") + (this.tipo === "firebase" ? " " + String(r.id).slice(0, 4) : ""));
         const titolo = r.fraseId === "mio" ? t("cl_mio") : (OPERE.some(o => o.id === r.fraseId) ? operaCorrente(r.fraseId).titolo : "");
         const posEl = document.createElement("span"); posEl.className = "pos";
         posEl.textContent = pos === 0 ? "🥇" : pos === 1 ? "🥈" : pos === 2 ? "🥉" : String(pos + 1);
@@ -3566,6 +3834,27 @@
     });
   }
   // dopo introduzione e tutorial: eventuale opera finita o riepilogo dell'assenza
+  // ---------- versione web: aggiungere il gioco alla schermata Home ----------
+  // Serve solo quando il gioco è aperto da un sito (non dentro Claude) e non è già installato.
+  const suSitoWeb = () => /^https?:$/.test(location.protocol) && !(window.claude && typeof window.claude.use === "function");
+  const giaInstallato = () => (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+  const suIPhone = () => /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  const puoInstallare = () => suSitoWeb() && !giaInstallato();
+  let promptInstalla = null;
+  window.addEventListener("beforeinstallprompt", e => { e.preventDefault(); promptInstalla = e; if (aperto("veloInstalla")) apriInstalla(); });
+  function segnaInstallaVisto() { try { localStorage.setItem("scimmie-installa-visto", "1"); } catch (e) {} }
+  function installaGiaVisto() { try { return localStorage.getItem("scimmie-installa-visto") === "1"; } catch (e) { return true; } }
+  function apriInstalla() {
+    const ios = suIPhone();
+    const passi = ios ? ["inst_ios_1", "inst_ios_2", "inst_ios_3"] : ["inst_and_1", "inst_and_2", "inst_and_3"];
+    $("passiInst").innerHTML = "";
+    for (const k of passi) { const li = document.createElement("li"); li.textContent = t(k); $("passiInst").appendChild(li); }
+    $("passiInst").hidden = !!promptInstalla;   // su Android basta il pulsante "Installa ora"
+    $("bInstallaOra").hidden = !promptInstalla;
+    $("notaInst").hidden = !ios;
+    apri("veloInstalla");
+  }
+
   function dopoTutorial() {
     if (G.convertitoVel) {
       avviso(t("convertito_vel"));
@@ -3638,7 +3927,6 @@
     const azione = p.azione && !!elementoTut(p);
     $("bTutAvanti").hidden = azione;
     $("bTutAvanti").textContent = ultimo ? t("tut_inizia") : t("tut_avanti");
-    $("bTutSalta").hidden = ultimo;
     $("tutLuce").classList.toggle("azione", azione);
     const el = elementoTut(p);
     if (el && !p.sel.startsWith(".menu") && !p.sel.startsWith(".hud")) {
@@ -3700,10 +3988,6 @@
     $("volEffetti").value = G.imp.effetti;
     $("valMusica").textContent = G.imp.musica ? G.imp.musica + "%" : t("spento");
     $("valEffetti").textContent = G.imp.effetti ? G.imp.effetti + "%" : t("spento");
-    $("bVibrazione").setAttribute("aria-pressed", !!G.imp.vibrazione);
-    $("vibSotto").textContent = t("imp_vib_sotto");
-    // su iPhone il browser non permette di vibrare: l'opzione non viene mostrata
-    $("rigaVibrazione").hidden = !Vibra.supportata();
     $("impLinguaNome").textContent = LINGUE[L].bandiera + " " + LINGUE[L].nome;
 
     const tm = TEMI.find(x => x.id === G.imp.tema) || TEMI[0];
@@ -3778,12 +4062,11 @@
     // l'audio parte al primo tocco (i browser non permettono di farlo prima)
     const sblocca = () => Suono.sblocca();
     for (const ev of ["pointerdown", "touchend", "click", "keydown"]) document.addEventListener(ev, sblocca, true);
-    // suono e vibrazione dei pulsanti (acquisti e premi hanno i loro)
+    // suono dei pulsanti (acquisti e premi hanno i loro)
     document.addEventListener("click", e => {
       const b = e.target.closest && e.target.closest("button");
       if (!b || b.classList.contains("pot") || b.classList.contains("riscuoti") || b.classList.contains("riscuoti-tutto")) return;
       Suono.clic();
-      Vibra.tocco();
     });
 
     // schermata iniziale
@@ -3816,7 +4099,7 @@
     $("bRiscuotiTutto").onclick = () => {
       let tot = 0;
       for (const tr of daRiscuotere()) tot += riscuoti(tr);
-      if (tot) { Suono.moneta(); Vibra.tocco(20); avviso(t("riscosso", { n: fmt(tot) })); }
+      if (tot) { Suono.moneta(); avviso(t("riscosso", { n: fmt(tot) })); }
       disegnaTraguardi(); disegnaBadge();
     };
 
@@ -3832,16 +4115,23 @@
     $("volEffetti").oninput = e => { G.imp.effetti = +e.target.value; scriviImpostazioni(); Suono.sblocca(); };
     $("volMusica").onchange = salva;
     $("volEffetti").onchange = () => { salva(); Suono.clic(); };
-    $("bVibrazione").onclick = () => {
-      G.imp.vibrazione = !G.imp.vibrazione;
-      scriviImpostazioni();
-      Vibra.tocco(25);
-      salva();
-    };
     $("bImpLingua").onclick = apriLingue;
+    $("bInfoBanane").onclick = () => apri("veloInfo");
+    $("bChiudiInfo").onclick = () => chiudi("veloInfo");
+    $("veloInfo").onclick = e => { if (e.target.id === "veloInfo") chiudi("veloInfo"); };
+    $("bInstalla").onclick = () => { chiudi("veloImpostazioni"); apriInstalla(); };
+    $("bInstFatto").onclick = () => { segnaInstallaVisto(); chiudi("veloInstalla"); };
+    $("bInstDopo").onclick = () => { segnaInstallaVisto(); chiudi("veloInstalla"); };
+    $("bInstallaOra").onclick = async () => {
+      if (!promptInstalla) return;
+      promptInstalla.prompt();
+      try { await promptInstalla.userChoice; } catch (e) {}
+      promptInstalla = null;
+      segnaInstallaVisto();
+      chiudi("veloInstalla");
+    };
     $("intro").onclick = chiudiIntro;
     $("bTutAvanti").onclick = avanzaTut;
-    $("bTutSalta").onclick = fineTutorial;
     $("bTutorial").onclick = () => {
       chiudi("veloImpostazioni");
       if (R.nelMenu) { Suono.sblocca(); $("menuIniziale").hidden = true; R.nelMenu = false; $("bMenuPrincipale").hidden = false; }
@@ -3865,6 +4155,7 @@
         salva();
         mostraVista("opera");
         if (R.nelMenu) scriviMenuIniziale();
+        else avviaTutorial();
         avviso(t("reset_ok"));
       });
     };
@@ -3945,6 +4236,10 @@
   R.haSalvataggio = !!salvato;
   mostraMenuIniziale();
   Online.collega();
+  if (puoInstallare()) {
+    $("bInstalla").hidden = false;
+    if (!installaGiaVisto()) setTimeout(apriInstalla, 600);
+  }
 
   let ultimo = performance.now(), ultimoDisegno = 0, ultimoLento = 0, ultimoSalvataggio = 0;
   function ciclo(ora) {
