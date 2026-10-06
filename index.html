@@ -763,7 +763,7 @@
       <button class="pulsante secondario" id="bChiudiImpostazioni" data-t="chiudi"></button>
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
-    <p class="versione-gioco">Scimmie infinite · versione 11</p>
+    <p class="versione-gioco">Scimmie infinite · versione 12</p>
   </div>
 </div>
 
@@ -811,6 +811,7 @@
     <p class="stato-cl" id="statoTrasf"></p>
     <div class="azioni">
       <button class="pulsante" id="bTrasfAzione"></button>
+      <button class="pulsante secondario" id="bTrasfCondividi" hidden data-t="tr_condividi"></button>
       <button class="pulsante secondario" id="bTrasfChiudi" data-t="chiudi"></button>
     </div>
   </div>
@@ -1043,7 +1044,7 @@
       imp_importa: "Importa partita",
       tr_esp_sotto: "Copia questo codice e incollalo in «Importa partita» sull'altro telefono o nell'altra versione del gioco.",
       tr_imp_sotto: "Incolla qui il codice copiato da «Esporta partita». La partita su questo dispositivo verrà sostituita.",
-      tr_copia: "Copia",
+      tr_copia: "Copia", tr_condividi: "Condividi (WhatsApp, Note…)",
       tr_copiato: "Codice copiato!",
       tr_copia_mano: "Tieni premuto sul codice, scegli Seleziona tutto e poi Copia.",
       tr_importa_btn: "Importa",
@@ -1188,7 +1189,7 @@
       imp_importa: "Import game",
       tr_esp_sotto: "Copy this code and paste it into “Import game” on the other phone or in the other version of the game.",
       tr_imp_sotto: "Paste the code copied from “Export game” here. The game on this device will be replaced.",
-      tr_copia: "Copy",
+      tr_copia: "Copy", tr_condividi: "Share (WhatsApp, Notes…)",
       tr_copiato: "Code copied!",
       tr_copia_mano: "Press and hold the code, choose Select All, then Copy.",
       tr_importa_btn: "Import",
@@ -1333,7 +1334,7 @@
       imp_importa: "Importar partida",
       tr_esp_sotto: "Copia este código y pégalo en «Importar partida» en el otro teléfono o en la otra versión del juego.",
       tr_imp_sotto: "Pega aquí el código copiado de «Exportar partida». La partida de este dispositivo se reemplazará.",
-      tr_copia: "Copiar",
+      tr_copia: "Copiar", tr_condividi: "Compartir (WhatsApp, Notas…)",
       tr_copiato: "¡Código copiado!",
       tr_copia_mano: "Mantén pulsado el código, elige Seleccionar todo y luego Copiar.",
       tr_importa_btn: "Importar",
@@ -1478,7 +1479,7 @@
       imp_importa: "导入存档",
       tr_esp_sotto: "复制这段代码，然后在另一部手机或另一个版本的游戏里粘贴到“导入存档”。",
       tr_imp_sotto: "把从“导出存档”复制的代码粘贴到这里。这台设备上的存档会被替换。",
-      tr_copia: "复制",
+      tr_copia: "复制", tr_condividi: "分享（微信、备忘录…）",
       tr_copiato: "代码已复制！",
       tr_copia_mano: "长按代码，选择“全选”，再选择“复制”。",
       tr_importa_btn: "导入",
@@ -1623,7 +1624,7 @@
       imp_importa: "Importer une partie",
       tr_esp_sotto: "Copie ce code et colle-le dans « Importer une partie » sur l'autre téléphone ou dans l'autre version du jeu.",
       tr_imp_sotto: "Colle ici le code copié depuis « Exporter la partie ». La partie sur cet appareil sera remplacée.",
-      tr_copia: "Copier",
+      tr_copia: "Copier", tr_condividi: "Partager (WhatsApp, Notes…)",
       tr_copiato: "Code copié !",
       tr_copia_mano: "Maintiens le doigt sur le code, choisis Tout sélectionner puis Copier.",
       tr_importa_btn: "Importer",
@@ -1769,7 +1770,7 @@
       imp_importa: "Импорт игры",
       tr_esp_sotto: "Скопируй этот код и вставь его в «Импорт игры» на другом телефоне или в другой версии игры.",
       tr_imp_sotto: "Вставь сюда код из «Экспорт игры». Игра на этом устройстве будет заменена.",
-      tr_copia: "Копировать",
+      tr_copia: "Копировать", tr_condividi: "Поделиться (WhatsApp, Заметки…)",
       tr_copiato: "Код скопирован!",
       tr_copia_mano: "Удерживай код, выбери «Выбрать всё», затем «Скопировать».",
       tr_importa_btn: "Импортировать",
@@ -3973,17 +3974,16 @@
     return byte;
   }
   async function codicePartita() {
-    const json = JSON.stringify({ ...G, ts: Date.now() });
-    try {
-      if (typeof CompressionStream === "function") {
-        const flusso = new Blob([json]).stream().pipeThrough(new CompressionStream("deflate-raw"));
-        return "SCIMMIEZ:" + inBase64(new Uint8Array(await new Response(flusso).arrayBuffer()));
-      }
-    } catch (e) {}
+    // senza compressione: così il codice si legge su qualsiasi telefono e browser
+    const json = JSON.stringify({ ...G, diario: (G.diario || []).slice(0, 15), ts: Date.now() });
     return "SCIMMIE1:" + inBase64(new TextEncoder().encode(json));
   }
-  async function leggiCodicePartita(codice) {
-    codice = (codice || "").replace(/\s+/g, "");
+  async function leggiCodicePartita(testo) {
+    // accetta il codice anche se incollato insieme ad altro testo (per esempio da WhatsApp o dalle Note)
+    const pulito = (testo || "").replace(/\s+/g, "");
+    const trovato = pulito.match(/SCIMMIE[Z1]:[A-Za-z0-9+\/=]+/);
+    if (!trovato) throw new Error("codice non valido");
+    const codice = trovato[0];
     if (codice.startsWith("SCIMMIEZ:")) {
       const flusso = new Blob([daBase64(codice.slice(9))]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
       return JSON.parse(await new Response(flusso).text());
@@ -3999,6 +3999,7 @@
     $("codiceTrasf").value = "…";
     $("statoTrasf").textContent = "";
     $("bTrasfAzione").textContent = t("tr_copia");
+    $("bTrasfCondividi").hidden = typeof navigator.share !== "function";
     apri("veloTrasferisci");
     salva();
     $("codiceTrasf").value = await codicePartita();
@@ -4011,6 +4012,7 @@
     $("codiceTrasf").value = "";
     $("statoTrasf").textContent = "";
     $("bTrasfAzione").textContent = t("tr_importa_btn");
+    $("bTrasfCondividi").hidden = true;
     apri("veloTrasferisci");
   }
   async function azioneTrasferimento() {
@@ -4304,6 +4306,10 @@
     $("bEsporta").onclick = () => { chiudi("veloImpostazioni"); apriEsporta(); };
     $("bImporta").onclick = () => { chiudi("veloImpostazioni"); apriImporta(); };
     $("bTrasfAzione").onclick = azioneTrasferimento;
+    $("bTrasfCondividi").onclick = async () => {
+      try { await navigator.share({ text: $("codiceTrasf").value }); }
+      catch (e) { if (!e || e.name !== "AbortError") $("statoTrasf").textContent = t("tr_copia_mano"); }
+    };
     $("bTrasfChiudi").onclick = () => chiudi("veloTrasferisci");
     $("veloTrasferisci").onclick = e => { if (e.target.id === "veloTrasferisci") chiudi("veloTrasferisci"); };
     $("bChiudiInfo").onclick = () => chiudi("veloInfo");
