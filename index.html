@@ -1193,7 +1193,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 47</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 49</p>
   </div>
 </div>
 
@@ -1554,11 +1554,11 @@
     it: {
       gioco: "Scimmie infinite", sotto: "Il teorema della scimmia infinita", gioca: "Gioca", impostazioni: "Impostazioni",
       lingua: "Lingua", salvataggio: "Partita salvata: {n} banane", cambia: "Cambia",
-      tl_scimmie: "scimmie", tl_vel: "tasti/s a testa", tl_cuccioli: "cuccioli all'ora",
+      tl_scimmie: "scimmie", tl_vel: "tasti al secondo per scimmia", tl_cuccioli: "nuove scimmie all'ora",
       seg_scimmie: "Scimmie", seg_velocita: "Velocità", seg_altro: "Altro", compra: "Compra",
-      lbl_record: "Record:", lbl_stabilito: "Stabilito:", h_scimmie: "Le scimmie", h_traguardi: "Traguardi",
-      riscuoti_tutto: "Riscuoti tutto", h_diario: "Diario", opera_corso: "Opera in corso",
-      lbl_prossimo: "Prossimo record atteso tra circa:", lbl_attesa: "Opera completa attesa tra circa:",
+      lbl_record: "Record:", lbl_stabilito: "Quando:", h_scimmie: "Le scimmie", h_traguardi: "Traguardi",
+      riscuoti_tutto: "Riscuoti tutto", h_diario: "Diario", opera_corso: "Frase in corso",
+      lbl_prossimo: "Prossimo record fra circa:", lbl_attesa: "Frase completa fra circa:",
       statistiche: "Statistiche", tasti_premuti: "Tasti premuti", tempo_gioco: "Tempo di gioco",
       opere_completate: "Opere completate", record_max: "Record più lungo di sempre", cronaca: "Cronaca",
       m_opera: "Opera", m_potenzia: "Potenzia", m_scimmie: "Scimmie", m_traguardi: "Traguardi", m_diario: "Diario",
@@ -1570,7 +1570,7 @@
       imp_effetti: "Effetti sonori", imp_effetti_sotto: "Pulsanti, acquisti, record e traguardi",
       prova_suono: "Prova il suono", menu_principale: "Menu principale", ricomincia: "Ricomincia da zero",
       deve_scrivere: "Deve scrivere:", di_fila_ora: "Di fila ora", suo_record: "Il suo record", tasti_battuti: "Tasti battuti",
-      fine_tit: "Opera completata!", scegli_bib: "Scegli dalla biblioteca", rit_tit: "Bentornato!", raccogli: "Raccogli",
+      fine_tit: "Frase completata!", scegli_bib: "Scegli dalla biblioteca", rit_tit: "Bentornato!", raccogli: "Raccogli",
       conf_si: "Sì, continua", annulla: "Annulla",
 
       al_sec: "+{n} al secondo",
@@ -1580,17 +1580,17 @@
       rec_nuovo: "⭐ Nuovo record: {car} di fila!",
       chi_n: "Scimmia n°{id}", chi_una: "Una scimmia",
       fine_testo: "{chi} ha scritto tutti i {n} caratteri di <b>{titolo}</b> di fila, senza un solo errore. ",
-      fine_premio: "Un editore compra l'opera: ricevi metà del raccolto, <b>{n} banane</b>.",
-      fine_premio_rid: "Un editore la ricompra: ricevi un decimo del raccolto, <b>{n} banane</b>.",
+      fine_premio: "Un editore compra la frase: ricevi <b>{n} banane</b>.",
+      fine_premio_rid: "Un editore la ricompra: ricevi <b>{n} banane</b>.",
       inizia: "Inizia «{titolo}»",
       trag_avviso: "🏆 Traguardo: {nome}! Premio da riscuotere",
       chip_record: "⭐ Record {r}/{l}", chip_nessun: "🕒 nessun record", chip_fatta: "🎉 Completata!",
       chip_scimmia: "✍️ Scimmia n°{id}", chip_ricominciano: "✍️ Ricominciano…",
       porta: { one: "Porta {n} scimmia nella stanza", other: "Porta {n} scimmie nella stanza" },
-      soglia: "A {n}: produzione ×2", soglia_tutte: "Tutte le soglie raggiunte",
-      eff_scimmie: "{testo}: scimmie ×{m}", eff_vel: "{testo}: velocità ×{m}",
-      eff_asilo: "Le scimmie fanno cuccioli: +{a}% → +{b}% scimmie all'ora, anche offline",
-      eff_liv_vel: "Velocità ×{x} per livello",
+      soglia: "Con {n} pezzi la produzione raddoppia", soglia_tutte: "Produzione già al massimo",
+      eff_scimmie: "{testo}: hai {m} volte più scimmie", eff_vel: "{testo}: scimmie {m} volte più veloci",
+      eff_asilo: "Le scimmie fanno figli: ogni ora sono il {a}% in più (al prossimo livello il {b}%), anche a gioco chiuso",
+      eff_liv_vel: "Ogni livello rende tutte le scimmie {x} volte più veloci",
       eff_notte: "Banane guadagnate mentre sei via: {a}% → {b}%",
       eff_assenza: "Le scimmie lavorano mentre sei via fino a {a} → {b}",
       unico: "unico", liv: "liv. {l}", tra: "tra {t}", compra1: "compra", compraN: "compra ×{n}", completo: "Completo",
@@ -1605,10 +1605,10 @@
       premio_riscosso: "✓ Premio riscosso", premio: "🎁 Premio: {n} banane", riscuoti: "Riscuoti {n} 🍌",
       tag_ries: "{a} di {b} completati",
       tag_premi: { one: ". {n} premio da riscuotere.", other: ". {n} premi da riscuotere." },
-      desc_sc: "Arriva a {n} scimmie", desc_ts: "{n} tasti al secondo", desc_rc: "Record di {car} di fila",
+      desc_sc: "Arriva a {n} scimmie", desc_ts: "Arriva a {n} tasti al secondo", desc_rc: "Una scimmia scrive {car} giusti di fila",
       desc_op: { one: "Completa {n} opera", other: "Completa {n} opere diverse" },
       desc_tt: "{n} tasti premuti in tutto", desc_tm: "{t} di gioco", desc_asilo: "Asilo nido al livello 15",
-      desc_tech: "Almeno uno di ogni oggetto per scrivere", desc_multi: "Tutti i potenziamenti di scimmie unici",
+      desc_tech: "Almeno uno di ogni oggetto per scrivere", desc_multi: "Compra tutti i potenziamenti unici delle scimmie",
       desc_soglia: "Una struttura a quota 200",
       riscosso: "🍌 +{n} banane",
       d_scimmia: " (scimmia n°{id})", fatto: "fatto",
@@ -1633,7 +1633,7 @@
       imp_tema: "Tema", tema_sotto: "Scegli i colori del gioco. Il cambio è immediato.", temi_scuri: "Scuri", temi_chiari: "Chiari", conferma: "Conferma", sugg_tieni: "💡 Tieni premuto un potenziamento per comprarne tanti di fila",
       intro_testo: "Il teorema afferma che un primate che preme i tasti di una tastiera a caso per un tempo infinito riuscirà quasi certamente a comporre qualsiasi testo prefissato.", intro_tocca: "Tocca lo schermo per iniziare", tut_1: "📜 Questo è il testo che le scimmie devono scrivere. Battono tasti a caso: quando una azzecca una lettera dopo l'altra, la vedi comparire in nero. Basta un errore e ricomincia da capo.", tut_2: "⭐ Il record è la serie più lunga di caratteri giusti scritta da una sola scimmia. Ogni nuovo record ti regala banane.", tut_3: "🍌 Ogni lettera giusta battuta da una scimmia vale una banana. Più tasti battono, più ne guadagni, anche mentre il gioco è chiuso.", tut_4: "🛒 In Potenzia spendi le banane per avere più scimmie e farle battere più veloci. Più tentativi, più possibilità.", tut_5: "🐒 Qui c'è l'ufficio: ogni scimmia ha la sua scrivania. Toccane una per vedere cosa sta scrivendo.", tut_6: "🏆 Completa i traguardi: ognuno ti regala una parte delle banane raccolte finora.", tut_7: "📓 Nel Diario trovi i tempi stimati, la classifica globale e la cronaca dei record.", tut_7_web: "📓 Nel Diario trovi i tempi stimati e la cronaca dei record.", tut_8: "📚 Quando un'opera è completa, passa alla prossima. Ogni carattere in più la rende molto più difficile: i testi lunghi sono la vera sfida!", tut_fine: "Tutto qui! Lascia lavorare le scimmie e buon divertimento.", tut_avanti: "Avanti", tut_salta: "Salta", tut_inizia: "Gioca!", tut_rivedi: "Rivedi il tutorial",
       imp_modo: "Difficoltà", modo_facile: "Facile", modo_normale: "Normale", modo_realistica: "Realistica", modo_desc_facile: "Solo lettere, niente spazi: {n} tasti", modo_desc_normale: "Lettere minuscole e spazi: {n} tasti", modo_desc_realistica: "Come una vera macchina da scrivere: maiuscole, punteggiatura e spazi, {n} tasti", modo_cambiato: "Difficoltà {modo}: le scimmie ricominciano questo testo",
-      premio_pct: "🎁 +{p}% del raccolto: {n} banane", premio_pct_breve: "🎁 +{p}% del raccolto (almeno {m} banane)",
+      premio_pct: "🎁 Premio: le banane di {p} minuti ({n})", premio_pct_breve: "🎁 Premio: le banane di {p} minuti (almeno {m})",
       st_raccolto: "Banane raccolte",
       st_lettere: "Lettere giuste",
       tut_a1: "👋 Benvenuto! Il teorema dice che delle scimmie che battono tasti a caso, prima o poi, scrivono qualsiasi testo. Il tuo obiettivo: far scrivere a una di loro una frase famosa, lettera per lettera, senza sbagliare. Per ora il tuo ufficio è vuoto: tra poco assumerai la prima scimmia!",
@@ -1653,13 +1653,13 @@
       sez_migl_sotto: "Ogni livello moltiplica la velocità di tutte le scimmie",
       sez_ogg: "⌨️ Oggetti per scrivere",
       sez_ogg_sotto: "Ogni oggetto aggiunge tasti al secondo a ogni scimmia",
-      eff_ogg: "{testo}: +{n} tasti/s a ogni scimmia",
+      eff_ogg: "{testo}: ogni scimmia batte {n} tasti in più al secondo",
       convertito_vel: "⚡ Velocità rinnovata: i tuoi vecchi potenziamenti unici sono diventati oggetti per scrivere, con la stessa velocità di prima",
       info_tit: "🍌 Come si guadagnano le banane",
       info_1: "✍️ Lettere giuste: ogni volta che una scimmia batte la lettera giusta della frase, ricevi 1 banana (2 in Realistica).",
-      info_2: "📝 Parole della frase: quando una scimmia, scrivendo la frase dall'inizio, completa una parola (di almeno 2 lettere), ricevi un premio. Più la parola è lunga, più vale.",
-      info_3: "⭐ Record: quando una scimmia scrive più lettere giuste di fila di tutte le altre, ricevi 25 banane per ogni lettera.",
-      info_4: "📜 Frasi completate: quando la frase è finita, un editore te la compra. È il premio più grande.",
+      info_2: "📝 Parole: quando una scimmia, partendo dall'inizio della frase, finisce una parola giusta, ricevi un premio. Le parole lunghe valgono di più.",
+      info_3: "⭐ Record: quando una scimmia scrive più lettere giuste di fila di tutte le altre, ricevi 25 banane per lettera.",
+      info_4: "📜 Frase completata: un editore la compra ed è il premio più grande.",
       info_5: "🏆 Traguardi: quando ne completi uno, tocca Riscuoti.",
       info_6: "🌙 Anche a gioco chiuso le scimmie continuano a lavorare.",
       info_fine: "In breve: più scimmie e più velocità = più tasti battuti = più banane.",
@@ -1715,7 +1715,7 @@
       desc_pc: "Parole trovate per caso dalle scimmie: {n}",
       desc_pl: "Una scimmia scrive per caso una parola di {n} lettere",
       desc_fc: "Frasi completate in tutto: {n}",
-      desc_pf: "Parole della frase completate in ordine: {n}",
+      desc_pf: "Parole giuste scritte dall'inizio della frase: {n}",
       desc_br: "Banane raccolte in tutto: {n}",
       desc_lg: "Lettere giuste battute: {n}",
       desc_og: "Oggetti per scrivere posseduti: {n}",
@@ -1736,21 +1736,21 @@
       cat_tempo: "⏳ Tempo",
       cat_speciali: "✨ Speciali",
       seg_editore: "Editore",
-      soglia_ogg: "A {n}: tasti ×1,25",
+      soglia_ogg: "Con {n} pezzi: +25% di tasti",
       pub_tit: "📚 Pubblicazione",
-      pub_sotto: "Vendi il tuo ufficio a una casa editrice: scimmie, banane e potenziamenti ripartono da zero, ma ricevi Pagine d'oro da spendere in talenti permanenti. Frasi, record, traguardi, parole e classifica restano.",
+      pub_sotto: "Vendi tutto a una casa editrice: ricominci da capo con scimmie, banane e potenziamenti, ma ricevi Pagine d'oro. Con le pagine compri bonus che restano per sempre. Frasi completate, record, traguardi e classifica non si perdono.",
       pub_pagine: "Pagine d'oro:",
       pub_intutto: "{n} in tutto",
-      pub_guadagno: "Pubblicando ora:",
-      pub_prossima: "La prossima pagina arriva a {n} banane raccolte in questa partita.",
-      pub_minimo: "Per pubblicare raccogli almeno {n} banane in questa partita.",
+      pub_guadagno: "Se pubblichi adesso ricevi:",
+      pub_prossima: "Raccogli {n} banane in questa partita per avere una pagina in più.",
+      pub_minimo: "Per pubblicare devi raccogliere almeno {n} banane in questa partita.",
       pub_btn: "Pubblica",
       pub_fermo: "Prima passa alla frase successiva.",
       pub_conf_tit: "Pubblicare?",
-      pub_conf_testo: "Scimmie, banane e potenziamenti ripartono da zero. Ricevi {n} Pagine d'oro, più Fama e una Cassa di legno in regalo. Frasi, record, traguardi, parole e classifica restano.",
+      pub_conf_testo: "Ricominci da capo con scimmie, banane e potenziamenti (le nuove scimmie nate restano). Ricevi {n} Pagine d'oro, più Fama e una Cassa di legno in regalo. Frasi completate, record, traguardi, parole e classifica non si perdono.",
       pub_fatto: "📚 Pubblicato! +{n} Pagine d'oro",
       tal_tit: "🌳 Talenti",
-      tal_sotto: "Bonus permanenti che restano dopo ogni pubblicazione. Non cambiano mai la fortuna: ogni tasto resta sempre casuale.",
+      tal_sotto: "Si comprano con le Pagine d'oro e restano anche quando pubblichi. Non cambiano la fortuna: ogni tasto resta casuale.",
       ramo_scimmie: "🐒 Assunzioni",
       ramo_velocita: "⚡ Officina",
       ramo_banane: "🍌 Contratti",
@@ -1768,14 +1768,14 @@
       nome_a_velocita: "Assistente all'officina",
       nome_a_traguardi: "Segretario",
       nome_a_frasi: "Archivista",
-      eff_t_squadra: "Ogni nuova partita parte con +10 Scimmie e +2 Famiglie per livello (ora +{a} e +{b})",
-      eff_t_recl: "Scimmie ×1,5 per livello (ora ×{x})",
-      eff_t_nido: "+2% scimmie all'ora per livello (ora +{n}%)",
-      eff_t_scuola: "Velocità ×1,5 per livello (ora ×{x})",
-      eff_t_attrezzi: "Ogni nuova partita parte con +5 Guanti, Lampade e Sedie per livello (ora +{n})",
-      eff_t_qualita: "Tasti degli oggetti ×1,5 per livello (ora ×{x})",
-      eff_t_contratto: "Banane ×1,5 per livello (ora ×{x})",
-      eff_t_anticipo: "Banane di partenza ×10 per livello (ora {n})",
+      eff_t_squadra: "Ogni volta che ricominci hai già 10 Scimmie e 2 Famiglie in più per livello (ora {a} e {b})",
+      eff_t_recl: "Hai 1,5 volte più scimmie per ogni livello (ora ×{x})",
+      eff_t_nido: "Le scimmie fanno più figli: +2% all'ora per livello (ora +{n}%)",
+      eff_t_scuola: "Scimmie 1,5 volte più veloci per ogni livello (ora ×{x})",
+      eff_t_attrezzi: "Ogni volta che ricominci hai già 5 Guanti, Lampade e Sedie in più per livello (ora {n})",
+      eff_t_qualita: "Gli oggetti per scrivere danno 1,5 volte più tasti per ogni livello (ora ×{x})",
+      eff_t_contratto: "1,5 volte più banane per ogni livello (ora ×{x})",
+      eff_t_anticipo: "Ogni volta che ricominci parti con più banane: ×10 per livello (ora {n})",
       eff_t_notte: "Banane a gioco chiuso ×1,25 per livello (ora ×{x})",
       eff_a_scimmie: "Compra da solo scimmie e potenziamenti delle scimmie",
       eff_a_velocita: "Compra da solo oggetti e miglioramenti della velocità",
@@ -1880,12 +1880,12 @@
       tut_b16: "🛍️ Nel Negozio apri casse con le Pagine d'oro: dentro trovi avatar, colori e scritte animate per il tuo nome in classifica. Sono solo estetiche.",
       nome_t_premio: "Premio letterario",
       nome_t_eredita: "Eredità",
-      eff_t_premio: "Premi per parole e frasi completate ×1,5 per livello (ora ×{x})",
-      eff_t_eredita: "Ogni nuova partita parte con l'1% per livello delle banane raccolte nella partita prima (ora {n}%)",
-      pub_dett: "{a} dalle banane + {b} dalle frasi completate in questa partita (2 ciascuna)",
-      pub_fama: "⭐ Fama: velocità ×{x}",
+      eff_t_premio: "Premi di parole e frasi 1,5 volte più ricchi per ogni livello (ora ×{x})",
+      eff_t_eredita: "Ogni volta che ricominci ti porti dietro l'1% per livello delle banane raccolte prima (ora {n}%)",
+      pub_dett: "{a} per le banane raccolte + {b} per le frasi completate (2 a frase)",
+      pub_fama: "⭐ Fama: le scimmie sono {x} volte più veloci",
       pub_cassa: "🎁 Ogni pubblicazione regala anche una Cassa di legno",
-      pub_edizione: "Prossima: {n}ª edizione. La Fama cresce del 3% per ogni Pagina d'oro guadagnata, anche se poi la spendi.",
+      pub_edizione: "Sarà la tua {n}ª pubblicazione. Ogni Pagina d'oro che guadagni aumenta la Fama, anche se poi la spendi.",
       bg_gratis: "Apri gratis ({n})",
       regalo_avviso: "🎁 Nel Negozio ti aspetta una cassa di benvenuto!",
       nov_tit: "✨ Novità in ufficio!",
@@ -1922,7 +1922,7 @@
       tipo1_e: "Scritta animata",
       lbl_record_sempre: "Record di sempre:",
       camp_tit: "🏆 La scimmia del record",
-      camp_sotto: "Tra tutte le tue scimmie, è quella che ha scritto più lettere giuste di fila partendo dall'inizio della frase. Ecco fin dove è arrivata:",
+      camp_sotto: "È la scimmia che ha scritto più lettere giuste di fila, partendo dall'inizio della frase. Ecco fin dove è arrivata:",
       ev_info_tit: "🎲 Eventi in ufficio",
       ev_info_sotto: "Ogni 4-8 minuti, mentre giochi, in ufficio succede qualcosa. Gli eventi cambiano velocità, scimmie o banane, o portano una cassa, ma mai la fortuna. I più rari sono anche i più forti.",
       ev_prossimo: "Prossimo evento tra {t}",
@@ -1959,7 +1959,7 @@
       sess_nuova: "🆕 Nuova partita in {modo}: si parte da zero!",
       sess_ripresa: "↩️ Bentornato nella tua partita in {modo}",
       merc_tit: "🏪 Mercato delle pagine",
-      merc_sotto: "Hai troppe banane? Scambiale con Pagine d'oro. Ogni pagina costa 100 volte la precedente e non dà Fama.",
+      merc_sotto: "Hai troppe banane? Cambiale in Pagine d'oro. Ogni pagina costa 100 volte la precedente e non aumenta la Fama.",
       merc_btn: "Compra 1 📃 · {n} 🍌",
       info_satura: "📉 Mercato saturo: quando superi i 10 miliardi di banane al secondo, ogni lettera giusta rende un po' meno. Così il gioco resta bilanciato anche dopo giorni.",
       am_tit: "👥 Amici e sfide",
@@ -2081,7 +2081,11 @@
       tut_c5: "👉 Compra una scimmia.",
       tut_c6: "🏆 Qui riscuoti i premi.",
       tut_c7: "📚 Qui cambi frase.",
-      tut_c8: "✅ Fatto! Le scimmie lavorano anche a gioco chiuso."
+      tut_c8: "✅ Fatto! Le scimmie lavorano anche a gioco chiuso.",
+      nov4_1: "⚖️ Economia rifatta per durare: si progredisce in modo regolare giorno dopo giorno, senza numeri che esplodono",
+      nov4_2: "🏆 Frasi e traguardi premiano con minuti di produzione; l'Asilo arriva al massimo al livello 10",
+      nov4_3: "🍼 Pubblicando, i cuccioli restano: niente più giorni fermi dopo una pubblicazione",
+      tour4_1: "⚖️ I prezzi ora crescono di più per i potenziamenti avanzati: comprarne tanti è un obiettivo, non una formalità."
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -2167,7 +2171,7 @@
       imp_tema: "Theme", tema_sotto: "Choose the game's colors. The change is instant.", temi_scuri: "Dark", temi_chiari: "Light", conferma: "Confirm", sugg_tieni: "💡 Press and hold an upgrade to buy many in a row",
       intro_testo: "The theorem states that a primate pressing the keys of a keyboard at random for an infinite amount of time will almost surely type any given text.", intro_tocca: "Tap the screen to start", tut_1: "📜 This is the text the monkeys have to type. They hit keys at random: when one gets letter after letter right, you see it appear in black. One mistake and it starts over.", tut_2: "⭐ The record is the longest run of correct characters typed by a single monkey. Every new record gives you bananas.", tut_3: "🍌 Every correct letter a monkey types is worth one banana. The more keys they type, the more you earn, even while the game is closed.", tut_4: "🛒 In Upgrades you spend bananas to get more monkeys and make them type faster. More attempts, more chances.", tut_5: "🐒 Here's the office: every monkey has its own desk. Tap one to see what it's typing.", tut_6: "🏆 Complete achievements: each one gives you a share of the bananas harvested so far.", tut_7: "📓 In the Journal you'll find time estimates, the global leaderboard and the record chronicle.", tut_7_web: "📓 In the Journal you'll find time estimates and the record chronicle.", tut_8: "📚 When a work is complete, move on to the next. Every extra character makes it much harder: long texts are the real challenge!", tut_fine: "That's it! Let the monkeys work and have fun.", tut_avanti: "Next", tut_salta: "Skip", tut_inizia: "Play!", tut_rivedi: "Replay the tutorial",
       imp_modo: "Difficulty", modo_facile: "Easy", modo_normale: "Normal", modo_realistica: "Realistic", modo_desc_facile: "Letters only, no spaces: {n} keys", modo_desc_normale: "Lowercase letters and spaces: {n} keys", modo_desc_realistica: "Like a real typewriter: capitals, punctuation and spaces, {n} keys", modo_cambiato: "{modo} difficulty: the monkeys start this text over",
-      premio_pct: "🎁 +{p}% of your harvest: {n} bananas", premio_pct_breve: "🎁 +{p}% of your harvest (at least {m} bananas)",
+      premio_pct: "🎁 {p} min of production: {n} bananas", premio_pct_breve: "🎁 {p} min of production (at least {m} bananas)",
       st_raccolto: "Bananas harvested",
       st_lettere: "Correct letters",
       tut_a1: "👋 Welcome! The theorem says that monkeys hitting keys at random will sooner or later type any text. Your goal: get one of them to type a famous phrase, letter by letter, without a single mistake. Your office is empty for now: you'll hire your first monkey in a moment!",
@@ -2281,7 +2285,7 @@
       pub_btn: "Publish",
       pub_fermo: "First move on to the next phrase.",
       pub_conf_tit: "Publish?",
-      pub_conf_testo: "Monkeys, bananas and upgrades start over. You get {n} Golden Pages, more Fame and a free Wooden crate. Phrases, records, goals, words and leaderboard stay.",
+      pub_conf_testo: "Monkeys, bananas and upgrades start over (the babies stay). You get {n} Golden Pages, more Fame and a free Wooden crate. Phrases, records, goals, words and leaderboard stay.",
       pub_fatto: "📚 Published! +{n} Golden Pages",
       tal_tit: "🌳 Talents",
       tal_sotto: "Permanent bonuses that stay after every publication. They never change luck: every key is always random.",
@@ -2419,7 +2423,7 @@
       pub_dett: "{a} from bananas + {b} from phrases completed in this run (2 each)",
       pub_fama: "⭐ Fame: speed ×{x}",
       pub_cassa: "🎁 Every publication also gives you a Wooden crate",
-      pub_edizione: "Next: edition {n}. Fame grows by 3% for every Golden Page earned, even if you spend it later.",
+      pub_edizione: "Next: edition {n}. Fame grows with every Golden Page earned, even if you spend it later.",
       bg_gratis: "Open for free ({n})",
       regalo_avviso: "🎁 A welcome crate is waiting for you in the Shop!",
       nov_tit: "✨ What's new in the office!",
@@ -2615,7 +2619,11 @@
       tut_c5: "👉 Buy a monkey.",
       tut_c6: "🏆 Collect your prizes here.",
       tut_c7: "📚 Change phrase here.",
-      tut_c8: "✅ Done! Monkeys keep working even with the game closed."
+      tut_c8: "✅ Done! Monkeys keep working even with the game closed.",
+      nov4_1: "⚖️ Economy rebuilt to last: steady progress day after day, with no exploding numbers",
+      nov4_2: "🏆 Phrases and goals reward minutes of production; the Nursery tops out at level 10",
+      nov4_3: "🍼 When you publish, the babies stay: no more stuck days after a publication",
+      tour4_1: "⚖️ Prices now grow faster for advanced upgrades: buying lots of them is a goal, not a formality."
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -2701,7 +2709,7 @@
       imp_tema: "Tema", tema_sotto: "Elige los colores del juego. El cambio es inmediato.", temi_scuri: "Oscuros", temi_chiari: "Claros", conferma: "Confirmar", sugg_tieni: "💡 Mantén pulsada una mejora para comprar muchas seguidas",
       intro_testo: "El teorema afirma que un primate que pulse las teclas de un teclado al azar durante un tiempo infinito escribirá casi con toda seguridad cualquier texto dado.", intro_tocca: "Toca la pantalla para empezar", tut_1: "📜 Este es el texto que los monos deben escribir. Pulsan teclas al azar: cuando uno acierta una letra tras otra, la ves aparecer en negro. Basta un error y vuelve a empezar.", tut_2: "⭐ El récord es la serie más larga de caracteres correctos escrita por un solo mono. Cada nuevo récord te da plátanos.", tut_3: "🍌 Cada letra correcta que teclea un mono vale un plátano. Cuantas más teclas pulsan, más ganas, incluso con el juego cerrado.", tut_4: "🛒 En Mejoras gastas plátanos para tener más monos y hacer que tecleen más rápido. Más intentos, más posibilidades.", tut_5: "🐒 Aquí está la oficina: cada mono tiene su escritorio. Toca uno para ver lo que está escribiendo.", tut_6: "🏆 Completa logros: cada uno te regala una parte de los plátanos cosechados hasta ahora.", tut_7: "📓 En el Diario encontrarás los tiempos estimados, la clasificación global y la crónica de récords.", tut_7_web: "📓 En el Diario encontrarás los tiempos estimados y la crónica de récords.", tut_8: "📚 Cuando una obra esté completa, pasa a la siguiente. Cada carácter de más la hace mucho más difícil: ¡los textos largos son el verdadero reto!", tut_fine: "¡Eso es todo! Deja trabajar a los monos y diviértete.", tut_avanti: "Siguiente", tut_salta: "Saltar", tut_inizia: "¡Jugar!", tut_rivedi: "Ver el tutorial de nuevo",
       imp_modo: "Dificultad", modo_facile: "Fácil", modo_normale: "Normal", modo_realistica: "Realista", modo_desc_facile: "Solo letras, sin espacios: {n} teclas", modo_desc_normale: "Minúsculas y espacios: {n} teclas", modo_desc_realistica: "Como una máquina de escribir de verdad: mayúsculas, puntuación y espacios, {n} teclas", modo_cambiato: "Dificultad {modo}: los monos empiezan este texto de nuevo",
-      premio_pct: "🎁 +{p}% de tu cosecha: {n} plátanos", premio_pct_breve: "🎁 +{p}% de tu cosecha (al menos {m} plátanos)",
+      premio_pct: "🎁 {p} min de producción: {n} plátanos", premio_pct_breve: "🎁 {p} min de producción (al menos {m} plátanos)",
       st_raccolto: "Plátanos cosechados",
       st_lettere: "Letras correctas",
       tut_a1: "👋 ¡Bienvenido! El teorema dice que unos monos que pulsan teclas al azar, tarde o temprano, escriben cualquier texto. Tu objetivo: que uno de ellos escriba una frase famosa, letra a letra, sin equivocarse. Por ahora tu oficina está vacía: ¡enseguida contratarás a tu primer mono!",
@@ -2815,7 +2823,7 @@
       pub_btn: "Publicar",
       pub_fermo: "Primero pasa a la siguiente frase.",
       pub_conf_tit: "¿Publicar?",
-      pub_conf_testo: "Monos, plátanos y mejoras empiezan de cero. Recibes {n} Páginas de oro, más Fama y una Caja de madera de regalo. Frases, récords, logros, palabras y clasificación se mantienen.",
+      pub_conf_testo: "Monos, plátanos y mejoras empiezan de cero (las crías se quedan). Recibes {n} Páginas de oro, más Fama y una Caja de madera de regalo. Frases, récords, logros, palabras y clasificación se mantienen.",
       pub_fatto: "📚 ¡Publicado! +{n} Páginas de oro",
       tal_tit: "🌳 Talentos",
       tal_sotto: "Bonificaciones permanentes que se mantienen tras cada publicación. Nunca cambian la suerte: cada tecla sigue siendo aleatoria.",
@@ -2953,7 +2961,7 @@
       pub_dett: "{a} de los plátanos + {b} de las frases completadas en esta partida (2 cada una)",
       pub_fama: "⭐ Fama: velocidad ×{x}",
       pub_cassa: "🎁 Cada publicación regala también una Caja de madera",
-      pub_edizione: "Siguiente: {n}.ª edición. La Fama crece un 3% por cada Página de oro ganada, aunque luego la gastes.",
+      pub_edizione: "Siguiente: {n}.ª edición. La Fama crece con cada Página de oro ganada, aunque luego la gastes.",
       bg_gratis: "Abrir gratis ({n})",
       regalo_avviso: "🎁 ¡En la Tienda te espera una caja de bienvenida!",
       nov_tit: "✨ ¡Novedades en la oficina!",
@@ -3149,7 +3157,11 @@
       tut_c5: "👉 Compra un mono.",
       tut_c6: "🏆 Aquí cobras los premios.",
       tut_c7: "📚 Aquí cambias de frase.",
-      tut_c8: "✅ ¡Listo! Los monos trabajan incluso con el juego cerrado."
+      tut_c8: "✅ ¡Listo! Los monos trabajan incluso con el juego cerrado.",
+      nov4_1: "⚖️ Economía rehecha para durar: progreso regular día tras día, sin números que explotan",
+      nov4_2: "🏆 Frases y logros premian con minutos de producción; la Guardería llega como máximo al nivel 10",
+      nov4_3: "🍼 Al publicar, las crías se quedan: se acabaron los días parados después de publicar",
+      tour4_1: "⚖️ Los precios ahora suben más en las mejoras avanzadas: comprar muchas es un objetivo, no un trámite."
     },
 
     // ------------------------------------------------------------- 中文
@@ -3235,7 +3247,7 @@
       imp_tema: "主题", tema_sotto: "选择游戏的配色，立即生效。", temi_scuri: "深色", temi_chiari: "浅色", conferma: "确认", sugg_tieni: "💡 长按升级可以连续购买",
       intro_testo: "该定理指出：一只灵长类动物在键盘上随机敲击按键，只要时间无限，几乎必然能打出任何指定的文字。", intro_tocca: "点击屏幕开始", tut_1: "📜 这是猴子们要打出的文字。它们随机按键：当某只猴子连续打对字母时，你会看到它们以黑色出现。只要错一个，就得从头再来。", tut_2: "⭐ 纪录是单只猴子连续打对的最长字符数。每创造一个新纪录，你都会获得香蕉。", tut_3: "🍌 猴子每打对一个字母就值一根香蕉。它们按键越多，你赚得越多，即使游戏关闭时也一样。", tut_4: "🛒 在“升级”里花香蕉，获得更多猴子并让它们打得更快。尝试越多，机会越大。", tut_5: "🐒 这里是办公室：每只猴子都有自己的办公桌。点一只猴子，看看它在打什么。", tut_6: "🏆 完成成就：每个成就都会奖励你目前收获香蕉的一部分。", tut_7: "📓 在日志里可以看到预计时间、全球排行榜和纪录大事记。", tut_7_web: "📓 在日志里可以看到预计时间和纪录大事记。", tut_8: "📚 完成一部作品后，就换下一部。每多一个字符都会难得多：长篇文字才是真正的挑战！", tut_fine: "就这些！让猴子们工作，玩得开心。", tut_avanti: "下一步", tut_salta: "跳过", tut_inizia: "开始游戏！", tut_rivedi: "重看教程",
       imp_modo: "难度", modo_facile: "简单", modo_normale: "普通", modo_realistica: "写实", modo_desc_facile: "只有字母，没有空格：{n} 个键", modo_desc_normale: "小写字母和空格：{n} 个键", modo_desc_realistica: "像真正的打字机：大写字母、标点和空格，{n} 个键", modo_cambiato: "难度：{modo}。猴子们重新开始打这段文字",
-      premio_pct: "🎁 收成的 +{p}%：{n} 根香蕉", premio_pct_breve: "🎁 收成的 +{p}%（至少 {m} 根香蕉）",
+      premio_pct: "🎁 {p} 分钟的产量：{n} 根香蕉", premio_pct_breve: "🎁 {p} 分钟的产量（至少 {m} 根香蕉）",
       st_raccolto: "收获的香蕉",
       st_lettere: "打对的字母",
       tut_a1: "👋 欢迎！定理说，随机敲键的猴子迟早能打出任何文字。你的目标：让其中一只猴子一个字母一个字母地打出一句名言，一个错误都不能有。你的办公室现在还是空的：马上你就会雇用第一只猴子！",
@@ -3349,7 +3361,7 @@
       pub_btn: "出版",
       pub_fermo: "请先进入下一句。",
       pub_conf_tit: "要出版吗？",
-      pub_conf_testo: "猴子、香蕉和升级都从零开始。你将获得 {n} 金页、更多名气和一个免费木箱。句子、纪录、成就、单词和排行榜都会保留。",
+      pub_conf_testo: "猴子、香蕉和升级都从零开始（幼崽会保留）。你将获得 {n} 金页、更多名气和一个免费木箱。句子、纪录、成就、单词和排行榜都会保留。",
       pub_fatto: "📚 出版成功！+{n} 金页",
       tal_tit: "🌳 天赋",
       tal_sotto: "永久加成，每次出版后都会保留。它们从不改变运气：每次按键始终是随机的。",
@@ -3487,7 +3499,7 @@
       pub_dett: "{a} 来自香蕉 + {b} 来自本局完成的句子（每句 2 页）",
       pub_fama: "⭐ 名气：速度 ×{x}",
       pub_cassa: "🎁 每次出版还会赠送一个木箱",
-      pub_edizione: "下一次：第{n}版。每获得一张金页，名气增加 3%，即使之后花掉也不会减少。",
+      pub_edizione: "下一次：第{n}版。每获得一张金页名气都会增长，即使之后花掉也不会减少。",
       bg_gratis: "免费打开（{n}）",
       regalo_avviso: "🎁 商店里有一个欢迎箱在等你！",
       nov_tit: "✨ 办公室有新内容！",
@@ -3683,7 +3695,11 @@
       tut_c5: "👉 买一只猴子。",
       tut_c6: "🏆 在这里领取奖励。",
       tut_c7: "📚 在这里换句子。",
-      tut_c8: "✅ 完成！关掉游戏猴子也会继续工作。"
+      tut_c8: "✅ 完成！关掉游戏猴子也会继续工作。",
+      nov4_1: "⚖️ 重做了经济系统：每天稳定进步，数字不会再爆炸",
+      nov4_2: "🏆 句子和成就的奖励改为若干分钟的产量；托儿所最高 10 级",
+      nov4_3: "🍼 出版时幼崽会保留：出版后不会再卡住好几天",
+      tour4_1: "⚖️ 高级升级的价格现在涨得更快：大量购买是目标，而不是走过场。"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -3769,7 +3785,7 @@
       imp_tema: "Thème", tema_sotto: "Choisis les couleurs du jeu. Le changement est immédiat.", temi_scuri: "Sombres", temi_chiari: "Clairs", conferma: "Confirmer", sugg_tieni: "💡 Maintiens une amélioration appuyée pour en acheter plusieurs d'affilée",
       intro_testo: "Le théorème affirme qu'un primate qui frappe au hasard les touches d'un clavier pendant un temps infini finira presque sûrement par écrire n'importe quel texte donné.", intro_tocca: "Touche l'écran pour commencer", tut_1: "📜 Voici le texte que les singes doivent écrire. Ils frappent les touches au hasard : quand l'un d'eux trouve une lettre après l'autre, tu la vois apparaître en noir. Une seule erreur et il recommence.", tut_2: "⭐ Le record est la plus longue série de caractères justes écrite par un seul singe. Chaque nouveau record te rapporte des bananes.", tut_3: "🍌 Chaque lettre juste tapée par un singe vaut une banane. Plus ils frappent de touches, plus tu gagnes, même quand le jeu est fermé.", tut_4: "🛒 Dans Améliorer, tu dépenses des bananes pour avoir plus de singes et les faire taper plus vite. Plus d'essais, plus de chances.", tut_5: "🐒 Voici le bureau : chaque singe a son pupitre. Touche-en un pour voir ce qu'il écrit.", tut_6: "🏆 Termine des succès : chacun t'offre une part des bananes récoltées jusqu'ici.", tut_7: "📓 Dans le Journal, tu trouveras les temps estimés, le classement mondial et la chronique des records.", tut_7_web: "📓 Dans le Journal, tu trouveras les temps estimés et la chronique des records.", tut_8: "📚 Quand une œuvre est terminée, passe à la suivante. Chaque caractère en plus la rend bien plus difficile : les longs textes sont le vrai défi !", tut_fine: "C'est tout ! Laisse travailler les singes et amuse-toi bien.", tut_avanti: "Suivant", tut_salta: "Passer", tut_inizia: "Jouer !", tut_rivedi: "Revoir le tutoriel",
       imp_modo: "Difficulté", modo_facile: "Facile", modo_normale: "Normale", modo_realistica: "Réaliste", modo_desc_facile: "Lettres seules, sans espaces : {n} touches", modo_desc_normale: "Minuscules et espaces : {n} touches", modo_desc_realistica: "Comme une vraie machine à écrire : majuscules, ponctuation et espaces, {n} touches", modo_cambiato: "Difficulté {modo} : les singes recommencent ce texte",
-      premio_pct: "🎁 +{p} % de ta récolte : {n} bananes", premio_pct_breve: "🎁 +{p} % de ta récolte (au moins {m} bananes)",
+      premio_pct: "🎁 {p} min de production : {n} bananes", premio_pct_breve: "🎁 {p} min de production (au moins {m} bananes)",
       st_raccolto: "Bananes récoltées",
       st_lettere: "Lettres justes",
       tut_a1: "👋 Bienvenue ! Le théorème dit que des singes qui frappent des touches au hasard finiront par écrire n'importe quel texte. Ton but : qu'un d'entre eux écrive une phrase célèbre, lettre par lettre, sans se tromper. Pour l'instant ton bureau est vide : tu vas engager ton premier singe dans un instant !",
@@ -3883,7 +3899,7 @@
       pub_btn: "Publier",
       pub_fermo: "Passe d'abord à la phrase suivante.",
       pub_conf_tit: "Publier ?",
-      pub_conf_testo: "Singes, bananes et améliorations repartent de zéro. Tu reçois {n} Pages d'or, plus de Renommée et un Coffre en bois offert. Phrases, records, succès, mots et classement restent.",
+      pub_conf_testo: "Singes, bananes et améliorations repartent de zéro (les petits restent). Tu reçois {n} Pages d'or, plus de Renommée et un Coffre en bois offert. Phrases, records, succès, mots et classement restent.",
       pub_fatto: "📚 Publié ! +{n} Pages d'or",
       tal_tit: "🌳 Talents",
       tal_sotto: "Des bonus permanents qui restent après chaque publication. Ils ne changent jamais la chance : chaque touche reste toujours aléatoire.",
@@ -4021,7 +4037,7 @@
       pub_dett: "{a} grâce aux bananes + {b} grâce aux phrases terminées dans cette partie (2 chacune)",
       pub_fama: "⭐ Renommée : vitesse ×{x}",
       pub_cassa: "🎁 Chaque publication offre aussi un Coffre en bois",
-      pub_edizione: "Prochaine : {n}e édition. La Renommée augmente de 3 % pour chaque Page d'or gagnée, même si tu la dépenses ensuite.",
+      pub_edizione: "Prochaine : {n}e édition. La Renommée grandit avec chaque Page d'or gagnée, même si tu la dépenses ensuite.",
       bg_gratis: "Ouvrir gratuitement ({n})",
       regalo_avviso: "🎁 Un coffre de bienvenue t'attend dans la Boutique !",
       nov_tit: "✨ Du nouveau au bureau !",
@@ -4217,7 +4233,11 @@
       tut_c5: "👉 Achète un singe.",
       tut_c6: "🏆 Ici tu récupères les primes.",
       tut_c7: "📚 Ici tu changes de phrase.",
-      tut_c8: "✅ C'est fait ! Les singes travaillent même jeu fermé."
+      tut_c8: "✅ C'est fait ! Les singes travaillent même jeu fermé.",
+      nov4_1: "⚖️ Économie refaite pour durer : une progression régulière jour après jour, sans chiffres qui explosent",
+      nov4_2: "🏆 Phrases et succès rapportent des minutes de production ; la Crèche s'arrête au niveau 10",
+      nov4_3: "🍼 En publiant, les petits restent : fini les jours bloqués après une publication",
+      tour4_1: "⚖️ Les prix montent maintenant plus vite pour les améliorations avancées : en acheter beaucoup est un objectif, pas une formalité."
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -4304,7 +4324,7 @@
       imp_tema: "Тема", tema_sotto: "Выбери цвета игры. Изменение применяется сразу.", temi_scuri: "Тёмные", temi_chiari: "Светлые", conferma: "Подтвердить", sugg_tieni: "💡 Удерживай улучшение, чтобы купить много подряд",
       intro_testo: "Теорема утверждает, что примат, нажимающий клавиши наугад в течение бесконечного времени, почти наверняка напечатает любой заданный текст.", intro_tocca: "Коснись экрана, чтобы начать", tut_1: "📜 Это текст, который должны напечатать обезьяны. Они жмут клавиши наугад: когда одна попадает буква за буквой, ты видишь их чёрным цветом. Одна ошибка — и она начинает сначала.", tut_2: "⭐ Рекорд — самая длинная серия верных символов, напечатанная одной обезьяной. За каждый новый рекорд ты получаешь бананы.", tut_3: "🍌 Каждая верная буква, напечатанная обезьяной, стоит один банан. Чем больше клавиш они нажимают, тем больше ты зарабатываешь, даже когда игра закрыта.", tut_4: "🛒 В разделе «Улучшить» трать бананы, чтобы получить больше обезьян и ускорить их. Больше попыток — больше шансов.", tut_5: "🐒 Это офис: у каждой обезьяны свой стол. Нажми на обезьяну, чтобы увидеть, что она печатает.", tut_6: "🏆 Выполняй достижения: каждое дарит часть собранных бананов.", tut_7: "📓 В Дневнике — ожидаемое время, мировой рейтинг и хроника рекордов.", tut_7_web: "📓 В Дневнике — ожидаемое время и хроника рекордов.", tut_8: "📚 Когда произведение готово, переходи к следующему. Каждый лишний символ делает его гораздо сложнее: длинные тексты — настоящий вызов!", tut_fine: "Вот и всё! Пусть обезьяны работают, а ты развлекайся.", tut_avanti: "Далее", tut_salta: "Пропустить", tut_inizia: "Играть!", tut_rivedi: "Пройти обучение снова",
       imp_modo: "Сложность", modo_facile: "Лёгкая", modo_normale: "Обычная", modo_realistica: "Реалистичная", modo_desc_facile: "Только буквы, без пробелов. Клавиш: {n}", modo_desc_normale: "Строчные буквы и пробелы. Клавиш: {n}", modo_desc_realistica: "Как настоящая пишущая машинка: заглавные, знаки препинания и пробелы. Клавиш: {n}", modo_cambiato: "Сложность «{modo}»: обезьяны начинают этот текст заново",
-      premio_pct: "🎁 +{p}% урожая: {n} 🍌", premio_pct_breve: "🎁 +{p}% урожая (минимум {m} 🍌)",
+      premio_pct: "🎁 {p} мин производства: {n} бананов", premio_pct_breve: "🎁 {p} мин производства (не меньше {m} бананов)",
       st_raccolto: "Собрано бананов",
       st_lettere: "Верных букв",
       tut_a1: "👋 Добро пожаловать! Теорема гласит, что обезьяны, нажимающие клавиши наугад, рано или поздно напечатают любой текст. Твоя цель — чтобы одна из них напечатала знаменитую фразу, букву за буквой, без единой ошибки. Пока твой офис пуст: сейчас ты наймёшь первую обезьяну!",
@@ -4418,7 +4438,7 @@
       pub_btn: "Опубликовать",
       pub_fermo: "Сначала перейди к следующей фразе.",
       pub_conf_tit: "Опубликовать?",
-      pub_conf_testo: "Обезьяны, бананы и улучшения начнутся с нуля. Ты получишь Золотые страницы ({n}), больше Славы и Деревянный сундук в подарок. Фразы, рекорды, награды, слова и рейтинг сохранятся.",
+      pub_conf_testo: "Обезьяны, бананы и улучшения начнутся с нуля (детёныши остаются). Ты получишь Золотые страницы ({n}), больше Славы и Деревянный сундук в подарок. Фразы, рекорды, награды, слова и рейтинг сохранятся.",
       pub_fatto: "📚 Опубликовано! +{n} Золотых страниц",
       tal_tit: "🌳 Таланты",
       tal_sotto: "Постоянные бонусы, которые сохраняются после каждой публикации. Они никогда не меняют удачу: каждое нажатие всегда случайно.",
@@ -4556,7 +4576,7 @@
       pub_dett: "{a} за бананы + {b} за фразы, завершённые в этой партии (по 2 за каждую)",
       pub_fama: "⭐ Слава: скорость ×{x}",
       pub_cassa: "🎁 Каждая публикация дарит ещё и Деревянный сундук",
-      pub_edizione: "Следующее: издание №{n}. Слава растёт на 3% за каждую заработанную Золотую страницу, даже если потом её потратить.",
+      pub_edizione: "Следующее: издание №{n}. Слава растёт с каждой заработанной Золотой страницей, даже если потом её потратить.",
       bg_gratis: "Открыть бесплатно ({n})",
       regalo_avviso: "🎁 В Магазине тебя ждёт приветственный сундук!",
       nov_tit: "✨ Новое в офисе!",
@@ -4752,7 +4772,11 @@
       tut_c5: "👉 Купи обезьяну.",
       tut_c6: "🏆 Здесь забираешь награды.",
       tut_c7: "📚 Здесь меняешь фразу.",
-      tut_c8: "✅ Готово! Обезьяны работают даже при закрытой игре."
+      tut_c8: "✅ Готово! Обезьяны работают даже при закрытой игре.",
+      nov4_1: "⚖️ Экономика переделана, чтобы хватило надолго: ровный прогресс день за днём, без взрывающихся чисел",
+      nov4_2: "🏆 Фразы и награды дают минуты производства; Ясли — максимум 10 уровней",
+      nov4_3: "🍼 При публикации детёныши остаются: больше никаких застрявших дней после публикации",
+      tour4_1: "⚖️ Цены продвинутых улучшений теперь растут быстрее: купить их много — это цель, а не формальность."
     }
   };
 
@@ -6164,7 +6188,7 @@
   const VELOCITA_BASE = 4;
   const TELECAMERA = 40;
   const MAX_PASSI_FRAME = 3000;
-  const SOGLIE = [25, 50, 100, 200, 400, 800];
+  const SOGLIE = [25, 50, 100];
   // =====================================================================
   //  CASA EDITRICE: Pubblicazione e talenti.
   //  I talenti sono bonus permanenti e NON toccano mai la fortuna: ogni tasto resta sempre casuale.
@@ -6174,7 +6198,7 @@
     // 🐒 Assunzioni
     { id: "t_squadra", ramo: "scimmie", icona: "👥", max: 10, base: 10, cresce: 1.9 },
     { id: "t_recl", ramo: "scimmie", icona: "📣", max: 0, base: 6, cresce: 2.4 },
-    { id: "t_nido", ramo: "scimmie", icona: "🍼", max: 20, base: 10, cresce: 1.8 },
+    { id: "t_nido", ramo: "scimmie", icona: "🍼", max: 3, base: 10, cresce: 1.8 },
     // ⚡ Officina
     { id: "t_scuola", ramo: "velocita", icona: "🎓", max: 0, base: 6, cresce: 2.4 },
     { id: "t_attrezzi", ramo: "velocita", icona: "🧰", max: 10, base: 10, cresce: 1.9 },
@@ -6194,7 +6218,7 @@
   const pagineFrasi = () => ((G.raccoltoRun || 0) < 1e9 ? 0 : 2 * (G.completateRun || 0));
   const pagineGuadagno = () => pagineDa(G.raccoltoRun || 0) + pagineFrasi();
   // Fama: +3% di velocità per ogni Pagina d'oro guadagnata (non si perde spendendo le pagine)
-  const moltFama = () => 1 + 0.03 * ((G && G.pagineTot) || 0);
+  const moltFama = () => 1 + 0.3 * Math.sqrt((G && G.pagineTot) || 0);
   const moltPremio = () => Math.pow(1.5, livT("t_premio"));
   const CHIAVE_SALVATAGGIO = "scimmie-infinite-v4";
   const $ = id => document.getElementById(id);
@@ -6608,16 +6632,16 @@
   //  POTENZIAMENTI (solo quantità di scimmie e velocità di battitura)
   // =====================================================================
   const STRUTTURE = [
-    ["s0", "🐒", 1, 10], ["s1", "👨‍👩‍👧", 6, 4000], ["s2", "🦍", 36, 1.6e6], ["s3", "🏕️", 200, 6.4e8], ["s4", "🎪", 1200, 2.6e11],
-    ["s5", "🌴", 7500, 1e14], ["s6", "🏝️", 45000, 4e16], ["s7", "🪐", 280000, 1.6e19], ["s8", "🌌", 1.7e6, 6.4e21],
+    ["s0", "🐒", 1, 10], ["s1", "👨‍👩‍👧", 6, 4e03], ["s2", "🦍", 36, 2.12e06], ["s3", "🏕️", 200, 3.09e10], ["s4", "🎪", 1200, 4.61e14],
+    ["s5", "🌴", 7500, 6.31e18], ["s6", "🏝️", 45000, 9.19e22], ["s7", "🪐", 280000, 1.34e27], ["s8", "🌌", 1.7e6, 1.95e31],
     // più potenti e molto più cari
-    ["s9", "🌠", 1.4e7, 1e27], ["s10", "🕳️", 1.1e8, 1e31], ["s11", "💥", 9e8, 1e36],
-    ["s12", "☄️", 7e9, 1e42], ["s13", "🔮", 6e10, 1e49]
+    ["s9", "🌠", 1.4e7, 3.98e39], ["s10", "🕳️", 1.1e8, 1e46], ["s11", "💥", 9e8, 1e54],
+    ["s12", "☄️", 7e9, 3.98e63], ["s13", "🔮", 6e10, 6.31e74]
   ];
   const UNICI_SCIMMIE = [
-    ["m0", "👯", 2, 5000], ["m1", "📣", 3, 700000], ["m2", "🧬", 5, 1e9],
-    ["m3", "🌀", 10, 3e13], ["m4", "🪞", 100, 3e22], ["m5", "♾️", 1000, 1e36],
-    ["m6", "🌟", 5000, 1e55], ["m7", "🧿", 1e5, 1e80], ["m8", "🪄", 1e6, 1e110]
+    ["m0", "👯", 2, 5e03], ["m1", "📣", 3, 7e05], ["m2", "🧬", 5, 6.31e10],
+    ["m3", "🌀", 10, 9.19e17], ["m4", "🪞", 100, 2.31e32], ["m5", "♾️", 1000, 1e54],
+    ["m6", "🌟", 5000, 2.51e84], ["m7", "🧿", 1e5, 2.51e124], ["m8", "🪄", 1e6, 2.51e172]
   ];
   // ---------- VELOCITÀ ----------
   // Miglioramenti: livelli senza limite, ogni livello moltiplica la velocità di tutte le scimmie.
@@ -6625,19 +6649,19 @@
   const MIGLIORAMENTI = [
     ["stretch", "🤸", 1.1, 50, 6],
     ["lezioni", "📝", 1.15, 300, 8],
-    ["macchina", "🔧", 1.25, 2000, 10],
-    ["caffe", "☕", 1.5, 50000, 40],
-    ["cervello", "🧠", 2, 1e15, 1e4],
-    ["ispirazione", "🕯️", 3, 1e30, 1e7]
+    ["macchina", "🔧", 1.25, 2e03, 10],
+    ["caffe", "☕", 1.5, 5e04, 40],
+    ["cervello", "🧠", 2, 2.51e20, 1e4],
+    ["ispirazione", "🕯️", 3, 2.51e44, 1e7]
   ];
   // Oggetti per scrivere: si comprano a pezzi (come le scimmie), ognuno aggiunge tasti al secondo a ogni scimmia.
   // [id, icona, tasti/s in più per scimmia, costo del primo pezzo]
   const OGGETTI = [
-    ["o0", "🧤", 1, 30], ["o1", "💡", 6, 120000], ["o2", "🪑", 36, 4.8e8], ["o3", "🔌", 216, 1.9e12],
-    ["o4", "📠", 1300, 7.7e15], ["o5", "⌨️", 7800, 3.1e19], ["o6", "💻", 4.7e4, 1.2e23], ["o7", "🖥️", 2.8e5, 4.9e26],
-    ["o8", "🚀", 1.7e6, 2e30], ["o9", "🌠", 1e7, 7.9e33],
-    ["o10", "🛸", 6e7, 1e40], ["o11", "⏳", 3.6e8, 1e46],
-    ["o12", "📡", 2.2e9, 1e53], ["o13", "🛰️", 1.3e10, 1e61]
+    ["o0", "🧤", 1, 30], ["o1", "💡", 6, 1.2e05], ["o2", "🪑", 36, 1.95e10], ["o3", "🔌", 216, 1.11e16],
+    ["o4", "📠", 1300, 6.58e21], ["o5", "⌨️", 7800, 3.86e27], ["o6", "💻", 4.7e4, 2.12e33], ["o7", "🖥️", 2.8e5, 1.27e39],
+    ["o8", "🚀", 1.7e6, 7.61e44], ["o9", "🌠", 1e7, 4.33e50],
+    ["o10", "🛸", 6e7, 2.51e60], ["o11", "⏳", 3.6e8, 1e70],
+    ["o12", "📡", 2.2e9, 1.58e81], ["o13", "🛰️", 1.3e10, 1e94]
   ];
   // vecchi potenziamenti unici di velocità (ora tolti) con il loro moltiplicatore:
   // nei salvataggi vecchi vengono convertiti in oggetti che danno la stessa velocità
@@ -6646,7 +6670,7 @@
 
   const POT = [];
   STRUTTURE.forEach(([id, icona, dim, base], i) => POT.push({
-    id, icona, gruppo: "scimmie", tipo: "struttura", dim, base, rapporto: 1.15,
+    id, icona, gruppo: "scimmie", tipo: "struttura", dim, base, rapporto: i < 3 ? 1.15 : i < 6 ? 1.2 : 1.25,
     vis: () => i === 0 || G.liv[STRUTTURE[i - 1][0]] >= 3,
     effetto: () => { const x = dim * moltStruttura(id); return t("porta", { n: fmt(x), conta: x }); },
     soglia: () => {
@@ -6660,7 +6684,7 @@
     effetto: () => t("eff_scimmie", { testo: descUnico(id), m: molt < 1000 ? decimale(molt) : fmt(molt) })
   }));
   POT.push({
-    id: "asilo", icona: "🍼", gruppo: "scimmie", tipo: "livelli", base: 3000, rapporto: 3.5,
+    id: "asilo", icona: "🍼", gruppo: "scimmie", tipo: "livelli", base: 3000, rapporto: 3.5, max: 10,
     vis: () => G.liv.s2 >= 1,
     effetto: () => t("eff_asilo", { a: G.liv.asilo, b: G.liv.asilo + 1 })
   });
@@ -6671,7 +6695,7 @@
     effetto: () => t("eff_liv_vel", { x: decimale(molt) })
   }));
   OGGETTI.forEach(([id, icona, agg, base], i) => POT.push({
-    id, icona, gruppo: "velocita", sezione: "sez-ogg", tipo: "oggetto", agg, base, rapporto: 1.15,
+    id, icona, gruppo: "velocita", sezione: "sez-ogg", tipo: "oggetto", agg, base, rapporto: i < 3 ? 1.15 : i < 6 ? 1.2 : 1.25,
     // si vede dopo 3 pezzi dell'oggetto precedente, o se possiedi già un oggetto più avanzato
     vis: () => i === 0 || G.liv[OGGETTI[i - 1][0]] >= 3 || OGGETTI.slice(i).some(([id2]) => G.liv[id2] > 0),
     effetto: () => t("eff_ogg", { testo: descUnico(id), n: fmt(agg * moltOggetto(id) * qualitaOggetti()) }),
@@ -6757,7 +6781,7 @@
       archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, ufficioVuoto: true, paroleInOrdine: true, paroleScimmie: {}, parolaCasualeMax: 0, completateModo: {}, raccoltoRun: 0, pagine: 0, pagineTot: 0, pubblicazioni: 0, talenti: {}, auto: {}, pagineAut: {},
       collezione: ["a_scimmia", "a_nonvedo", "a_banana", "c_bianco", "c_banana", "c_menta", "e_nessuno"],
       aspetto: { avatar: "a_scimmia", colore: "c_bianco", effetto: "e_nessuno" },
-      casseGratis: 1, regaloBenvenuto: true, completateRun: 0, tariffa1: true, tariffa2: true, amici: [], sfideMie: {}, richiesteInviate: {}, richiesteRicevute: {}, risposteAmicizia: {}, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
+      casseGratis: 1, regaloBenvenuto: true, completateRun: 0, tariffa1: true, tariffa2: true, economia48: true, amici: [], sfideMie: {}, richiesteInviate: {}, richiesteRicevute: {}, risposteAmicizia: {}, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
       imp: { musica: 70, effetti: 80, lingua: linguaIniziale(), tema: "giungla", modo: "normale" },
       liv, cuccioli: 1, banane: 150, tasti: 0, tempo: 0, completate: 0,
       diario: [], ts: Date.now()
@@ -6801,7 +6825,7 @@
   // nuovo record: 25 banane per ogni lettera del record (es. record di 4 lettere = 100 banane)
   const bonusRecord = (da, a) => { let b = 0; for (let k = da + 1; k <= a; k++) b += 25 * k; return b; };
   // traguardo: una percentuale di tutte le banane raccolte finora dalle scimmie
-  const premioTraguardo = tr => Math.max(G.raccolto * tr.pct / 100, tr.min || 1000);
+  const premioTraguardo = tr => Math.max(bananeAlSecondo() * 60 * tr.pct * 2, tr.min || 1000);
 
   // ---------- costi ----------
   function costoPer(p, n) {
@@ -6978,7 +7002,8 @@
     // un editore compra l'opera: il 20% del raccolto se è la frase più lunga mai completata,
     // il 5% se è nuova ma non più lunga, il 2% se l'avevi già completata
     const quota = !primaVolta ? 0.02 : R.target.length > piuLungaPrima ? 0.2 : 0.05;
-    const premio = Math.max(G.raccolto * quota, R.target.length * (primaVolta ? 1000 : 100)) * moltPremio();
+    const secondiPremio = !primaVolta ? 300 : R.target.length > piuLungaPrima ? 3600 : 1800;
+    const premio = Math.max(bananeAlSecondo() * secondiPremio, R.target.length * (primaVolta ? 1000 : 100)) * moltPremio();
     G.banane += premio;
     G.completate++;
     G.completateRun = (G.completateRun || 0) + 1;
@@ -7258,7 +7283,7 @@
       G.liv.s0 = 10 * livT("t_squadra");
       G.liv.s1 = 2 * livT("t_squadra");
       for (const id of ["o0", "o1", "o2"]) G.liv[id] = 5 * livT("t_attrezzi");
-      G.cuccioli = 1;
+      // i cuccioli restano: la famiglia delle scimmie non si vende con l'ufficio
       G.banane = 150 * Math.pow(10, livT("t_anticipo")) + eredita;
       G.raccoltoRun = 0;
       G.completateRun = 0;
@@ -7653,7 +7678,7 @@
       tr.el.querySelector("b").textContent = tr.nome();
       tr.el.querySelector(".desc").textContent = tr.desc();
       tr.el.querySelector(".fatto").textContent = t("premio_riscosso");
-      tr.el.querySelector(".premio").textContent = s && s.r ? "" : (s ? t("premio_pct", { p: tr.pct, n: fmt(premioFisso(tr)) }) : t("premio_pct_breve", { p: tr.pct, m: fmt(tr.min || 1000) }));
+      tr.el.querySelector(".premio").textContent = s && s.r ? "" : (s ? t("premio_pct", { p: tr.pct * 2, n: fmt(premioFisso(tr)) }) : t("premio_pct_breve", { p: tr.pct * 2, m: fmt(tr.min || 1000) }));
       if (s && !s.r) tr.el.querySelector(".riscuoti").textContent = t("riscuoti", { n: fmt(premioFisso(tr)) });
       if (!s) {
         const v = tr.val(), o = tr.obiettivo;
@@ -7837,6 +7862,20 @@
       }
       for (const sf of Object.values(g.sfideMie || {})) if (sf.esito) sf.visto = true;
       if (g.operaId === "mio") { g.operaId = "eureka"; g.record = 0; g.recordChi = 0; g.recordTs = 0; }
+      // economia nuova (versione 48): Asilo al massimo 15 livelli, Nidiata al massimo 5; il riequilibrio va rifatto
+      const economia48 = sess => {
+        if (!sess || sess.economia48) return;
+        if (sess.liv && sess.liv.asilo > 10) sess.liv.asilo = 10;
+        const nido = ((sess.talenti || {}).t_nido) || 0;
+        if (nido > 3) {
+          for (let k = 3; k < nido; k++) sess.pagine = (sess.pagine || 0) + Math.ceil(10 * Math.pow(1.8, k));
+          sess.talenti.t_nido = 3;
+        }
+        sess.riequilibrato = false;
+        sess.economia48 = true;
+      };
+      if (!dati.economia48) { g.economia48 = false; economia48(g); }
+      for (const sess of Object.values(g.sessioni || {})) economia48(sess);
       // cassa di benvenuto anche per chi giocava già
       if (!dati.regaloBenvenuto) { g.casseGratis = (dati.casseGratis || 0) + 1; g.regaloBenvenuto = true; }
       // le automazioni che compravano da sole non ci sono più: restituisco le pagine
@@ -10344,6 +10383,9 @@
       { sel: '.menu button[data-vista="negozio"]', testo: "tour3_1" },
       { sel: '.menu button[data-vista="diario"]', testo: "tour3_2" },
       { sel: "#bAmici", testo: "tour3_3" }
+    ] },
+    { v: 48, voci: 3, chiave: "nov4_", passi: [
+      { sel: '.menu button[data-vista="negozio"]', testo: "tour4_1" }
     ] }
   ];
   const VERSIONE_NOVITA = GRUPPI_NOVITA[GRUPPI_NOVITA.length - 1].v;
@@ -10417,7 +10459,7 @@
   const CAMPI_SESSIONE = ["banane", "liv", "cuccioli", "raccolto", "raccoltoRun", "tasti", "lettere", "tempo", "completate", "completateRun",
     "operaId", "testoMio", "record", "recordChi", "recordTs", "linguaOpera", "modoOpera", "opereFatte", "archivio", "lunghe", "lungheModo",
     "fraseMio", "fraseMioModo", "parole", "parolaMax", "pagine", "pagineTot", "pubblicazioni", "talenti", "auto", "traguardi",
-    "diario", "diarioTarget", "ultimaTappa", "pagineComprate", "riequilibrato", "tariffa1", "tariffa2"];
+    "diario", "diarioTarget", "ultimaTappa", "pagineComprate", "riequilibrato", "tariffa1", "tariffa2", "economia48"];
   function cambiaSessione(da, a) {
     G.sessioni = G.sessioni || {};
     const vecchia = {};
