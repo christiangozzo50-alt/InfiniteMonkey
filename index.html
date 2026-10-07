@@ -82,6 +82,7 @@
   .riga-tot { display: flex; align-items: center; gap: 8px; }
   .bottone-condividi { margin-top: 12px; width: 100%; }
   .blocco-ufficio { margin-top: 22px; }
+  .schede-trasf { margin: 0 0 10px; }
   .campione-tit { margin: 0 0 4px; font-weight: 800; font-size: 16px; color: var(--banana); }
   .campione-sotto { margin: 0 0 12px; color: var(--spento); font-size: 13.5px; line-height: 1.45; }
   #bAdmin { width: 100%; margin-top: 12px; }
@@ -1057,8 +1058,7 @@
       <button class="pulsante secondario piccolo" id="bImpLingua" data-t="cambia"></button>
     </div>
     <div class="azioni">
-      <button class="pulsante secondario" id="bEsporta">📤 <span data-t="imp_esporta"></span></button>
-      <button class="pulsante secondario" id="bImporta">📥 <span data-t="imp_importa"></span></button>
+      <button class="pulsante secondario" id="bTrasferisci">🔄 <span data-t="trasf_tit"></span></button>
       <button class="pulsante secondario" id="bInstalla" hidden>📲 <span data-t="imp_home"></span></button>
       <button class="pulsante secondario" id="bTutorial">📖 <span data-t="tut_rivedi"></span></button>
       <button class="pulsante secondario" id="bMenuPrincipale">🏠 <span data-t="menu_principale"></span></button>
@@ -1066,7 +1066,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 31</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 32</p>
   </div>
 </div>
 
@@ -1262,7 +1262,11 @@
 <div class="velo basso sopra" id="veloTrasferisci">
   <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="titTrasf">
     <div class="maniglia"></div>
-    <h2 id="titTrasf"></h2>
+    <h2 id="titTrasf">🔄 <span data-t="trasf_tit"></span></h2>
+    <div class="segmenti schede-trasf" role="group">
+      <button data-trasf="esporta" aria-pressed="true">📤 <span data-t="imp_esporta"></span></button>
+      <button data-trasf="importa" aria-pressed="false">📥 <span data-t="imp_importa"></span></button>
+    </div>
     <p class="sotto" id="sottoTrasf"></p>
     <textarea id="codiceTrasf" class="codice-trasf" rows="6" spellcheck="false" autocomplete="off" autocapitalize="off"></textarea>
     <p class="stato-cl" id="statoTrasf"></p>
@@ -1768,7 +1772,8 @@
       ev_nome_direttore: "Arriva il direttore",
       ev_desc_direttore: "Per 30 secondi tutti lavorano 3 volte più veloci.",
       ev_nome_blackout: "Black-out",
-      ev_desc_blackout: "Per 20 secondi la velocità è dimezzata. Per fortuna succede di rado."
+      ev_desc_blackout: "Per 20 secondi la velocità è dimezzata. Per fortuna succede di rado.",
+      trasf_tit: "Trasferisci account"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -2157,7 +2162,8 @@
       ev_nome_direttore: "The boss is coming",
       ev_desc_direttore: "For 30 seconds everyone works 3 times faster.",
       ev_nome_blackout: "Blackout",
-      ev_desc_blackout: "For 20 seconds speed is halved. Luckily it's rare."
+      ev_desc_blackout: "For 20 seconds speed is halved. Luckily it's rare.",
+      trasf_tit: "Transfer account"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -2546,7 +2552,8 @@
       ev_nome_direttore: "Llega el jefe",
       ev_desc_direttore: "Durante 30 segundos todos trabajan 3 veces más rápido.",
       ev_nome_blackout: "Apagón",
-      ev_desc_blackout: "Durante 20 segundos la velocidad se reduce a la mitad. Por suerte pasa poco."
+      ev_desc_blackout: "Durante 20 segundos la velocidad se reduce a la mitad. Por suerte pasa poco.",
+      trasf_tit: "Transferir cuenta"
     },
 
     // ------------------------------------------------------------- 中文
@@ -2935,7 +2942,8 @@
       ev_nome_direttore: "老板来了",
       ev_desc_direttore: "30 秒内所有人的速度提高到 3 倍。",
       ev_nome_blackout: "停电",
-      ev_desc_blackout: "20 秒内速度减半。好在很少发生。"
+      ev_desc_blackout: "20 秒内速度减半。好在很少发生。",
+      trasf_tit: "转移账号"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -3324,7 +3332,8 @@
       ev_nome_direttore: "Le patron arrive",
       ev_desc_direttore: "Pendant 30 secondes, tout le monde travaille 3 fois plus vite.",
       ev_nome_blackout: "Panne de courant",
-      ev_desc_blackout: "Pendant 20 secondes, la vitesse est divisée par deux. Heureusement, c'est rare."
+      ev_desc_blackout: "Pendant 20 secondes, la vitesse est divisée par deux. Heureusement, c'est rare.",
+      trasf_tit: "Transférer le compte"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -3714,7 +3723,8 @@
       ev_nome_direttore: "Идёт начальник",
       ev_desc_direttore: "30 секунд все работают в 3 раза быстрее.",
       ev_nome_blackout: "Отключили свет",
-      ev_desc_blackout: "20 секунд скорость вдвое меньше. К счастью, это бывает редко."
+      ev_desc_blackout: "20 секунд скорость вдвое меньше. К счастью, это бывает редко.",
+      trasf_tit: "Перенос аккаунта"
     }
   };
 
@@ -6532,7 +6542,9 @@
     },
     // scrive le righe del giocatore appena cambia qualcosa (frase, parola, record, nome),
     // al massimo una volta ogni 10 secondi: gli altri giocatori le vedono aggiornarsi da sole
-    async pubblicaRiga() {
+    async pubblicaRiga(subito = false) {
+      if (subito && this.attesaRiga) { clearTimeout(this.attesaRiga); this.attesaRiga = null; }
+      if (subito && this.scrivendoRiga) { this.riprova = true; return; }
       if (!this.pronto || !this.id || this.solaLettura || this.scrivendoRiga || this.attesaRiga) return;
       const daScrivere = [];
       for (const m of MODI) {
@@ -6543,7 +6555,7 @@
       }
       this.pubblicaProfilo();
       if (!daScrivere.length) return;
-      const attesa = 10000 - (Date.now() - (this.ultimaScrittura || 0));
+      const attesa = subito ? 0 : 10000 - (Date.now() - (this.ultimaScrittura || 0));
       if (attesa > 0) {
         this.attesaRiga = setTimeout(() => { this.attesaRiga = null; this.pubblicaRiga(); }, attesa);
         return;
@@ -6568,6 +6580,7 @@
         if (codice === "invalid_argument" || codice === "permission-denied") { this.solaLettura = true; this.disegna(); }
       }
       this.scrivendoRiga = false;
+      if (this.riprova) { this.riprova = false; this.pubblicaRiga(true); }
     },
     async disegna() {
       const box = document.querySelector(".riquadro-classifica");
@@ -6604,12 +6617,13 @@
         const titolo = r.fraseId === "mio" ? t("cl_mio") : (OPERE.some(o => o.id === r.fraseId) ? operaCorrente(r.fraseId).titolo : "");
         const posEl = document.createElement("span"); posEl.className = "pos";
         posEl.textContent = k === 0 ? "🥇" : k === 1 ? "🥈" : k === 2 ? "🥉" : String(k + 1);
+        const io = r.id === this.id, sc = aspetto();
         const img = document.createElement("span"); img.className = "avatar-pg";
-        mostraAvatar(img, r.avatar);
+        mostraAvatar(img, io ? sc.avatar : r.avatar);
         const chi = document.createElement("span"); chi.className = "chi";
         const b = document.createElement("b");
         const nomeEl = document.createElement("span");
-        mostraNome(nomeEl, chiNome, r.colore, r.effetto);
+        mostraNome(nomeEl, io ? ((G.nick || "").trim() || chiNome) : chiNome, io ? sc.colore : r.colore, io ? sc.effetto : r.effetto);
         b.appendChild(nomeEl);
         if (r.id === this.id) b.appendChild(document.createTextNode(" (" + t("cl_tu") + ")"));
         const sm = document.createElement("small");
@@ -7128,7 +7142,7 @@
     if (o.t === "a") a.avatar = id; else if (o.t === "c") a.colore = id; else a.effetto = id;
     G.aspetto = a;
     salva();
-    Online.pubblicaRiga();
+    Online.pubblicaRiga(true);
     Online.pubblicaProfilo(true);
     Online.disegna();
   }
@@ -7664,7 +7678,7 @@
     if (altri.includes(nome.toLowerCase())) { $("statoNome").textContent = t("nome_preso"); return; }
     G.nick = nome;
     salva();
-    Online.pubblicaRiga();
+    Online.pubblicaRiga(true);
     Online.disegna();
     scriviImpostazioni();
     chiudi("veloNome");
@@ -7725,7 +7739,7 @@
   }
   async function apriEsporta() {
     R.trasferimento = "esporta";
-    $("titTrasf").textContent = "📤 " + t("imp_esporta");
+    document.querySelectorAll("[data-trasf]").forEach(b => b.setAttribute("aria-pressed", b.dataset.trasf === "esporta"));
     $("sottoTrasf").textContent = t("tr_esp_sotto");
     $("codiceTrasf").readOnly = false;   // modificabile: su iPhone così si può sempre selezionare e copiare
     $("codiceTrasf").value = "…";
@@ -7737,7 +7751,7 @@
   }
   function apriImporta() {
     R.trasferimento = "importa";
-    $("titTrasf").textContent = "📥 " + t("imp_importa");
+    document.querySelectorAll("[data-trasf]").forEach(b => b.setAttribute("aria-pressed", b.dataset.trasf === "importa"));
     $("sottoTrasf").textContent = t("tr_imp_sotto");
     $("codiceTrasf").readOnly = false;
     $("codiceTrasf").value = "";
@@ -8179,8 +8193,8 @@
     $("bNomeAnnulla").onclick = () => { dopoNome = null; chiudi("veloNome"); };
     $("bImpNome").onclick = () => chiediNome(null, true);
     $("campoNome").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); confermaNome(); } });
-    $("bEsporta").onclick = () => { chiudi("veloImpostazioni"); apriEsporta(); };
-    $("bImporta").onclick = () => { chiudi("veloImpostazioni"); apriImporta(); };
+    $("bTrasferisci").onclick = () => { chiudi("veloImpostazioni"); apriEsporta(); };
+    document.querySelectorAll("[data-trasf]").forEach(b => b.onclick = () => (b.dataset.trasf === "esporta" ? apriEsporta() : apriImporta()));
     $("bTrasfAzione").onclick = azioneTrasferimento;
     $("bTrasfChiudi").onclick = () => chiudi("veloTrasferisci");
     $("veloTrasferisci").onclick = e => { if (e.target.id === "veloTrasferisci") chiudi("veloTrasferisci"); };
