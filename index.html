@@ -208,14 +208,43 @@
   .pa-testo { font-family: var(--tasti); font-size: 19px; line-height: 1.45; margin: 0 0 14px; white-space: pre-wrap; word-break: break-word; max-height: 40vh; overflow-y: auto; }
   .pa-firma { font-family: var(--tasti); font-size: 14px; color: #6b6455; text-align: right; margin: 0; }
   /* eventi in ufficio */
+  .barra-evento { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 8px; }
+  .barra-evento[hidden], .cesto[hidden] { display: none; }
   .evento-chip {
-    position: fixed; z-index: 25; left: 50%; transform: translateX(-50%); top: calc(84px + env(safe-area-inset-top, 0px));
-    background: var(--banana); color: var(--banana-inchiostro); font-weight: 800; font-size: 14px; border-radius: 999px;
-    padding: 6px 14px; box-shadow: 0 8px 20px -8px rgba(0, 0, 0, .6); white-space: nowrap; animation: chip-entra .4s ease-out;
+    background: var(--foglia-2); color: var(--spento); font-weight: 700; font-size: 13px; border-radius: 999px;
+    padding: 5px 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: calc(100% - 40px);
   }
+  .evento-chip.attivo { background: var(--banana); color: var(--banana-inchiostro); font-weight: 800; animation: chip-entra .4s ease-out; }
   .evento-chip.negativo { background: var(--nastro); color: #fff; }
-  .evento-chip[hidden], .cesto[hidden] { display: none; }
-  @keyframes chip-entra { from { opacity: 0; transform: translate(-50%, -10px); } }
+  @keyframes chip-entra { from { opacity: 0; transform: translateY(-6px); } }
+  .barra-evento .info-i { width: 24px; height: 24px; font-size: 13px; flex: none; }
+  .lista-eventi { display: grid; gap: 8px; margin: 6px 0 12px; }
+  .ev-voce { display: grid; grid-template-columns: 40px 1fr; gap: 10px; align-items: center; background: var(--foglia-2); border-radius: 14px; padding: 10px 12px; }
+  .ev-voce .ico { font-size: 28px; text-align: center; }
+  .ev-voce b { display: block; font-size: 15px; }
+  .ev-voce small { color: var(--spento); font-size: 13px; line-height: 1.4; }
+  .ev-voce.ora { box-shadow: inset 0 0 0 2px var(--banana); }
+  /* effetti a schermo degli eventi (non bloccano i tocchi) */
+  .effetti { position: fixed; inset: 0; pointer-events: none; z-index: 15; overflow: hidden; }
+  .coriandolo { position: absolute; top: -24px; width: 8px; height: 14px; border-radius: 2px; will-change: transform;
+    animation: coriandolo var(--t) linear forwards; }
+  @keyframes coriandolo { to { transform: translate(var(--x), 110vh) rotate(var(--g)); } }
+  .nota { position: absolute; bottom: -50px; font-size: var(--d); color: var(--c); font-weight: 800; will-change: transform;
+    text-shadow: 0 0 10px var(--c); animation: nota var(--t) ease-out forwards; }
+  @keyframes nota { 50% { transform: translate(var(--x1), -55vh) rotate(-12deg); } to { transform: translate(var(--x2), -112vh) rotate(12deg); opacity: 0; } }
+  .lampo { position: absolute; inset: 0; animation: lampo .8s ease-out forwards; }
+  @keyframes lampo { from { opacity: .45; } to { opacity: 0; } }
+  .vignetta { position: absolute; inset: 0; animation: vignetta 1.4s ease-in-out infinite alternate; }
+  @keyframes vignetta { from { box-shadow: inset 0 0 50px 4px rgba(255, 140, 0, .25); } to { box-shadow: inset 0 0 120px 20px rgba(255, 140, 0, .55); } }
+  .passa { position: absolute; bottom: 130px; left: -90px; font-size: 60px; animation: passa 4.5s linear forwards; }
+  @keyframes passa { 0% { transform: translateX(0); } 100% { transform: translateX(calc(100vw + 180px)); } }
+  .buio { position: absolute; inset: 0; background: radial-gradient(circle at 50% 42%, rgba(0, 0, 0, .2) 0, rgba(0, 0, 0, .85) 62%);
+    animation: buio 2.6s steps(1) infinite; }
+  @keyframes buio { 0%, 5%, 9%, 100% { opacity: 1; } 6% { opacity: .35; } 7% { opacity: .9; } 8% { opacity: .5; } }
+  .scintilla { position: absolute; font-size: var(--d); animation: scintilla 1.4s ease-out forwards; }
+  @keyframes scintilla { from { transform: scale(.2); opacity: 1; } to { transform: scale(1.3) translateY(-30px); opacity: 0; } }
+  .cesto.brilla { box-shadow: 0 0 0 6px rgba(255, 210, 63, .35), 0 0 30px 10px rgba(255, 210, 63, .55); }
+  @media (prefers-reduced-motion: reduce) { .effetti { display: none; } }
   .cesto {
     position: fixed; z-index: 26; width: 74px; height: 74px; border-radius: 50%; border: 0; font-size: 44px; line-height: 1;
     background: radial-gradient(circle, var(--accento-tenue), transparent 70%); animation: cesto-salta 1s ease-in-out infinite;
@@ -817,7 +846,12 @@
     <span class="gettone">⌨️ <span id="hTasti">0</span></span>
     <button class="tondo" id="bImpostazioni" data-t-aria="impostazioni">⚙️</button>
   </div>
+  <div class="colonna barra-evento" id="barraEvento" hidden>
+    <span class="evento-chip" id="eventoChip"></span>
+    <button class="info-i" id="bEvInfo" aria-label="info">i</button>
+  </div>
 </header>
+<div class="effetti" id="effetti" aria-hidden="true"></div>
 
 <div class="avvisi" id="avvisi" role="status" aria-live="polite"></div>
 
@@ -1032,7 +1066,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 30</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 31</p>
   </div>
 </div>
 
@@ -1069,8 +1103,18 @@
 </div>
 
 <!-- =============== EVENTI IN UFFICIO =============== -->
-<div class="evento-chip" id="eventoChip" hidden></div>
 <button class="cesto" id="cesto" hidden aria-label="🧺">🧺</button>
+
+<!-- =============== INFO SUGLI EVENTI =============== -->
+<div class="velo basso sopra" id="veloEventi">
+  <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="titEventi">
+    <div class="maniglia"></div>
+    <h2 id="titEventi" data-t="ev_info_tit"></h2>
+    <p class="sotto" data-t="ev_info_sotto"></p>
+    <div class="lista-eventi" id="listaEventi"></div>
+    <div class="azioni"><button class="pulsante secondario" id="bEvChiudi" data-t="chiudi"></button></div>
+  </div>
+</div>
 
 <!-- =============== APERTURA DI UNA CASSA =============== -->
 <div class="velo centro sopra" id="veloCassa">
@@ -1710,7 +1754,21 @@
       tipo1_e: "Scritta animata",
       lbl_record_sempre: "Record di sempre:",
       camp_tit: "🏆 La scimmia del record",
-      camp_sotto: "Tra tutte le tue scimmie, è quella che ha scritto più lettere giuste di fila partendo dall'inizio della frase. Ecco fin dove è arrivata:"
+      camp_sotto: "Tra tutte le tue scimmie, è quella che ha scritto più lettere giuste di fila partendo dall'inizio della frase. Ecco fin dove è arrivata:",
+      ev_info_tit: "🎲 Eventi in ufficio",
+      ev_info_sotto: "Ogni 4-8 minuti, mentre giochi, in ufficio succede qualcosa. Gli eventi cambiano solo la velocità o le banane, mai la fortuna.",
+      ev_prossimo: "Prossimo evento tra {t}",
+      ev_breve: "Prossimo evento: a breve",
+      ev_nome_festa: "Festa dell'ufficio",
+      ev_desc_festa: "Per 60 secondi tutte le scimmie battono il doppio dei tasti.",
+      ev_nome_musica: "Musica in ufficio",
+      ev_desc_musica: "Per 2 minuti le scimmie battono 1,5 volte più veloci.",
+      ev_nome_cesto: "Cesto di banane",
+      ev_desc_cesto: "Compare un cesto sullo schermo: toccalo entro 15 secondi per ricevere 2 minuti di banane.",
+      ev_nome_direttore: "Arriva il direttore",
+      ev_desc_direttore: "Per 30 secondi tutti lavorano 3 volte più veloci.",
+      ev_nome_blackout: "Black-out",
+      ev_desc_blackout: "Per 20 secondi la velocità è dimezzata. Per fortuna succede di rado."
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -2085,7 +2143,21 @@
       tipo1_e: "Animated name",
       lbl_record_sempre: "All-time record:",
       camp_tit: "🏆 The record monkey",
-      camp_sotto: "Of all your monkeys, this is the one that typed the most correct letters in a row from the start of the phrase. Here's how far it got:"
+      camp_sotto: "Of all your monkeys, this is the one that typed the most correct letters in a row from the start of the phrase. Here's how far it got:",
+      ev_info_tit: "🎲 Office events",
+      ev_info_sotto: "Every 4-8 minutes while you play, something happens in the office. Events only change speed or bananas, never luck.",
+      ev_prossimo: "Next event in {t}",
+      ev_breve: "Next event: soon",
+      ev_nome_festa: "Office party",
+      ev_desc_festa: "For 60 seconds every monkey types twice as many keys.",
+      ev_nome_musica: "Music in the office",
+      ev_desc_musica: "For 2 minutes the monkeys type 1.5 times faster.",
+      ev_nome_cesto: "Basket of bananas",
+      ev_desc_cesto: "A basket appears on the screen: tap it within 15 seconds to get 2 minutes' worth of bananas.",
+      ev_nome_direttore: "The boss is coming",
+      ev_desc_direttore: "For 30 seconds everyone works 3 times faster.",
+      ev_nome_blackout: "Blackout",
+      ev_desc_blackout: "For 20 seconds speed is halved. Luckily it's rare."
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -2460,7 +2532,21 @@
       tipo1_e: "Letras animadas",
       lbl_record_sempre: "Récord histórico:",
       camp_tit: "🏆 El mono del récord",
-      camp_sotto: "De todos tus monos, es el que ha escrito más letras correctas seguidas desde el principio de la frase. Hasta aquí ha llegado:"
+      camp_sotto: "De todos tus monos, es el que ha escrito más letras correctas seguidas desde el principio de la frase. Hasta aquí ha llegado:",
+      ev_info_tit: "🎲 Eventos en la oficina",
+      ev_info_sotto: "Cada 4-8 minutos, mientras juegas, pasa algo en la oficina. Los eventos solo cambian la velocidad o los plátanos, nunca la suerte.",
+      ev_prossimo: "Próximo evento en {t}",
+      ev_breve: "Próximo evento: enseguida",
+      ev_nome_festa: "Fiesta en la oficina",
+      ev_desc_festa: "Durante 60 segundos todos los monos teclean el doble.",
+      ev_nome_musica: "Música en la oficina",
+      ev_desc_musica: "Durante 2 minutos los monos teclean 1,5 veces más rápido.",
+      ev_nome_cesto: "Cesta de plátanos",
+      ev_desc_cesto: "Aparece una cesta en la pantalla: tócala antes de 15 segundos para recibir 2 minutos de plátanos.",
+      ev_nome_direttore: "Llega el jefe",
+      ev_desc_direttore: "Durante 30 segundos todos trabajan 3 veces más rápido.",
+      ev_nome_blackout: "Apagón",
+      ev_desc_blackout: "Durante 20 segundos la velocidad se reduce a la mitad. Por suerte pasa poco."
     },
 
     // ------------------------------------------------------------- 中文
@@ -2835,7 +2921,21 @@
       tipo1_e: "动态字",
       lbl_record_sempre: "历史纪录：",
       camp_tit: "🏆 纪录猴子",
-      camp_sotto: "在你所有的猴子中，它从句子开头连续打对的字母最多。它打到了这里："
+      camp_sotto: "在你所有的猴子中，它从句子开头连续打对的字母最多。它打到了这里：",
+      ev_info_tit: "🎲 办公室事件",
+      ev_info_sotto: "游戏进行时，每隔 4 到 8 分钟办公室里就会发生点什么。事件只改变速度或香蕉，从不改变运气。",
+      ev_prossimo: "下一个事件：{t} 后",
+      ev_breve: "下一个事件：马上",
+      ev_nome_festa: "办公室派对",
+      ev_desc_festa: "60 秒内所有猴子的按键数翻倍。",
+      ev_nome_musica: "办公室音乐",
+      ev_desc_musica: "2 分钟内猴子打字速度提高到 1.5 倍。",
+      ev_nome_cesto: "一篮香蕉",
+      ev_desc_cesto: "屏幕上出现一个篮子：15 秒内点击它，获得 2 分钟的香蕉。",
+      ev_nome_direttore: "老板来了",
+      ev_desc_direttore: "30 秒内所有人的速度提高到 3 倍。",
+      ev_nome_blackout: "停电",
+      ev_desc_blackout: "20 秒内速度减半。好在很少发生。"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -3210,7 +3310,21 @@
       tipo1_e: "Nom animé",
       lbl_record_sempre: "Record absolu :",
       camp_tit: "🏆 Le singe du record",
-      camp_sotto: "De tous tes singes, c'est celui qui a écrit le plus de lettres justes d'affilée depuis le début de la phrase. Voici jusqu'où il est arrivé :"
+      camp_sotto: "De tous tes singes, c'est celui qui a écrit le plus de lettres justes d'affilée depuis le début de la phrase. Voici jusqu'où il est arrivé :",
+      ev_info_tit: "🎲 Événements au bureau",
+      ev_info_sotto: "Toutes les 4 à 8 minutes, pendant que tu joues, il se passe quelque chose au bureau. Les événements ne changent que la vitesse ou les bananes, jamais la chance.",
+      ev_prossimo: "Prochain événement dans {t}",
+      ev_breve: "Prochain événement : bientôt",
+      ev_nome_festa: "Fête au bureau",
+      ev_desc_festa: "Pendant 60 secondes, tous les singes tapent deux fois plus de touches.",
+      ev_nome_musica: "Musique au bureau",
+      ev_desc_musica: "Pendant 2 minutes, les singes tapent 1,5 fois plus vite.",
+      ev_nome_cesto: "Panier de bananes",
+      ev_desc_cesto: "Un panier apparaît à l'écran : touche-le en moins de 15 secondes pour recevoir 2 minutes de bananes.",
+      ev_nome_direttore: "Le patron arrive",
+      ev_desc_direttore: "Pendant 30 secondes, tout le monde travaille 3 fois plus vite.",
+      ev_nome_blackout: "Panne de courant",
+      ev_desc_blackout: "Pendant 20 secondes, la vitesse est divisée par deux. Heureusement, c'est rare."
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -3586,7 +3700,21 @@
       tipo1_e: "Анимированное имя",
       lbl_record_sempre: "Рекорд за всё время:",
       camp_tit: "🏆 Обезьяна-рекордсменка",
-      camp_sotto: "Из всех твоих обезьян именно она напечатала больше всего верных букв подряд с начала фразы. Вот докуда она дошла:"
+      camp_sotto: "Из всех твоих обезьян именно она напечатала больше всего верных букв подряд с начала фразы. Вот докуда она дошла:",
+      ev_info_tit: "🎲 События в офисе",
+      ev_info_sotto: "Каждые 4–8 минут, пока ты играешь, в офисе что-то происходит. События меняют только скорость или бананы, но никогда — удачу.",
+      ev_prossimo: "Следующее событие через {t}",
+      ev_breve: "Следующее событие: скоро",
+      ev_nome_festa: "Праздник в офисе",
+      ev_desc_festa: "60 секунд все обезьяны печатают вдвое больше.",
+      ev_nome_musica: "Музыка в офисе",
+      ev_desc_musica: "2 минуты обезьяны печатают в 1,5 раза быстрее.",
+      ev_nome_cesto: "Корзина бананов",
+      ev_desc_cesto: "На экране появляется корзина: нажми на неё за 15 секунд и получи бананы за 2 минуты.",
+      ev_nome_direttore: "Идёт начальник",
+      ev_desc_direttore: "30 секунд все работают в 3 раза быстрее.",
+      ev_nome_blackout: "Отключили свет",
+      ev_desc_blackout: "20 секунд скорость вдвое меньше. К счастью, это бывает редко."
     }
   };
 
@@ -7264,25 +7392,108 @@
     { id: "blackout", peso: 10, molt: 0.5, durata: 20, ico: "🔌" }
   ];
   const prossimoEvento = () => Date.now() + (4 + Math.random() * 4) * 60000;   // tra 4 e 8 minuti
+  const mmss = sec => Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0");
+  // barra sotto i numeri in alto: evento in corso (nome, effetto, tempo) oppure quanto manca al prossimo
+  function scriviBarraEvento() {
+    const ora = Date.now(), chip = $("eventoChip");
+    $("barraEvento").hidden = !!R.nelMenu;
+    if (R.evento) {
+      const resto = Math.max(0, Math.ceil((R.evento.fine - ora) / 1000));
+      chip.className = "evento-chip attivo" + (R.evento.molt && R.evento.molt < 1 ? " negativo" : "");
+      chip.textContent = `${R.evento.ico} ${t("ev_nome_" + R.evento.id)}` + (R.evento.molt ? ` · ×${decimale(R.evento.molt)}` : "") + ` · ${mmss(resto)}`;
+    } else {
+      const manca = Math.ceil(((R.prossimoEvento || ora) - ora) / 1000);
+      chip.className = "evento-chip";
+      chip.textContent = "⏳ " + (manca > 0 ? t("ev_prossimo", { t: mmss(manca) }) : t("ev_breve"));
+    }
+  }
+  function apriInfoEventi() {
+    const box = $("listaEventi");
+    box.innerHTML = "";
+    for (const ev of EVENTI) {
+      const d = document.createElement("div");
+      d.className = "ev-voce" + (R.evento && R.evento.id === ev.id ? " ora" : "");
+      d.innerHTML = `<span class="ico">${ev.ico}</span><span><b></b><small></small></span>`;
+      d.querySelector("b").textContent = t("ev_nome_" + ev.id);
+      d.querySelector("small").textContent = t("ev_desc_" + ev.id);
+      box.appendChild(d);
+    }
+    apri("veloEventi");
+  }
+  // effetti a schermo a tema con l'evento (all'inizio e poi ogni secondo finché dura)
+  function effettiEvento(id, inizio) {
+    const box = $("effetti");
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const largo = window.innerWidth || 400;
+    const aggiungi = (el, durata) => { box.appendChild(el); setTimeout(() => el.remove(), durata); };
+    const caso = (a, b) => a + Math.random() * (b - a);
+    if (inizio) {
+      box.innerHTML = "";
+      if (id === "festa") {
+        const l = document.createElement("div"); l.className = "lampo";
+        l.style.background = "radial-gradient(circle, rgba(255,94,94,.6), rgba(167,139,250,.4), transparent 70%)";
+        aggiungi(l, 900);
+      }
+      if (id === "direttore") {
+        const v = document.createElement("div"); v.className = "vignetta"; box.appendChild(v);
+        const p = document.createElement("div"); p.className = "passa"; p.textContent = "👔💼"; aggiungi(p, 4600);
+      }
+      if (id === "blackout") { const b = document.createElement("div"); b.className = "buio"; box.appendChild(b); }
+      if (id === "cesto") {
+        $("cesto").classList.add("brilla");
+        for (let k = 0; k < 14; k++) {
+          const sc = document.createElement("span"); sc.className = "scintilla"; sc.textContent = k % 3 ? "✨" : "🍌";
+          sc.style.left = caso(0, largo - 30) + "px"; sc.style.top = caso(15, 85) + "vh";
+          sc.style.setProperty("--d", Math.round(caso(18, 34)) + "px"); sc.style.animationDelay = Math.round(caso(0, 600)) + "ms";
+          aggiungi(sc, 2200);
+        }
+      }
+    }
+    if (id === "festa") {
+      const colori = ["#ff5e5e", "#ffd23f", "#4ade80", "#38bdf8", "#a78bfa", "#ff8ab3"];
+      for (let k = 0; k < 16; k++) {
+        const c = document.createElement("span"); c.className = "coriandolo";
+        c.style.left = caso(-20, largo) + "px"; c.style.background = colori[k % colori.length];
+        c.style.setProperty("--t", Math.round(caso(1800, 3200)) + "ms"); c.style.setProperty("--x", Math.round(caso(-60, 60)) + "px");
+        c.style.setProperty("--g", Math.round(caso(-720, 720)) + "deg"); c.style.animationDelay = Math.round(caso(0, 900)) + "ms";
+        aggiungi(c, 4300);
+      }
+    }
+    if (id === "musica") {
+      const note = ["♪", "♫", "♬", "♩"], colori = ["#ffd23f", "#a78bfa", "#38bdf8", "#ff8ab3"];
+      for (let k = 0; k < 3; k++) {
+        const n = document.createElement("span"); n.className = "nota"; n.textContent = note[Math.floor(Math.random() * note.length)];
+        n.style.left = caso(0, largo - 30) + "px"; n.style.setProperty("--c", colori[Math.floor(Math.random() * colori.length)]);
+        n.style.setProperty("--d", Math.round(caso(24, 44)) + "px"); n.style.setProperty("--t", Math.round(caso(3500, 5500)) + "ms");
+        n.style.setProperty("--x1", Math.round(caso(-40, 40)) + "px"); n.style.setProperty("--x2", Math.round(caso(-60, 60)) + "px");
+        n.style.animationDelay = Math.round(caso(0, 800)) + "ms";
+        aggiungi(n, 6500);
+      }
+    }
+  }
+  function fermaEffetti() {
+    $("effetti").innerHTML = "";
+    $("cesto").classList.remove("brilla");
+  }
   function gestisciEventi() {
     const ora = Date.now();
     if (!R.prossimoEvento) R.prossimoEvento = prossimoEvento();
-    const chip = $("eventoChip");
-    if (!R.evento) { chip.hidden = true; $("cesto").hidden = true; }
+    if (!R.evento) {
+      $("cesto").hidden = true;
+      if ($("effetti").querySelector(".vignetta, .buio")) fermaEffetti();   // effetti rimasti da un evento interrotto
+    }
     if (R.evento) {
       const resto = Math.ceil((R.evento.fine - ora) / 1000);
       if (resto <= 0) {
         R.evento = null;
-        chip.hidden = true;
         $("cesto").hidden = true;
+        fermaEffetti();
         R.prossimoEvento = prossimoEvento();
-      } else if (R.evento.molt) {
-        chip.hidden = false;
-        chip.className = "evento-chip" + (R.evento.molt < 1 ? " negativo" : "");
-        chip.textContent = `${R.evento.ico} ×${decimale(R.evento.molt)} · ${resto} s`;
-      }
+      } else effettiEvento(R.evento.id, false);
+      scriviBarraEvento();
       return;
     }
+    scriviBarraEvento();
     // niente eventi nel menu, durante l'introduzione o il tutorial, o se nessuno sta scrivendo
     if (R.nelMenu || passoTut >= 0 || !$("intro").hidden || tastiAlSecondo() <= 0 || ora < R.prossimoEvento) return;
     let tiro = Math.random() * EVENTI.reduce((n, e) => n + e.peso, 0);
@@ -7296,6 +7507,8 @@
     }
     avviso(t("ev_" + ev.id), ev.molt && ev.molt < 1 ? "" : "oro");
     if (ev.molt && ev.molt > 1) Suono.traguardo();
+    effettiEvento(ev.id, true);
+    scriviBarraEvento();
   }
   function raccogliCesto() {
     if (!R.evento || R.evento.id !== "cesto") return;
@@ -7303,6 +7516,7 @@
     G.banane += premio;
     $("cesto").hidden = true;
     R.evento.fine = Date.now();
+    fermaEffetti();
     Suono.moneta();
     avviso(t("ev_cesto_ok", { n: fmt(premio) }), "oro");
   }
@@ -7935,6 +8149,9 @@
     $("bNotifiche").onclick = cambiaNotifiche;
     $("veloPagina").onclick = e => { if (e.target.id === "veloPagina") chiudi("veloPagina"); };
     $("cesto").onclick = raccogliCesto;
+    $("bEvInfo").onclick = apriInfoEventi;
+    $("bEvChiudi").onclick = () => chiudi("veloEventi");
+    $("veloEventi").onclick = e => { if (e.target.id === "veloEventi") chiudi("veloEventi"); };
     $("bPubblica").onclick = pubblica;
     $("bNomeOk").onclick = confermaNome;
     $("bNovTour").onclick = () => chiudiNovita(true);
