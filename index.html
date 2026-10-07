@@ -159,6 +159,16 @@
   .ic-ogg small { color: var(--spento); font-size: 11px; font-weight: 600; }
   .ic-ogg.mio { box-shadow: inset 0 0 0 2px var(--menta, #74d394); }
   .avatar-pg.rar-4 { animation: anello-mitico 2.4s ease-in-out infinite alternate; }
+  .avatar-pg.rar-5 { animation: anello-esclusivo 1.6s linear infinite; }
+  @keyframes anello-esclusivo {
+    0% { box-shadow: 0 0 0 3px #fff6c9, 0 0 18px #ffd23f; } 50% { box-shadow: 0 0 0 3px #e0f2fe, 0 0 22px #7dd3fc; } 100% { box-shadow: 0 0 0 3px #fff6c9, 0 0 18px #ffd23f; }
+  }
+  .rarc-5 { background: linear-gradient(90deg, #fff6c9, #ffd23f, #7dd3fc, #fff6c9); background-size: 300% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent !important; animation: e-scorri 2.5s linear infinite; }
+  .e_leggenda { background-image: linear-gradient(90deg, #ffd23f, #ffffff, #7dd3fc, #ffffff, #ffd23f); background-size: 300% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent !important;
+    animation: e-scorri 2s linear infinite, e-leggenda 1.2s ease-in-out infinite; }
+  @keyframes e-leggenda { 50% { filter: drop-shadow(0 0 10px rgba(255, 210, 63, .95)); } }
   @keyframes anello-mitico {
     from { box-shadow: 0 0 0 2px #ff4fd8, 0 0 14px rgba(255, 79, 216, .7); }
     to { box-shadow: 0 0 0 2px #00f5d4, 0 0 18px rgba(0, 245, 212, .7); }
@@ -1193,7 +1203,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 49</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 51</p>
   </div>
 </div>
 
@@ -2085,7 +2095,13 @@
       nov4_1: "⚖️ Economia rifatta per durare: si progredisce in modo regolare giorno dopo giorno, senza numeri che esplodono",
       nov4_2: "🏆 Frasi e traguardi premiano con minuti di produzione; l'Asilo arriva al massimo al livello 10",
       nov4_3: "🍼 Pubblicando, i cuccioli restano: niente più giorni fermi dopo una pubblicazione",
-      tour4_1: "⚖️ I prezzi ora crescono di più per i potenziamenti avanzati: comprarne tanti è un obiettivo, non una formalità."
+      tour4_1: "⚖️ I prezzi ora crescono di più per i potenziamenti avanzati: comprarne tanti è un obiettivo, non una formalità.",
+      rar_5: "Esclusivo",
+      es_restano: "ne restano {n} su {m}",
+      es_offline: "serve la classifica online",
+      nome_controllo: "Controllo che il nome sia libero…",
+      nome_cambia: "Il tuo nome è già usato da un altro giocatore: scegline uno nuovo.",
+      cassa_diamante: "Cassa di diamante"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -2623,7 +2639,13 @@
       nov4_1: "⚖️ Economy rebuilt to last: steady progress day after day, with no exploding numbers",
       nov4_2: "🏆 Phrases and goals reward minutes of production; the Nursery tops out at level 10",
       nov4_3: "🍼 When you publish, the babies stay: no more stuck days after a publication",
-      tour4_1: "⚖️ Prices now grow faster for advanced upgrades: buying lots of them is a goal, not a formality."
+      tour4_1: "⚖️ Prices now grow faster for advanced upgrades: buying lots of them is a goal, not a formality.",
+      rar_5: "Exclusive",
+      es_restano: "{n} of {m} left",
+      es_offline: "needs the online leaderboard",
+      nome_controllo: "Checking the name is free…",
+      nome_cambia: "Your name is already used by another player: pick a new one.",
+      cassa_diamante: "Diamond crate"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -3161,7 +3183,13 @@
       nov4_1: "⚖️ Economía rehecha para durar: progreso regular día tras día, sin números que explotan",
       nov4_2: "🏆 Frases y logros premian con minutos de producción; la Guardería llega como máximo al nivel 10",
       nov4_3: "🍼 Al publicar, las crías se quedan: se acabaron los días parados después de publicar",
-      tour4_1: "⚖️ Los precios ahora suben más en las mejoras avanzadas: comprar muchas es un objetivo, no un trámite."
+      tour4_1: "⚖️ Los precios ahora suben más en las mejoras avanzadas: comprar muchas es un objetivo, no un trámite.",
+      rar_5: "Exclusivo",
+      es_restano: "quedan {n} de {m}",
+      es_offline: "necesita la clasificación online",
+      nome_controllo: "Comprobando que el nombre esté libre…",
+      nome_cambia: "Otro jugador ya usa tu nombre: elige uno nuevo.",
+      cassa_diamante: "Caja de diamante"
     },
 
     // ------------------------------------------------------------- 中文
@@ -3699,7 +3727,13 @@
       nov4_1: "⚖️ 重做了经济系统：每天稳定进步，数字不会再爆炸",
       nov4_2: "🏆 句子和成就的奖励改为若干分钟的产量；托儿所最高 10 级",
       nov4_3: "🍼 出版时幼崽会保留：出版后不会再卡住好几天",
-      tour4_1: "⚖️ 高级升级的价格现在涨得更快：大量购买是目标，而不是走过场。"
+      tour4_1: "⚖️ 高级升级的价格现在涨得更快：大量购买是目标，而不是走过场。",
+      rar_5: "独家",
+      es_restano: "还剩 {n} / {m}",
+      es_offline: "需要连接在线排行榜",
+      nome_controllo: "正在检查名字是否可用…",
+      nome_cambia: "你的名字已被其他玩家使用，请换一个。",
+      cassa_diamante: "钻石箱"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -4237,7 +4271,13 @@
       nov4_1: "⚖️ Économie refaite pour durer : une progression régulière jour après jour, sans chiffres qui explosent",
       nov4_2: "🏆 Phrases et succès rapportent des minutes de production ; la Crèche s'arrête au niveau 10",
       nov4_3: "🍼 En publiant, les petits restent : fini les jours bloqués après une publication",
-      tour4_1: "⚖️ Les prix montent maintenant plus vite pour les améliorations avancées : en acheter beaucoup est un objectif, pas une formalité."
+      tour4_1: "⚖️ Les prix montent maintenant plus vite pour les améliorations avancées : en acheter beaucoup est un objectif, pas une formalité.",
+      rar_5: "Exclusif",
+      es_restano: "il en reste {n} sur {m}",
+      es_offline: "nécessite le classement en ligne",
+      nome_controllo: "Vérification que le nom est libre…",
+      nome_cambia: "Ton nom est déjà utilisé par un autre joueur : choisis-en un nouveau.",
+      cassa_diamante: "Coffre de diamant"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -4776,7 +4816,13 @@
       nov4_1: "⚖️ Экономика переделана, чтобы хватило надолго: ровный прогресс день за днём, без взрывающихся чисел",
       nov4_2: "🏆 Фразы и награды дают минуты производства; Ясли — максимум 10 уровней",
       nov4_3: "🍼 При публикации детёныши остаются: больше никаких застрявших дней после публикации",
-      tour4_1: "⚖️ Цены продвинутых улучшений теперь растут быстрее: купить их много — это цель, а не формальность."
+      tour4_1: "⚖️ Цены продвинутых улучшений теперь растут быстрее: купить их много — это цель, а не формальность.",
+      rar_5: "Эксклюзив",
+      es_restano: "осталось {n} из {m}",
+      es_offline: "нужен онлайн-рейтинг",
+      nome_controllo: "Проверяем, свободно ли имя…",
+      nome_cambia: "Твоё имя уже занято другим игроком: выбери новое.",
+      cassa_diamante: "Алмазный сундук"
     }
   };
 
@@ -8469,7 +8515,7 @@
   function gioca() {
     Suono.sblocca();
     // chi non ha ancora un nome lo sceglie adesso (i nuovi giocatori subito, gli altri al prossimo accesso)
-    if (!(G.nick || "").trim()) { chiediNome(gioca); return; }
+    if (!(G.nick || "").trim() || G.nomeDaCambiare) { chiediNome(gioca); if (G.nomeDaCambiare) $("statoNome").textContent = t("nome_cambia"); return; }
     $("menuIniziale").hidden = true;
     R.nelMenu = false;
     $("bMenuPrincipale").hidden = false;
@@ -8559,15 +8605,49 @@
   // =====================================================================
   //  PERSONALIZZAZIONE E NEGOZIO: avatar, colori del nome, scritte animate (solo estetica)
   // =====================================================================
-  const ESTETICI = [{"id": "a_scimmia", "t": "a", "v": "🐒", "r": 0, "g": true}, {"id": "a_nonvedo", "t": "a", "v": "🙈", "r": 0, "g": true}, {"id": "a_banana", "t": "a", "v": "🍌", "r": 0, "g": true}, {"id": "a_nonsento", "t": "a", "v": "🙉", "r": 0, "g": false}, {"id": "a_nonparlo", "t": "a", "v": "🙊", "r": 0, "g": false}, {"id": "a_muso", "t": "a", "v": "🐵", "r": 0, "g": false}, {"id": "a_gorilla", "t": "a", "v": "🦍", "r": 0, "g": false}, {"id": "a_orango", "t": "a", "v": "🦧", "r": 0, "g": false}, {"id": "a_palma", "t": "a", "v": "🌴", "r": 0, "g": false}, {"id": "a_pergamena", "t": "a", "v": "📜", "r": 1, "g": false}, {"id": "a_penna", "t": "a", "v": "✍️", "r": 1, "g": false}, {"id": "a_tastiera", "t": "a", "v": "⌨️", "r": 1, "g": false}, {"id": "a_cilindro", "t": "a", "v": "🎩", "r": 1, "g": false}, {"id": "a_occhiali", "t": "a", "v": "🕶️", "r": 1, "g": false}, {"id": "a_cuffie", "t": "a", "v": "🎧", "r": 1, "g": false}, {"id": "a_ananas", "t": "a", "v": "🍍", "r": 1, "g": false}, {"id": "a_corona", "t": "a", "v": "👑", "r": 2, "g": false}, {"id": "a_robot", "t": "a", "v": "🤖", "r": 2, "g": false}, {"id": "a_alieno", "t": "a", "v": "👽", "r": 2, "g": false}, {"id": "a_unicorno", "t": "a", "v": "🦄", "r": 2, "g": false}, {"id": "a_drago", "t": "a", "v": "🐉", "r": 2, "g": false}, {"id": "a_mago", "t": "a", "v": "🧙", "r": 2, "g": false}, {"id": "a_galassia", "t": "a", "v": "🌌", "r": 3, "g": false}, {"id": "a_diamante", "t": "a", "v": "💎", "r": 3, "g": false}, {"id": "a_fuoco", "t": "a", "v": "🔥", "r": 3, "g": false}, {"id": "a_arcobaleno", "t": "a", "v": "🌈", "r": 3, "g": false}, {"id": "c_bianco", "t": "c", "v": "", "r": 0, "g": true}, {"id": "c_banana", "t": "c", "v": "#ffd23f", "r": 0, "g": true}, {"id": "c_menta", "t": "c", "v": "#74d394", "r": 0, "g": true}, {"id": "c_cielo", "t": "c", "v": "#7ec4ff", "r": 0, "g": false}, {"id": "c_rosa", "t": "c", "v": "#ff8ab3", "r": 0, "g": false}, {"id": "c_arancio", "t": "c", "v": "#ff9f43", "r": 0, "g": false}, {"id": "c_lavanda", "t": "c", "v": "#b98cff", "r": 1, "g": false}, {"id": "c_corallo", "t": "c", "v": "#ff7f66", "r": 1, "g": false}, {"id": "c_oro", "t": "c", "v": "#f2c14e", "r": 1, "g": false}, {"id": "c_smeraldo", "t": "c", "v": "#2ee59d", "r": 1, "g": false}, {"id": "c_tramonto", "t": "c", "v": "linear-gradient(90deg,#ff8a5c,#ff2a6d)", "r": 2, "g": false}, {"id": "c_oceano", "t": "c", "v": "linear-gradient(90deg,#3ee0d0,#2f7de1)", "r": 2, "g": false}, {"id": "e_nessuno", "t": "e", "v": "", "r": 0, "g": true}, {"id": "e_bagliore", "t": "e", "v": "", "r": 1, "g": false}, {"id": "e_brillio", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_neon", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_arcobaleno", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_fuoco", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_galassia", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_orofuso", "t": "e", "v": "", "r": 3, "g": false}, {"id": "a_infinita", "t": "a", "v": "♾️", "r": 4, "g": false}, {"id": "a_bardo", "t": "a", "v": "🎭", "r": 4, "g": false}, {"id": "c_aurora", "t": "c", "v": "linear-gradient(90deg,#00f5d4,#9b5de5,#f15bb5,#fee440)", "r": 4, "g": false}, {"id": "e_infinito", "t": "e", "v": "", "r": 4, "g": false}];
-  const NOMI_ESTETICI = {"c_bianco": {"it": "Bianco", "en": "White", "es": "Blanco", "zh": "白色", "fr": "Blanc", "ru": "Белый"}, "c_banana": {"it": "Banana", "en": "Banana", "es": "Plátano", "zh": "香蕉黄", "fr": "Banane", "ru": "Банановый"}, "c_menta": {"it": "Menta", "en": "Mint", "es": "Menta", "zh": "薄荷绿", "fr": "Menthe", "ru": "Мятный"}, "c_cielo": {"it": "Cielo", "en": "Sky", "es": "Cielo", "zh": "天蓝", "fr": "Ciel", "ru": "Небесный"}, "c_rosa": {"it": "Rosa", "en": "Pink", "es": "Rosa", "zh": "粉红", "fr": "Rose", "ru": "Розовый"}, "c_arancio": {"it": "Arancio", "en": "Orange", "es": "Naranja", "zh": "橙色", "fr": "Orange", "ru": "Оранжевый"}, "c_lavanda": {"it": "Lavanda", "en": "Lavender", "es": "Lavanda", "zh": "薰衣草紫", "fr": "Lavande", "ru": "Лавандовый"}, "c_corallo": {"it": "Corallo", "en": "Coral", "es": "Coral", "zh": "珊瑚红", "fr": "Corail", "ru": "Коралловый"}, "c_oro": {"it": "Oro", "en": "Gold", "es": "Oro", "zh": "金色", "fr": "Or", "ru": "Золотой"}, "c_smeraldo": {"it": "Smeraldo", "en": "Emerald", "es": "Esmeralda", "zh": "翡翠绿", "fr": "Émeraude", "ru": "Изумрудный"}, "c_tramonto": {"it": "Tramonto", "en": "Sunset", "es": "Atardecer", "zh": "日落", "fr": "Coucher de soleil", "ru": "Закат"}, "c_oceano": {"it": "Oceano", "en": "Ocean", "es": "Océano", "zh": "海洋", "fr": "Océan", "ru": "Океан"}, "e_nessuno": {"it": "Nessuna", "en": "None", "es": "Ninguno", "zh": "无", "fr": "Aucun", "ru": "Нет"}, "e_bagliore": {"it": "Bagliore", "en": "Glow", "es": "Brillo", "zh": "光晕", "fr": "Lueur", "ru": "Сияние"}, "e_brillio": {"it": "Scintillio", "en": "Shimmer", "es": "Destello", "zh": "闪光", "fr": "Scintillement", "ru": "Мерцание"}, "e_neon": {"it": "Neon", "en": "Neon", "es": "Neón", "zh": "霓虹", "fr": "Néon", "ru": "Неон"}, "e_arcobaleno": {"it": "Arcobaleno", "en": "Rainbow", "es": "Arcoíris", "zh": "彩虹", "fr": "Arc-en-ciel", "ru": "Радуга"}, "e_fuoco": {"it": "Fuoco", "en": "Fire", "es": "Fuego", "zh": "火焰", "fr": "Feu", "ru": "Огонь"}, "e_galassia": {"it": "Galassia", "en": "Galaxy", "es": "Galaxia", "zh": "星系", "fr": "Galaxie", "ru": "Галактика"}, "e_orofuso": {"it": "Oro fuso", "en": "Molten gold", "es": "Oro fundido", "zh": "熔金", "fr": "Or fondu", "ru": "Расплавленное золото"}, "c_aurora": {"it": "Aurora", "en": "Aurora", "es": "Aurora", "zh": "极光", "fr": "Aurore", "ru": "Сияние зари"}, "e_infinito": {"it": "Infinito", "en": "Infinite", "es": "Infinito", "zh": "无限", "fr": "Infini", "ru": "Бесконечность"}, "a_infinita": {"it": "La Scimmia Infinita", "en": "The Infinite Monkey", "es": "El Mono Infinito", "zh": "无限猴子", "fr": "Le Singe Infini", "ru": "Бесконечная Обезьяна"}, "a_bardo": {"it": "Il Bardo", "en": "The Bard", "es": "El Bardo", "zh": "吟游诗人", "fr": "Le Barde", "ru": "Бард"}};
+  const ESTETICI = [{"id": "a_scimmia", "t": "a", "v": "🐒", "r": 0, "g": true}, {"id": "a_nonvedo", "t": "a", "v": "🙈", "r": 0, "g": true}, {"id": "a_banana", "t": "a", "v": "🍌", "r": 0, "g": true}, {"id": "a_nonsento", "t": "a", "v": "🙉", "r": 0, "g": false}, {"id": "a_nonparlo", "t": "a", "v": "🙊", "r": 0, "g": false}, {"id": "a_muso", "t": "a", "v": "🐵", "r": 0, "g": false}, {"id": "a_gorilla", "t": "a", "v": "🦍", "r": 0, "g": false}, {"id": "a_orango", "t": "a", "v": "🦧", "r": 0, "g": false}, {"id": "a_palma", "t": "a", "v": "🌴", "r": 0, "g": false}, {"id": "a_pergamena", "t": "a", "v": "📜", "r": 1, "g": false}, {"id": "a_penna", "t": "a", "v": "✍️", "r": 1, "g": false}, {"id": "a_tastiera", "t": "a", "v": "⌨️", "r": 1, "g": false}, {"id": "a_cilindro", "t": "a", "v": "🎩", "r": 1, "g": false}, {"id": "a_occhiali", "t": "a", "v": "🕶️", "r": 1, "g": false}, {"id": "a_cuffie", "t": "a", "v": "🎧", "r": 1, "g": false}, {"id": "a_ananas", "t": "a", "v": "🍍", "r": 1, "g": false}, {"id": "a_corona", "t": "a", "v": "👑", "r": 2, "g": false}, {"id": "a_robot", "t": "a", "v": "🤖", "r": 2, "g": false}, {"id": "a_alieno", "t": "a", "v": "👽", "r": 2, "g": false}, {"id": "a_unicorno", "t": "a", "v": "🦄", "r": 2, "g": false}, {"id": "a_drago", "t": "a", "v": "🐉", "r": 2, "g": false}, {"id": "a_mago", "t": "a", "v": "🧙", "r": 2, "g": false}, {"id": "a_galassia", "t": "a", "v": "🌌", "r": 3, "g": false}, {"id": "a_diamante", "t": "a", "v": "💎", "r": 3, "g": false}, {"id": "a_fuoco", "t": "a", "v": "🔥", "r": 3, "g": false}, {"id": "a_arcobaleno", "t": "a", "v": "🌈", "r": 3, "g": false}, {"id": "c_bianco", "t": "c", "v": "", "r": 0, "g": true}, {"id": "c_banana", "t": "c", "v": "#ffd23f", "r": 0, "g": true}, {"id": "c_menta", "t": "c", "v": "#74d394", "r": 0, "g": true}, {"id": "c_cielo", "t": "c", "v": "#7ec4ff", "r": 0, "g": false}, {"id": "c_rosa", "t": "c", "v": "#ff8ab3", "r": 0, "g": false}, {"id": "c_arancio", "t": "c", "v": "#ff9f43", "r": 0, "g": false}, {"id": "c_lavanda", "t": "c", "v": "#b98cff", "r": 1, "g": false}, {"id": "c_corallo", "t": "c", "v": "#ff7f66", "r": 1, "g": false}, {"id": "c_oro", "t": "c", "v": "#f2c14e", "r": 1, "g": false}, {"id": "c_smeraldo", "t": "c", "v": "#2ee59d", "r": 1, "g": false}, {"id": "c_tramonto", "t": "c", "v": "linear-gradient(90deg,#ff8a5c,#ff2a6d)", "r": 2, "g": false}, {"id": "c_oceano", "t": "c", "v": "linear-gradient(90deg,#3ee0d0,#2f7de1)", "r": 2, "g": false}, {"id": "e_nessuno", "t": "e", "v": "", "r": 0, "g": true}, {"id": "e_bagliore", "t": "e", "v": "", "r": 1, "g": false}, {"id": "e_brillio", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_neon", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_arcobaleno", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_fuoco", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_galassia", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_orofuso", "t": "e", "v": "", "r": 3, "g": false}, {"id": "a_infinita", "t": "a", "v": "♾️", "r": 4, "g": false}, {"id": "a_bardo", "t": "a", "v": "🎭", "r": 4, "g": false}, {"id": "c_aurora", "t": "c", "v": "linear-gradient(90deg,#00f5d4,#9b5de5,#f15bb5,#fee440)", "r": 4, "g": false}, {"id": "e_infinito", "t": "e", "v": "", "r": 4, "g": false}, {"id": "a_cappuccino", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_mandrillo", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_neve", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_poeta", "t": "a", "v": "🖋️", "r": 1, "g": false}, {"id": "a_dj", "t": "a", "v": "🎧", "r": 1, "g": false}, {"id": "a_esploratore", "t": "a", "v": "🌴", "r": 1, "g": false}, {"id": "a_re_nero", "t": "a", "v": "👑", "r": 2, "g": false}, {"id": "a_cyborg", "t": "a", "v": "🤖", "r": 2, "g": false}, {"id": "c_lime", "t": "c", "v": "#a3e635", "r": 0, "g": false}, {"id": "c_cremisi", "t": "c", "v": "#dc2626", "r": 1, "g": false}, {"id": "c_glaciale", "t": "c", "v": "linear-gradient(90deg,#e0f2fe,#7dd3fc,#a5b4fc)", "r": 2, "g": false}, {"id": "a_scimmia_oro", "t": "a", "v": "🥇", "r": 5, "g": false}, {"id": "a_primo", "t": "a", "v": "✒️", "r": 5, "g": false}, {"id": "c_platino", "t": "c", "v": "linear-gradient(90deg,#f8fafc,#cbd5e1,#ffffff,#94a3b8)", "r": 5, "g": false}, {"id": "e_leggenda", "t": "e", "v": "", "r": 5, "g": false}];
+  const NOMI_ESTETICI = {"c_bianco": {"it": "Bianco", "en": "White", "es": "Blanco", "zh": "白色", "fr": "Blanc", "ru": "Белый"}, "c_banana": {"it": "Banana", "en": "Banana", "es": "Plátano", "zh": "香蕉黄", "fr": "Banane", "ru": "Банановый"}, "c_menta": {"it": "Menta", "en": "Mint", "es": "Menta", "zh": "薄荷绿", "fr": "Menthe", "ru": "Мятный"}, "c_cielo": {"it": "Cielo", "en": "Sky", "es": "Cielo", "zh": "天蓝", "fr": "Ciel", "ru": "Небесный"}, "c_rosa": {"it": "Rosa", "en": "Pink", "es": "Rosa", "zh": "粉红", "fr": "Rose", "ru": "Розовый"}, "c_arancio": {"it": "Arancio", "en": "Orange", "es": "Naranja", "zh": "橙色", "fr": "Orange", "ru": "Оранжевый"}, "c_lavanda": {"it": "Lavanda", "en": "Lavender", "es": "Lavanda", "zh": "薰衣草紫", "fr": "Lavande", "ru": "Лавандовый"}, "c_corallo": {"it": "Corallo", "en": "Coral", "es": "Coral", "zh": "珊瑚红", "fr": "Corail", "ru": "Коралловый"}, "c_oro": {"it": "Oro", "en": "Gold", "es": "Oro", "zh": "金色", "fr": "Or", "ru": "Золотой"}, "c_smeraldo": {"it": "Smeraldo", "en": "Emerald", "es": "Esmeralda", "zh": "翡翠绿", "fr": "Émeraude", "ru": "Изумрудный"}, "c_tramonto": {"it": "Tramonto", "en": "Sunset", "es": "Atardecer", "zh": "日落", "fr": "Coucher de soleil", "ru": "Закат"}, "c_oceano": {"it": "Oceano", "en": "Ocean", "es": "Océano", "zh": "海洋", "fr": "Océan", "ru": "Океан"}, "e_nessuno": {"it": "Nessuna", "en": "None", "es": "Ninguno", "zh": "无", "fr": "Aucun", "ru": "Нет"}, "e_bagliore": {"it": "Bagliore", "en": "Glow", "es": "Brillo", "zh": "光晕", "fr": "Lueur", "ru": "Сияние"}, "e_brillio": {"it": "Scintillio", "en": "Shimmer", "es": "Destello", "zh": "闪光", "fr": "Scintillement", "ru": "Мерцание"}, "e_neon": {"it": "Neon", "en": "Neon", "es": "Neón", "zh": "霓虹", "fr": "Néon", "ru": "Неон"}, "e_arcobaleno": {"it": "Arcobaleno", "en": "Rainbow", "es": "Arcoíris", "zh": "彩虹", "fr": "Arc-en-ciel", "ru": "Радуга"}, "e_fuoco": {"it": "Fuoco", "en": "Fire", "es": "Fuego", "zh": "火焰", "fr": "Feu", "ru": "Огонь"}, "e_galassia": {"it": "Galassia", "en": "Galaxy", "es": "Galaxia", "zh": "星系", "fr": "Galaxie", "ru": "Галактика"}, "e_orofuso": {"it": "Oro fuso", "en": "Molten gold", "es": "Oro fundido", "zh": "熔金", "fr": "Or fondu", "ru": "Расплавленное золото"}, "c_aurora": {"it": "Aurora", "en": "Aurora", "es": "Aurora", "zh": "极光", "fr": "Aurore", "ru": "Сияние зари"}, "e_infinito": {"it": "Infinito", "en": "Infinite", "es": "Infinito", "zh": "无限", "fr": "Infini", "ru": "Бесконечность"}, "a_infinita": {"it": "La Scimmia Infinita", "en": "The Infinite Monkey", "es": "El Mono Infinito", "zh": "无限猴子", "fr": "Le Singe Infini", "ru": "Бесконечная Обезьяна"}, "a_bardo": {"it": "Il Bardo", "en": "The Bard", "es": "El Bardo", "zh": "吟游诗人", "fr": "Le Barde", "ru": "Бард"}, "c_lime": {"it": "Lime", "en": "Lime", "es": "Lima", "zh": "青柠", "fr": "Citron vert", "ru": "Лайм"}, "c_cremisi": {"it": "Cremisi", "en": "Crimson", "es": "Carmesí", "zh": "深红", "fr": "Cramoisi", "ru": "Багровый"}, "c_glaciale": {"it": "Glaciale", "en": "Glacier", "es": "Glacial", "zh": "冰川", "fr": "Glacier", "ru": "Ледяной"}, "c_platino": {"it": "Platino", "en": "Platinum", "es": "Platino", "zh": "铂金", "fr": "Platine", "ru": "Платина"}, "e_leggenda": {"it": "Leggenda", "en": "Legend", "es": "Leyenda", "zh": "传奇", "fr": "Légende", "ru": "Легенда"}, "a_scimmia_oro": {"it": "La Scimmia d'oro", "en": "The Golden Monkey", "es": "El Mono de oro", "zh": "黄金猴子", "fr": "Le Singe d'or", "ru": "Золотая обезьяна"}, "a_primo": {"it": "Il Primo Scrittore", "en": "The First Writer", "es": "El Primer Escritor", "zh": "第一位作家", "fr": "Le Premier Écrivain", "ru": "Первый писатель"}};
   // probabilità per rarità: comune, raro, epico, leggendario, mitico
   const CASSE = [
     { id: "legno", ico: "📦", costo: 40, prob: [70, 25, 5, 0, 0] },
-    { id: "argento", ico: "🎁", costo: 120, prob: [30, 44.5, 20, 5, 0.5] },
-    { id: "oro", ico: "👑", costo: 360, prob: [0, 30, 48, 20, 2] }
+    { id: "argento", ico: "🎁", costo: 120, prob: [30, 45, 20, 5, 0, 0] },
+    { id: "oro", ico: "👑", costo: 360, prob: [0, 30, 48, 20, 2, 0] },
+    // la cassa più rara: l'unica dove possono uscire gli Esclusivi
+    { id: "diamante", ico: "💎", costo: 1500, prob: [0, 0, 40, 45.5, 14, 0.5] }
   ];
-  const RARITA = [0, 1, 2, 3, 4];
+  const RARITA = [0, 1, 2, 3, 4, 5];
+  // oggetti Esclusivi: ne esistono pochi in tutto il mondo
+  const TIRATURA = { a_scimmia_oro: 10, a_primo: 5, c_platino: 10, e_leggenda: 5 };
+  const Tirature = {
+    conti: null, ultima: 0,
+    disponibili: id => Tirature.conti !== null && (Tirature.conti[id] || 0) < (TIRATURA[id] || 0),
+    async aggiorna(forza) {
+      if (!Sfide.disponibile() || (!forza && Date.now() - this.ultima < 60000)) return;
+      this.ultima = Date.now();
+      try {
+        const snap = await Sfide.base().collection("tirature").get();
+        const conti = {};
+        for (const d of snap.docs) { const x = d.data(); conti[x.item] = (conti[x.item] || 0) + 1; }
+        this.conti = conti;
+      } catch (e) {}
+    },
+    // prende il prossimo numero libero per questo oggetto (n° 1, 2, 3...)
+    async reclama(id) {
+      if (!Sfide.disponibile()) return 0;
+      const base = Sfide.base().collection("tirature");
+      for (let k = (this.conti && this.conti[id] || 0) + 1; k <= TIRATURA[id]; k++) {
+        try {
+          const ref = base.doc(id + "~" + k);
+          const snap = await ref.get();
+          if (snap.exists) continue;
+          await ref.set({ item: id, k, uid: Online.id, nick: G.nick || "", ts: Date.now() });
+          this.conti = { ...(this.conti || {}), [id]: k };
+          return k;
+        } catch (e) {}
+      }
+      return 0;
+    }
+  };
   const estetico = id => ESTETICI.find(x => x.id === id);
   const nomeEstetico = id => (NOMI_ESTETICI[id] ? NOMI_ESTETICI[id][L] || NOMI_ESTETICI[id].it : "");
   const possiede = id => (G.collezione || []).includes(id);
@@ -8603,9 +8683,19 @@
     a_fuoco: { pelo: "#ff6a00", muso: "#ffd08a", sf: "fuoco", acc: "fiamme" },
     a_arcobaleno: { pelo: "#8b5a2b", muso: "#e8c39e", sf: "arcobaleno", acc: "aureola" },
     a_infinita: { pelo: "#2b1b5e", muso: "#c9b8ff", sf: "cosmo", acc: "infinito" },
-    a_bardo: { pelo: "#6b4a2b", muso: "#f0d2b0", sf: "pergamenaoro", acc: "bardo" }
+    a_bardo: { pelo: "#6b4a2b", muso: "#f0d2b0", sf: "pergamenaoro", acc: "bardo" },
+    a_cappuccino: { pelo: "#5a3d2b", muso: "#f2d2b0", sf: "#6b8a3a" },
+    a_mandrillo: { pelo: "#4a4a52", muso: "#d9534f", sf: "#2b4f6b" },
+    a_neve: { pelo: "#e8e8ee", muso: "#f6d6c8", sf: "#5b8fb0" },
+    a_poeta: { pelo: "#7a4a22", muso: "#e8c39e", sf: "#7a2b2b", acc: "penna" },
+    a_dj: { pelo: "#c4561d", muso: "#e9a77c", sf: "#2b2b6b", acc: "cuffie" },
+    a_esploratore: { pelo: "#9c6b3c", muso: "#f0d2b0", sf: "#2f6b4f", acc: "palma" },
+    a_re_nero: { pelo: "#2a2a30", muso: "#8a8590", sf: "#3a1d4a", acc: "corona" },
+    a_cyborg: { pelo: "#c9a227", muso: "#f2e2b0", sf: "#1d2f3a", acc: "robot" },
+    a_scimmia_oro: { pelo: "#e6b422", muso: "#fff1b8", sf: "lingotto", acc: "occhioro" },
+    a_primo: { pelo: "#e8e8ee", muso: "#f7e7c6", sf: "pioggiaoro", acc: "scrittore" }
   };
-  const AV_DIM = [16, 20, 24, 32, 40];
+  const AV_DIM = [16, 20, 24, 32, 40, 48];
   const tinta = (hex, f) => {
     const n = parseInt(hex.slice(1), 16);
     const c = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(v => Math.max(0, Math.min(255, Math.round(f >= 1 ? v + (255 - v) * (f - 1) : v * f))));
@@ -8659,6 +8749,19 @@
       for (let k = 0; k < 24; k++) {
         const x = Math.floor(casoFisso(k + 3) * S), y = Math.floor(casoFisso(k + 90) * S);
         if ((Math.sin(f * 1.1 + k) + 1) / 2 > 0.45) pix(x, y, k % 3 ? "#ffffff" : "#7df9ff");
+      }
+    } else if (st.sf === "pioggiaoro") {
+      // notte d'inchiostro con lettere d'oro che cadono come pioggia
+      ctx.fillStyle = "#0b1230"; ctx.fillRect(0, 0, S, S);
+      for (let x = 1; x < S; x += 3) {
+        const v = 1 + Math.floor(casoFisso(x * 7) * 3), y0 = (f * v + Math.floor(casoFisso(x * 13) * S * 2)) % (S + 12) - 6;
+        for (let k = 0; k < 6; k++) pix(x, y0 - k, k === 0 ? "#fff6c9" : k < 3 ? "#ffd23f" : "#6b5410");
+      }
+    } else if (st.sf === "lingotto") {
+      // oro massiccio con un riflesso che lo attraversa
+      for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
+        const riflesso = ((x + y - f * 3) % 48 + 48) % 48;
+        pix(x, y, riflesso < 3 ? "#fffbe6" : riflesso < 6 ? "#ffe680" : (y < S / 2 ? "#e6b422" : "#c99a1a"));
       }
     } else if (st.sf === "pergamenaoro") {
       // pergamena con righe di testo che scorrono e una cornice d'oro
@@ -8784,6 +8887,30 @@
         metti(8 * u + Math.cos(ang) * 7 * u, 9 * u + Math.sin(ang) * 6 * u, k % 2 ? "#ff4fd8" : "#00f5d4");
       }
     }
+    if (a === "scrittore") {
+      // corona d'alloro d'oro, occhi dorati, sigillo di ceralacca e una grande penna d'oro che gocciola inchiostro
+      for (let k = 0; k <= 14; k++) {
+        const ang = Math.PI * (1.08 + k * 0.06), x = 8 * u + Math.cos(ang) * 5.9 * u, y = 7.6 * u + Math.sin(ang) * 5.9 * u;
+        const x2 = 8 * u - Math.cos(ang) * 5.9 * u;
+        ellisse(x, y, 0.9 * u, 0.5 * u, k % 2 ? "#4d7c0f" : "#84cc16"); ellisse(x2, y, 0.9 * u, 0.5 * u, k % 2 ? "#84cc16" : "#4d7c0f");
+      }
+      cerchio(8 * u, 1.9 * u, 0.7 * u, "#ffd23f");
+      for (const ox of [6.3 * u, 9.7 * u]) { rett(ox - 1, 7 * u, 2, 2, "#ffd23f"); metti(ox - 1, 7 * u, "#ffffff"); }
+      cerchio(8 * u, 14.6 * u, 1.1 * u, "#b91c1c"); metti(7.7 * u, 14.2 * u, "#f87171");
+      for (let k = 0; k < 9 * u; k++) {
+        const x = 15.2 * u - k * 0.45, y = 2.5 * u + k * 0.95;
+        metti(x, y, "#ffd23f"); if (k < 6 * u) { metti(x + 1, y, "#fff6c9"); metti(x + 2, y - 1, "#e6b422"); }
+      }
+      metti(11.1 * u, 11.1 * u, "#1a1a3a");
+      const goccia = (f % 8);
+      if (goccia < 6) metti(11.1 * u, 11.4 * u + goccia, "#1e3a8a");
+    }
+    if (a === "occhioro") {
+      // monocolo d'oro con catenella e piccola corona di lingotti
+      cerchio(9.7 * u, 7.6 * u, 1.6 * u, "#ffd23f"); cerchio(9.7 * u, 7.6 * u, 1.0 * u, "#e0f2fe"); metti(9.4 * u, 7.3 * u, "#ffffff");
+      for (let k = 0; k < 6; k++) metti(11.2 * u + k * 0.3, 8.6 * u + k * 1.0, k % 2 ? "#ffd23f" : "#c99a1a");
+      for (const x of [5.2, 7.2, 9.2]) { rett(x * u, 1.4 * u, 1.6 * u, 1.2 * u, "#ffd23f"); rett(x * u, 1.4 * u, 1.6 * u, 0.4 * u, "#fff6c9"); }
+    }
     if (a === "bardo") {
       // capelli ai lati, orecchino, baffi, gorgiera bianca e penna d'oca con l'inchiostro
       rett(2.4 * u, 5 * u, 1.6 * u, 4.5 * u, "#3a2414"); rett(12 * u, 5 * u, 1.6 * u, 4.5 * u, "#3a2414");
@@ -8836,8 +8963,8 @@
     if (!crepe) return;
     const ctx = cv.getContext && cv.getContext("2d");
     if (!ctx) return;
-    const scuro = { legno: "#1f1206", argento: "#2f3640", oro: "#4a3200" }[id] || "#111111";
-    const luce = { legno: "#e6b37a", argento: "#ffffff", oro: "#fff2a8" }[id] || "#ffffff";
+    const scuro = { legno: "#1f1206", argento: "#2f3640", oro: "#4a3200", diamante: "#1e3a8a" }[id] || "#111111";
+    const luce = { legno: "#e6b37a", argento: "#ffffff", oro: "#fff2a8", diamante: "#ffffff" }[id] || "#ffffff";
     const segmenti = [];
     for (const via of CREPE) for (let k = 0; k < via.length - 1; k++) segmenti.push([via[k], via[k + 1]]);
     const quanti = Math.round(crepe * segmenti.length);
@@ -8875,6 +9002,19 @@
       linea(6, 9, 23, 24, "#e6b37a", 1);
       r(3, 7, 26, 1, "#8a5428"); r(3, 28, 26, 1, "#3a220e");
       for (const [x, y] of [[3, 7], [26, 7], [3, 26], [26, 26]]) { r(x, y, 3, 3, "#9aa3ad"); r(x + 1, y + 1, 1, 1, "#e5e9ee"); }
+    } else if (id === "diamante") {
+      // forziere di cristallo: faccette chiare e scure, bordi bianchi, gemma rosa al centro e scintille
+      r(4, 7, 24, 3, "#bae6fd"); r(3, 10, 26, 6, "#7dd3fc"); r(6, 5, 20, 2, "#e0f2fe");
+      r(3, 16, 26, 13, "#38bdf8"); r(3, 16, 26, 2, "#0ea5e9"); r(3, 28, 26, 1, "#075985");
+      for (let k = 0; k < 6; k++) { r(5 + k * 4, 18 + (k % 2) * 3, 2, 5, "#e0f2fe"); r(6 + k * 4, 19 + (k % 2) * 3, 1, 3, "#ffffff"); }
+      for (let k = 0; k < 5; k++) r(6 + k * 5, 11, 3, 2, k % 2 ? "#e0f2fe" : "#a5b4fc");
+      r(3, 10, 1, 19, "#e0f2fe"); r(28, 10, 1, 19, "#0369a1");
+      r(13, 13, 6, 7, "#1e3a8a"); r(14, 14, 4, 5, "#f472b6"); r(15, 15, 2, 2, "#fbcfe8");
+      const punti = [[4, 4], [27, 5], [28, 18], [2, 22], [16, 2], [22, 27]];
+      for (let k = 0; k < 2; k++) {
+        const [sx, sy] = punti[(f + k * 3) % punti.length];
+        r(sx, sy, 1, 1, "#ffffff"); ctx.fillStyle = "rgba(255,255,255,.6)"; ctx.fillRect(sx - 1, sy, 3, 1); ctx.fillRect(sx, sy - 1, 1, 3);
+      }
     } else if (id === "argento") {
       // valigetta della macchina da scrivere
       r(11, 4, 10, 2, "#6b7280"); r(11, 4, 2, 5, "#6b7280"); r(19, 4, 2, 5, "#6b7280");
@@ -9027,6 +9167,7 @@
   }
   // cosa si trova in una cassa, con le probabilità
   function apriInfoCassa(c) {
+    Tirature.aggiorna(true).then(() => { if (aperto("veloInfoCassa") && !R.giaRidisegnoInfo) { R.giaRidisegnoInfo = true; apriInfoCassa(c); R.giaRidisegnoInfo = false; } });
     $("icTitolo").textContent = t("cassa_" + c.id);
     const ico = $("icIco"); ico.innerHTML = ""; ico.appendChild(canvasCassa(c.id));
     const box = $("icLista");
@@ -9050,6 +9191,7 @@
         else { const sp = document.createElement("span"); mostraNome(sp, nomeEstetico(o.id), o.t === "c" ? o.id : "c_bianco", o.t === "e" ? o.id : "e_nessuno"); d.appendChild(sp); }
         const st = document.createElement("small");
         st.textContent = (possiede(o.id) ? "✓ " : "") + t("tipo1_" + o.t);
+        if (o.r === 5) st.textContent += " · " + (Tirature.conti ? t("es_restano", { n: Math.max(0, TIRATURA[o.id] - (Tirature.conti[o.id] || 0)), m: TIRATURA[o.id] }) : t("es_offline"));
         d.appendChild(st);
         griglia.appendChild(d);
       }
@@ -9058,15 +9200,17 @@
     apri("veloInfoCassa");
   }
   function apriCassa(c) {
+    Tirature.aggiorna();
     const gratis = c.id === "legno" && (G.casseGratis || 0) > 0;
     if (!gratis && (G.pagine || 0) < c.costo) { Suono.nego(); avviso(t("bg_poche", { n: c.costo })); return; }
     // rarità estratta a caso secondo le probabilità della cassa, poi un oggetto che non hai ancora
     let tiro = Math.random() * 100, rar = 0;
     for (const r of RARITA) { tiro -= c.prob[r]; if (tiro < 0) { rar = r; break; } }
-    const mancanti = r => ESTETICI.filter(x => x.r === r && !possiede(x.id));
+    // gli Esclusivi escono solo se ne restano pezzi in giro (e se sei collegato alla classifica online)
+    const mancanti = r => ESTETICI.filter(x => x.r === r && !possiede(x.id) && (r < 5 || Tirature.disponibili(x.id)));
     let scelta = null;
-    for (const r of [rar, rar - 1, rar + 1, rar - 2, rar + 2, rar - 3, rar + 3, rar - 4, rar + 4]) {
-      if (r < 0 || r > 4 || (c.prob[r] === 0 && r !== rar)) continue;
+    for (const r of [rar, rar - 1, rar + 1, rar - 2, rar + 2, rar - 3, rar + 3, rar - 4, rar + 4, rar - 5]) {
+      if (r < 0 || r > 5 || (c.prob[r] === 0 && r !== rar)) continue;
       const lista = mancanti(r);
       if (lista.length) { scelta = lista[Math.floor(Math.random() * lista.length)]; break; }
     }
@@ -9078,6 +9222,7 @@
     const rimborso = gratis ? 2 : Math.ceil(c.costo / 2);
     if (scelta) G.collezione = [...(G.collezione || []), scelta.id];
     else G.pagine += rimborso;
+    if (scelta && scelta.r === 5) Tirature.reclama(scelta.id).then(k => { if (k) { G.copie = { ...(G.copie || {}), [scelta.id]: k }; salva(); } });
     $("cassaPremio").innerHTML = "";
     $("cassaRar").className = "cassa-rar";
     $("bCassaUsa").hidden = true;
@@ -9088,7 +9233,7 @@
     $("cassaIco").className = "cassa-ico da-colpire";
     $("cassaPremio").hidden = true;
     $("cassaAzioni").hidden = true;
-    const servono = { legno: 6, argento: 9, oro: 12 }[c.id] || 6;
+    const servono = { legno: 6, argento: 9, oro: 12, diamante: 18 }[c.id] || 6;
     let colpi = 0;
     const aiuto = () => { $("cassaRar").className = "cassa-rar aiuto-cassa"; $("cassaRar").textContent = t("cassa_tocca", { n: servono - colpi }); };
     aiuto();
@@ -9141,7 +9286,7 @@
   }
   // schegge che volano via dalla cassa colpita
   function schegge(box, id, quante, forte) {
-    const colori = { legno: ["#a86a35", "#d49a5a", "#6b3f1c"], argento: ["#c7ced8", "#ffffff", "#8e97a3"], oro: ["#ffd84d", "#f2c14e", "#fff6c9"] }[id] || ["#ffffff"];
+    const colori = { legno: ["#a86a35", "#d49a5a", "#6b3f1c"], argento: ["#c7ced8", "#ffffff", "#8e97a3"], oro: ["#ffd84d", "#f2c14e", "#fff6c9"], diamante: ["#7dd3fc", "#e0f2fe", "#a5b4fc"] }[id] || ["#ffffff"];
     for (let k = 0; k < quante; k++) {
       const sp = document.createElement("i");
       sp.className = "scheggia";
@@ -9341,6 +9486,8 @@
       } catch (e) {}
       this.aggiornaAscolti();
       this.pubblica(true);
+      controllaNome();
+      Tirature.aggiorna(true);
     },
     // seguo i documenti di chi ho sfidato e di chi ho chiesto come amico, per leggere le loro risposte
     aggiornaAscolti() {
@@ -10045,7 +10192,27 @@
     apri("veloNome");
     setTimeout(() => { try { $("campoNome").focus(); } catch (e) {} }, 300);
   }
-  function confermaNome() {
+  const chiaveNome = nome => nome.normalize("NFKC").toLowerCase().replace(/\s+/g, " ").trim().replace(/[\/\\.#$\[\]~]/g, "_").slice(0, 40) || "_";
+  // prenota il nome nel registro online: false = già di un altro, true = ok, null = non controllabile ora
+  async function prenotaNome(nome, vecchio) {
+    if (!Sfide.disponibile()) return null;
+    const base = Sfide.base().collection("nomi");
+    try {
+      const ref = base.doc(chiaveNome(nome));
+      const snap = await ref.get();
+      if (snap.exists && snap.data().uid !== Online.id) return false;
+      await ref.set({ uid: Online.id, nick: nome, ts: Date.now() });
+      if (vecchio && chiaveNome(vecchio) !== chiaveNome(nome)) { try { await base.doc(chiaveNome(vecchio)).delete(); } catch (e) {} }
+      return true;
+    } catch (e) { return null; }
+  }
+  // all'avvio: se il tuo nome risulta di un altro giocatore, te ne fa scegliere un altro
+  async function controllaNome() {
+    if (!(G.nick || "").trim()) return;
+    const ok = await prenotaNome(G.nick);
+    if (ok === false) { G.nomeDaCambiare = true; salva(); }
+  }
+  async function confermaNome() {
     const nome = $("campoNome").value.replace(/\s+/g, " ").trim().slice(0, 20);
     if ([...nome].length < 2) { $("statoNome").textContent = t("nome_corto"); return; }
     // nomi già usati da altri giocatori nelle classifiche
@@ -10053,6 +10220,10 @@
       .filter(r => r.id !== Online.id && typeof r.nick === "string")
       .map(r => r.nick.trim().toLowerCase());
     if (altri.includes(nome.toLowerCase())) { $("statoNome").textContent = t("nome_preso"); return; }
+    $("statoNome").textContent = t("nome_controllo");
+    const libero = await prenotaNome(nome, G.nick);
+    if (libero === false) { $("statoNome").textContent = t("nome_preso"); return; }
+    G.nomeDaCambiare = false;
     G.nick = nome;
     salva();
     Online.pubblicaRiga(true);
