@@ -80,6 +80,35 @@
   .cassa .tot { font-family: var(--ui); font-size: 30px; font-weight: 800; line-height: 1; color: var(--banana); }
   .cassa .rit { font-size: 13px; color: var(--spento); margin-top: 3px; }
   .riga-tot { display: flex; align-items: center; gap: 8px; }
+  .bottone-condividi { margin-top: 12px; width: 100%; }
+  /* collezione di pagine autografe */
+  .griglia-pagine { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 10px; }
+  .mini-pagina {
+    background: var(--carta); color: var(--inchiostro); border: 0; border-radius: 8px; padding: 12px 10px; text-align: left;
+    box-shadow: 0 4px 0 -2px #d4ccb4, 0 10px 18px -10px rgba(0, 0, 0, .6); min-height: 110px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .mini-pagina b { font-family: var(--tasti); font-size: 14px; line-height: 1.25; }
+  .mini-pagina small { color: #6b6455; font-size: 11.5px; margin-top: auto; }
+  .pagina-autografa {
+    background: var(--carta); color: var(--inchiostro); border-radius: 10px; padding: 22px 18px 16px; margin: 6px 0 10px;
+    box-shadow: 0 8px 0 -3px #d4ccb4, 0 16px 0 -6px #c7bfa6, 0 22px 30px -12px rgba(0, 0, 0, .6);
+  }
+  .pa-testo { font-family: var(--tasti); font-size: 19px; line-height: 1.45; margin: 0 0 14px; white-space: pre-wrap; word-break: break-word; max-height: 40vh; overflow-y: auto; }
+  .pa-firma { font-family: var(--tasti); font-size: 14px; color: #6b6455; text-align: right; margin: 0; }
+  /* eventi in ufficio */
+  .evento-chip {
+    position: fixed; z-index: 25; left: 50%; transform: translateX(-50%); top: calc(84px + env(safe-area-inset-top, 0px));
+    background: var(--banana); color: var(--banana-inchiostro); font-weight: 800; font-size: 14px; border-radius: 999px;
+    padding: 6px 14px; box-shadow: 0 8px 20px -8px rgba(0, 0, 0, .6); white-space: nowrap; animation: chip-entra .4s ease-out;
+  }
+  .evento-chip.negativo { background: var(--nastro); color: #fff; }
+  .evento-chip[hidden], .cesto[hidden] { display: none; }
+  @keyframes chip-entra { from { opacity: 0; transform: translate(-50%, -10px); } }
+  .cesto {
+    position: fixed; z-index: 26; width: 74px; height: 74px; border-radius: 50%; border: 0; font-size: 44px; line-height: 1;
+    background: radial-gradient(circle, var(--accento-tenue), transparent 70%); animation: cesto-salta 1s ease-in-out infinite;
+  }
+  @keyframes cesto-salta { 50% { transform: translateY(-10px) rotate(-6deg); } }
   .cartelle { display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 8px; margin: 0 0 4px; scrollbar-width: none; }
   .cartelle::-webkit-scrollbar { display: none; }
   .cartella {
@@ -711,6 +740,7 @@
         <span><span data-t="lbl_prossimo"></span> <b id="dProssimo"></b></span>
         <span><span data-t="lbl_attesa"></span> <b id="dAttesa"></b></span>
       </div>
+      <button class="pulsante secondario piccolo bottone-condividi" id="bCondividiRecord" data-t="cond_record_btn"></button>
     </div>
     </div>
   </section>
@@ -872,9 +902,30 @@
       <button class="pulsante secondario" id="bChiudiImpostazioni" data-t="chiudi"></button>
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
-    <p class="versione-gioco">Scimmie infinite · versione 19</p>
+    <p class="versione-gioco">Scimmie infinite · versione 20</p>
   </div>
 </div>
+
+<!-- =============== PAGINA AUTOGRAFA (collezione) =============== -->
+<div class="velo basso sopra" id="veloPagina">
+  <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="titPagina">
+    <div class="maniglia"></div>
+    <h2 id="titPagina" data-t="pag_tit"></h2>
+    <div class="pagina-autografa">
+      <p class="pa-testo" id="paTesto"></p>
+      <p class="pa-firma" id="paFirma"></p>
+    </div>
+    <p class="tappe-info" id="paInfo"></p>
+    <div class="azioni">
+      <button class="pulsante" id="bCondividiPagina" data-t="cond_btn"></button>
+      <button class="pulsante secondario" id="bChiudiPagina" data-t="chiudi"></button>
+    </div>
+  </div>
+</div>
+
+<!-- =============== EVENTI IN UFFICIO =============== -->
+<div class="evento-chip" id="eventoChip" hidden></div>
+<button class="cesto" id="cesto" hidden aria-label="🧺">🧺</button>
 
 <!-- =============== SCELTA DEL NOME =============== -->
 <div class="velo centro sopra" id="veloNome">
@@ -990,6 +1041,7 @@
     <p id="testoFine"></p>
     <div class="azioni">
       <button class="pulsante" id="bProssima"></button>
+      <button class="pulsante secondario" id="bCondividiFine" data-t="cond_btn"></button>
       <button class="pulsante secondario" id="bScegli" data-t="scegli_bib"></button>
     </div>
   </div>
@@ -1282,7 +1334,25 @@
       tut_b12: "🏆 In Traguardi trovi tanti obiettivi divisi per categoria: quando ne completi uno, tocca Riscuoti per ricevere banane extra.",
       tut_b13: "📓 Nel Diario ci sono le tue statistiche e tre classifiche, una per ogni difficoltà: vince chi completa la frase più lunga.",
       tut_b14: "📚 Qui scegli la frase da scrivere, divisa in cartelle: frasi celebri, poesie, libri, teatro, canzoni, film e meme. Puoi anche scrivere un testo tuo.",
-      tut_b15: "⚙️ Nelle Impostazioni cambi nome, tema, lingua e musica, e puoi esportare la partita per giocarla su un altro telefono."
+      tut_b15: "⚙️ Nelle Impostazioni cambi nome, tema, lingua e musica, e puoi esportare la partita per giocarla su un altro telefono.",
+      coll_chip: "📜 Pagine",
+      coll_vuota: "Ancora nessuna pagina: completa una frase per ricevere la sua pagina autografa, scritta dalla scimmia vincitrice.",
+      pag_tit: "📜 Pagina autografa",
+      pag_firma: "{chi}, {data}",
+      pag_sconosciuta: "pagina ritrovata (data sconosciuta)",
+      pag_nuova: "📜 Nuova pagina autografa nella tua collezione (Biblioteca → Pagine)",
+      cond_btn: "📤 Condividi",
+      cond_record_btn: "📤 Condividi il record",
+      cond_testo: "Le mie scimmie stanno scrivendo «{titolo}» su Scimmie infinite! 🐒",
+      cond_errore: "Non è stato possibile creare l'immagine.",
+      img_record: "Record: {r} di {l} caratteri",
+      img_completata: "Frase completata!",
+      ev_festa: "🎉 Festa dell'ufficio! Velocità ×2 per 60 secondi",
+      ev_musica: "🎵 Musica in ufficio: velocità ×1,5 per 2 minuti",
+      ev_cesto: "🧺 Un cesto di banane! Toccalo prima che sparisca",
+      ev_direttore: "👔 Arriva il direttore! Tutti battono ×3 per 30 secondi",
+      ev_blackout: "🔌 Black-out! Velocità dimezzata per 20 secondi",
+      ev_cesto_ok: "🧺 Cesto raccolto: +{n} banane!"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -1536,7 +1606,25 @@
       tut_b12: "🏆 In Goals you'll find lots of objectives by category: when you complete one, tap Claim to get extra bananas.",
       tut_b13: "📓 The Journal has your statistics and three leaderboards, one per difficulty: whoever completes the longest phrase wins.",
       tut_b14: "📚 Here you choose the phrase to type, sorted into folders: famous quotes, poems, books, theatre, songs, films and memes. You can also write your own text.",
-      tut_b15: "⚙️ In Settings you change your name, theme, language and music, and you can export your game to play it on another phone."
+      tut_b15: "⚙️ In Settings you change your name, theme, language and music, and you can export your game to play it on another phone.",
+      coll_chip: "📜 Pages",
+      coll_vuota: "No pages yet: complete a phrase to get its autograph page, typed by the winning monkey.",
+      pag_tit: "📜 Autograph page",
+      pag_firma: "{chi}, {data}",
+      pag_sconosciuta: "recovered page (unknown date)",
+      pag_nuova: "📜 New autograph page in your collection (Library → Pages)",
+      cond_btn: "📤 Share",
+      cond_record_btn: "📤 Share the record",
+      cond_testo: "My monkeys are typing “{titolo}” in Infinite Monkeys! 🐒",
+      cond_errore: "The image couldn't be created.",
+      img_record: "Record: {r} of {l} characters",
+      img_completata: "Phrase completed!",
+      ev_festa: "🎉 Office party! Speed ×2 for 60 seconds",
+      ev_musica: "🎵 Music in the office: speed ×1.5 for 2 minutes",
+      ev_cesto: "🧺 A basket of bananas! Tap it before it disappears",
+      ev_direttore: "👔 The boss is coming! Everyone types ×3 for 30 seconds",
+      ev_blackout: "🔌 Blackout! Speed halved for 20 seconds",
+      ev_cesto_ok: "🧺 Basket collected: +{n} bananas!"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -1790,7 +1878,25 @@
       tut_b12: "🏆 En Logros hay muchos objetivos por categoría: cuando completes uno, toca Cobrar para recibir plátanos extra.",
       tut_b13: "📓 En el Diario están tus estadísticas y tres clasificaciones, una por dificultad: gana quien completa la frase más larga.",
       tut_b14: "📚 Aquí eliges la frase que escribir, ordenada en carpetas: frases célebres, poemas, libros, teatro, canciones, películas y memes. También puedes escribir un texto tuyo.",
-      tut_b15: "⚙️ En Ajustes cambias nombre, tema, idioma y música, y puedes exportar la partida para jugarla en otro teléfono."
+      tut_b15: "⚙️ En Ajustes cambias nombre, tema, idioma y música, y puedes exportar la partida para jugarla en otro teléfono.",
+      coll_chip: "📜 Páginas",
+      coll_vuota: "Todavía no hay páginas: completa una frase para recibir su página autógrafa, escrita por el mono ganador.",
+      pag_tit: "📜 Página autógrafa",
+      pag_firma: "{chi}, {data}",
+      pag_sconosciuta: "página recuperada (fecha desconocida)",
+      pag_nuova: "📜 Nueva página autógrafa en tu colección (Biblioteca → Páginas)",
+      cond_btn: "📤 Compartir",
+      cond_record_btn: "📤 Compartir el récord",
+      cond_testo: "¡Mis monos están escribiendo «{titolo}» en Monos infinitos! 🐒",
+      cond_errore: "No se ha podido crear la imagen.",
+      img_record: "Récord: {r} de {l} caracteres",
+      img_completata: "¡Frase completada!",
+      ev_festa: "🎉 ¡Fiesta en la oficina! Velocidad ×2 durante 60 segundos",
+      ev_musica: "🎵 Música en la oficina: velocidad ×1,5 durante 2 minutos",
+      ev_cesto: "🧺 ¡Una cesta de plátanos! Tócala antes de que desaparezca",
+      ev_direttore: "👔 ¡Llega el jefe! Todos teclean ×3 durante 30 segundos",
+      ev_blackout: "🔌 ¡Apagón! Velocidad a la mitad durante 20 segundos",
+      ev_cesto_ok: "🧺 Cesta recogida: +{n} plátanos!"
     },
 
     // ------------------------------------------------------------- 中文
@@ -2044,7 +2150,25 @@
       tut_b12: "🏆 “成就”里有很多按类别划分的目标：完成一个后，点“领取”获得额外香蕉。",
       tut_b13: "📓 “日志”里有你的统计数据和三个排行榜，每个难度一个：完成最长句子的人获胜。",
       tut_b14: "📚 在这里选择要打的句子，按文件夹分类：名言、诗歌、书籍、戏剧、歌曲、电影和网络梗。你也可以写自己的文字。",
-      tut_b15: "⚙️ 在“设置”里可以修改名字、主题、语言和音乐，还可以导出存档，在另一部手机上继续玩。"
+      tut_b15: "⚙️ 在“设置”里可以修改名字、主题、语言和音乐，还可以导出存档，在另一部手机上继续玩。",
+      coll_chip: "📜 手稿",
+      coll_vuota: "还没有手稿：完成一句话，就能得到获胜猴子写下的亲笔手稿。",
+      pag_tit: "📜 亲笔手稿",
+      pag_firma: "{chi}，{data}",
+      pag_sconosciuta: "找回的手稿（日期未知）",
+      pag_nuova: "📜 你的收藏里有了新的亲笔手稿（书库 → 手稿）",
+      cond_btn: "📤 分享",
+      cond_record_btn: "📤 分享纪录",
+      cond_testo: "我的猴子正在《无限猴子》里打“{titolo}”！🐒",
+      cond_errore: "无法生成图片。",
+      img_record: "纪录：{r}/{l} 个字符",
+      img_completata: "句子完成！",
+      ev_festa: "🎉 办公室派对！速度 ×2，持续 60 秒",
+      ev_musica: "🎵 办公室里放起了音乐：速度 ×1.5，持续 2 分钟",
+      ev_cesto: "🧺 一篮香蕉！在它消失前点一下",
+      ev_direttore: "👔 老板来了！所有人打字 ×3，持续 30 秒",
+      ev_blackout: "🔌 停电了！速度减半，持续 20 秒",
+      ev_cesto_ok: "🧺 收下了篮子：+{n} 根香蕉！"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -2298,7 +2422,25 @@
       tut_b12: "🏆 Dans Succès, il y a plein d'objectifs par catégorie : quand tu en termines un, touche Récupérer pour recevoir des bananes en plus.",
       tut_b13: "📓 Le Journal contient tes statistiques et trois classements, un par difficulté : celui qui termine la phrase la plus longue gagne.",
       tut_b14: "📚 Ici tu choisis la phrase à écrire, rangée dans des dossiers : citations célèbres, poèmes, livres, théâtre, chansons, films et mèmes. Tu peux aussi écrire ton propre texte.",
-      tut_b15: "⚙️ Dans les Réglages, tu changes ton nom, le thème, la langue et la musique, et tu peux exporter ta partie pour y jouer sur un autre téléphone."
+      tut_b15: "⚙️ Dans les Réglages, tu changes ton nom, le thème, la langue et la musique, et tu peux exporter ta partie pour y jouer sur un autre téléphone.",
+      coll_chip: "📜 Pages",
+      coll_vuota: "Pas encore de pages : termine une phrase pour recevoir sa page autographe, écrite par le singe gagnant.",
+      pag_tit: "📜 Page autographe",
+      pag_firma: "{chi}, {data}",
+      pag_sconosciuta: "page retrouvée (date inconnue)",
+      pag_nuova: "📜 Nouvelle page autographe dans ta collection (Bibliothèque → Pages)",
+      cond_btn: "📤 Partager",
+      cond_record_btn: "📤 Partager le record",
+      cond_testo: "Mes singes écrivent « {titolo} » dans Singes infinis ! 🐒",
+      cond_errore: "Impossible de créer l'image.",
+      img_record: "Record : {r} sur {l} caractères",
+      img_completata: "Phrase terminée !",
+      ev_festa: "🎉 Fête au bureau ! Vitesse ×2 pendant 60 secondes",
+      ev_musica: "🎵 Musique au bureau : vitesse ×1,5 pendant 2 minutes",
+      ev_cesto: "🧺 Un panier de bananes ! Touche-le avant qu'il disparaisse",
+      ev_direttore: "👔 Le patron arrive ! Tout le monde tape ×3 pendant 30 secondes",
+      ev_blackout: "🔌 Panne de courant ! Vitesse divisée par deux pendant 20 secondes",
+      ev_cesto_ok: "🧺 Panier ramassé : +{n} bananes !"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -2553,7 +2695,25 @@
       tut_b12: "🏆 В «Наградах» много целей по категориям: выполнив одну, нажми «Забрать», чтобы получить дополнительные бананы.",
       tut_b13: "📓 В «Дневнике» — твоя статистика и три рейтинга, по одному на сложность: побеждает тот, кто завершит самую длинную фразу.",
       tut_b14: "📚 Здесь выбирается фраза, разложенная по папкам: знаменитые фразы, стихи, книги, театр, песни, фильмы и мемы. Можно написать и свой текст.",
-      tut_b15: "⚙️ В «Настройках» меняются имя, тема, язык и музыка, а ещё можно экспортировать игру, чтобы играть на другом телефоне."
+      tut_b15: "⚙️ В «Настройках» меняются имя, тема, язык и музыка, а ещё можно экспортировать игру, чтобы играть на другом телефоне.",
+      coll_chip: "📜 Страницы",
+      coll_vuota: "Пока нет страниц: заверши фразу, чтобы получить её рукописную страницу, напечатанную обезьяной-победительницей.",
+      pag_tit: "📜 Рукописная страница",
+      pag_firma: "{chi}, {data}",
+      pag_sconosciuta: "найденная страница (дата неизвестна)",
+      pag_nuova: "📜 Новая рукописная страница в твоей коллекции (Библиотека → Страницы)",
+      cond_btn: "📤 Поделиться",
+      cond_record_btn: "📤 Поделиться рекордом",
+      cond_testo: "Мои обезьяны печатают «{titolo}» в «Бесконечных обезьянах»! 🐒",
+      cond_errore: "Не удалось создать изображение.",
+      img_record: "Рекорд: {r} из {l} символов",
+      img_completata: "Фраза завершена!",
+      ev_festa: "🎉 Праздник в офисе! Скорость ×2 на 60 секунд",
+      ev_musica: "🎵 Музыка в офисе: скорость ×1,5 на 2 минуты",
+      ev_cesto: "🧺 Корзина бананов! Нажми, пока она не исчезла",
+      ev_direttore: "👔 Идёт начальник! Все печатают ×3 30 секунд",
+      ev_blackout: "🔌 Отключили свет! Скорость вдвое меньше на 20 секунд",
+      ev_cesto_ok: "🧺 Корзина собрана: +{n} бананов!"
     }
   };
 
@@ -3836,7 +3996,7 @@
     for (const p of POT) liv[p.id] = 0;
     return {
       operaId: "eureka", testoMio: "", record: 0, recordChi: 0, recordTs: 0, opereFatte: [],
-      archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, ufficioVuoto: true, paroleInOrdine: true, paroleScimmie: {}, parolaCasualeMax: 0, completateModo: {}, raccoltoRun: 0, pagine: 0, pagineTot: 0, pubblicazioni: 0, talenti: {}, auto: {}, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
+      archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, ufficioVuoto: true, paroleInOrdine: true, paroleScimmie: {}, parolaCasualeMax: 0, completateModo: {}, raccoltoRun: 0, pagine: 0, pagineTot: 0, pubblicazioni: 0, talenti: {}, auto: {}, pagineAut: {}, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
       imp: { musica: 70, effetti: 80, lingua: linguaIniziale(), tema: "giungla", modo: "normale" },
       liv, cuccioli: 1, banane: 150, tasti: 0, tempo: 0, completate: 0,
       diario: [], ts: Date.now()
@@ -3857,7 +4017,8 @@
   const SOGLIE_OGGETTI = [50, 200, 800];
   const moltOggetto = id => Math.pow(1.25, SOGLIE_OGGETTI.filter(x => G.liv[id] >= x).length);
   const tastiOggetti = () => OGGETTI.reduce((s, [id, , agg]) => s + (G.liv[id] || 0) * agg * moltOggetto(id), 0) * qualitaOggetti();
-  const velocitaScimmia = () => (VELOCITA_BASE + 10 * livT("t_attrezzi") + tastiOggetti()) * moltVelocita() * Math.pow(1.2, livT("t_scuola"));
+  const moltEvento = () => (R && R.evento && R.evento.molt && Date.now() < R.evento.fine ? R.evento.molt : 1);
+  const velocitaScimmia = () => (VELOCITA_BASE + 10 * livT("t_attrezzi") + tastiOggetti()) * moltVelocita() * Math.pow(1.2, livT("t_scuola")) * moltEvento();
   const tastiAlSecondo = () => numScimmie() * velocitaScimmia();
   const crescitaAlSecondo = () => (G.liv.asilo + livT("t_nido")) / 100 / 3600;
   // le banane crescono meno che proporzionalmente ai tasti: tengono l'economia sotto controllo
@@ -4030,6 +4191,11 @@
     // la frase più lunga completata finora (prima di questa): serve per il premio dell'editore
     const piuLungaPrima = Math.max(0, ...Object.values(G.lunghe || {}), G.fraseMio || 0);
     if (primaVolta) G.opereFatte.push(G.operaId);
+    // la pagina scritta dalla scimmia vincitrice entra nella collezione (una per frase)
+    G.pagineAut = G.pagineAut || {};
+    const chiavePagina = G.operaId === "mio" ? "mio:" + R.target.slice(0, 40) : G.operaId;
+    R.nuovaPagina = !G.pagineAut[chiavePagina];
+    if (R.nuovaPagina) G.pagineAut[chiavePagina] = { id: G.operaId, testo: R.target, chi, ts: Date.now(), modo: modoCorrente(), lingua: L };
     if (G.operaId === "mio") { if (R.target.length > (G.fraseMio || 0)) { G.fraseMio = R.target.length; G.fraseMioModo = modoCorrente(); } }
     else if (R.target.length > (G.lunghe[G.operaId] || 0)) { G.lunghe[G.operaId] = R.target.length; G.lungheModo[G.operaId] = modoCorrente(); }
     const fm = (G.frasiModo = G.frasiModo || {})[modoCorrente()] = G.frasiModo[modoCorrente()] || {};
@@ -4060,6 +4226,7 @@
   }
   function scriviFinestraFine() {
     if (!R.fermo) return;
+    if (R.nuovaPagina) { R.nuovaPagina = false; setTimeout(() => avviso(t("pag_nuova"), "oro"), 600); }
     const op = operaCorrente();
     $("testoFine").innerHTML =
       t("fine_testo", { chi: chiScimmia(R.vincitrice), n: fmt(R.target.length), titolo: op.titolo }) +
@@ -4720,13 +4887,14 @@
     const barra = $("cartelle");
     const scorrimento = barra.scrollLeft;
     barra.innerHTML = "";
-    for (const c of ["tutte", ...CARTELLE]) {
+    for (const c of ["pagine", "tutte", ...CARTELLE]) {
       const b = document.createElement("button");
       b.className = "cartella";
       b.setAttribute("aria-pressed", c === scelta);
-      const quante = c === "tutte" ? OPERE.length : OPERE.filter(o => o.cartella === c).length;
-      const fatte = OPERE.filter(o => (c === "tutte" || o.cartella === c) && G.opereFatte.includes(o.id)).length;
-      b.textContent = t("cart_" + c) + " " + fatte + "/" + quante;
+      const quante = c === "tutte" || c === "pagine" ? OPERE.length : OPERE.filter(o => o.cartella === c).length;
+      const fatte = c === "pagine" ? Object.keys(G.pagineAut || {}).length :
+        OPERE.filter(o => (c === "tutte" || o.cartella === c) && G.opereFatte.includes(o.id)).length;
+      b.textContent = (c === "pagine" ? t("coll_chip") + " " + fatte : t("cart_" + c) + " " + fatte + "/" + quante);
       b.onclick = () => { R.cartella = c; disegnaBiblioteca(); };
       barra.appendChild(b);
     }
@@ -4734,6 +4902,7 @@
     $("notaCartella").textContent = scelta === "canzoni" || scelta === "film" ? t("cart_nota_pd") : "";
     const box = $("listaOpere");
     box.innerHTML = "";
+    if (scelta === "pagine") { disegnaCollezione(box); return; }
     // dalla più corta alla più lunga, nella lingua del giocatore
     for (const o of operePerLunghezza()) {
       if (scelta !== "tutte" && o.cartella !== scelta) continue;
@@ -4805,6 +4974,12 @@
       if (!dati.paroleInOrdine) { g.parole = 0; g.parolaMax = null; g.paroleModo = {}; g.diario = (g.diario || []).filter(v => v.tipo !== "parola"); }
       g.paroleInOrdine = true;
       if (dati.raccoltoRun === undefined) g.raccoltoRun = g.raccolto || 0;
+      // pagine autografe delle frasi completate prima che esistesse la collezione
+      g.pagineAut = g.pagineAut || {};
+      for (const id of g.opereFatte || []) {
+        const o = OPERE.find(x => x.id === id);
+        if (o && !g.pagineAut[id]) g.pagineAut[id] = { id, testo: normalizza(o.testo, "normale"), chi: 0, ts: 0, modo: "normale", lingua: o.orig || "it" };
+      }
       if (!dati.completateModo) {
         g.completateModo = {};
         for (const m of MODI) g.completateModo[m] = Object.keys((g.frasiModo || {})[m] || {}).length;
@@ -5351,6 +5526,213 @@
     });
   }
 
+  // ---------- collezione di pagine autografe ----------
+  function titoloPagina(pg) {
+    if (pg.id === "mio") return t("cl_mio");
+    return OPERE.some(o => o.id === pg.id) ? operaCorrente(pg.id, pg.lingua || L).titolo : pg.id;
+  }
+  function firmaPagina(pg) {
+    return pg.ts ? t("pag_firma", { chi: chiScimmia(pg.chi), data: fmtData(pg.ts) }) : t("pag_sconosciuta");
+  }
+  function disegnaCollezione(box) {
+    const pagine = Object.values(G.pagineAut || {}).sort((a, b) => (b.ts || 0) - (a.ts || 0));
+    if (!pagine.length) { box.innerHTML = `<p class="tappe-info">${t("coll_vuota")}</p>`; return; }
+    const griglia = document.createElement("div");
+    griglia.className = "griglia-pagine";
+    for (const pg of pagine) {
+      const b = document.createElement("button");
+      b.className = "mini-pagina";
+      const titolo = document.createElement("b"); titolo.textContent = titoloPagina(pg);
+      const firma = document.createElement("small"); firma.textContent = (ICONE_MODO[pg.modo] || "") + " " + firmaPagina(pg);
+      b.append(titolo, firma);
+      b.onclick = () => apriPagina(pg);
+      griglia.appendChild(b);
+    }
+    box.appendChild(griglia);
+  }
+  function apriPagina(pg) {
+    R.paginaAperta = pg;
+    $("paTesto").textContent = pg.testo;
+    $("paFirma").textContent = "— " + firmaPagina(pg);
+    const o = OPERE.find(x => x.id === pg.id);
+    $("paInfo").textContent = titoloPagina(pg) + (o ? " · " + autoreOpera(o) : "") + " · " + ICONE_MODO[pg.modo || "normale"] + " " + t("modo_" + (pg.modo || "normale"));
+    apri("veloPagina");
+  }
+
+  // ---------- eventi in ufficio: solo velocità o banane, la fortuna non cambia mai ----------
+  const EVENTI = [
+    { id: "festa", peso: 25, molt: 2, durata: 60, ico: "🎉" },
+    { id: "musica", peso: 25, molt: 1.5, durata: 120, ico: "🎵" },
+    { id: "cesto", peso: 25, durata: 15, ico: "🧺" },
+    { id: "direttore", peso: 15, molt: 3, durata: 30, ico: "👔" },
+    { id: "blackout", peso: 10, molt: 0.5, durata: 20, ico: "🔌" }
+  ];
+  const prossimoEvento = () => Date.now() + (4 + Math.random() * 4) * 60000;   // tra 4 e 8 minuti
+  function gestisciEventi() {
+    const ora = Date.now();
+    if (!R.prossimoEvento) R.prossimoEvento = prossimoEvento();
+    const chip = $("eventoChip");
+    if (!R.evento) { chip.hidden = true; $("cesto").hidden = true; }
+    if (R.evento) {
+      const resto = Math.ceil((R.evento.fine - ora) / 1000);
+      if (resto <= 0) {
+        R.evento = null;
+        chip.hidden = true;
+        $("cesto").hidden = true;
+        R.prossimoEvento = prossimoEvento();
+      } else if (R.evento.molt) {
+        chip.hidden = false;
+        chip.className = "evento-chip" + (R.evento.molt < 1 ? " negativo" : "");
+        chip.textContent = `${R.evento.ico} ×${decimale(R.evento.molt)} · ${resto} s`;
+      }
+      return;
+    }
+    // niente eventi nel menu, durante l'introduzione o il tutorial, o se nessuno sta scrivendo
+    if (R.nelMenu || passoTut >= 0 || !$("intro").hidden || tastiAlSecondo() <= 0 || ora < R.prossimoEvento) return;
+    let tiro = Math.random() * EVENTI.reduce((n, e) => n + e.peso, 0);
+    const ev = EVENTI.find(e => (tiro -= e.peso) < 0) || EVENTI[0];
+    R.evento = { ...ev, fine: ora + ev.durata * 1000 };
+    if (ev.id === "cesto") {
+      const c = $("cesto");
+      c.style.left = Math.round(20 + Math.random() * Math.max(10, (window.innerWidth || 400) - 120)) + "px";
+      c.style.top = Math.round((window.innerHeight || 800) * (0.3 + Math.random() * 0.35)) + "px";
+      c.hidden = false;
+    }
+    avviso(t("ev_" + ev.id), ev.molt && ev.molt < 1 ? "" : "oro");
+    if (ev.molt && ev.molt > 1) Suono.traguardo();
+  }
+  function raccogliCesto() {
+    if (!R.evento || R.evento.id !== "cesto") return;
+    const premio = Math.max(100, 120 * bananeAlSecondo());
+    G.banane += premio;
+    $("cesto").hidden = true;
+    R.evento.fine = Date.now();
+    Suono.moneta();
+    avviso(t("ev_cesto_ok", { n: fmt(premio) }), "oro");
+  }
+
+  // ---------- condividi: un'immagine con la frase, il record e la scimmia ----------
+  function aCapo(ctx, testo, larghezza) {
+    const righe = [];
+    let riga = "";
+    for (const parola of testo.split(" ")) {
+      const prova = riga ? riga + " " + parola : parola;
+      if (ctx.measureText(prova).width > larghezza && riga) { righe.push(riga); riga = parola; }
+      else riga = prova;
+    }
+    if (riga) righe.push(riga);
+    return righe;
+  }
+  async function creaImmagine({ titolo, autore, testo, giuste, completata, chi, modo }) {
+    const W = 1080, H = 1350;
+    const cv = document.createElement("canvas");
+    cv.width = W; cv.height = H;
+    const ctx = cv.getContext("2d");
+    const css = getComputedStyle(document.documentElement);
+    const col = (v, f) => (css.getPropertyValue(v).trim() || f);
+    try { await document.fonts.ready; } catch (e) {}
+    // sfondo con i colori del tema
+    const g = ctx.createRadialGradient(W / 2, H * 0.35, 50, W / 2, H * 0.5, H * 0.8);
+    g.addColorStop(0, col("--menu-grad", "#23503a")); g.addColorStop(1, col("--notte", "#0f2119"));
+    ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+    // misuro prima il foglio, così tutto il disegno sta al centro dell'immagine
+    const fx = 90, fw = W - 180;
+    ctx.font = "44px 'Special Elite', 'Courier New', monospace";
+    const corto = testo.length > 420 ? testo.slice(0, 420) + "…" : testo;
+    const righe = aCapo(ctx, corto, fw - 100);
+    const visibili = Math.min(righe.length, 9);
+    const fh = Math.max(220, 100 + visibili * 60);
+    const altezza = 200 + 60 + fh + 360;
+    const top = Math.max(40, (H - altezza) / 2);
+    ctx.textAlign = "center";
+    ctx.fillStyle = col("--banana", "#ffd23f");
+    ctx.font = "bold 72px system-ui, sans-serif";
+    ctx.fillText("🐒 " + t("gioco"), W / 2, top + 80);
+    ctx.fillStyle = col("--spento", "#9fb3a6");
+    ctx.font = "34px system-ui, sans-serif";
+    ctx.fillText(t("sotto"), W / 2, top + 140);
+    // foglio della macchina da scrivere
+    const fy = top + 200;
+    ctx.fillStyle = "rgba(0,0,0,.35)"; ctx.fillRect(fx + 10, fy + 24, fw, fh);
+    ctx.fillStyle = col("--carta", "#f1e9d6");
+    ctx.beginPath(); if (ctx.roundRect) ctx.roundRect(fx, fy, fw, fh, 20); else ctx.rect(fx, fy, fw, fh); ctx.fill();
+    ctx.font = "44px 'Special Elite', 'Courier New', monospace";
+    ctx.textAlign = "left";
+    let contate = 0;
+    const primaRiga = fy + fh / 2 - ((visibili - 1) * 60) / 2 + 14;
+    righe.slice(0, visibili).forEach((r, n) => {
+      const y = primaRiga + n * 60;
+      let x = fx + (fw - ctx.measureText(r).width) / 2;   // ogni riga centrata sul foglio
+      for (const ch of r) {
+        const w = ctx.measureText(ch).width;
+        const giusta = completata || contate < giuste;
+        if (giusta && ch !== " ") { ctx.fillStyle = completata ? "rgba(255,210,63,.55)" : "rgba(255,210,63,.3)"; ctx.fillRect(x, y + 4, w, 16); }
+        ctx.fillStyle = giusta ? col("--inchiostro", "#1d1a14") : "rgba(29,26,20,.28)";
+        ctx.fillText(ch, x, y);
+        x += w;
+        contate++;
+      }
+      contate++;   // lo spazio tra una riga e l'altra
+    });
+    // dettagli sotto il foglio
+    ctx.textAlign = "center";
+    let y = fy + fh + 100;
+    ctx.fillStyle = col("--testo", "#f1f0e6");
+    ctx.font = "bold 50px system-ui, sans-serif";
+    ctx.fillText(titolo, W / 2, y);
+    ctx.font = "34px system-ui, sans-serif";
+    ctx.fillStyle = col("--spento", "#9fb3a6");
+    if (autore) ctx.fillText(autore, W / 2, y + 52);
+    y += 140;
+    ctx.fillStyle = col("--banana", "#ffd23f");
+    ctx.font = "bold 54px system-ui, sans-serif";
+    ctx.fillText(completata ? "✅ " + t("img_completata") : "⭐ " + t("img_record", { r: giuste, l: testo.length }), W / 2, y);
+    ctx.fillStyle = col("--testo", "#f1f0e6");
+    ctx.font = "38px system-ui, sans-serif";
+    const nome = (G.nick || "").trim();
+    ctx.fillText("✍️ " + chiScimmia(chi) + (nome ? "  ·  👤 " + nome : ""), W / 2, y + 70);
+    ctx.fillStyle = col("--spento", "#9fb3a6");
+    ctx.font = "32px system-ui, sans-serif";
+    ctx.fillText((ICONE_MODO[modo] || "") + " " + t("modo_" + (modo || "normale")) + "  ·  " + new Date().toLocaleDateString(loc()), W / 2, y + 125);
+    if (suSitoWeb()) ctx.fillText(location.host + location.pathname, W / 2, H - 50);
+    return new Promise(ok => cv.toBlob(ok, "image/png"));
+  }
+  async function condividiImmagine(dati) {
+    try {
+      const blob = await creaImmagine(dati);
+      const file = new File([blob], "scimmie-infinite.png", { type: "image/png" });
+      const testo = t("cond_testo", { titolo: dati.titolo });
+      // 1) condivisione del telefono (WhatsApp, foto...), se il browser la permette
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try { await navigator.share({ files: [file], text: testo }); return; }
+        catch (e) { if (e && e.name === "AbortError") return; }
+      }
+      // 2) dentro Claude: salvataggio dell'immagine
+      if (window.claude && typeof window.claude.use === "function") {
+        const dl = await window.claude.use("downloads");
+        if (dl) { try { await dl.save({ filename: "scimmie-infinite.png", data: blob }); return; } catch (e) { if (e && e.code === "declined") return; } }
+      }
+      // 3) sul sito: scarico l'immagine
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "scimmie-infinite.png";
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 5000);
+    } catch (e) { avviso(t("cond_errore")); }
+  }
+  function condividiRecord() {
+    const op = operaCorrente();
+    condividiImmagine({ titolo: op.titolo, autore: G.operaId === "mio" ? "" : autoreOpera(op), testo: R.target,
+      giuste: Math.min(G.record, R.target.length), completata: !!R.fermo, chi: R.fermo ? R.vincitrice : G.recordChi, modo: modoCorrente() });
+  }
+  function condividiPagina() {
+    const pg = R.paginaAperta;
+    if (!pg) return;
+    const o = OPERE.find(x => x.id === pg.id);
+    condividiImmagine({ titolo: titoloPagina(pg), autore: o ? autoreOpera(o) : "", testo: pg.testo, giuste: pg.testo.length,
+      completata: true, chi: pg.chi, modo: pg.modo });
+  }
+
   // ---------- scelta del nome per la classifica ----------
   let dopoNome = null;
   // facoltativo = cambio di nome dalle impostazioni (si può annullare); altrimenti è obbligatorio
@@ -5749,6 +6131,12 @@
     $("volEffetti").onchange = () => { salva(); Suono.clic(); };
     $("bImpLingua").onclick = apriLingue;
     $("bInfoBanane").onclick = () => apri("veloInfo");
+    $("bCondividiRecord").onclick = condividiRecord;
+    $("bCondividiFine").onclick = condividiRecord;
+    $("bCondividiPagina").onclick = condividiPagina;
+    $("bChiudiPagina").onclick = () => chiudi("veloPagina");
+    $("veloPagina").onclick = e => { if (e.target.id === "veloPagina") chiudi("veloPagina"); };
+    $("cesto").onclick = raccogliCesto;
     $("bPubblica").onclick = pubblica;
     $("bNomeOk").onclick = confermaNome;
     $("bNomeAnnulla").onclick = () => { dopoNome = null; chiudi("veloNome"); };
@@ -5896,6 +6284,7 @@
     if (ora - ultimoDisegno > 90) { disegnaTutto(); ultimoDisegno = ora; }
     if (ora - ultimoLento > 1000) {
       automazioni();
+      gestisciEventi();
       controllaTraguardi(); disegnaBadge();
       if (vistaAttiva("traguardi")) disegnaTraguardi();
       if (R.nelMenu) scriviMenuIniziale();
