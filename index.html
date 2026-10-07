@@ -441,6 +441,20 @@
   .segmenti.modi-cl { margin: 0 0 12px; }
   .segmenti.modi-cl button { font-size: 12px; padding: 8px 0; white-space: nowrap; letter-spacing: -0.1px; }
   .tua-pos { color: var(--spento); font-size: 13.5px; text-align: center; margin: 8px 0 0; }
+  .chips-parole { display: flex; flex-wrap: wrap; gap: 6px; margin: 4px 0 8px; max-height: 260px; overflow-y: auto; }
+  .chip {
+    font-family: var(--tasti); font-size: 14px; padding: 4px 9px; border-radius: 8px;
+    background: var(--foglia-2); color: var(--spento); border: 1px solid var(--bordo);
+  }
+  .chip.fatta { background: var(--banana); color: var(--banana-inchiostro); border-color: transparent; }
+  .chip.corrente { color: var(--testo); border-color: var(--banana);
+    background: linear-gradient(90deg, var(--accento-tenue) var(--avanz, 0%), var(--foglia-2) var(--avanz, 0%)); }
+  .chip.nuova { animation: chip-nuova 1s ease-out; }
+  @keyframes chip-nuova { from { transform: scale(1.4); background: var(--banana); color: var(--banana-inchiostro); } }
+  .tappe-info { color: var(--spento); font-size: 13.5px; margin: 0; }
+  .riquadro.missione { margin-bottom: 14px; }
+  .cat-trag { grid-column: 1 / -1; margin: 14px 2px 0; font-size: 15.5px; }
+  .cat-trag:first-child { margin-top: 0; }
   .tua-pos:empty { display: none; }
   .mi-modo { margin: 0 0 18px; }
   .mi-modo-tit { font-weight: 700; margin: 0 0 8px; }
@@ -728,6 +742,12 @@
   <section class="schermata" id="v-traguardi">
     <div class="titolo-sez"><h2 data-t="h_traguardi"></h2><span class="gruppo-btn"><button class="riscuoti-tutto" id="bRiscuotiTutto" hidden data-t="riscuoti_tutto"></button></span></div>
     <p class="riassunto" id="tagRiassunto"></p>
+    <div class="riquadro missione">
+      <h3 data-t="pc_tit"></h3>
+      <p class="sotto-cl" data-t="pc_sotto"></p>
+      <p class="tappe-info" id="pcConta"></p>
+      <div class="chips-parole" id="pcParole"></div>
+    </div>
     <div class="griglia-trag" id="grigliaTrag"></div>
   </section>
 
@@ -739,11 +759,11 @@
       <div class="stat">
         <div><small data-t="tasti_premuti"></small><strong id="sTasti"></strong></div>
         <div><small data-t="tempo_gioco"></small><strong id="sTempo"></strong></div>
-        <div><small data-t="opere_completate"></small><strong id="sOpere"></strong></div>
         <div><small data-t="record_max"></small><strong id="sMax"></strong></div>
         <div><small data-t="st_lettere"></small><strong id="sLettere"></strong></div>
         <div><small data-t="st_raccolto"></small><strong id="sRaccolto"></strong></div>
-        <div><small data-t="st_parole"></small><strong id="sParole"></strong></div>
+        <div><small data-t="st_frasi"></small><strong id="sFrasi"></strong></div>
+        <div><small data-t="st_parole_trovate"></small><strong id="sTrovate"></strong></div>
         <div><small data-t="st_parola_max"></small><strong id="sParolaMax"></strong></div>
       </div>
     <div class="riquadro riquadro-classifica">
@@ -754,17 +774,15 @@
         <button data-clmodo="normale" aria-pressed="true">⌨️ <span data-t="modo_normale"></span></button>
         <button data-clmodo="realistica" aria-pressed="false">🎩 <span data-t="modo_realistica"></span></button>
       </div>
-      <div class="nome-classifica" data-cl="nome">
-        <input maxlength="20" autocomplete="off" data-cl="nick" data-t-ph="cl_nome_ph">
-        <button class="pulsante piccolo" data-cl="salva" data-t="cl_salva"></button>
-      </div>
       <p class="stato-cl" data-cl="stato"></p>
       <ol class="classifica" data-cl="lista"></ol>
       <p class="tua-pos" data-cl="pos"></p>
     </div>
     <div class="riquadro">
-      <h3 data-t="cronaca"></h3>
-      <ul class="cronaca" id="cronaca"></ul>
+      <h3 data-t="tappe_tit"></h3>
+      <p class="sotto-cl" data-t="tappe_sotto"></p>
+      <div class="chips-parole" id="tappe"></div>
+      <p class="tappe-info" id="tappeInfo"></p>
     </div>
   </section>
 </main>
@@ -810,6 +828,10 @@
     </div>
     <input class="cursore-vol" type="range" min="0" max="100" step="5" id="volEffetti" data-t-aria="imp_effetti">
     <div class="impostazione">
+      <span class="testo"><b>✍️ <span data-t="imp_nome"></span></b><small id="impNomeGiocatore"></small></span>
+      <button class="pulsante secondario piccolo" id="bImpNome" data-t="cambia"></button>
+    </div>
+    <div class="impostazione">
       <span class="testo"><b>🎨 <span data-t="imp_tema"></span></b><small id="impTemaNome"></small></span>
       <button class="pulsante secondario piccolo" id="bImpTema" data-t="cambia"></button>
     </div>
@@ -826,7 +848,7 @@
       <button class="pulsante secondario" id="bChiudiImpostazioni" data-t="chiudi"></button>
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
-    <p class="versione-gioco">Scimmie infinite · versione 15</p>
+    <p class="versione-gioco">Scimmie infinite · versione 16</p>
   </div>
 </div>
 
@@ -837,7 +859,10 @@
     <p data-t="nome_sotto"></p>
     <input class="campo-nome" id="campoNome" maxlength="20" autocomplete="nickname" autocapitalize="off" spellcheck="false" data-t-ph="nome_ph">
     <p class="stato-cl" id="statoNome"></p>
-    <div class="azioni"><button class="pulsante" id="bNomeOk" data-t="nome_ok"></button></div>
+    <div class="azioni">
+      <button class="pulsante" id="bNomeOk" data-t="nome_ok"></button>
+      <button class="pulsante secondario" id="bNomeAnnulla" hidden data-t="annulla"></button>
+    </div>
   </div>
 </div>
 
@@ -1131,7 +1156,42 @@
       nome_ph: "Il tuo nome",
       nome_ok: "Conferma",
       nome_corto: "Scegli un nome di almeno 2 caratteri.",
-      nome_preso: "Questo nome è già usato da un altro giocatore: scegline un altro."
+      nome_preso: "Questo nome è già usato da un altro giocatore: scegline un altro.",
+      imp_nome: "Nome in classifica",
+      st_frasi: "Frasi completate",
+      st_parole_trovate: "Parole trovate per caso",
+      tappe_tit: "🧭 Tappe della frase",
+      tappe_sotto: "Le parole della frase già scritte di fila dalla scimmia in testa.",
+      tappe_conta: "{a} di {b} parole",
+      tappe_ultima: "ultima: «{w}», {chi}, {quando}",
+      tappe_nessuna: "nessuna parola ancora completata",
+      pc_tit: "📖 Missione: parole delle scimmie",
+      pc_sotto: "Ogni tanto una scimmia scrive per caso una parola vera. Non conta per la frase e non dà banane: è una missione a parte. Ogni parola nuova finisce qui e fa avanzare i traguardi della categoria 📖.",
+      pc_conta: "{n} di {tot} parole trovate in questa lingua",
+      pc_nuova: "📖 Parola trovata per caso: «{w}» ({chi})",
+      desc_pc: "Parole trovate per caso dalle scimmie: {n}",
+      desc_pl: "Una scimmia scrive per caso una parola di {n} lettere",
+      desc_fc: "Frasi completate in tutto: {n}",
+      desc_pf: "Parole della frase completate in ordine: {n}",
+      desc_br: "Banane raccolte in tutto: {n}",
+      desc_lg: "Lettere giuste battute: {n}",
+      desc_og: "Oggetti per scrivere posseduti: {n}",
+      desc_ml: "Livelli di miglioramenti in tutto: {n}",
+      desc_mfa: "Completa una frase in difficoltà Facile",
+      desc_mre: "Completa una frase in difficoltà Realistica",
+      desc_tre: "Completa almeno una frase in ogni difficoltà",
+      desc_mio: "Fai completare alle scimmie un tuo testo",
+      desc_asilo30: "Asilo nido al livello 30",
+      cat_frasi: "📜 Frasi",
+      cat_record: "⭐ Record",
+      cat_parole: "📖 Parole delle scimmie",
+      cat_scimmie: "🐒 Scimmie",
+      cat_velocita: "⚡ Velocità",
+      cat_potenziamenti: "🛠️ Potenziamenti",
+      cat_banane: "🍌 Banane e lettere",
+      cat_tasti: "⌨️ Tasti",
+      cat_tempo: "⏳ Tempo",
+      cat_speciali: "✨ Speciali"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -1283,7 +1343,42 @@
       nome_ph: "Your name",
       nome_ok: "Confirm",
       nome_corto: "Choose a name of at least 2 characters.",
-      nome_preso: "This name is already used by another player: pick a different one."
+      nome_preso: "This name is already used by another player: pick a different one.",
+      imp_nome: "Leaderboard name",
+      st_frasi: "Phrases completed",
+      st_parole_trovate: "Words found by chance",
+      tappe_tit: "🧭 Phrase milestones",
+      tappe_sotto: "The words of the phrase the leading monkey has already typed in a row.",
+      tappe_conta: "{a} of {b} words",
+      tappe_ultima: "last: “{w}”, {chi}, {quando}",
+      tappe_nessuna: "no word completed yet",
+      pc_tit: "📖 Side quest: monkey words",
+      pc_sotto: "Now and then a monkey types a real word by chance. It doesn't count for the phrase and gives no bananas: it's a separate quest. Every new word ends up here and advances the 📖 goals.",
+      pc_conta: "{n} of {tot} words found in this language",
+      pc_nuova: "📖 Word found by chance: “{w}” ({chi})",
+      desc_pc: "Words found by chance by the monkeys: {n}",
+      desc_pl: "A monkey types a {n}-letter word by chance",
+      desc_fc: "Phrases completed in total: {n}",
+      desc_pf: "Words of the phrase completed in order: {n}",
+      desc_br: "Bananas harvested in total: {n}",
+      desc_lg: "Correct letters typed: {n}",
+      desc_og: "Typing items owned: {n}",
+      desc_ml: "Improvement levels in total: {n}",
+      desc_mfa: "Complete a phrase on Easy",
+      desc_mre: "Complete a phrase on Realistic",
+      desc_tre: "Complete at least one phrase on every difficulty",
+      desc_mio: "Get the monkeys to complete a text of your own",
+      desc_asilo30: "Nursery at level 30",
+      cat_frasi: "📜 Phrases",
+      cat_record: "⭐ Records",
+      cat_parole: "📖 Monkey words",
+      cat_scimmie: "🐒 Monkeys",
+      cat_velocita: "⚡ Speed",
+      cat_potenziamenti: "🛠️ Upgrades",
+      cat_banane: "🍌 Bananas and letters",
+      cat_tasti: "⌨️ Keys",
+      cat_tempo: "⏳ Time",
+      cat_speciali: "✨ Special"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -1435,7 +1530,42 @@
       nome_ph: "Tu nombre",
       nome_ok: "Confirmar",
       nome_corto: "Elige un nombre de al menos 2 caracteres.",
-      nome_preso: "Otro jugador ya usa este nombre: elige otro."
+      nome_preso: "Otro jugador ya usa este nombre: elige otro.",
+      imp_nome: "Nombre en la clasificación",
+      st_frasi: "Frases completadas",
+      st_parole_trovate: "Palabras encontradas al azar",
+      tappe_tit: "🧭 Etapas de la frase",
+      tappe_sotto: "Las palabras de la frase que el mono en cabeza ya ha escrito seguidas.",
+      tappe_conta: "{a} de {b} palabras",
+      tappe_ultima: "última: «{w}», {chi}, {quando}",
+      tappe_nessuna: "todavía ninguna palabra completada",
+      pc_tit: "📖 Misión: palabras de los monos",
+      pc_sotto: "De vez en cuando un mono escribe por casualidad una palabra real. No cuenta para la frase ni da plátanos: es una misión aparte. Cada palabra nueva acaba aquí y hace avanzar los logros 📖.",
+      pc_conta: "{n} de {tot} palabras encontradas en este idioma",
+      pc_nuova: "📖 Palabra encontrada al azar: «{w}» ({chi})",
+      desc_pc: "Palabras encontradas al azar por los monos: {n}",
+      desc_pl: "Un mono escribe por casualidad una palabra de {n} letras",
+      desc_fc: "Frases completadas en total: {n}",
+      desc_pf: "Palabras de la frase completadas en orden: {n}",
+      desc_br: "Plátanos cosechados en total: {n}",
+      desc_lg: "Letras correctas tecleadas: {n}",
+      desc_og: "Objetos para escribir que tienes: {n}",
+      desc_ml: "Niveles de perfeccionamiento en total: {n}",
+      desc_mfa: "Completa una frase en dificultad Fácil",
+      desc_mre: "Completa una frase en dificultad Realista",
+      desc_tre: "Completa al menos una frase en cada dificultad",
+      desc_mio: "Haz que los monos completen un texto tuyo",
+      desc_asilo30: "Guardería en nivel 30",
+      cat_frasi: "📜 Frases",
+      cat_record: "⭐ Récords",
+      cat_parole: "📖 Palabras de los monos",
+      cat_scimmie: "🐒 Monos",
+      cat_velocita: "⚡ Velocidad",
+      cat_potenziamenti: "🛠️ Mejoras",
+      cat_banane: "🍌 Plátanos y letras",
+      cat_tasti: "⌨️ Teclas",
+      cat_tempo: "⏳ Tiempo",
+      cat_speciali: "✨ Especiales"
     },
 
     // ------------------------------------------------------------- 中文
@@ -1587,7 +1717,42 @@
       nome_ph: "你的名字",
       nome_ok: "确认",
       nome_corto: "名字至少需要 2 个字符。",
-      nome_preso: "这个名字已被其他玩家使用，请换一个。"
+      nome_preso: "这个名字已被其他玩家使用，请换一个。",
+      imp_nome: "排行榜名字",
+      st_frasi: "完成的句子",
+      st_parole_trovate: "偶然找到的单词",
+      tappe_tit: "🧭 句子进度",
+      tappe_sotto: "领先的猴子已经连续打出的句子中的单词。",
+      tappe_conta: "{a}/{b} 个单词",
+      tappe_ultima: "最近：“{w}”，{chi}，{quando}",
+      tappe_nessuna: "还没有完成任何单词",
+      pc_tit: "📖 支线任务：猴子的单词",
+      pc_sotto: "猴子偶尔会碰巧打出一个真正的单词。它不计入句子，也不给香蕉：这是一个单独的任务。每个新单词都会收集在这里，并推进 📖 成就。",
+      pc_conta: "这种语言已找到 {n}/{tot} 个单词",
+      pc_nuova: "📖 偶然找到的单词：“{w}”（{chi}）",
+      desc_pc: "猴子偶然找到的单词：{n}",
+      desc_pl: "一只猴子偶然打出一个 {n} 个字母的单词",
+      desc_fc: "总共完成的句子：{n}",
+      desc_pf: "按顺序完成的句子单词：{n}",
+      desc_br: "总共收获的香蕉：{n}",
+      desc_lg: "打对的字母：{n}",
+      desc_og: "拥有的打字装备：{n}",
+      desc_ml: "改进等级总数：{n}",
+      desc_mfa: "在简单难度下完成一句话",
+      desc_mre: "在写实难度下完成一句话",
+      desc_tre: "每个难度至少完成一句话",
+      desc_mio: "让猴子完成一段你自己的文字",
+      desc_asilo30: "托儿所达到 30 级",
+      cat_frasi: "📜 句子",
+      cat_record: "⭐ 纪录",
+      cat_parole: "📖 猴子的单词",
+      cat_scimmie: "🐒 猴子",
+      cat_velocita: "⚡ 速度",
+      cat_potenziamenti: "🛠️ 升级",
+      cat_banane: "🍌 香蕉和字母",
+      cat_tasti: "⌨️ 按键",
+      cat_tempo: "⏳ 时间",
+      cat_speciali: "✨ 特别"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -1739,7 +1904,42 @@
       nome_ph: "Ton nom",
       nome_ok: "Confirmer",
       nome_corto: "Choisis un nom d'au moins 2 caractères.",
-      nome_preso: "Ce nom est déjà utilisé par un autre joueur : choisis-en un autre."
+      nome_preso: "Ce nom est déjà utilisé par un autre joueur : choisis-en un autre.",
+      imp_nome: "Nom au classement",
+      st_frasi: "Phrases terminées",
+      st_parole_trovate: "Mots trouvés par hasard",
+      tappe_tit: "🧭 Étapes de la phrase",
+      tappe_sotto: "Les mots de la phrase que le singe en tête a déjà écrits d'affilée.",
+      tappe_conta: "{a} mots sur {b}",
+      tappe_ultima: "dernier : « {w} », {chi}, {quando}",
+      tappe_nessuna: "aucun mot terminé pour l'instant",
+      pc_tit: "📖 Quête : les mots des singes",
+      pc_sotto: "De temps en temps, un singe écrit un vrai mot par hasard. Ça ne compte pas pour la phrase et ne rapporte pas de bananes : c'est une quête à part. Chaque nouveau mot arrive ici et fait avancer les succès 📖.",
+      pc_conta: "{n} mots sur {tot} trouvés dans cette langue",
+      pc_nuova: "📖 Mot trouvé par hasard : « {w} » ({chi})",
+      desc_pc: "Mots trouvés par hasard par les singes : {n}",
+      desc_pl: "Un singe écrit par hasard un mot de {n} lettres",
+      desc_fc: "Phrases terminées au total : {n}",
+      desc_pf: "Mots de la phrase terminés dans l'ordre : {n}",
+      desc_br: "Bananes récoltées au total : {n}",
+      desc_lg: "Lettres justes tapées : {n}",
+      desc_og: "Objets pour écrire possédés : {n}",
+      desc_ml: "Niveaux de perfectionnements au total : {n}",
+      desc_mfa: "Termine une phrase en difficulté Facile",
+      desc_mre: "Termine une phrase en difficulté Réaliste",
+      desc_tre: "Termine au moins une phrase dans chaque difficulté",
+      desc_mio: "Fais terminer aux singes un texte à toi",
+      desc_asilo30: "Crèche au niveau 30",
+      cat_frasi: "📜 Phrases",
+      cat_record: "⭐ Records",
+      cat_parole: "📖 Mots des singes",
+      cat_scimmie: "🐒 Singes",
+      cat_velocita: "⚡ Vitesse",
+      cat_potenziamenti: "🛠️ Améliorations",
+      cat_banane: "🍌 Bananes et lettres",
+      cat_tasti: "⌨️ Touches",
+      cat_tempo: "⏳ Temps",
+      cat_speciali: "✨ Spéciaux"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -1892,7 +2092,42 @@
       nome_ph: "Твоё имя",
       nome_ok: "Подтвердить",
       nome_corto: "Имя должно быть не короче 2 символов.",
-      nome_preso: "Это имя уже занято другим игроком: выбери другое."
+      nome_preso: "Это имя уже занято другим игроком: выбери другое.",
+      imp_nome: "Имя в рейтинге",
+      st_frasi: "Завершённых фраз",
+      st_parole_trovate: "Слов найдено случайно",
+      tappe_tit: "🧭 Этапы фразы",
+      tappe_sotto: "Слова фразы, которые лидирующая обезьяна уже напечатала подряд.",
+      tappe_conta: "{a} из {b} слов",
+      tappe_ultima: "последнее: «{w}», {chi}, {quando}",
+      tappe_nessuna: "пока ни одного слова",
+      pc_tit: "📖 Задание: слова обезьян",
+      pc_sotto: "Иногда обезьяна случайно печатает настоящее слово. Оно не засчитывается во фразу и не даёт бананов: это отдельное задание. Каждое новое слово попадает сюда и продвигает награды 📖.",
+      pc_conta: "Найдено слов на этом языке: {n} из {tot}",
+      pc_nuova: "📖 Случайно найдено слово: «{w}» ({chi})",
+      desc_pc: "Слов, случайно найденных обезьянами: {n}",
+      desc_pl: "Обезьяна случайно печатает слово из {n} букв",
+      desc_fc: "Всего завершённых фраз: {n}",
+      desc_pf: "Слов фразы, завершённых по порядку: {n}",
+      desc_br: "Всего собрано бананов: {n}",
+      desc_lg: "Напечатано верных букв: {n}",
+      desc_og: "Предметов для печати: {n}",
+      desc_ml: "Всего уровней улучшений: {n}",
+      desc_mfa: "Заверши фразу на «Лёгкой» сложности",
+      desc_mre: "Заверши фразу на «Реалистичной» сложности",
+      desc_tre: "Заверши хотя бы одну фразу на каждой сложности",
+      desc_mio: "Пусть обезьяны допечатают твой собственный текст",
+      desc_asilo30: "Ясли 30-го уровня",
+      cat_frasi: "📜 Фразы",
+      cat_record: "⭐ Рекорды",
+      cat_parole: "📖 Слова обезьян",
+      cat_scimmie: "🐒 Обезьяны",
+      cat_velocita: "⚡ Скорость",
+      cat_potenziamenti: "🛠️ Улучшения",
+      cat_banane: "🍌 Бананы и буквы",
+      cat_tasti: "⌨️ Клавиши",
+      cat_tempo: "⏳ Время",
+      cat_speciali: "✨ Особые"
     }
   };
 
@@ -2790,6 +3025,40 @@
   TRAGUARDI.push({ id: "soglia200", ico: "🎯", desc: () => t("desc_soglia"),
     val: () => Math.max(...STRUTTURE.map(([id]) => G.liv[id])), obiettivo: 200, pct: 10 });
   TRAGUARDI.forEach((tr, i) => { tr.nome = () => NOMI_TRAG[L][i]; });
+  // categorie dei traguardi di prima
+  const CAT_PREFISSO = { sc: "scimmie", ts: "velocita", rc: "record", op: "frasi", tt: "tasti", tm: "tempo" };
+  for (const tr of TRAGUARDI) {
+    tr.cat = { asilo: "scimmie", tech: "potenziamenti", multi: "potenziamenti", soglia200: "potenziamenti" }[tr.id] ||
+      CAT_PREFISSO[tr.id.replace(/[0-9e+.]+$/, "")] || "speciali";
+  }
+  // ---------- traguardi nuovi (con il nome nelle sei lingue) ----------
+  const NOMI_TRAG_NUOVI = {"pc1": {"it": "Prima parola", "en": "First word", "es": "Primera palabra", "zh": "第一个单词", "fr": "Premier mot", "ru": "Первое слово"}, "pc5": {"it": "Balbettio", "en": "Babbling", "es": "Balbuceo", "zh": "咿呀学语", "fr": "Babillage", "ru": "Лепет"}, "pc10": {"it": "Vocabolario", "en": "Vocabulary", "es": "Vocabulario", "zh": "词汇量", "fr": "Vocabulaire", "ru": "Словарный запас"}, "pc25": {"it": "Chiacchierone", "en": "Chatterbox", "es": "Charlatán", "zh": "话匣子", "fr": "Bavard", "ru": "Болтун"}, "pc50": {"it": "Dizionario tascabile", "en": "Pocket dictionary", "es": "Diccionario de bolsillo", "zh": "袖珍词典", "fr": "Dictionnaire de poche", "ru": "Карманный словарь"}, "pc100": {"it": "Enciclopedia", "en": "Encyclopedia", "es": "Enciclopedia", "zh": "百科全书", "fr": "Encyclopédie", "ru": "Энциклопедия"}, "pl3": {"it": "Tre lettere", "en": "Three letters", "es": "Tres letras", "zh": "三个字母", "fr": "Trois lettres", "ru": "Три буквы"}, "pl4": {"it": "Parola vera", "en": "A real word", "es": "Palabra de verdad", "zh": "真正的单词", "fr": "Un vrai mot", "ru": "Настоящее слово"}, "pl5": {"it": "Che fortuna!", "en": "What luck!", "es": "¡Qué suerte!", "zh": "好运气！", "fr": "Quelle chance !", "ru": "Вот повезло!"}, "pl6": {"it": "Poeta per caso", "en": "Accidental poet", "es": "Poeta por casualidad", "zh": "偶然的诗人", "fr": "Poète par hasard", "ru": "Случайный поэт"}, "pl7": {"it": "Colpo di genio", "en": "Stroke of genius", "es": "Golpe de genio", "zh": "灵光一现", "fr": "Coup de génie", "ru": "Озарение"}, "pl8": {"it": "Miracolo", "en": "Miracle", "es": "Milagro", "zh": "奇迹", "fr": "Miracle", "ru": "Чудо"}, "fc10": {"it": "Editore di fiducia", "en": "Trusted publisher", "es": "Editor de confianza", "zh": "可靠的出版商", "fr": "Éditeur de confiance", "ru": "Надёжный издатель"}, "fc25": {"it": "Casa editrice", "en": "Publishing house", "es": "Editorial", "zh": "出版社", "fr": "Maison d'édition", "ru": "Издательство"}, "fc50": {"it": "Best seller", "en": "Bestseller", "es": "Superventas", "zh": "畅销书", "fr": "Best-seller", "ru": "Бестселлер"}, "pf5": {"it": "Una parola dopo l'altra", "en": "One word after another", "es": "Una palabra tras otra", "zh": "一词接一词", "fr": "Un mot après l'autre", "ru": "Слово за словом"}, "pf25": {"it": "Paragrafo", "en": "Paragraph", "es": "Párrafo", "zh": "段落", "fr": "Paragraphe", "ru": "Абзац"}, "pf100": {"it": "Capitolo", "en": "Chapter", "es": "Capítulo", "zh": "章节", "fr": "Chapitre", "ru": "Глава"}, "pf500": {"it": "Romanzo", "en": "Novel", "es": "Novela", "zh": "长篇小说", "fr": "Roman", "ru": "Роман"}, "mfa": {"it": "Primi passi", "en": "First steps", "es": "Primeros pasos", "zh": "第一步", "fr": "Premiers pas", "ru": "Первые шаги"}, "mre": {"it": "Macchina vera", "en": "Real typewriter", "es": "Máquina de verdad", "zh": "真正的打字机", "fr": "Vraie machine", "ru": "Настоящая машинка"}, "tre": {"it": "Tuttofare", "en": "Jack of all trades", "es": "Todoterreno", "zh": "全能选手", "fr": "Touche-à-tout", "ru": "Мастер на все руки"}, "mio": {"it": "Autore", "en": "Author", "es": "Autor", "zh": "作者", "fr": "Auteur", "ru": "Автор"}, "br1000": {"it": "Casco di banane", "en": "Bunch of bananas", "es": "Racimo de plátanos", "zh": "一串香蕉", "fr": "Régime de bananes", "ru": "Гроздь бананов"}, "br1000000": {"it": "Bananeto", "en": "Banana grove", "es": "Platanal", "zh": "香蕉林", "fr": "Bananeraie", "ru": "Банановая роща"}, "br1000000000": {"it": "Repubblica delle banane", "en": "Banana republic", "es": "República bananera", "zh": "香蕉共和国", "fr": "République bananière", "ru": "Банановая республика"}, "br1000000000000": {"it": "Montagna gialla", "en": "Yellow mountain", "es": "Montaña amarilla", "zh": "黄色大山", "fr": "Montagne jaune", "ru": "Жёлтая гора"}, "br1000000000000000": {"it": "Oceano di banane", "en": "Ocean of bananas", "es": "Océano de plátanos", "zh": "香蕉海洋", "fr": "Océan de bananes", "ru": "Океан бананов"}, "br1e+21": {"it": "Galassia gialla", "en": "Yellow galaxy", "es": "Galaxia amarilla", "zh": "黄色星系", "fr": "Galaxie jaune", "ru": "Жёлтая галактика"}, "br1e+27": {"it": "Banana infinita", "en": "Infinite banana", "es": "Plátano infinito", "zh": "无限香蕉", "fr": "Banane infinie", "ru": "Бесконечный банан"}, "lg1000": {"it": "Mille lettere", "en": "A thousand letters", "es": "Mil letras", "zh": "一千个字母", "fr": "Mille lettres", "ru": "Тысяча букв"}, "lg1000000": {"it": "Un milione di lettere", "en": "A million letters", "es": "Un millón de letras", "zh": "一百万个字母", "fr": "Un million de lettres", "ru": "Миллион букв"}, "lg1000000000": {"it": "Un miliardo di lettere", "en": "A billion letters", "es": "Mil millones de letras", "zh": "十亿个字母", "fr": "Un milliard de lettres", "ru": "Миллиард букв"}, "lg1000000000000": {"it": "Biblioteca nazionale", "en": "National library", "es": "Biblioteca nacional", "zh": "国家图书馆", "fr": "Bibliothèque nationale", "ru": "Национальная библиотека"}, "lg1000000000000000000": {"it": "Tutti i libri del mondo", "en": "Every book in the world", "es": "Todos los libros del mundo", "zh": "世上所有的书", "fr": "Tous les livres du monde", "ru": "Все книги мира"}, "og10": {"it": "Cassetta degli attrezzi", "en": "Toolbox", "es": "Caja de herramientas", "zh": "工具箱", "fr": "Boîte à outils", "ru": "Ящик с инструментами"}, "og50": {"it": "Ufficio attrezzato", "en": "Well-equipped office", "es": "Oficina equipada", "zh": "装备齐全的办公室", "fr": "Bureau équipé", "ru": "Оборудованный офис"}, "og200": {"it": "Magazzino", "en": "Warehouse", "es": "Almacén", "zh": "仓库", "fr": "Entrepôt", "ru": "Склад"}, "og500": {"it": "Fabbrica di tastiere", "en": "Keyboard factory", "es": "Fábrica de teclados", "zh": "键盘工厂", "fr": "Usine de claviers", "ru": "Фабрика клавиатур"}, "og1000": {"it": "Impero della scrittura", "en": "Writing empire", "es": "Imperio de la escritura", "zh": "写作帝国", "fr": "Empire de l'écriture", "ru": "Империя письма"}, "ml10": {"it": "Allenamento", "en": "Training", "es": "Entrenamiento", "zh": "训练", "fr": "Entraînement", "ru": "Тренировка"}, "ml25": {"it": "Scimmie in forma", "en": "Monkeys in shape", "es": "Monos en forma", "zh": "身强体壮的猴子", "fr": "Singes en forme", "ru": "Обезьяны в форме"}, "ml50": {"it": "Atleti della tastiera", "en": "Keyboard athletes", "es": "Atletas del teclado", "zh": "键盘运动员", "fr": "Athlètes du clavier", "ru": "Атлеты клавиатуры"}, "ml100": {"it": "Campioni olimpici", "en": "Olympic champions", "es": "Campeones olímpicos", "zh": "奥运冠军", "fr": "Champions olympiques", "ru": "Олимпийские чемпионы"}, "ml200": {"it": "Leggende", "en": "Legends", "es": "Leyendas", "zh": "传奇", "fr": "Légendes", "ru": "Легенды"}, "tm86400": {"it": "Un giorno intero", "en": "A whole day", "es": "Un día entero", "zh": "整整一天", "fr": "Une journée entière", "ru": "Целый день"}, "tm360000": {"it": "Cento ore", "en": "A hundred hours", "es": "Cien horas", "zh": "一百个小时", "fr": "Cent heures", "ru": "Сто часов"}, "asilo30": {"it": "Asilo affollato", "en": "Crowded nursery", "es": "Guardería llena", "zh": "拥挤的托儿所", "fr": "Crèche bondée", "ru": "Переполненные ясли"}};
+  const quantiOggetti = () => OGGETTI.reduce((n, [id]) => n + (G.liv[id] || 0), 0);
+  const livelliMigl = () => MIGLIORAMENTI.reduce((n, [id]) => n + (G.liv[id] || 0), 0);
+  const conta = n => fmt(n);
+  function nuovoGruppo(prefisso, cat, ico, soglie, chiaveDesc, val) {
+    soglie.forEach((n, i) => TRAGUARDI.push({ id: prefisso + n, cat, ico, desc: () => t(chiaveDesc, { n: conta(n) }), val,
+      obiettivo: n, pct: [2, 3, 4, 5, 6, 8, 8][Math.min(i, 6)], min: 200 * Math.pow(4, i) }));
+  }
+  nuovoGruppo("pc", "parole", "📖", [1, 5, 10, 25, 50, 100], "desc_pc", () => paroleTrovateTot());
+  nuovoGruppo("pl", "parole", "🔤", [3, 4, 5, 6, 7, 8], "desc_pl", () => G.parolaCasualeMax || 0);
+  nuovoGruppo("fc", "frasi", "📚", [10, 25, 50], "desc_fc", () => G.completate || 0);
+  nuovoGruppo("pf", "frasi", "🧭", [5, 25, 100, 500], "desc_pf", () => G.parole || 0);
+  nuovoGruppo("br", "banane", "🍌", [1e3, 1e6, 1e9, 1e12, 1e15, 1e21, 1e27], "desc_br", () => G.raccolto || 0);
+  nuovoGruppo("lg", "banane", "✍️", [1e3, 1e6, 1e9, 1e12, 1e18], "desc_lg", () => G.lettere || 0);
+  nuovoGruppo("og", "potenziamenti", "🧰", [10, 50, 200, 500, 1000], "desc_og", quantiOggetti);
+  nuovoGruppo("ml", "potenziamenti", "🛠️", [10, 25, 50, 100, 200], "desc_ml", livelliMigl);
+  [86400, 360000].forEach((n, i) => TRAGUARDI.push({ id: "tm" + n, cat: "tempo", ico: "⏳", desc: () => t("desc_tm", { t: fmtTempo(n) }),
+    val: () => G.tempo, obiettivo: n, pct: 15, min: 5000 * (i + 1) }));
+  TRAGUARDI.push({ id: "mfa", cat: "frasi", ico: "🌱", desc: () => t("desc_mfa"), val: () => (G.completateModo || {}).facile || 0, obiettivo: 1, pct: 5 });
+  TRAGUARDI.push({ id: "mre", cat: "frasi", ico: "🎩", desc: () => t("desc_mre"), val: () => (G.completateModo || {}).realistica || 0, obiettivo: 1, pct: 15 });
+  TRAGUARDI.push({ id: "tre", cat: "frasi", ico: "🎯", desc: () => t("desc_tre"),
+    val: () => MODI.filter(m => ((G.completateModo || {})[m] || 0) > 0).length, obiettivo: 3, pct: 15 });
+  TRAGUARDI.push({ id: "mio", cat: "frasi", ico: "🖋️", desc: () => t("desc_mio"),
+    val: () => MODI.some(m => ((G.frasiModo || {})[m] || {}).mio) || (G.fraseMio || 0) > 0 ? 1 : 0, obiettivo: 1, pct: 10 });
+  TRAGUARDI.push({ id: "asilo30", cat: "scimmie", ico: "🍼", desc: () => t("desc_asilo30"), val: () => G.liv.asilo, obiettivo: 30, pct: 15 });
+  for (const tr of TRAGUARDI) if (NOMI_TRAG_NUOVI[tr.id]) tr.nome = () => NOMI_TRAG_NUOVI[tr.id][L] || NOMI_TRAG_NUOVI[tr.id].it;
+  const CATEGORIE_TRAG = ["frasi", "record", "parole", "scimmie", "velocita", "potenziamenti", "banane", "tasti", "tempo", "speciali"];
 
   // =====================================================================
   //  STATO
@@ -2801,7 +3070,7 @@
     for (const p of POT) liv[p.id] = 0;
     return {
       operaId: "eureka", testoMio: "", record: 0, recordChi: 0, recordTs: 0, opereFatte: [],
-      archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, ufficioVuoto: true, paroleInOrdine: true, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
+      archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, ufficioVuoto: true, paroleInOrdine: true, paroleScimmie: {}, parolaCasualeMax: 0, completateModo: {}, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
       imp: { musica: 70, effetti: 80, lingua: linguaIniziale(), tema: "giungla", modo: "normale" },
       liv, cuccioli: 1, banane: 150, tasti: 0, tempo: 0, completate: 0,
       diario: [], ts: Date.now()
@@ -2937,8 +3206,9 @@
     R.target = normalizza(op.testo) || normalizza("Eureka");
     R.alfa = ALFABETI[scrittura(R.target)][modoCorrente()];
     R.confini = confiniParole();
+    R.tappe = parolePerTappe();
     // a ogni cambio di frase la cronaca ricomincia da capo
-    if (G.diarioTarget !== undefined && G.diarioTarget !== R.target) { G.diario = []; R.diarioSporco = true; }
+    if (G.diarioTarget !== undefined && G.diarioTarget !== R.target) { G.diario = []; G.ultimaTappa = null; R.diarioSporco = true; }
     G.diarioTarget = R.target;
     R.nTasti = R.alfa.length;
     R.codici = Uint8Array.from(R.target, c => Math.max(0, R.alfa.indexOf(c)));
@@ -2990,6 +3260,8 @@
     else if (R.target.length > (G.lunghe[G.operaId] || 0)) { G.lunghe[G.operaId] = R.target.length; G.lungheModo[G.operaId] = modoCorrente(); }
     const fm = (G.frasiModo = G.frasiModo || {})[modoCorrente()] = G.frasiModo[modoCorrente()] || {};
     fm[G.operaId] = Math.max(fm[G.operaId] || 0, R.target.length);
+    G.completateModo = G.completateModo || {};
+    G.completateModo[modoCorrente()] = (G.completateModo[modoCorrente()] || 0) + 1;
     // un editore compra l'opera: metà del raccolto la prima volta, un decimo le volte successive
     const premio = Math.max(G.raccolto * (primaVolta ? 0.2 : 0.05), R.target.length * (primaVolta ? 1000 : 100));
     G.banane += premio;
@@ -3084,11 +3356,81 @@
       G.paroleModo = G.paroleModo || {};
       if (!G.paroleModo[modo] || lung > G.paroleModo[modo].l) G.paroleModo[modo] = { p: c.parola, l: lung };
       aggiungiDiario({ tipo: "parola", chi, w: c.parola, n: lung });
+      G.ultimaTappa = { w: c.parola, chi, ts: Date.now() };
       ultima = c;
     }
     if (!ultima) return;
     G.banane += totale;
     if (!R.caricamento) avviso(t("parola_trovata", { chi: chiScimmia(chi), w: ultima.parola, n: fmt(totale) }));
+  }
+
+  // =====================================================================
+  //  MISSIONE SECONDARIA: PAROLE TROVATE PER CASO
+  //  Ogni tanto una scimmia scrive per caso una parola vera. Non conta per la frase e non dà banane:
+  //  le parole nuove finiscono in una collezione e fanno avanzare i traguardi 📖.
+  // =====================================================================
+  const DIZIONARI = {"it": "il lo la le gli un uno una di da in con su per tra fra ma se no si ne ci vi mi ti io tu lui lei noi voi ho ha hai qui ora poi gia mai piu che chi cui non oro re mare sole luna cane gatto casa amore vita cuore mano notte giorno tempo mondo terra cielo acqua fuoco vento fiore albero libro parola scimmia banana tasto lettera foglio penna carta verso rima poeta poesia sogno pace luce ombra fine anno uomo donna bimbo amico porta strada citta paese isola monte fiume lago bosco neve pioggia stella mela pane vino latte sale miele rosa verde rosso blu nero bianco gioco festa musica canto ballo arte storia scuola lavoro tavolo sedia finestra macchina telefono computer infinito teorema tastiera scrittore capolavoro meraviglia felicita fantasia avventura biblioteca", "en": "an at be by do go he hi if in is it me my no of oh ok on or so to up us we am as ox the and for are but not you all any can her was one our out day get has him his how man new now old see two way who boy did its let put say she too use cat dog sun sea sky car bus run fun red big yes yet love book word time life hand home moon star tree fire wind rain snow city game play song king ring blue gold door girl baby milk cake fish bird frog lion monkey banana typing letter paper poem poet rhyme dream peace light world water house happy music dance heart night sweet apple green black white river ocean island forest flower friend school garden window computer keyboard infinite theorem universe adventure wonderful masterpiece", "es": "el la lo los las un una de en con por sin mas que se si no ni ya yo tu mi te le me al del son sol mar paz luz dia mes voz pan sal oro rey ojo mano casa amor vida cielo agua fuego viento flor arbol libro gato perro luna noche tiempo mundo tierra nube rosa verde rojo azul negro blanco fiesta musica canto baile arte mono platano tecla letra papel poema poeta verso amigo puerta calle ciudad pueblo isla monte lago bosque nieve lluvia estrella manzana leche vino queso miel juego escuela trabajo mesa silla ventana coche telefono infinito teorema teclado escritor maravilla aventura biblioteca felicidad", "fr": "le la les un une de des du en et au aux ce se sa son ma mon ta ton tu il on ne pas oui non qui que je me te moi toi lui eux nous vous mer sol ciel eau feu air vent sel ami amie roi rue lit nez main pied tete coeur amour vie mot nuit jour temps monde terre lune soleil chat chien maison livre arbre fleur rose vert rouge bleu noir blanc fete jeu chant danse art singe banane touche lettre papier poeme poete vers reve paix porte ville pays ile mont lac bois neige pluie etoile pomme pain vin lait miel ecole travail table chaise fenetre voiture telephone infini theoreme clavier ecrivain merveille aventure bibliotheque bonheur", "ru": "да нет он она оно мы вы ты не ни но на по за из от до как так что кто где все мир дом кот лес сад мак сыр чай мед лед сон дым нос рот глаз рука нога мама папа брат сестра друг кошка собака солнце луна море небо река гора поле цвет роза день ночь утро вечер время жизнь любовь сердце книга слово буква лист поэт поэма стих мечта свет тень вода огонь ветер дождь снег звезда яблоко хлеб молоко вино игра песня танец школа работа стол стул окно машина телефон компьютер обезьяна банан клавиша клавиатура бесконечность теорема писатель шедевр чудо счастье приключение библиотека", "zh": "ni wo ta de le bu shi you he zai ren da xiao hao ai mi ma ba ge di yi er san si wu liu qi jiu nian yue ri tian shan shui huo feng yu xue hua cao shu niu yang gou mao men kou shou xin jia guo hai jiang chun xia qiu dong pengyou laoshi xuesheng houzi xiangjiao zimu jianpan dazi shiren shige mengxiang heping guang ying shijie shijian taiyang yueliang xingxing pingguo mianbao niunai youxi yinyue tiaowu xuexiao gongzuo zhuozi yizi chuanghu qiche dianhua diannao wuxian dingli zuojia qiji xingfu maoxian tushuguan"};
+  const cacheDiz = {};
+  const chiaveDizionario = () => (scrittura(R.target) === "cir" ? "ru" : (L === "ru" ? "en" : L));
+  function dizionario(chiave = chiaveDizionario()) {
+    if (!cacheDiz[chiave]) {
+      const parole = [...new Set(DIZIONARI[chiave].split(/\s+/).filter(w => w.length >= 2))];
+      const perLung = {};
+      for (const w of parole) (perLung[w.length] = perLung[w.length] || []).push(w);
+      cacheDiz[chiave] = { tot: parole.length, perLung };
+    }
+    return cacheDiz[chiave];
+  }
+  const paroleTrovateTot = () => Object.values(G.paroleScimmie || {}).reduce((n, l) => n + l.length, 0);
+  function poisson(media) {
+    const limite = Math.exp(-media);
+    let k = 0, p = 1;
+    do { k++; p *= Math.random(); } while (p > limite);
+    return k - 1;
+  }
+  function cercaParoleCasuali(tps, dt) {
+    if (R.fermo || tps <= 0 || dt <= 0) return;
+    const chiave = chiaveDizionario(), diz = dizionario(chiave);
+    const N = R.nTasti, facile = modoCorrente() === "facile";
+    const trovate = (G.paroleScimmie = G.paroleScimmie || {})[chiave] = G.paroleScimmie[chiave] || [];
+    const nuove = [];
+    for (const [k, lista] of Object.entries(diz.perLung)) {
+      const lung = +k;
+      // una parola vera deve essere tra due spazi (in Facile gli spazi non ci sono)
+      const attese = tps * dt * lista.length * Math.pow(N, -(facile ? lung : lung + 2));
+      if (attese < 1e-12) continue;
+      const n = attese < 30 ? poisson(attese) : Math.round(attese);
+      if (!n) continue;
+      if (lung > (G.parolaCasualeMax || 0)) G.parolaCasualeMax = lung;
+      for (let i = 0; i < Math.min(n, lista.length * 3); i++) {
+        const w = lista[Math.floor(Math.random() * lista.length)];
+        if (!trovate.includes(w)) { trovate.push(w); nuove.push(w); }
+      }
+    }
+    if (!nuove.length) return;
+    R.parolaNuova = nuove[nuove.length - 1];
+    const adesso = Date.now();
+    if (!R.caricamento && adesso - (R.ultimoAvvisoParola || 0) > 6000) {
+      R.ultimoAvvisoParola = adesso;
+      const lunga = nuove.reduce((a, b) => (b.length > a.length ? b : a));
+      avviso(t("pc_nuova", { w: lunga, chi: chiScimmia(idCasuale(numScimmie())) }));
+    }
+    controllaTraguardi();
+    if (vistaAttiva("traguardi")) disegnaMissione();
+  }
+  function disegnaMissione() {
+    const chiave = chiaveDizionario(), diz = dizionario(chiave);
+    const trovate = ((G.paroleScimmie || {})[chiave] || []).slice().sort((a, b) => b.length - a.length || a.localeCompare(b));
+    $("pcConta").textContent = t("pc_conta", { n: trovate.length, tot: diz.tot });
+    const box = $("pcParole");
+    box.innerHTML = "";
+    for (const w of trovate) {
+      const el = document.createElement("span");
+      el.className = "chip fatta" + (w === R.parolaNuova ? " nuova" : "");
+      el.textContent = w;
+      box.appendChild(el);
+    }
+    R.parolaNuova = null;
   }
 
   function serieMassimaSuTasti(K) {
@@ -3187,6 +3529,7 @@
     const N = numScimmie(), v = velocitaScimmia();
     G.tasti += N * v * dt;
     raccogli(bananeAlSecondo(N * v) * dt);
+    cercaParoleCasuali(N * v, dt);
     sincronizzaTelecamera();
     muoviTelecamera(v * dt);
     if (R.fermo) return;
@@ -3440,7 +3783,18 @@
   // ---------- traguardi ----------
   function costruisciTraguardi() {
     const g = $("grigliaTrag");
-    for (const tr of TRAGUARDI) {
+    const ordinati = [];
+    for (const cat of CATEGORIE_TRAG) ordinati.push(...TRAGUARDI.filter(tr => tr.cat === cat));
+    let catPrima = null;
+    for (const tr of ordinati) {
+      if (tr.cat !== catPrima) {
+        const h = document.createElement("h3");
+        h.className = "cat-trag";
+        h.dataset.t = "cat_" + tr.cat;
+        h.textContent = t("cat_" + tr.cat);
+        g.appendChild(h);
+        catPrima = tr.cat;
+      }
       const d = document.createElement("div");
       d.className = "trag bloccato";
       d.innerHTML = `<span class="ico">${tr.ico}</span><b></b><small class="desc"></small>` +
@@ -3492,11 +3846,11 @@
   function disegnaStatistiche() {
     $("sTasti").textContent = fmt(G.tasti);
     $("sTempo").textContent = fmtTempo(G.tempo);
-    $("sOpere").textContent = G.opereFatte.length;
     $("sMax").textContent = caratteri(recordMassimo());
     $("sLettere").textContent = fmt(G.lettere);
     $("sRaccolto").textContent = fmt(G.raccolto);
-    $("sParole").textContent = fmt(G.parole || 0);
+    $("sFrasi").textContent = fmt(G.completate || 0);
+    $("sTrovate").textContent = fmt(paroleTrovateTot());
     $("sParolaMax").textContent = G.parolaMax ? "«" + G.parolaMax.p + "»" : "—";
   }
   function aggiungiDiario(voce) {
@@ -3505,19 +3859,45 @@
     G.diario.length = Math.min(G.diario.length, 60);
     R.diarioSporco = true;
   }
+  // ---------- tappe della frase: le parole già scritte di fila dalla scimmia in testa ----------
+  function parolePerTappe() {
+    const tappe = [];
+    if (modoCorrente() === "facile") {
+      let pos = 0;
+      for (const w of normalizza(operaCorrente().testo, "normale").split(" ")) {
+        tappe.push({ parola: w, inizio: pos, fine: pos + w.length });
+        pos += w.length;
+      }
+    } else {
+      let inizio = 0;
+      for (let j = 0; j <= R.target.length; j++) {
+        if (j === R.target.length || R.target[j] === " ") {
+          if (j > inizio) tappe.push({ parola: R.target.slice(inizio, j), inizio, fine: j });
+          inizio = j + 1;
+        }
+      }
+    }
+    return tappe;
+  }
   function disegnaCronaca() {
-    $("cronaca").innerHTML = G.diario.length
-      ? G.diario.map(v => {
-          const chi = chiScimmia(v.chi);
-          const quando = `<small>${fmtFa(v.quando)}</small>`;
-          if (v.tipo === "parola") return `<li>${t("cr_parola", { chi, w: v.w, car: caratteri(v.n) })}${quando}</li>`;
-          if (v.tipo === "opera") {
-            const titolo = v.operaId ? operaCorrente(v.operaId).titolo : (v.titolo || "");
-            return `<li class="grande">${t("cr_opera", { chi, titolo })}${quando}</li>`;
-          }
-          return `<li>${t("cr_record", { chi, car: caratteri(v.n) })} <q>${v.n > 40 ? "…" : ""}${v.testo}</q>${quando}</li>`;
-        }).join("")
-      : `<li><small>${t("cr_vuoto")}</small></li>`;
+    const box = $("tappe");
+    const tappe = R.tappe || [];
+    box.innerHTML = "";
+    let fatte = 0;
+    for (const tp of tappe) {
+      const el = document.createElement("span");
+      const lung = tp.fine - tp.inizio;
+      if (G.record >= tp.fine) { el.className = "chip fatta"; fatte++; }
+      else if (G.record > tp.inizio) {
+        el.className = "chip corrente";
+        el.style.setProperty("--avanz", Math.round(100 * (G.record - tp.inizio) / lung) + "%");
+      } else el.className = "chip";
+      el.textContent = tp.parola;
+      box.appendChild(el);
+    }
+    const ultima = G.ultimaTappa;
+    $("tappeInfo").textContent = t("tappe_conta", { a: fatte, b: tappe.length }) +
+      (ultima ? " · " + t("tappe_ultima", { w: ultima.w, chi: chiScimmia(ultima.chi), quando: fmtFa(ultima.ts) }) : " · " + t("tappe_nessuna"));
   }
 
   // ---------- biblioteca ----------
@@ -3588,6 +3968,10 @@
       // le parole ora contano solo nell'ordine della frase: azzero quelle trovate prima
       if (!dati.paroleInOrdine) { g.parole = 0; g.parolaMax = null; g.paroleModo = {}; g.diario = (g.diario || []).filter(v => v.tipo !== "parola"); }
       g.paroleInOrdine = true;
+      if (!dati.completateModo) {
+        g.completateModo = {};
+        for (const m of MODI) g.completateModo[m] = Object.keys((g.frasiModo || {})[m] || {}).length;
+      }
       // frasi completate divise per difficoltà
       if (!dati.frasiModo) {
         g.frasiModo = { facile: {}, normale: {}, realistica: {} };
@@ -3956,13 +4340,11 @@
     },
     async disegna() {
       const box = document.querySelector(".riquadro-classifica");
-      if (!box) return;
+      if (!box || !box.querySelectorAll) return;
       const lista = box.querySelector('[data-cl="lista"]'), stato = box.querySelector('[data-cl="stato"]');
-      const nome = box.querySelector('[data-cl="nome"]'), nick = box.querySelector('[data-cl="nick"]'), pos = box.querySelector('[data-cl="pos"]');
+      const pos = box.querySelector('[data-cl="pos"]');
       const modo = this.modoVista || modoCorrente();
       box.querySelectorAll("[data-clmodo]").forEach(b => b.setAttribute("aria-pressed", b.dataset.clmodo === modo));
-      nome.hidden = !this.disponibile || this.solaLettura;
-      if (document.activeElement !== nick) nick.value = G.nick || "";
       pos.textContent = "";
       if (this.disponibile === null) { stato.textContent = t("cl_caricamento"); lista.innerHTML = ""; return; }
       if (!this.disponibile) { stato.textContent = t("cl_offline"); lista.innerHTML = ""; return; }
@@ -4038,7 +4420,7 @@
     document.querySelectorAll(".menu button").forEach(b => {
       if (b.dataset.vista === nome) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
     });
-    if (nome === "traguardi") disegnaTraguardi();
+    if (nome === "traguardi") { disegnaTraguardi(); disegnaMissione(); }
     if (nome === "diario") Online.disegna();
     window.scrollTo(0, 0);
     disegnaTutto(true);
@@ -4134,9 +4516,11 @@
 
   // ---------- scelta del nome per la classifica ----------
   let dopoNome = null;
-  function chiediNome(poi) {
+  // facoltativo = cambio di nome dalle impostazioni (si può annullare); altrimenti è obbligatorio
+  function chiediNome(poi, facoltativo = false) {
     dopoNome = poi;
-    $("campoNome").value = "";
+    $("bNomeAnnulla").hidden = !facoltativo;
+    $("campoNome").value = facoltativo ? (G.nick || "") : "";
     $("statoNome").textContent = "";
     apri("veloNome");
     setTimeout(() => { try { $("campoNome").focus(); } catch (e) {} }, 300);
@@ -4153,6 +4537,7 @@
     salva();
     Online.pubblicaRiga();
     Online.disegna();
+    scriviImpostazioni();
     chiudi("veloNome");
     const f = dopoNome; dopoNome = null;
     if (f) f();
@@ -4395,6 +4780,7 @@
     $("valMusica").textContent = G.imp.musica ? G.imp.musica + "%" : t("spento");
     $("valEffetti").textContent = G.imp.effetti ? G.imp.effetti + "%" : t("spento");
     $("impLinguaNome").textContent = LINGUE[L].bandiera + " " + LINGUE[L].nome;
+    $("impNomeGiocatore").textContent = (G.nick || "").trim() || "—";
 
     const tm = TEMI.find(x => x.id === G.imp.tema) || TEMI[0];
     $("impTemaNome").textContent = nomeTema(tm);
@@ -4524,6 +4910,8 @@
     $("bImpLingua").onclick = apriLingue;
     $("bInfoBanane").onclick = () => apri("veloInfo");
     $("bNomeOk").onclick = confermaNome;
+    $("bNomeAnnulla").onclick = () => { dopoNome = null; chiudi("veloNome"); };
+    $("bImpNome").onclick = () => chiediNome(null, true);
     $("campoNome").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); confermaNome(); } });
     $("bEsporta").onclick = () => { chiudi("veloImpostazioni"); apriEsporta(); };
     $("bImporta").onclick = () => { chiudi("veloImpostazioni"); apriImporta(); };
@@ -4575,14 +4963,7 @@
 
     // classifica
     document.querySelectorAll("[data-clmodo]").forEach(bt => bt.onclick = () => { Online.modoVista = bt.dataset.clmodo; Online.disegna(); });
-    document.querySelectorAll('[data-cl="salva"]').forEach(bt => bt.onclick = () => {
-      const campo = bt.parentNode.querySelector('[data-cl="nick"]');
-      G.nick = campo.value.trim().slice(0, 20);
-      salva();
-      Online.pubblicaRiga();
-      Online.disegna();
-      avviso(t("cl_salvato"));
-    });
+
 
     // lingua
     $("bChiudiLingua").onclick = () => chiudi("veloLingua");
@@ -4606,7 +4987,7 @@
     if (vistaAttiva("scimmie")) disegnaScimmie();
     if (vistaAttiva("diario")) {
       disegnaStatistiche();
-      if (R.diarioSporco || forza) { disegnaCronaca(); R.diarioSporco = false; }
+      if (R.diarioSporco || forza || R.tappeRecord !== G.record) { disegnaCronaca(); R.diarioSporco = false; R.tappeRecord = G.record; }
     }
   }
 
