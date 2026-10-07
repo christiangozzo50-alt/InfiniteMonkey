@@ -73,6 +73,10 @@
   .cassa .tot { font-family: var(--ui); font-size: 30px; font-weight: 800; line-height: 1; color: var(--banana); }
   .cassa .rit { font-size: 13px; color: var(--spento); margin-top: 3px; }
   .riga-tot { display: flex; align-items: center; gap: 8px; }
+  .campo-nome {
+    width: 100%; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--linea); background: var(--notte);
+    color: var(--testo); font: inherit; font-size: 17px; padding: 12px 14px; margin: 4px 0 6px;
+  }
   .versione-gioco { text-align: center; color: var(--spento); font-size: 12px; margin: 14px 0 0; opacity: .8; }
   .foglio-basso textarea.codice-trasf { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; word-break: break-all; min-height: 130px; }
   .info-i {
@@ -473,6 +477,39 @@
   .tut-azioni { display: flex; gap: 8px; justify-content: flex-end; }
   .tut-azioni [hidden] { display: none; }
 
+  /* apertura */
+  .sipario {
+    position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
+    background: radial-gradient(90% 60% at 50% 40%, #1c3d2c 0%, #0f2119 75%), #0f2119;
+    transition: opacity .7s ease, visibility .7s;
+  }
+  .sipario.via { opacity: 0; visibility: hidden; }
+  .sip-dentro { text-align: center; animation: sip-entra .7s cubic-bezier(.2, .8, .2, 1) both; }
+  .sip-logo { font-size: 76px; line-height: 1; display: inline-block; animation: sip-dondola 1.4s ease-in-out infinite; }
+  .sip-nome { font-family: var(--pixel); color: #ffd23f; font-size: 26px; font-weight: 700; margin-top: 16px; letter-spacing: .5px; }
+  .sip-cursore { display: inline-block; width: .55em; height: .95em; background: #ffd23f; margin-left: 5px; vertical-align: -0.1em; animation: sip-lampeggia 1s steps(1) infinite; }
+  .sip-tasti { display: flex; gap: 8px; justify-content: center; margin-top: 22px; }
+  .sip-tasti i { width: 10px; height: 10px; border-radius: 3px; background: #f1f0e6; opacity: .25; animation: sip-tasto 1.2s ease-in-out infinite; }
+  .sip-tasti i:nth-child(2) { animation-delay: .2s; }
+  .sip-tasti i:nth-child(3) { animation-delay: .4s; }
+  @keyframes sip-entra { from { opacity: 0; transform: scale(.92); } to { opacity: 1; transform: none; } }
+  @keyframes sip-dondola { 0%, 100% { transform: rotate(-7deg) translateY(0); } 50% { transform: rotate(7deg) translateY(-6px); } }
+  @keyframes sip-lampeggia { 50% { opacity: 0; } }
+  @keyframes sip-tasto { 0%, 100% { opacity: .25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-5px); } }
+  /* il menu iniziale entra un pezzo alla volta */
+  .menu-iniziale.entra .mi-dentro > * { animation: mi-sali .65s cubic-bezier(.2, .8, .2, 1) both; }
+  .menu-iniziale.entra .mi-dentro > :nth-child(1) { animation: mi-pop .8s cubic-bezier(.2, 1.4, .4, 1) both; }
+  .menu-iniziale.entra .mi-dentro > :nth-child(2) { animation-delay: .12s; }
+  .menu-iniziale.entra .mi-dentro > :nth-child(3) { animation-delay: .2s; }
+  .menu-iniziale.entra .mi-dentro > :nth-child(4) { animation-delay: .28s; }
+  .menu-iniziale.entra .mi-dentro > :nth-child(5) { animation-delay: .36s; }
+  .menu-iniziale.entra .mi-dentro > :nth-child(6) { animation-delay: .44s; }
+  @keyframes mi-sali { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @keyframes mi-pop { from { opacity: 0; transform: scale(.6) rotate(-4deg); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .sip-logo, .sip-cursore, .sip-tasti i, .sip-dentro, .menu-iniziale.entra .mi-dentro > * { animation: none !important; }
+  }
+
   /* temi */
   .azioni.fissa {
     position: sticky; bottom: calc(-20px - env(safe-area-inset-bottom, 0px)); margin: 0 -16px;
@@ -527,6 +564,15 @@
 </style>
 </head>
 <body>
+
+<!-- =============== APERTURA: la scimmietta che batte a macchina, poi il menu =============== -->
+<div class="sipario" id="sipario" aria-hidden="true">
+  <div class="sip-dentro">
+    <div class="sip-logo">🐒</div>
+    <div class="sip-nome">Scimmie infinite<span class="sip-cursore"></span></div>
+    <div class="sip-tasti"><i></i><i></i><i></i></div>
+  </div>
+</div>
 
 <!-- =============== SCHERMATA INIZIALE =============== -->
 <div class="menu-iniziale" id="menuIniziale">
@@ -773,7 +819,18 @@
       <button class="pulsante secondario" id="bChiudiImpostazioni" data-t="chiudi"></button>
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
-    <p class="versione-gioco">Scimmie infinite · versione 13</p>
+    <p class="versione-gioco">Scimmie infinite · versione 14</p>
+  </div>
+</div>
+
+<!-- =============== SCELTA DEL NOME =============== -->
+<div class="velo centro sopra" id="veloNome">
+  <div class="finestra" role="dialog" aria-modal="true" aria-labelledby="titNome">
+    <h2 id="titNome" data-t="nome_tit"></h2>
+    <p data-t="nome_sotto"></p>
+    <input class="campo-nome" id="campoNome" maxlength="20" autocomplete="nickname" autocapitalize="off" spellcheck="false" data-t-ph="nome_ph">
+    <p class="stato-cl" id="statoNome"></p>
+    <div class="azioni"><button class="pulsante" id="bNomeOk" data-t="nome_ok"></button></div>
   </div>
 </div>
 
@@ -1061,7 +1118,13 @@
       tr_errore: "Codice non valido: controlla di averlo copiato tutto.",
       tr_conferma_tit: "Sostituire la partita?",
       tr_conferma_testo: "La partita su questo dispositivo verrà sostituita da quella importata.",
-      cl_tua_pos: "Tu sei al {n}° posto"
+      cl_tua_pos: "Tu sei al {n}° posto",
+      nome_tit: "✍️ Scegli il tuo nome",
+      nome_sotto: "È il nome con cui comparirai nelle classifiche. Potrai cambiarlo in qualsiasi momento dal Diario.",
+      nome_ph: "Il tuo nome",
+      nome_ok: "Conferma",
+      nome_corto: "Scegli un nome di almeno 2 caratteri.",
+      nome_preso: "Questo nome è già usato da un altro giocatore: scegline un altro."
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -1207,7 +1270,13 @@
       tr_errore: "Invalid code: make sure you copied all of it.",
       tr_conferma_tit: "Replace the game?",
       tr_conferma_testo: "The game on this device will be replaced by the imported one.",
-      cl_tua_pos: "You're in position {n}"
+      cl_tua_pos: "You're in position {n}",
+      nome_tit: "✍️ Choose your name",
+      nome_sotto: "It's the name you'll appear with on the leaderboards. You can change it any time from the Journal.",
+      nome_ph: "Your name",
+      nome_ok: "Confirm",
+      nome_corto: "Choose a name of at least 2 characters.",
+      nome_preso: "This name is already used by another player: pick a different one."
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -1353,7 +1422,13 @@
       tr_errore: "Código no válido: comprueba que lo has copiado entero.",
       tr_conferma_tit: "¿Reemplazar la partida?",
       tr_conferma_testo: "La partida de este dispositivo se reemplazará por la importada.",
-      cl_tua_pos: "Estás en el puesto {n}"
+      cl_tua_pos: "Estás en el puesto {n}",
+      nome_tit: "✍️ Elige tu nombre",
+      nome_sotto: "Es el nombre con el que aparecerás en las clasificaciones. Podrás cambiarlo cuando quieras desde el Diario.",
+      nome_ph: "Tu nombre",
+      nome_ok: "Confirmar",
+      nome_corto: "Elige un nombre de al menos 2 caracteres.",
+      nome_preso: "Otro jugador ya usa este nombre: elige otro."
     },
 
     // ------------------------------------------------------------- 中文
@@ -1499,7 +1574,13 @@
       tr_errore: "代码无效：请确认已完整复制。",
       tr_conferma_tit: "替换存档？",
       tr_conferma_testo: "这台设备上的存档会被导入的存档替换。",
-      cl_tua_pos: "你排在第 {n} 名"
+      cl_tua_pos: "你排在第 {n} 名",
+      nome_tit: "✍️ 选择你的名字",
+      nome_sotto: "这是你在排行榜上显示的名字。之后可以随时在“日志”里修改。",
+      nome_ph: "你的名字",
+      nome_ok: "确认",
+      nome_corto: "名字至少需要 2 个字符。",
+      nome_preso: "这个名字已被其他玩家使用，请换一个。"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -1645,7 +1726,13 @@
       tr_errore: "Code invalide : vérifie que tu l'as copié en entier.",
       tr_conferma_tit: "Remplacer la partie ?",
       tr_conferma_testo: "La partie sur cet appareil sera remplacée par celle importée.",
-      cl_tua_pos: "Tu es à la {n}e place"
+      cl_tua_pos: "Tu es à la {n}e place",
+      nome_tit: "✍️ Choisis ton nom",
+      nome_sotto: "C'est le nom avec lequel tu apparaîtras dans les classements. Tu pourras le changer à tout moment depuis le Journal.",
+      nome_ph: "Ton nom",
+      nome_ok: "Confirmer",
+      nome_corto: "Choisis un nom d'au moins 2 caractères.",
+      nome_preso: "Ce nom est déjà utilisé par un autre joueur : choisis-en un autre."
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -1792,7 +1879,13 @@
       tr_errore: "Неверный код: проверь, что скопировал его целиком.",
       tr_conferma_tit: "Заменить игру?",
       tr_conferma_testo: "Игра на этом устройстве будет заменена импортированной.",
-      cl_tua_pos: "Ты на {n}-м месте"
+      cl_tua_pos: "Ты на {n}-м месте",
+      nome_tit: "✍️ Выбери имя",
+      nome_sotto: "Под этим именем ты будешь в рейтингах. Изменить его можно в любой момент в «Дневнике».",
+      nome_ph: "Твоё имя",
+      nome_ok: "Подтвердить",
+      nome_corto: "Имя должно быть не короче 2 символов.",
+      nome_preso: "Это имя уже занято другим игроком: выбери другое."
     }
   };
 
@@ -3717,6 +3810,11 @@
     // una classifica per ogni difficoltà
     nomeClassifica: m => "classifica-" + m,
     ascolta(base) {
+      // classifica di prima (una sola per tutte le difficoltà): da lì recupero i giocatori che avevano un nome
+      base.collection("classifica").orderBy("frase", "desc").limit(100).onSnapshot(
+        snap => { this.righeVecchie = snap.docs.map(d => ({ id: d.id, ...d.data() })); this.disegna(); },
+        () => {}
+      );
       for (const m of MODI) {
         base.collection(this.nomeClassifica(m)).orderBy("frase", "desc").limit(50).onSnapshot(
           snap => { this.righe[m] = snap.docs.map(d => ({ id: d.id, ...d.data() })); this.disegna(); },
@@ -3860,7 +3958,13 @@
       if (this.disponibile === null) { stato.textContent = t("cl_caricamento"); lista.innerHTML = ""; return; }
       if (!this.disponibile) { stato.textContent = t("cl_offline"); lista.innerHTML = ""; return; }
       const avviso = this.solaLettura ? t("cl_sola") : "";
-      const righe = (this.righe[modo] || []).filter(r => (r.frase || 0) > 0 || (r.record || 0) > 0 || (r.parolaL || 0) > 0).slice()
+      // chi era nella classifica di prima con un nome e non ha ancora giocato con la versione nuova
+      const nuove = this.righe[modo] || [];
+      const giaDentro = new Set(nuove.map(r => r.id));
+      const vecchie = (this.righeVecchie || [])
+        .filter(r => typeof r.nick === "string" && r.nick.trim() && r.id !== this.id && !giaDentro.has(r.id) && (r.modo || "normale") === modo)
+        .map(r => ({ ...r, parola: "", parolaL: 0 }));   // le parole di prima erano casuali: non valgono più
+      const righe = nuove.concat(vecchie).filter(r => (r.frase || 0) > 0 || (r.record || 0) > 0 || (r.parolaL || 0) > 0).slice()
         .sort((a, b) => (b.frase || 0) - (a.frase || 0) || (b.parolaL || 0) - (a.parolaL || 0) ||
           (b.record || 0) - (a.record || 0) || (a.agg || 0) - (b.agg || 0));
       if (!righe.length) { stato.textContent = (avviso ? avviso + " " : "") + t("cl_vuota"); lista.innerHTML = ""; return; }
@@ -3935,6 +4039,10 @@
   function mostraMenuIniziale() {
     chiudi("veloImpostazioni");
     $("menuIniziale").hidden = false;
+    // ogni volta che torna il menu, i suoi pezzi entrano con l'animazione
+    $("menuIniziale").classList.remove("entra");
+    void $("menuIniziale").offsetWidth;
+    $("menuIniziale").classList.add("entra");
     R.nelMenu = true;
     scriviMenuIniziale();
   }
@@ -3949,6 +4057,8 @@
   }
   function gioca() {
     Suono.sblocca();
+    // chi non ha ancora un nome lo sceglie adesso (i nuovi giocatori subito, gli altri al prossimo accesso)
+    if (!(G.nick || "").trim()) { chiediNome(gioca); return; }
     $("menuIniziale").hidden = true;
     R.nelMenu = false;
     $("bMenuPrincipale").hidden = false;
@@ -3956,6 +4066,31 @@
       if (!G.tutorialFatto) avviaTutorial();
       else dopoTutorial();
     });
+  }
+  // ---------- scelta del nome per la classifica ----------
+  let dopoNome = null;
+  function chiediNome(poi) {
+    dopoNome = poi;
+    $("campoNome").value = "";
+    $("statoNome").textContent = "";
+    apri("veloNome");
+    setTimeout(() => { try { $("campoNome").focus(); } catch (e) {} }, 300);
+  }
+  function confermaNome() {
+    const nome = $("campoNome").value.replace(/\s+/g, " ").trim().slice(0, 20);
+    if ([...nome].length < 2) { $("statoNome").textContent = t("nome_corto"); return; }
+    // nomi già usati da altri giocatori nelle classifiche
+    const altri = [].concat(...Object.values(Online.righe || {}), Online.righeVecchie || [])
+      .filter(r => r.id !== Online.id && typeof r.nick === "string")
+      .map(r => r.nick.trim().toLowerCase());
+    if (altri.includes(nome.toLowerCase())) { $("statoNome").textContent = t("nome_preso"); return; }
+    G.nick = nome;
+    salva();
+    Online.pubblicaRiga();
+    Online.disegna();
+    chiudi("veloNome");
+    const f = dopoNome; dopoNome = null;
+    if (f) f();
   }
   // dopo introduzione e tutorial: eventuale opera finita o riepilogo dell'assenza
   // ---------- versione web: aggiungere il gioco alla schermata Home ----------
@@ -4323,6 +4458,8 @@
     $("volEffetti").onchange = () => { salva(); Suono.clic(); };
     $("bImpLingua").onclick = apriLingue;
     $("bInfoBanane").onclick = () => apri("veloInfo");
+    $("bNomeOk").onclick = confermaNome;
+    $("campoNome").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); confermaNome(); } });
     $("bEsporta").onclick = () => { chiudi("veloImpostazioni"); apriEsporta(); };
     $("bImporta").onclick = () => { chiudi("veloImpostazioni"); apriImporta(); };
     $("bTrasfAzione").onclick = azioneTrasferimento;
@@ -4441,8 +4578,15 @@
   const salvato = carica();
   avvia(salvato || statoIniziale());
   R.haSalvataggio = !!salvato;
+  $("menuIniziale").classList.remove("entra");   // il menu entra quando il sipario si apre
   mostraMenuIniziale();
+  $("menuIniziale").classList.remove("entra");
   Online.collega();
+  setTimeout(() => {
+    $("sipario").classList.add("via");
+    $("menuIniziale").classList.add("entra");
+    setTimeout(() => $("sipario").remove(), 800);
+  }, Math.max(350, 1100 - performance.now()));
   if (puoInstallare()) {
     $("bInstalla").hidden = false;
     if (!installaGiaVisto()) setTimeout(apriInstalla, 600);
