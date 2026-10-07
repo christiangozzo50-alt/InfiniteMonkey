@@ -81,6 +81,117 @@
   .cassa .rit { font-size: 13px; color: var(--spento); margin-top: 3px; }
   .riga-tot { display: flex; align-items: center; gap: 8px; }
   .bottone-condividi { margin-top: 12px; width: 100%; }
+  .blocco-ufficio { margin-top: 22px; }
+  .campione-tit { margin: 0 0 4px; font-weight: 800; font-size: 16px; color: var(--banana); }
+  .campione-sotto { margin: 0 0 12px; color: var(--spento); font-size: 13.5px; line-height: 1.45; }
+  #bAdmin { width: 100%; margin-top: 12px; }
+  .admin { display: grid; gap: 6px; margin: 6px 0 12px; }
+  .admin b { margin-top: 8px; font-size: 14.5px; }
+  .admin div { display: flex; flex-wrap: wrap; gap: 6px; }
+  .admin button { border: 1px solid var(--bordo); background: var(--foglia-2); color: var(--testo); border-radius: 10px; padding: 8px 12px; font-weight: 800; font-size: 14px; }
+  .admin button:active { background: var(--banana); color: var(--banana-inchiostro); }
+  .presto-unico {
+    margin: 4px 0 18px; padding: 26px 12px; text-align: center; border-radius: 18px; border: 2px dashed var(--bordo);
+    color: var(--spento); font-weight: 800; font-size: 20px; letter-spacing: 1px; text-transform: uppercase;
+  }
+  .presto { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 6px; }
+  .presto-carta {
+    position: relative; display: grid; justify-items: center; gap: 6px; text-align: center; padding: 16px 8px 12px;
+    border-radius: 14px; background: var(--foglia-2); border: 1px dashed var(--bordo); opacity: .75;
+  }
+  .presto-carta .ico { font-size: 30px; filter: grayscale(.6); }
+  .presto-carta b { font-size: 13.5px; line-height: 1.3; }
+  .badge-presto {
+    font-size: 11px; font-weight: 800; letter-spacing: .4px; text-transform: uppercase;
+    background: var(--banana); color: var(--banana-inchiostro); border-radius: 999px; padding: 3px 9px;
+  }
+  .lista-novita { list-style: none; padding: 0; margin: 4px 0 14px; display: grid; gap: 8px; }
+  .lista-novita li { background: var(--foglia-2); border-radius: 12px; padding: 10px 12px; font-size: 14.5px; line-height: 1.4; }
+  /* negozio */
+  .saldo-pagine { font-weight: 800; color: var(--banana); }
+  .casse { display: grid; gap: 12px; margin: 6px 0 16px; }
+  .cassa-carta {
+    display: grid; grid-template-columns: 60px 1fr; gap: 6px 12px; align-items: center; text-align: left;
+    background: var(--foglia-1); border: 1px solid var(--bordo); border-radius: 18px; padding: 14px;
+  }
+  .cassa-carta .ico { font-size: 44px; text-align: center; }
+  .cassa-carta b { display: block; font-size: 17px; }
+  .cassa-carta small { color: var(--spento); font-size: 12.5px; line-height: 1.4; display: block; margin-top: 2px; }
+  .cassa-carta small:empty { display: none; }
+  .cassa-carta .pulsante { white-space: nowrap; grid-column: 1 / -1; width: 100%; margin-top: 6px; }
+  .cassa-carta.cara .pulsante { opacity: .5; }
+  .cassa-scena { height: 150px; display: grid; place-items: center; }
+  .cassa-ico { font-size: 92px; }
+  .cassa-ico.scuoti { animation: cassa-scuoti .5s ease-in-out infinite; }
+  @keyframes cassa-scuoti { 25% { transform: rotate(-12deg) scale(1.05); } 75% { transform: rotate(12deg) scale(1.05); } }
+  .cassa-premio { animation: cassa-esce .6s cubic-bezier(.2, 1.5, .4, 1) both; display: grid; place-items: center; gap: 8px; }
+  @keyframes cassa-esce { from { transform: scale(.2); opacity: 0; } }
+  .cassa-rar { text-align: center; font-weight: 800; min-height: 1.4em; margin: 0 0 6px; }
+  .rarc-0 { color: var(--spento); } .rarc-1 { color: #5aa8ff; } .rarc-2 { color: #c084fc; } .rarc-3 { color: #fbbf24; }
+  .rarc-4 { color: #ff4fd8; text-shadow: 0 0 8px rgba(255, 79, 216, .6); }
+  .cassa-carta { position: relative; }
+  .info-cassa {
+    position: absolute; top: 12px; right: 12px; width: 30px; height: 30px; border-radius: 50%;
+    border: 2px solid var(--spento); background: none; color: var(--spento); font: italic 800 15px Georgia, serif;
+  }
+  .ic-ico { width: 64px; height: 64px; flex: none; }
+  .ic-rar { margin: 14px 0 6px; font-size: 15px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .ic-rar small { color: var(--spento); font-weight: 600; font-size: 12px; text-shadow: none; }
+  .ic-griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; }
+  .ic-ogg { display: grid; justify-items: center; align-content: center; gap: 4px; padding: 8px 4px; border-radius: 12px; background: var(--foglia-2); min-height: 74px; text-align: center; font-size: 13px; font-weight: 800; }
+  .ic-ogg .avatar-pg { width: 44px; height: 44px; }
+  .ic-ogg small { color: var(--spento); font-size: 11px; font-weight: 600; }
+  .ic-ogg.mio { box-shadow: inset 0 0 0 2px var(--menta, #74d394); }
+  .avatar-pg.rar-4 { animation: anello-mitico 2.4s ease-in-out infinite alternate; }
+  @keyframes anello-mitico {
+    from { box-shadow: 0 0 0 2px #ff4fd8, 0 0 14px rgba(255, 79, 216, .7); }
+    to { box-shadow: 0 0 0 2px #00f5d4, 0 0 18px rgba(0, 245, 212, .7); }
+  }
+  .e_infinito { background-image: linear-gradient(90deg, #00f5d4, #9b5de5, #f15bb5, #fee440, #00f5d4); background-size: 300% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent !important;
+    animation: e-scorri 3s linear infinite, e-mitico 1.8s ease-in-out infinite; }
+  @keyframes e-mitico { 50% { filter: drop-shadow(0 0 8px rgba(241, 91, 181, .9)); } }
+  /* avatar e nomi */
+  canvas.pixel { width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+  .cassa-carta .ico { width: 60px; height: 60px; }
+  .cassa-ico { width: 120px; height: 120px; }
+  .avatar-pg {
+    width: 36px; height: 36px; border-radius: 50%; display: inline-grid; place-items: center; font-size: 20px; flex: none; overflow: hidden;
+    background: var(--foglia-2); box-shadow: inset 0 0 0 2px var(--bordo);
+  }
+  .avatar-pg.rar-1 { background: radial-gradient(circle, #1e3a5f, #12263f); box-shadow: inset 0 0 0 2px #5aa8ff; }
+  .avatar-pg.rar-2 { background: radial-gradient(circle, #3b1d5e, #24103d); box-shadow: inset 0 0 0 2px #c084fc; }
+  .avatar-pg.rar-3 { background: radial-gradient(circle, #6b4a00, #3a2800); box-shadow: inset 0 0 0 2px #fbbf24, 0 0 12px rgba(251, 191, 36, .5); }
+  .avatar-pg.grande { width: 72px; height: 72px; font-size: 40px; }
+  .gc-testa { display: flex; gap: 14px; align-items: center; margin-bottom: 12px; }
+  .gc-testa h2 { margin: 0; }
+  .griglia-avatar { display: grid; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)); gap: 10px; margin: 8px 0 14px; }
+  .griglia-avatar button { background: none; border: 0; padding: 4px; border-radius: 14px; display: grid; place-items: center; gap: 4px; }
+  .griglia-avatar button .avatar-pg { width: 52px; height: 52px; font-size: 28px; }
+  .griglia-avatar button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--banana); }
+  .griglia-avatar button.bloccato .avatar-pg, .griglia-stili button.bloccato { opacity: .3; filter: grayscale(1); }
+  .griglia-stili { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; margin: 6px 0 14px; }
+  .griglia-stili button { background: var(--foglia-2); border: 1px solid var(--bordo); border-radius: 12px; padding: 10px 6px; font-weight: 800; font-size: 14px; }
+  .griglia-stili button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--banana); }
+  .anteprima-nome { display: flex; align-items: center; gap: 10px; background: var(--foglia-2); border-radius: 14px; padding: 10px 12px; margin: 4px 0 12px; font-size: 17px; }
+  .schede-pz { margin: 0 0 12px; }
+  .nome-pg { font-weight: 800; }
+  .ns-grad, .e_brillio, .e_arcobaleno, .e_fuoco, .e_galassia, .e_orofuso { -webkit-background-clip: text; background-clip: text; color: transparent !important; }
+  .ns-grad { background-image: var(--g); }
+  .e_bagliore { animation: e-bagliore 2s ease-in-out infinite; }
+  @keyframes e-bagliore { 50% { text-shadow: 0 0 10px currentColor, 0 0 18px currentColor; } }
+  .e_brillio { background-image: linear-gradient(110deg, var(--c) 35%, #ffffff 50%, var(--c) 65%); background-size: 250% 100%; animation: e-brillio 2.2s linear infinite; }
+  @keyframes e-brillio { from { background-position: 100% 0; } to { background-position: -150% 0; } }
+  .e_neon { color: var(--c); text-shadow: 0 0 4px var(--c), 0 0 12px var(--c); animation: e-neon 3s infinite; }
+  @keyframes e-neon { 0%, 18%, 22%, 58%, 62%, 100% { opacity: 1; } 20%, 60% { opacity: .45; } }
+  .e_arcobaleno { background-image: linear-gradient(90deg, #ff5e5e, #ffd23f, #4ade80, #38bdf8, #a78bfa, #ff5e5e); background-size: 300% 100%; animation: e-scorri 4s linear infinite; }
+  .e_galassia { background-image: linear-gradient(90deg, #8b5cf6, #38bdf8, #f0abfc, #8b5cf6); background-size: 300% 100%; animation: e-scorri 6s linear infinite; filter: drop-shadow(0 0 6px rgba(167, 139, 250, .6)); }
+  .e_orofuso { background-image: linear-gradient(110deg, #b8860b, #ffd700, #fff4b0, #ffd700, #b8860b); background-size: 250% 100%; animation: e-scorri 3s linear infinite; }
+  @keyframes e-scorri { to { background-position: 300% 0; } }
+  .e_fuoco { background-image: linear-gradient(0deg, #ff3d00, #ff9100, #ffd23f, #ff9100, #ff3d00); background-size: 100% 300%; animation: e-fuoco 1.6s ease-in-out infinite alternate; filter: drop-shadow(0 0 6px rgba(255, 120, 0, .6)); }
+  @keyframes e-fuoco { to { background-position: 0 100%; } }
+  .classifica li { cursor: pointer; }
+  .classifica .rec { color: var(--spento); font-weight: 700; }
   #veloAnteprima .pa-testo { max-height: 45vh; }
   /* collezione di pagine autografe */
   .griglia-pagine { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 10px; }
@@ -553,7 +664,7 @@
     background: radial-gradient(90% 60% at 50% 40%, var(--menu-grad) 0%, var(--notte) 75%), var(--notte);
     transition: opacity .7s ease, visibility .7s;
   }
-  .sipario.via { opacity: 0; visibility: hidden; }
+  .sipario.via { opacity: 0; visibility: hidden; transition: opacity .7s ease, visibility .7s; }
   .sip-dentro { width: min(100%, 520px); text-align: center; animation: sip-entra .6s cubic-bezier(.2, .8, .2, 1) both; }
   .sip-chi { color: var(--spento); font-size: 14px; font-weight: 700; min-height: 1.4em; margin-bottom: 10px; }
   .sip-foglio {
@@ -561,12 +672,16 @@
     font-family: var(--tasti); font-size: clamp(22px, 7vw, 34px); line-height: 1.2; min-height: 1.2em; white-space: pre-wrap; word-break: break-word;
     box-shadow: 0 8px 0 -3px #d4ccb4, 0 16px 0 -6px #c7bfa6, 0 22px 30px -10px rgba(0, 0, 0, .6);
   }
-  #sipTesto.giusto { background: linear-gradient(transparent 58%, rgba(255, 210, 63, .7) 58%) no-repeat 0 0 / 0% 100%; animation: sip-evidenzia .5s ease-out forwards; }
+  .pioggia { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 2; }
+  .pioggia span {
+    position: absolute; top: -110px; font-size: var(--d); line-height: 1; will-change: transform;
+    animation: banana-cade var(--t) cubic-bezier(.35, 0, .9, .6) var(--r) forwards;
+  }
+  @keyframes banana-cade { to { transform: translateY(calc(100vh + 220px)) rotate(var(--g)); } }
   .sip-sbagliata { color: #c0392b; display: inline-block; transform: rotate(-8deg) translateY(-1px); }
   .sip-cursore { display: inline-block; width: 2px; height: 1em; background: #c0392b; margin-left: 2px; vertical-align: -0.12em; animation: sip-lampeggia 1s steps(1) infinite; }
   @keyframes sip-entra { from { opacity: 0; transform: translateY(14px) scale(.96); } to { opacity: 1; transform: none; } }
   @keyframes sip-lampeggia { 50% { opacity: 0; } }
-  @keyframes sip-evidenzia { to { background-size: 100% 100%; } }
   /* il menu iniziale entra un pezzo alla volta */
   .menu-iniziale.entra .mi-dentro > * { animation: mi-sali .65s cubic-bezier(.2, .8, .2, 1) both; }
   .menu-iniziale.entra .mi-dentro > :nth-child(1) { animation: mi-pop .8s cubic-bezier(.2, 1.4, .4, 1) both; }
@@ -621,7 +736,7 @@
   .classifica li.io { box-shadow: inset 0 0 0 2px var(--banana); }
   .classifica .pos { font-weight: 800; font-size: 16px; text-align: center; color: var(--spento); }
   .classifica li:nth-child(-n+3) .pos { font-size: 20px; }
-  .classifica img { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; background: var(--foglia-1); }
+  .classifica .avatar-pg { width: 36px; height: 36px; font-size: 19px; }
   .classifica .chi { min-width: 0; }
   .classifica .chi b { display: block; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .classifica .chi small { display: block; color: var(--spento); font-size: 12.5px; white-space: pre-line; line-height: 1.35; overflow-wrap: anywhere; }
@@ -743,6 +858,21 @@
       </div>
       <button class="pulsante secondario piccolo bottone-condividi" id="bCondividiRecord" data-t="cond_record_btn"></button>
     </div>
+    <div class="blocco-ufficio">
+    <div class="campione">
+      <p class="campione-tit" data-t="camp_tit"></p>
+      <p class="campione-sotto" data-t="camp_sotto"></p>
+      <div class="riga1"><b id="cNome"></b><span id="cQuando"></span></div>
+      <div class="carta-rec" id="cCarta"></div>
+      <div class="dati">
+        <span><span data-t="lbl_record"></span> <b id="cRecord"></b></span>
+        <span><span data-t="lbl_stabilito"></span> <b id="cData"></b></span>
+      </div>
+    </div>
+    <div class="titolo-sez"><h2 data-t="h_scimmie"></h2><span id="sConteggio"></span></div>
+    <div class="ufficio" id="ufficio"></div>
+    <p class="fine-ufficio" id="fineUfficio"></p>
+    </div>
     </div>
   </section>
 
@@ -776,6 +906,10 @@
         <div class="pub-righe">
           <span>📃 <span data-t="pub_pagine"></span> <b id="pubPagine"></b></span>
           <span>📚 <span data-t="pub_guadagno"></span> <b id="pubGuadagno"></b></span>
+          <small class="tappe-info" id="pubDett"></small>
+          <span id="pubFama"></span>
+          <span data-t="pub_cassa"></span>
+          <small class="tappe-info" id="pubEdizione"></small>
         </div>
         <p class="tappe-info" id="pubProssima"></p>
         <p class="tappe-info" id="pubFermo" hidden data-t="pub_fermo"></p>
@@ -788,18 +922,10 @@
   </section>
 
   <!-- =============== SCIMMIE =============== -->
-  <section class="schermata" id="v-scimmie">
-    <div class="campione">
-      <div class="riga1"><b id="cNome"></b><span id="cQuando"></span></div>
-      <div class="carta-rec" id="cCarta"></div>
-      <div class="dati">
-        <span><span data-t="lbl_record"></span> <b id="cRecord"></b></span>
-        <span><span data-t="lbl_stabilito"></span> <b id="cData"></b></span>
-      </div>
-    </div>
-    <div class="titolo-sez"><h2 data-t="h_scimmie"></h2><span id="sConteggio"></span></div>
-    <div class="ufficio" id="ufficio"></div>
-    <p class="fine-ufficio" id="fineUfficio"></p>
+  <section class="schermata" id="v-bottega">
+    <div class="titolo-sez"><h2 data-t="h_bottega"></h2><span class="saldo-pagine" id="bgPagine"></span></div>
+    <div class="casse" id="casse"></div>
+    <div class="presto-unico">Coming soon</div>
   </section>
 
   <!-- =============== TRAGUARDI =============== -->
@@ -842,9 +968,9 @@
 <nav class="menu">
   <button data-vista="opera" aria-current="page"><span class="ico">📜</span><span data-t="m_opera"></span></button>
   <button data-vista="negozio"><span class="ico">🍌</span><span data-t="m_potenzia"></span><span class="pallino" id="badgeNegozio">!</span></button>
-  <button data-vista="scimmie"><span class="ico">🐒</span><span data-t="m_scimmie"></span></button>
   <button data-vista="traguardi"><span class="ico">🏆</span><span data-t="m_traguardi"></span><span class="pallino" id="badgeTrag"></span></button>
   <button data-vista="diario"><span class="ico">📓</span><span data-t="m_diario"></span></button>
+  <button data-vista="bottega"><span class="ico">🛍️</span><span data-t="m_bottega"></span><span class="pallino" id="badgeBottega">🎁</span></button>
 </nav>
 
 <!-- =============== BIBLIOTECA =============== -->
@@ -889,7 +1015,7 @@
       <button class="pulsante secondario piccolo" id="bImpNome" data-t="cambia"></button>
     </div>
     <div class="impostazione">
-      <span class="testo"><b>🎨 <span data-t="imp_tema"></span></b><small id="impTemaNome"></small></span>
+      <span class="testo"><b>🎨 <span data-t="imp_person"></span></b><small id="impTemaNome"></small></span>
       <button class="pulsante secondario piccolo" id="bImpTema" data-t="cambia"></button>
     </div>
     <div class="impostazione">
@@ -905,7 +1031,8 @@
       <button class="pulsante secondario" id="bChiudiImpostazioni" data-t="chiudi"></button>
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
-    <p class="versione-gioco">Scimmie infinite · versione 21</p>
+    <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 30</p>
   </div>
 </div>
 
@@ -944,6 +1071,100 @@
 <!-- =============== EVENTI IN UFFICIO =============== -->
 <div class="evento-chip" id="eventoChip" hidden></div>
 <button class="cesto" id="cesto" hidden aria-label="🧺">🧺</button>
+
+<!-- =============== APERTURA DI UNA CASSA =============== -->
+<div class="velo centro sopra" id="veloCassa">
+  <div class="finestra" role="dialog" aria-modal="true" aria-labelledby="titCassa">
+    <h2 id="titCassa" data-t="cassa_tit"></h2>
+    <div class="cassa-scena"><div class="cassa-ico" id="cassaIco"></div><div class="cassa-premio" id="cassaPremio" hidden></div></div>
+    <p class="cassa-rar" id="cassaRar"></p>
+    <div class="azioni" id="cassaAzioni" hidden>
+      <button class="pulsante" id="bCassaUsa" data-t="cassa_usa"></button>
+      <button class="pulsante secondario" id="bCassaOk" data-t="cassa_ok"></button>
+    </div>
+  </div>
+</div>
+
+<!-- =============== COSA C'È IN UNA CASSA =============== -->
+<div class="velo basso sopra" id="veloInfoCassa">
+  <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="icTitolo">
+    <div class="maniglia"></div>
+    <div class="gc-testa"><span class="ic-ico" id="icIco"></span><div><h2 id="icTitolo"></h2><p class="tappe-info" data-t="ic_sotto"></p></div></div>
+    <div id="icLista"></div>
+    <div class="azioni"><button class="pulsante secondario" id="bIcChiudi" data-t="chiudi"></button></div>
+  </div>
+</div>
+
+<!-- =============== SCHEDA DI UN GIOCATORE (dalla classifica) =============== -->
+<div class="velo basso sopra" id="veloGiocatore">
+  <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="gcNome">
+    <div class="maniglia"></div>
+    <div class="gc-testa"><span class="avatar-pg grande" id="gcAvatar"></span><div><h2 id="gcNome"></h2><p class="tappe-info" id="gcSotto"></p></div></div>
+    <div class="stat" id="gcStat"></div>
+    <p class="tappe-info" id="gcNota"></p>
+    <div class="azioni"><button class="pulsante secondario" id="bGcChiudi" data-t="chiudi"></button></div>
+  </div>
+</div>
+
+<!-- =============== NOVITÀ (per chi giocava già) =============== -->
+<div class="velo basso sopra" id="veloNovita">
+  <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="titNovita">
+    <div class="maniglia"></div>
+    <h2 id="titNovita" data-t="nov_tit"></h2>
+    <p class="sotto" data-t="nov_sotto"></p>
+    <ul class="lista-novita" id="listaNovita"></ul>
+    <div class="azioni">
+      <button class="pulsante" id="bNovTour" data-t="nov_tour"></button>
+      <button class="pulsante secondario" id="bNovDopo" data-t="nov_dopo"></button>
+    </div>
+  </div>
+</div>
+
+<!-- =============== PANNELLO SVILUPPATORE (solo per il proprietario, con codice) =============== -->
+<div class="velo centro sopra" id="veloAdminCodice">
+  <div class="finestra" role="dialog" aria-modal="true">
+    <h2>🔐 Codice sviluppatore</h2>
+    <input class="campo-nome" id="campoAdmin" type="password" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <p class="stato-cl" id="statoAdmin"></p>
+    <div class="azioni">
+      <button class="pulsante" id="bAdminOk">Sblocca</button>
+      <button class="pulsante secondario" id="bAdminAnnulla" data-t="annulla"></button>
+    </div>
+  </div>
+</div>
+<div class="velo basso sopra" id="veloAdmin">
+  <div class="foglio-basso" role="dialog" aria-modal="true">
+    <div class="maniglia"></div>
+    <h2>🛠️ Pannello sviluppatore</h2>
+    <p class="sotto">Solo su questo account. Ogni modifica viene salvata subito.</p>
+    <div class="admin">
+      <b>🍌 Banane</b>
+      <div><button data-adm="ban:1e6">+1M</button><button data-adm="ban:1e9">+1B</button><button data-adm="ban:1e12">+1T</button><button data-adm="ban:1e15">+1Qa</button><button data-adm="banx:10">×10</button></div>
+      <b>📃 Pagine d'oro</b>
+      <div><button data-adm="pag:10">+10</button><button data-adm="pag:100">+100</button><button data-adm="pag:1000">+1000</button><button data-adm="fama:100">+100 Fama</button></div>
+      <b>📦 Casse di legno gratis</b>
+      <div><button data-adm="cassa:1">+1</button><button data-adm="cassa:10">+10</button></div>
+      <b>🐒 Scimmie</b>
+      <div><button data-adm="scim:10">+10 di ogni</button><button data-adm="scim:100">+100 di ogni</button></div>
+      <b>⚡ Velocità</b>
+      <div><button data-adm="ogg:10">+10 oggetti</button><button data-adm="migl:5">+5 miglioramenti</button></div>
+      <b>🌳 Talenti</b>
+      <div><button data-adm="tal:1">+1 a tutti</button><button data-adm="tal:5">+5 a tutti</button></div>
+      <b>⏩ Tempo</b>
+      <div><button data-adm="tempo:3600">+1 ora</button><button data-adm="tempo:86400">+1 giorno</button></div>
+      <b>📜 Frase in corso</b>
+      <div><button data-adm="frase:1">Completala ora</button></div>
+      <b>🏆 Traguardi</b>
+      <div><button data-adm="trag:1">Completali tutti</button></div>
+      <b>🎨 Oggetti estetici</b>
+      <div><button data-adm="este:tutti">Sblocca tutto</button><button data-adm="este:mitici">Solo i mitici</button></div>
+    </div>
+    <div class="azioni">
+      <button class="pulsante secondario" id="bAdminChiudi" data-t="chiudi"></button>
+      <button class="pulsante pericolo" id="bAdminEsci">Esci dalla modalità sviluppatore</button>
+    </div>
+  </div>
+</div>
 
 <!-- =============== SCELTA DEL NOME =============== -->
 <div class="velo centro sopra" id="veloNome">
@@ -1012,12 +1233,28 @@
 <div class="velo basso sopra" id="veloTema">
   <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="titTema">
     <div class="maniglia"></div>
-    <h2 id="titTema" data-t="imp_tema"></h2>
-    <p class="sotto" data-t="tema_sotto"></p>
-    <p class="gruppo-temi" data-t="temi_scuri"></p>
-    <div class="temi" id="temiScuri"></div>
-    <p class="gruppo-temi" data-t="temi_chiari"></p>
-    <div class="temi" id="temiChiari"></div>
+    <h2 id="titTema" data-t="imp_person"></h2>
+    <div class="segmenti schede-pz" role="group">
+      <button data-pz="temi" aria-pressed="true">🎨 <span data-t="pz_temi"></span></button>
+      <button data-pz="avatar" aria-pressed="false">🐒 <span data-t="pz_avatar"></span></button>
+      <button data-pz="nome" aria-pressed="false">✍️ <span data-t="pz_nome"></span></button>
+    </div>
+    <div id="pzTemi">
+      <p class="sotto" data-t="tema_sotto"></p>
+      <p class="gruppo-temi" data-t="temi_scuri"></p>
+      <div class="temi" id="temiScuri"></div>
+      <p class="gruppo-temi" data-t="temi_chiari"></p>
+      <div class="temi" id="temiChiari"></div>
+    </div>
+    <div id="pzAvatar" hidden><div class="griglia-avatar" id="gAvatar"></div></div>
+    <div id="pzNome" hidden>
+      <p class="gruppo-temi" data-t="pz_anteprima"></p>
+      <div class="anteprima-nome"><span class="avatar-pg" id="pzAvAnt"></span><b id="pzNomeAnt"></b></div>
+      <p class="gruppo-temi" data-t="pz_colori"></p>
+      <div class="griglia-stili" id="gColori"></div>
+      <p class="gruppo-temi" data-t="pz_effetti"></p>
+      <div class="griglia-stili" id="gEffetti"></div>
+    </div>
     <div class="azioni fissa"><button class="pulsante" id="bChiudiTema">✓ <span data-t="conferma"></span></button></div>
   </div>
 </div>
@@ -1195,7 +1432,7 @@
       tut_a6: "👉 Ottimo! Anche la velocità conta: tocca Velocità.",
       tut_a7: "👉 Scimmie più veloci battono più tasti al secondo. Tocca per comprare il tuo primo potenziamento di velocità.",
       tut_a8: "👉 Ora andiamo a vedere le tue scimmie: tocca Scimmie.",
-      tut_a9: "🐒 Ogni scimmia ha la sua scrivania e batte tasti a caso. La ⭐ indica quante lettere giuste ha di fila. Più tardi toccane una per vedere cosa sta scrivendo.",
+      tut_a9: "🐒 Più in basso, sempre nella schermata Opera, c'è l'ufficio: ogni scimmia ha la sua scrivania e batte tasti a caso. La ⭐ indica quante lettere giuste ha di fila. Toccane una per vedere cosa sta scrivendo.",
       tut_a10: "🏆 In Traguardi trovi degli obiettivi: quando ne completi uno, tocca Riscuoti per ricevere banane extra.",
       tut_a11: "📓 Nel Diario trovi le statistiche, la classifica dei giocatori e la cronaca della frase in corso.",
       tut_a12: "📚 Quando una scimmia completa la frase, un editore te la compra e passi alla prossima. Qui puoi anche cambiare frase quando vuoi.",
@@ -1298,7 +1535,7 @@
       pub_btn: "Pubblica",
       pub_fermo: "Prima passa alla frase successiva.",
       pub_conf_tit: "Pubblicare?",
-      pub_conf_testo: "Scimmie, banane e potenziamenti ripartono da zero. Ricevi {n} Pagine d'oro. Frasi, record, traguardi, parole e classifica restano.",
+      pub_conf_testo: "Scimmie, banane e potenziamenti ripartono da zero. Ricevi {n} Pagine d'oro, più Fama e una Cassa di legno in regalo. Frasi, record, traguardi, parole e classifica restano.",
       pub_fatto: "📚 Pubblicato! +{n} Pagine d'oro",
       tal_tit: "🌳 Talenti",
       tal_sotto: "Bonus permanenti che restano dopo ogni pubblicazione. Non cambiano mai la fortuna: ogni tasto resta sempre casuale.",
@@ -1319,13 +1556,13 @@
       nome_a_velocita: "Assistente all'officina",
       nome_a_traguardi: "Segretario",
       nome_a_frasi: "Archivista",
-      eff_t_squadra: "+10 scimmie all'inizio di ogni partita per livello (ora +{n})",
-      eff_t_recl: "Scimmie ×1,2 per livello (ora ×{x})",
-      eff_t_nido: "+1% scimmie all'ora per livello (ora +{n}%)",
-      eff_t_scuola: "Velocità ×1,2 per livello (ora ×{x})",
-      eff_t_attrezzi: "+10 tasti/s a ogni scimmia per livello (ora +{n})",
-      eff_t_qualita: "Tasti degli oggetti ×1,25 per livello (ora ×{x})",
-      eff_t_contratto: "Banane ×1,25 per livello (ora ×{x})",
+      eff_t_squadra: "Ogni nuova partita parte con +10 Scimmie e +2 Famiglie per livello (ora +{a} e +{b})",
+      eff_t_recl: "Scimmie ×1,5 per livello (ora ×{x})",
+      eff_t_nido: "+2% scimmie all'ora per livello (ora +{n}%)",
+      eff_t_scuola: "Velocità ×1,5 per livello (ora ×{x})",
+      eff_t_attrezzi: "Ogni nuova partita parte con +5 Guanti, Lampade e Sedie per livello (ora +{n})",
+      eff_t_qualita: "Tasti degli oggetti ×1,5 per livello (ora ×{x})",
+      eff_t_contratto: "Banane ×1,5 per livello (ora ×{x})",
       eff_t_anticipo: "Banane di partenza ×10 per livello (ora {n})",
       eff_t_notte: "Banane a gioco chiuso ×1,25 per livello (ora ×{x})",
       eff_a_scimmie: "Compra da solo scimmie e potenziamenti delle scimmie",
@@ -1385,7 +1622,95 @@
       notif_parola_tit: "📝 Nuova parola!",
       notif_parola: "{chi} ha completato «{w}» (+{n} 🍌)",
       notif_frase_tit: "🎉 Frase completata!",
-      notif_frase: "{chi} ha scritto tutta «{titolo}»!"
+      notif_frase: "{chi} ha scritto tutta «{titolo}»!",
+      imp_person: "Personalizzazione",
+      pz_temi: "Temi",
+      pz_avatar: "Avatar",
+      pz_nome: "Nome",
+      pz_colori: "Colori",
+      pz_effetti: "Scritte animate",
+      pz_bloccato: "🔒 Si trova nelle casse del Negozio",
+      pz_anteprima: "Così appari in classifica:",
+      h_bottega: "Negozio",
+      m_bottega: "Negozio",
+      bg_sotto: "Con le Pagine d'oro apri casse piene di avatar, colori e scritte animate per il tuo nome in classifica. Sono solo estetiche: non cambiano né la velocità né la fortuna.",
+      bg_collezione: "La tua collezione",
+      bg_coll_riga: "{tipo}: {a} di {b}",
+      bg_apri: "Apri",
+      bg_poche: "Ti servono {n} Pagine d'oro: le ottieni pubblicando (Potenzia → Editore).",
+      cassa_legno: "Cassa di legno",
+      cassa_argento: "Cassa d'argento",
+      cassa_oro: "Cassa d'oro",
+      cassa_tit: "Cosa c'è dentro?",
+      cassa_usa: "Usa subito",
+      cassa_ok: "Fantastico!",
+      cassa_tutto: "Hai già tutto quello che c'è in questa cassa! Ti restituiamo {n} Pagine d'oro.",
+      rar_0: "Comune",
+      rar_1: "Raro",
+      rar_2: "Epico",
+      rar_3: "Leggendario",
+      tipo_a: "Avatar",
+      tipo_c: "Colori del nome",
+      tipo_e: "Scritte animate",
+      cl_car: "{n} car.",
+      gc_frase: "Frase più lunga",
+      gc_parola: "Parola più lunga",
+      gc_rec: "Record in {modo}",
+      gc_completate: "Frasi completate",
+      gc_tasti: "Tasti premuti",
+      gc_tempo: "Tempo di gioco",
+      gc_pubbl: "Pubblicazioni",
+      gc_scimmie: "Scimmie",
+      gc_raccolto: "Banane raccolte",
+      gc_nodati: "Le altre statistiche compariranno quando questo giocatore riaprirà il gioco.",
+      gc_agg: "Aggiornate {quando}",
+      gc_carico: "Caricamento…",
+      tut_b16: "🛍️ Nel Negozio apri casse con le Pagine d'oro: dentro trovi avatar, colori e scritte animate per il tuo nome in classifica. Sono solo estetiche.",
+      nome_t_premio: "Premio letterario",
+      nome_t_eredita: "Eredità",
+      eff_t_premio: "Premi per parole e frasi completate ×1,5 per livello (ora ×{x})",
+      eff_t_eredita: "Ogni nuova partita parte con l'1% per livello delle banane raccolte nella partita prima (ora {n}%)",
+      pub_dett: "{a} dalle banane + {b} dalle frasi completate in questa partita (2 ciascuna)",
+      pub_fama: "⭐ Fama: velocità ×{x}",
+      pub_cassa: "🎁 Ogni pubblicazione regala anche una Cassa di legno",
+      pub_edizione: "Prossima: {n}ª edizione. La Fama cresce del 3% per ogni Pagina d'oro guadagnata, anche se poi la spendi.",
+      bg_gratis: "Apri gratis ({n})",
+      regalo_avviso: "🎁 Nel Negozio ti aspetta una cassa di benvenuto!",
+      nov_tit: "✨ Novità in ufficio!",
+      nov_sotto: "Mentre eri via le scimmie hanno ricevuto un bel po' di aggiornamenti:",
+      nov_1: "🛍️ Negozio con casse da aprire, e una cassa di benvenuto in regalo",
+      nov_2: "🎨 Personalizzazione: avatar, colori e scritte animate per il tuo nome",
+      nov_3: "🏆 Tre classifiche, una per difficoltà: tocca un giocatore per vedere le sue statistiche",
+      nov_4: "📚 Pubblicazione rinnovata: Fama, talenti più forti, pagine anche dalle frasi completate",
+      nov_5: "📖 Biblioteca a cartelle con anteprima, libri in parti, canzoni intere e pagine autografe",
+      nov_6: "🎲 Eventi in ufficio, 📤 condivisione del record e 🔔 notifiche",
+      nov_7: "🌙 A gioco chiuso le scimmie lavorano per sempre, senza limiti",
+      nov_tour: "🧭 Fai il tour",
+      nov_dopo: "Più tardi",
+      tour_fine: "Fine",
+      tour_1: "🧭 Ecco un giro veloce tra le novità. Puoi rifarlo quando vuoi dalle Impostazioni con «Rivedi il tutorial».",
+      tour_2: "🛍️ Questo è il nuovo Negozio: con le Pagine d'oro apri casse di legno, d'argento e d'oro. Dentro trovi avatar, colori e scritte animate. La prima cassa è un regalo!",
+      tour_3: "⚙️ Nelle Impostazioni, in «Personalizzazione», scegli tema, avatar, colore e scritta animata del nome. Qui trovi anche nome, notifiche ed esportazione della partita.",
+      tour_4: "🏆 Nel Diario ora ci sono tre classifiche, una per difficoltà. Tocca un giocatore per vedere le sue statistiche.",
+      tour_5: "📚 In Potenzia → Editore c'è la Pubblicazione rinnovata: ogni Pagina d'oro dà Fama (+3% di velocità per sempre) e i talenti sono molto più forti.",
+      tour_6: "📖 La Biblioteca è divisa in cartelle: frasi celebri, poesie, libri, teatro, canzoni, film e meme. Prima di scegliere puoi leggere l'anteprima, e in «Pagine» trovi la tua collezione.",
+      tour_7: "📤 Da qui condividi un'immagine del tuo record. Qui sotto, nella schermata Opera, ora c'è anche l'ufficio con le scrivanie delle scimmie.",
+      tour_8: "🎲 Ogni tanto in ufficio succede qualcosa: feste, musica, il direttore o un cesto di banane da toccare. Buon divertimento!",
+      bg_presto: "Altri oggetti",
+      presto_cornici: "Cornici per l'avatar",
+      presto_titoli: "Titoli sotto il nome",
+      presto_scrivanie: "Scrivanie speciali per l'ufficio",
+      presto_effetti: "Effetti per i nuovi record",
+      presto_musiche: "Musiche per l'ufficio",
+      rar_4: "Mitico",
+      ic_sotto: "Probabilità a ogni apertura. Non escono mai doppioni: se hai già un oggetto, ne esce un altro.",
+      ic_ognuno: "circa {p}% ciascuno",
+      tipo1_a: "Avatar",
+      tipo1_c: "Colore",
+      tipo1_e: "Scritta animata",
+      lbl_record_sempre: "Record di sempre:",
+      camp_tit: "🏆 La scimmia del record",
+      camp_sotto: "Tra tutte le tue scimmie, è quella che ha scritto più lettere giuste di fila partendo dall'inizio della frase. Ecco fin dove è arrivata:"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -1482,7 +1807,7 @@
       tut_a6: "👉 Great! Speed matters too: tap Speed.",
       tut_a7: "👉 Faster monkeys type more keys per second. Tap to buy your first speed upgrade.",
       tut_a8: "👉 Now let's see your monkeys: tap Monkeys.",
-      tut_a9: "🐒 Every monkey has its own desk and types at random. The ⭐ shows how many correct letters it has in a row. Later, tap one to see what it's typing.",
+      tut_a9: "🐒 Further down, still on the Work screen, is the office: every monkey has its own desk and types at random. The ⭐ shows how many correct letters it has in a row. Tap one to see what it's typing.",
       tut_a10: "🏆 In Goals you'll find objectives: when you complete one, tap Claim to get extra bananas.",
       tut_a11: "📓 In the Journal you'll find your statistics, the players' leaderboard and the chronicle of the current phrase.",
       tut_a12: "📚 When a monkey completes the phrase, a publisher buys it and you move on to the next. You can also change phrase here whenever you like.",
@@ -1585,7 +1910,7 @@
       pub_btn: "Publish",
       pub_fermo: "First move on to the next phrase.",
       pub_conf_tit: "Publish?",
-      pub_conf_testo: "Monkeys, bananas and upgrades start over. You get {n} Golden Pages. Phrases, records, goals, words and leaderboard stay.",
+      pub_conf_testo: "Monkeys, bananas and upgrades start over. You get {n} Golden Pages, more Fame and a free Wooden crate. Phrases, records, goals, words and leaderboard stay.",
       pub_fatto: "📚 Published! +{n} Golden Pages",
       tal_tit: "🌳 Talents",
       tal_sotto: "Permanent bonuses that stay after every publication. They never change luck: every key is always random.",
@@ -1606,13 +1931,13 @@
       nome_a_velocita: "Workshop assistant",
       nome_a_traguardi: "Secretary",
       nome_a_frasi: "Archivist",
-      eff_t_squadra: "+10 monkeys at the start of every run per level (now +{n})",
-      eff_t_recl: "Monkeys ×1.2 per level (now ×{x})",
-      eff_t_nido: "+1% monkeys per hour per level (now +{n}%)",
-      eff_t_scuola: "Speed ×1.2 per level (now ×{x})",
-      eff_t_attrezzi: "+10 keys/s for every monkey per level (now +{n})",
-      eff_t_qualita: "Item keys ×1.25 per level (now ×{x})",
-      eff_t_contratto: "Bananas ×1.25 per level (now ×{x})",
+      eff_t_squadra: "Every new run starts with +10 Monkeys and +2 Families per level (now +{a} and +{b})",
+      eff_t_recl: "Monkeys ×1.5 per level (now ×{x})",
+      eff_t_nido: "+2% monkeys per hour per level (now +{n}%)",
+      eff_t_scuola: "Speed ×1.5 per level (now ×{x})",
+      eff_t_attrezzi: "Every new run starts with +5 Gloves, Lamps and Chairs per level (now +{n})",
+      eff_t_qualita: "Item keys ×1.5 per level (now ×{x})",
+      eff_t_contratto: "Bananas ×1.5 per level (now ×{x})",
       eff_t_anticipo: "Starting bananas ×10 per level (now {n})",
       eff_t_notte: "Bananas while closed ×1.25 per level (now ×{x})",
       eff_a_scimmie: "Buys monkeys and monkey upgrades by itself",
@@ -1672,7 +1997,95 @@
       notif_parola_tit: "📝 New word!",
       notif_parola: "{chi} completed “{w}” (+{n} 🍌)",
       notif_frase_tit: "🎉 Phrase completed!",
-      notif_frase: "{chi} typed the whole of “{titolo}”!"
+      notif_frase: "{chi} typed the whole of “{titolo}”!",
+      imp_person: "Customisation",
+      pz_temi: "Themes",
+      pz_avatar: "Avatar",
+      pz_nome: "Name",
+      pz_colori: "Colours",
+      pz_effetti: "Animated names",
+      pz_bloccato: "🔒 Found in the Shop's crates",
+      pz_anteprima: "This is how you look on the leaderboard:",
+      h_bottega: "Shop",
+      m_bottega: "Shop",
+      bg_sotto: "With Golden Pages you open crates full of avatars, colours and animated names for the leaderboard. They're purely cosmetic: they change neither speed nor luck.",
+      bg_collezione: "Your collection",
+      bg_coll_riga: "{tipo}: {a} of {b}",
+      bg_apri: "Open",
+      bg_poche: "You need {n} Golden Pages: you get them by publishing (Upgrades → Publisher).",
+      cassa_legno: "Wooden crate",
+      cassa_argento: "Silver crate",
+      cassa_oro: "Golden crate",
+      cassa_tit: "What's inside?",
+      cassa_usa: "Use now",
+      cassa_ok: "Awesome!",
+      cassa_tutto: "You already have everything in this crate! Here are {n} Golden Pages back.",
+      rar_0: "Common",
+      rar_1: "Rare",
+      rar_2: "Epic",
+      rar_3: "Legendary",
+      tipo_a: "Avatars",
+      tipo_c: "Name colours",
+      tipo_e: "Animated names",
+      cl_car: "{n} chars",
+      gc_frase: "Longest phrase",
+      gc_parola: "Longest word",
+      gc_rec: "Record on {modo}",
+      gc_completate: "Phrases completed",
+      gc_tasti: "Keys typed",
+      gc_tempo: "Play time",
+      gc_pubbl: "Publications",
+      gc_scimmie: "Monkeys",
+      gc_raccolto: "Bananas harvested",
+      gc_nodati: "The other statistics will appear when this player opens the game again.",
+      gc_agg: "Updated {quando}",
+      gc_carico: "Loading…",
+      tut_b16: "🛍️ In the Shop you open crates with Golden Pages: inside are avatars, colours and animated names for the leaderboard. They're purely cosmetic.",
+      nome_t_premio: "Literary prize",
+      nome_t_eredita: "Inheritance",
+      eff_t_premio: "Prizes for completed words and phrases ×1.5 per level (now ×{x})",
+      eff_t_eredita: "Every new run starts with 1% per level of the bananas harvested in the previous run (now {n}%)",
+      pub_dett: "{a} from bananas + {b} from phrases completed in this run (2 each)",
+      pub_fama: "⭐ Fame: speed ×{x}",
+      pub_cassa: "🎁 Every publication also gives you a Wooden crate",
+      pub_edizione: "Next: edition {n}. Fame grows by 3% for every Golden Page earned, even if you spend it later.",
+      bg_gratis: "Open for free ({n})",
+      regalo_avviso: "🎁 A welcome crate is waiting for you in the Shop!",
+      nov_tit: "✨ What's new in the office!",
+      nov_sotto: "While you were away the monkeys got quite a few updates:",
+      nov_1: "🛍️ A Shop with crates to open, plus a free welcome crate",
+      nov_2: "🎨 Customisation: avatars, colours and animated names",
+      nov_3: "🏆 Three leaderboards, one per difficulty: tap a player to see their statistics",
+      nov_4: "📚 Revamped Publishing: Fame, stronger talents, pages from completed phrases too",
+      nov_5: "📖 Library with folders and previews, books in parts, full songs and autograph pages",
+      nov_6: "🎲 Office events, 📤 record sharing and 🔔 notifications",
+      nov_7: "🌙 While the game is closed the monkeys keep working forever, no limits",
+      nov_tour: "🧭 Take the tour",
+      nov_dopo: "Later",
+      tour_fine: "Done",
+      tour_1: "🧭 Here's a quick tour of what's new. You can take it again any time from Settings with “Replay the tutorial”.",
+      tour_2: "🛍️ This is the new Shop: with Golden Pages you open wooden, silver and golden crates full of avatars, colours and animated names. The first crate is a gift!",
+      tour_3: "⚙️ In Settings, under “Customisation”, choose your theme, avatar, name colour and animated name. You'll also find your name, notifications and game export there.",
+      tour_4: "🏆 The Journal now has three leaderboards, one per difficulty. Tap a player to see their statistics.",
+      tour_5: "📚 In Upgrades → Publisher you'll find the revamped Publishing: every Golden Page gives Fame (+3% speed forever) and talents are much stronger.",
+      tour_6: "📖 The Library is split into folders: famous quotes, poems, books, theatre, songs, films and memes. Read the preview before choosing, and find your collection under “Pages”.",
+      tour_7: "📤 From here you share an image of your record. Further down on the Work screen there's now also the office with the monkeys' desks.",
+      tour_8: "🎲 Every now and then something happens in the office: parties, music, the boss or a basket of bananas to tap. Have fun!",
+      bg_presto: "More items",
+      presto_cornici: "Avatar frames",
+      presto_titoli: "Titles under your name",
+      presto_scrivanie: "Special office desks",
+      presto_effetti: "New-record effects",
+      presto_musiche: "Office music",
+      rar_4: "Mythic",
+      ic_sotto: "Odds for every opening. No duplicates: if you already have an item, you get another one.",
+      ic_ognuno: "about {p}% each",
+      tipo1_a: "Avatar",
+      tipo1_c: "Colour",
+      tipo1_e: "Animated name",
+      lbl_record_sempre: "All-time record:",
+      camp_tit: "🏆 The record monkey",
+      camp_sotto: "Of all your monkeys, this is the one that typed the most correct letters in a row from the start of the phrase. Here's how far it got:"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -1769,7 +2182,7 @@
       tut_a6: "👉 ¡Muy bien! La velocidad también cuenta: toca Velocidad.",
       tut_a7: "👉 Los monos más rápidos pulsan más teclas por segundo. Toca para comprar tu primera mejora de velocidad.",
       tut_a8: "👉 Ahora vamos a ver a tus monos: toca Monos.",
-      tut_a9: "🐒 Cada mono tiene su escritorio y teclea al azar. La ⭐ indica cuántas letras correctas lleva seguidas. Más tarde, toca uno para ver qué está escribiendo.",
+      tut_a9: "🐒 Más abajo, en la misma pantalla Obra, está la oficina: cada mono tiene su escritorio y teclea al azar. La ⭐ indica cuántas letras correctas lleva seguidas. Toca uno para ver qué está escribiendo.",
       tut_a10: "🏆 En Logros encontrarás objetivos: cuando completes uno, toca Cobrar para recibir plátanos extra.",
       tut_a11: "📓 En el Diario encontrarás las estadísticas, la clasificación de jugadores y la crónica de la frase en curso.",
       tut_a12: "📚 Cuando un mono completa la frase, un editor te la compra y pasas a la siguiente. Aquí también puedes cambiar de frase cuando quieras.",
@@ -1872,7 +2285,7 @@
       pub_btn: "Publicar",
       pub_fermo: "Primero pasa a la siguiente frase.",
       pub_conf_tit: "¿Publicar?",
-      pub_conf_testo: "Monos, plátanos y mejoras empiezan de cero. Recibes {n} Páginas de oro. Frases, récords, logros, palabras y clasificación se mantienen.",
+      pub_conf_testo: "Monos, plátanos y mejoras empiezan de cero. Recibes {n} Páginas de oro, más Fama y una Caja de madera de regalo. Frases, récords, logros, palabras y clasificación se mantienen.",
       pub_fatto: "📚 ¡Publicado! +{n} Páginas de oro",
       tal_tit: "🌳 Talentos",
       tal_sotto: "Bonificaciones permanentes que se mantienen tras cada publicación. Nunca cambian la suerte: cada tecla sigue siendo aleatoria.",
@@ -1893,13 +2306,13 @@
       nome_a_velocita: "Asistente de taller",
       nome_a_traguardi: "Secretario",
       nome_a_frasi: "Archivero",
-      eff_t_squadra: "+10 monos al empezar cada partida por nivel (ahora +{n})",
-      eff_t_recl: "Monos ×1,2 por nivel (ahora ×{x})",
-      eff_t_nido: "+1% de monos por hora por nivel (ahora +{n}%)",
-      eff_t_scuola: "Velocidad ×1,2 por nivel (ahora ×{x})",
-      eff_t_attrezzi: "+10 teclas/s a cada mono por nivel (ahora +{n})",
-      eff_t_qualita: "Teclas de los objetos ×1,25 por nivel (ahora ×{x})",
-      eff_t_contratto: "Plátanos ×1,25 por nivel (ahora ×{x})",
+      eff_t_squadra: "Cada nueva partida empieza con +10 Monos y +2 Familias por nivel (ahora +{a} y +{b})",
+      eff_t_recl: "Monos ×1,5 por nivel (ahora ×{x})",
+      eff_t_nido: "+2% de monos por hora por nivel (ahora +{n}%)",
+      eff_t_scuola: "Velocidad ×1,5 por nivel (ahora ×{x})",
+      eff_t_attrezzi: "Cada nueva partida empieza con +5 Guantes, Lámparas y Sillas por nivel (ahora +{n})",
+      eff_t_qualita: "Teclas de los objetos ×1,5 por nivel (ahora ×{x})",
+      eff_t_contratto: "Plátanos ×1,5 por nivel (ahora ×{x})",
       eff_t_anticipo: "Plátanos iniciales ×10 por nivel (ahora {n})",
       eff_t_notte: "Plátanos con el juego cerrado ×1,25 por nivel (ahora ×{x})",
       eff_a_scimmie: "Compra solo monos y mejoras de monos",
@@ -1959,7 +2372,95 @@
       notif_parola_tit: "📝 ¡Nueva palabra!",
       notif_parola: "{chi} ha completado «{w}» (+{n} 🍌)",
       notif_frase_tit: "🎉 ¡Frase completada!",
-      notif_frase: "¡{chi} ha escrito entera «{titolo}»!"
+      notif_frase: "¡{chi} ha escrito entera «{titolo}»!",
+      imp_person: "Personalización",
+      pz_temi: "Temas",
+      pz_avatar: "Avatar",
+      pz_nome: "Nombre",
+      pz_colori: "Colores",
+      pz_effetti: "Letras animadas",
+      pz_bloccato: "🔒 Se encuentra en las cajas de la Tienda",
+      pz_anteprima: "Así apareces en la clasificación:",
+      h_bottega: "Tienda",
+      m_bottega: "Tienda",
+      bg_sotto: "Con las Páginas de oro abres cajas llenas de avatares, colores y letras animadas para tu nombre en la clasificación. Son solo estéticos: no cambian ni la velocidad ni la suerte.",
+      bg_collezione: "Tu colección",
+      bg_coll_riga: "{tipo}: {a} de {b}",
+      bg_apri: "Abrir",
+      bg_poche: "Necesitas {n} Páginas de oro: las consigues publicando (Mejoras → Editorial).",
+      cassa_legno: "Caja de madera",
+      cassa_argento: "Caja de plata",
+      cassa_oro: "Caja de oro",
+      cassa_tit: "¿Qué hay dentro?",
+      cassa_usa: "Usar ahora",
+      cassa_ok: "¡Genial!",
+      cassa_tutto: "¡Ya tienes todo lo de esta caja! Te devolvemos {n} Páginas de oro.",
+      rar_0: "Común",
+      rar_1: "Raro",
+      rar_2: "Épico",
+      rar_3: "Legendario",
+      tipo_a: "Avatares",
+      tipo_c: "Colores del nombre",
+      tipo_e: "Letras animadas",
+      cl_car: "{n} car.",
+      gc_frase: "Frase más larga",
+      gc_parola: "Palabra más larga",
+      gc_rec: "Récord en {modo}",
+      gc_completate: "Frases completadas",
+      gc_tasti: "Teclas pulsadas",
+      gc_tempo: "Tiempo de juego",
+      gc_pubbl: "Publicaciones",
+      gc_scimmie: "Monos",
+      gc_raccolto: "Plátanos cosechados",
+      gc_nodati: "Las demás estadísticas aparecerán cuando este jugador vuelva a abrir el juego.",
+      gc_agg: "Actualizadas {quando}",
+      gc_carico: "Cargando…",
+      tut_b16: "🛍️ En la Tienda abres cajas con Páginas de oro: dentro hay avatares, colores y letras animadas para tu nombre en la clasificación. Son solo estéticos.",
+      nome_t_premio: "Premio literario",
+      nome_t_eredita: "Herencia",
+      eff_t_premio: "Premios por palabras y frases completadas ×1,5 por nivel (ahora ×{x})",
+      eff_t_eredita: "Cada nueva partida empieza con el 1% por nivel de los plátanos cosechados en la partida anterior (ahora {n}%)",
+      pub_dett: "{a} de los plátanos + {b} de las frases completadas en esta partida (2 cada una)",
+      pub_fama: "⭐ Fama: velocidad ×{x}",
+      pub_cassa: "🎁 Cada publicación regala también una Caja de madera",
+      pub_edizione: "Siguiente: {n}.ª edición. La Fama crece un 3% por cada Página de oro ganada, aunque luego la gastes.",
+      bg_gratis: "Abrir gratis ({n})",
+      regalo_avviso: "🎁 ¡En la Tienda te espera una caja de bienvenida!",
+      nov_tit: "✨ ¡Novedades en la oficina!",
+      nov_sotto: "Mientras no estabas, los monos han recibido muchas actualizaciones:",
+      nov_1: "🛍️ Tienda con cajas para abrir, y una caja de bienvenida de regalo",
+      nov_2: "🎨 Personalización: avatares, colores y letras animadas para tu nombre",
+      nov_3: "🏆 Tres clasificaciones, una por dificultad: toca a un jugador para ver sus estadísticas",
+      nov_4: "📚 Publicación renovada: Fama, talentos más fuertes y páginas también por las frases completadas",
+      nov_5: "📖 Biblioteca con carpetas y vista previa, libros por partes, canciones enteras y páginas autógrafas",
+      nov_6: "🎲 Eventos en la oficina, 📤 compartir el récord y 🔔 notificaciones",
+      nov_7: "🌙 Con el juego cerrado los monos trabajan para siempre, sin límites",
+      nov_tour: "🧭 Hacer el recorrido",
+      nov_dopo: "Más tarde",
+      tour_fine: "Fin",
+      tour_1: "🧭 Aquí tienes un recorrido rápido por las novedades. Puedes repetirlo cuando quieras desde Ajustes con «Ver el tutorial».",
+      tour_2: "🛍️ Esta es la nueva Tienda: con las Páginas de oro abres cajas de madera, plata y oro llenas de avatares, colores y letras animadas. ¡La primera caja es un regalo!",
+      tour_3: "⚙️ En Ajustes, en «Personalización», eliges tema, avatar, color y letras animadas del nombre. Ahí también están el nombre, las notificaciones y la exportación de la partida.",
+      tour_4: "🏆 El Diario tiene ahora tres clasificaciones, una por dificultad. Toca a un jugador para ver sus estadísticas.",
+      tour_5: "📚 En Mejoras → Editorial está la Publicación renovada: cada Página de oro da Fama (+3% de velocidad para siempre) y los talentos son mucho más fuertes.",
+      tour_6: "📖 La Biblioteca está dividida en carpetas: frases célebres, poemas, libros, teatro, canciones, películas y memes. Antes de elegir puedes leer la vista previa, y en «Páginas» está tu colección.",
+      tour_7: "📤 Desde aquí compartes una imagen de tu récord. Más abajo, en la pantalla Obra, ahora está también la oficina con los escritorios de los monos.",
+      tour_8: "🎲 De vez en cuando pasa algo en la oficina: fiestas, música, el jefe o una cesta de plátanos que tocar. ¡Diviértete!",
+      bg_presto: "Más objetos",
+      presto_cornici: "Marcos para el avatar",
+      presto_titoli: "Títulos bajo el nombre",
+      presto_scrivanie: "Escritorios especiales para la oficina",
+      presto_effetti: "Efectos para los nuevos récords",
+      presto_musiche: "Música para la oficina",
+      rar_4: "Mítico",
+      ic_sotto: "Probabilidades en cada apertura. Nunca salen repetidos: si ya tienes un objeto, sale otro.",
+      ic_ognuno: "cerca del {p}% cada uno",
+      tipo1_a: "Avatar",
+      tipo1_c: "Color",
+      tipo1_e: "Letras animadas",
+      lbl_record_sempre: "Récord histórico:",
+      camp_tit: "🏆 El mono del récord",
+      camp_sotto: "De todos tus monos, es el que ha escrito más letras correctas seguidas desde el principio de la frase. Hasta aquí ha llegado:"
     },
 
     // ------------------------------------------------------------- 中文
@@ -2056,7 +2557,7 @@
       tut_a6: "👉 很好！速度也很重要：点“速度”。",
       tut_a7: "👉 更快的猴子每秒按更多键。点这里购买你的第一个速度升级。",
       tut_a8: "👉 现在去看看你的猴子们：点“猴子”。",
-      tut_a9: "🐒 每只猴子都有自己的办公桌，随机打字。⭐ 表示它连续打对了几个字母。之后点一只猴子，看看它在打什么。",
+      tut_a9: "🐒 在“作品”页面再往下，就是办公室：每只猴子都有自己的办公桌，随机打字。⭐ 表示它连续打对了几个字母。点一只猴子，看看它在打什么。",
       tut_a10: "🏆 在“成就”里有各种目标：完成一个后，点“领取”获得额外香蕉。",
       tut_a11: "📓 在“日志”里可以看到统计数据、玩家排行榜和当前句子的大事记。",
       tut_a12: "📚 当一只猴子打完整句话，出版商会买下它，你就进入下一句。在这里也可以随时更换句子。",
@@ -2159,7 +2660,7 @@
       pub_btn: "出版",
       pub_fermo: "请先进入下一句。",
       pub_conf_tit: "要出版吗？",
-      pub_conf_testo: "猴子、香蕉和升级都从零开始。你将获得 {n} 金页。句子、纪录、成就、单词和排行榜都会保留。",
+      pub_conf_testo: "猴子、香蕉和升级都从零开始。你将获得 {n} 金页、更多名气和一个免费木箱。句子、纪录、成就、单词和排行榜都会保留。",
       pub_fatto: "📚 出版成功！+{n} 金页",
       tal_tit: "🌳 天赋",
       tal_sotto: "永久加成，每次出版后都会保留。它们从不改变运气：每次按键始终是随机的。",
@@ -2180,13 +2681,13 @@
       nome_a_velocita: "车间助理",
       nome_a_traguardi: "秘书",
       nome_a_frasi: "档案员",
-      eff_t_squadra: "每级在每局开始时 +10 只猴子（现在 +{n}）",
-      eff_t_recl: "每级猴子 ×1.2（现在 ×{x}）",
-      eff_t_nido: "每级每小时 +1% 猴子（现在 +{n}%）",
-      eff_t_scuola: "每级速度 ×1.2（现在 ×{x}）",
-      eff_t_attrezzi: "每级每只猴子 +10 键/秒（现在 +{n}）",
-      eff_t_qualita: "每级装备按键 ×1.25（现在 ×{x}）",
-      eff_t_contratto: "每级香蕉 ×1.25（现在 ×{x}）",
+      eff_t_squadra: "每级让每局开始时多 10 只猴子和 2 个家庭（现在 +{a} 和 +{b}）",
+      eff_t_recl: "每级猴子 ×1.5（现在 ×{x}）",
+      eff_t_nido: "每级每小时 +2% 猴子（现在 +{n}%）",
+      eff_t_scuola: "每级速度 ×1.5（现在 ×{x}）",
+      eff_t_attrezzi: "每级让每局开始时多 5 副手套、5 盏台灯和 5 把椅子（现在 +{n}）",
+      eff_t_qualita: "每级装备按键 ×1.5（现在 ×{x}）",
+      eff_t_contratto: "每级香蕉 ×1.5（现在 ×{x}）",
       eff_t_anticipo: "每级初始香蕉 ×10（现在 {n}）",
       eff_t_notte: "每级离线香蕉 ×1.25（现在 ×{x}）",
       eff_a_scimmie: "自动购买猴子和猴子升级",
@@ -2246,7 +2747,95 @@
       notif_parola_tit: "📝 新单词！",
       notif_parola: "{chi}完成了“{w}”（+{n} 🍌）",
       notif_frase_tit: "🎉 句子完成！",
-      notif_frase: "{chi}打完了整句“{titolo}”！"
+      notif_frase: "{chi}打完了整句“{titolo}”！",
+      imp_person: "个性化",
+      pz_temi: "主题",
+      pz_avatar: "头像",
+      pz_nome: "名字",
+      pz_colori: "颜色",
+      pz_effetti: "动态字",
+      pz_bloccato: "🔒 可在商店的箱子里获得",
+      pz_anteprima: "你在排行榜上的样子：",
+      h_bottega: "商店",
+      m_bottega: "商店",
+      bg_sotto: "用金页打开箱子，里面有头像、名字颜色和动态字，用于排行榜。它们只是装饰：不会改变速度，也不会改变运气。",
+      bg_collezione: "你的收藏",
+      bg_coll_riga: "{tipo}：{a}/{b}",
+      bg_apri: "打开",
+      bg_poche: "需要 {n} 金页：出版后可以获得（升级 → 出版社）。",
+      cassa_legno: "木箱",
+      cassa_argento: "银箱",
+      cassa_oro: "金箱",
+      cassa_tit: "里面有什么？",
+      cassa_usa: "立即使用",
+      cassa_ok: "太棒了！",
+      cassa_tutto: "这个箱子里的东西你都有了！退还你 {n} 金页。",
+      rar_0: "普通",
+      rar_1: "稀有",
+      rar_2: "史诗",
+      rar_3: "传说",
+      tipo_a: "头像",
+      tipo_c: "名字颜色",
+      tipo_e: "动态字",
+      cl_car: "{n} 字符",
+      gc_frase: "最长的句子",
+      gc_parola: "最长的单词",
+      gc_rec: "{modo}难度纪录",
+      gc_completate: "完成的句子",
+      gc_tasti: "按键次数",
+      gc_tempo: "游戏时间",
+      gc_pubbl: "出版次数",
+      gc_scimmie: "猴子",
+      gc_raccolto: "收获的香蕉",
+      gc_nodati: "这位玩家重新打开游戏后，其他统计数据就会出现。",
+      gc_agg: "更新于{quando}",
+      gc_carico: "加载中…",
+      tut_b16: "🛍️ 在商店里用金页打开箱子：里面有排行榜用的头像、名字颜色和动态字。它们只是装饰。",
+      nome_t_premio: "文学奖",
+      nome_t_eredita: "遗产",
+      eff_t_premio: "每级完成单词和句子的奖励 ×1.5（现在 ×{x}）",
+      eff_t_eredita: "每级让每局开始时获得上一局收获香蕉的 1%（现在 {n}%）",
+      pub_dett: "{a} 来自香蕉 + {b} 来自本局完成的句子（每句 2 页）",
+      pub_fama: "⭐ 名气：速度 ×{x}",
+      pub_cassa: "🎁 每次出版还会赠送一个木箱",
+      pub_edizione: "下一次：第{n}版。每获得一张金页，名气增加 3%，即使之后花掉也不会减少。",
+      bg_gratis: "免费打开（{n}）",
+      regalo_avviso: "🎁 商店里有一个欢迎箱在等你！",
+      nov_tit: "✨ 办公室有新内容！",
+      nov_sotto: "你不在的时候，猴子们迎来了不少更新：",
+      nov_1: "🛍️ 可以开箱的商店，还送你一个欢迎箱",
+      nov_2: "🎨 个性化：头像、名字颜色和动态字",
+      nov_3: "🏆 三个排行榜，每个难度一个：点玩家可以看他的统计",
+      nov_4: "📚 出版系统全新改版：名气、更强的天赋，完成句子也能得金页",
+      nov_5: "📖 书库分了文件夹并可预览，书分成几部分，歌曲完整，还有亲笔手稿",
+      nov_6: "🎲 办公室事件、📤 分享纪录和 🔔 通知",
+      nov_7: "🌙 游戏关闭时猴子会一直工作，没有时间限制",
+      nov_tour: "🧭 开始导览",
+      nov_dopo: "稍后",
+      tour_fine: "完成",
+      tour_1: "🧭 带你快速看看新内容。之后随时可以在设置里用“重看教程”再看一遍。",
+      tour_2: "🛍️ 这是新商店：用金页打开木箱、银箱和金箱，里面有头像、名字颜色和动态字。第一个箱子是送你的！",
+      tour_3: "⚙️ 在设置的“个性化”里可以选择主题、头像、名字颜色和动态字。名字、通知和导出存档也在这里。",
+      tour_4: "🏆 日志里现在有三个排行榜，每个难度一个。点一位玩家就能看他的统计。",
+      tour_5: "📚 在“升级 → 出版社”里是改版后的出版：每张金页都会带来名气（速度永久 +3%），天赋也强多了。",
+      tour_6: "📖 书库分成了文件夹：名言、诗歌、书籍、戏剧、歌曲、电影和网络梗。选择前可以先看预览，“手稿”里是你的收藏。",
+      tour_7: "📤 在这里可以分享你的纪录图片。在“作品”页面再往下，现在还有猴子们的办公室。",
+      tour_8: "🎲 办公室里时不时会发生点什么：派对、音乐、老板来了，或者一篮可以点的香蕉。玩得开心！",
+      bg_presto: "更多物品",
+      presto_cornici: "头像边框",
+      presto_titoli: "名字下方的称号",
+      presto_scrivanie: "办公室特别办公桌",
+      presto_effetti: "新纪录特效",
+      presto_musiche: "办公室音乐",
+      rar_4: "神话",
+      ic_sotto: "每次打开的概率。不会重复：如果你已经有某件物品，会换成另一件。",
+      ic_ognuno: "每件约 {p}%",
+      tipo1_a: "头像",
+      tipo1_c: "颜色",
+      tipo1_e: "动态字",
+      lbl_record_sempre: "历史纪录：",
+      camp_tit: "🏆 纪录猴子",
+      camp_sotto: "在你所有的猴子中，它从句子开头连续打对的字母最多。它打到了这里："
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -2343,7 +2932,7 @@
       tut_a6: "👉 Bravo ! La vitesse compte aussi : touche Vitesse.",
       tut_a7: "👉 Des singes plus rapides frappent plus de touches par seconde. Touche pour acheter ta première amélioration de vitesse.",
       tut_a8: "👉 Allons voir tes singes : touche Singes.",
-      tut_a9: "🐒 Chaque singe a son pupitre et tape au hasard. L'⭐ indique combien de lettres justes il a d'affilée. Plus tard, touches-en un pour voir ce qu'il écrit.",
+      tut_a9: "🐒 Plus bas, toujours sur l'écran Œuvre, il y a le bureau : chaque singe a son pupitre et tape au hasard. L'⭐ indique combien de lettres justes il a d'affilée. Touches-en un pour voir ce qu'il écrit.",
       tut_a10: "🏆 Dans Succès, tu trouveras des objectifs : quand tu en termines un, touche Récupérer pour recevoir des bananes en plus.",
       tut_a11: "📓 Dans le Journal, tu trouveras les statistiques, le classement des joueurs et la chronique de la phrase en cours.",
       tut_a12: "📚 Quand un singe termine la phrase, un éditeur te l'achète et tu passes à la suivante. Ici, tu peux aussi changer de phrase quand tu veux.",
@@ -2446,7 +3035,7 @@
       pub_btn: "Publier",
       pub_fermo: "Passe d'abord à la phrase suivante.",
       pub_conf_tit: "Publier ?",
-      pub_conf_testo: "Singes, bananes et améliorations repartent de zéro. Tu reçois {n} Pages d'or. Phrases, records, succès, mots et classement restent.",
+      pub_conf_testo: "Singes, bananes et améliorations repartent de zéro. Tu reçois {n} Pages d'or, plus de Renommée et un Coffre en bois offert. Phrases, records, succès, mots et classement restent.",
       pub_fatto: "📚 Publié ! +{n} Pages d'or",
       tal_tit: "🌳 Talents",
       tal_sotto: "Des bonus permanents qui restent après chaque publication. Ils ne changent jamais la chance : chaque touche reste toujours aléatoire.",
@@ -2467,13 +3056,13 @@
       nome_a_velocita: "Assistant d'atelier",
       nome_a_traguardi: "Secrétaire",
       nome_a_frasi: "Archiviste",
-      eff_t_squadra: "+10 singes au début de chaque partie par niveau (maintenant +{n})",
-      eff_t_recl: "Singes ×1,2 par niveau (maintenant ×{x})",
-      eff_t_nido: "+1 % de singes par heure par niveau (maintenant +{n} %)",
-      eff_t_scuola: "Vitesse ×1,2 par niveau (maintenant ×{x})",
-      eff_t_attrezzi: "+10 touches/s pour chaque singe par niveau (maintenant +{n})",
-      eff_t_qualita: "Touches des objets ×1,25 par niveau (maintenant ×{x})",
-      eff_t_contratto: "Bananes ×1,25 par niveau (maintenant ×{x})",
+      eff_t_squadra: "Chaque nouvelle partie commence avec +10 Singes et +2 Familles par niveau (maintenant +{a} et +{b})",
+      eff_t_recl: "Singes ×1,5 par niveau (maintenant ×{x})",
+      eff_t_nido: "+2 % de singes par heure par niveau (maintenant +{n} %)",
+      eff_t_scuola: "Vitesse ×1,5 par niveau (maintenant ×{x})",
+      eff_t_attrezzi: "Chaque nouvelle partie commence avec +5 Gants, Lampes et Chaises par niveau (maintenant +{n})",
+      eff_t_qualita: "Touches des objets ×1,5 par niveau (maintenant ×{x})",
+      eff_t_contratto: "Bananes ×1,5 par niveau (maintenant ×{x})",
       eff_t_anticipo: "Bananes de départ ×10 par niveau (maintenant {n})",
       eff_t_notte: "Bananes jeu fermé ×1,25 par niveau (maintenant ×{x})",
       eff_a_scimmie: "Achète tout seul les singes et leurs améliorations",
@@ -2533,7 +3122,95 @@
       notif_parola_tit: "📝 Nouveau mot !",
       notif_parola: "{chi} a terminé « {w} » (+{n} 🍌)",
       notif_frase_tit: "🎉 Phrase terminée !",
-      notif_frase: "{chi} a écrit toute la phrase « {titolo} » !"
+      notif_frase: "{chi} a écrit toute la phrase « {titolo} » !",
+      imp_person: "Personnalisation",
+      pz_temi: "Thèmes",
+      pz_avatar: "Avatar",
+      pz_nome: "Nom",
+      pz_colori: "Couleurs",
+      pz_effetti: "Noms animés",
+      pz_bloccato: "🔒 Se trouve dans les coffres de la Boutique",
+      pz_anteprima: "Voici comment tu apparais au classement :",
+      h_bottega: "Boutique",
+      m_bottega: "Boutique",
+      bg_sotto: "Avec les Pages d'or, tu ouvres des coffres pleins d'avatars, de couleurs et de noms animés pour le classement. Ils sont purement esthétiques : ils ne changent ni la vitesse ni la chance.",
+      bg_collezione: "Ta collection",
+      bg_coll_riga: "{tipo} : {a} sur {b}",
+      bg_apri: "Ouvrir",
+      bg_poche: "Il te faut {n} Pages d'or : tu les obtiens en publiant (Améliorer → Éditeur).",
+      cassa_legno: "Coffre en bois",
+      cassa_argento: "Coffre en argent",
+      cassa_oro: "Coffre en or",
+      cassa_tit: "Qu'y a-t-il dedans ?",
+      cassa_usa: "Utiliser",
+      cassa_ok: "Génial !",
+      cassa_tutto: "Tu as déjà tout ce que contient ce coffre ! On te rend {n} Pages d'or.",
+      rar_0: "Commun",
+      rar_1: "Rare",
+      rar_2: "Épique",
+      rar_3: "Légendaire",
+      tipo_a: "Avatars",
+      tipo_c: "Couleurs du nom",
+      tipo_e: "Noms animés",
+      cl_car: "{n} car.",
+      gc_frase: "Phrase la plus longue",
+      gc_parola: "Mot le plus long",
+      gc_rec: "Record en {modo}",
+      gc_completate: "Phrases terminées",
+      gc_tasti: "Touches frappées",
+      gc_tempo: "Temps de jeu",
+      gc_pubbl: "Publications",
+      gc_scimmie: "Singes",
+      gc_raccolto: "Bananes récoltées",
+      gc_nodati: "Les autres statistiques apparaîtront quand ce joueur rouvrira le jeu.",
+      gc_agg: "Mises à jour {quando}",
+      gc_carico: "Chargement…",
+      tut_b16: "🛍️ Dans la Boutique, tu ouvres des coffres avec des Pages d'or : dedans, des avatars, des couleurs et des noms animés pour le classement. Ils sont purement esthétiques.",
+      nome_t_premio: "Prix littéraire",
+      nome_t_eredita: "Héritage",
+      eff_t_premio: "Primes pour les mots et phrases terminés ×1,5 par niveau (maintenant ×{x})",
+      eff_t_eredita: "Chaque nouvelle partie commence avec 1 % par niveau des bananes récoltées dans la partie précédente (maintenant {n} %)",
+      pub_dett: "{a} grâce aux bananes + {b} grâce aux phrases terminées dans cette partie (2 chacune)",
+      pub_fama: "⭐ Renommée : vitesse ×{x}",
+      pub_cassa: "🎁 Chaque publication offre aussi un Coffre en bois",
+      pub_edizione: "Prochaine : {n}e édition. La Renommée augmente de 3 % pour chaque Page d'or gagnée, même si tu la dépenses ensuite.",
+      bg_gratis: "Ouvrir gratuitement ({n})",
+      regalo_avviso: "🎁 Un coffre de bienvenue t'attend dans la Boutique !",
+      nov_tit: "✨ Du nouveau au bureau !",
+      nov_sotto: "Pendant ton absence, les singes ont reçu pas mal de mises à jour :",
+      nov_1: "🛍️ Une Boutique avec des coffres à ouvrir, et un coffre de bienvenue offert",
+      nov_2: "🎨 Personnalisation : avatars, couleurs et noms animés",
+      nov_3: "🏆 Trois classements, un par difficulté : touche un joueur pour voir ses statistiques",
+      nov_4: "📚 Publication renouvelée : Renommée, talents plus forts, des pages aussi grâce aux phrases terminées",
+      nov_5: "📖 Bibliothèque en dossiers avec aperçu, livres en parties, chansons entières et pages autographes",
+      nov_6: "🎲 Événements au bureau, 📤 partage du record et 🔔 notifications",
+      nov_7: "🌙 Jeu fermé, les singes travaillent pour toujours, sans limite",
+      nov_tour: "🧭 Faire la visite",
+      nov_dopo: "Plus tard",
+      tour_fine: "Terminer",
+      tour_1: "🧭 Voici une visite rapide des nouveautés. Tu peux la refaire quand tu veux depuis les Réglages avec « Revoir le tutoriel ».",
+      tour_2: "🛍️ Voici la nouvelle Boutique : avec les Pages d'or, tu ouvres des coffres en bois, en argent et en or pleins d'avatars, de couleurs et de noms animés. Le premier coffre est offert !",
+      tour_3: "⚙️ Dans les Réglages, sous « Personnalisation », choisis ton thème, ton avatar, la couleur et l'animation de ton nom. Tu y trouves aussi ton nom, les notifications et l'export de la partie.",
+      tour_4: "🏆 Le Journal a maintenant trois classements, un par difficulté. Touche un joueur pour voir ses statistiques.",
+      tour_5: "📚 Dans Améliorer → Éditeur se trouve la Publication renouvelée : chaque Page d'or donne de la Renommée (+3 % de vitesse pour toujours) et les talents sont bien plus forts.",
+      tour_6: "📖 La Bibliothèque est rangée en dossiers : citations, poèmes, livres, théâtre, chansons, films et mèmes. Lis l'aperçu avant de choisir, et retrouve ta collection dans « Pages ».",
+      tour_7: "📤 D'ici, tu partages une image de ton record. Plus bas sur l'écran Œuvre, il y a maintenant aussi le bureau avec les pupitres des singes.",
+      tour_8: "🎲 De temps en temps, il se passe quelque chose au bureau : fêtes, musique, le patron ou un panier de bananes à toucher. Amuse-toi bien !",
+      bg_presto: "Autres objets",
+      presto_cornici: "Cadres d'avatar",
+      presto_titoli: "Titres sous le nom",
+      presto_scrivanie: "Pupitres spéciaux pour le bureau",
+      presto_effetti: "Effets pour les nouveaux records",
+      presto_musiche: "Musiques pour le bureau",
+      rar_4: "Mythique",
+      ic_sotto: "Probabilités à chaque ouverture. Jamais de doublons : si tu as déjà un objet, tu en reçois un autre.",
+      ic_ognuno: "environ {p} % chacun",
+      tipo1_a: "Avatar",
+      tipo1_c: "Couleur",
+      tipo1_e: "Nom animé",
+      lbl_record_sempre: "Record absolu :",
+      camp_tit: "🏆 Le singe du record",
+      camp_sotto: "De tous tes singes, c'est celui qui a écrit le plus de lettres justes d'affilée depuis le début de la phrase. Voici jusqu'où il est arrivé :"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -2631,7 +3308,7 @@
       tut_a6: "👉 Отлично! Скорость тоже важна: нажми «Скорость».",
       tut_a7: "👉 Быстрые обезьяны нажимают больше клавиш в секунду. Нажми, чтобы купить первое улучшение скорости.",
       tut_a8: "👉 Теперь посмотрим на твоих обезьян: нажми «Обезьяны».",
-      tut_a9: "🐒 У каждой обезьяны свой стол, и она печатает наугад. ⭐ показывает, сколько верных букв у неё подряд. Позже нажми на обезьяну, чтобы увидеть, что она печатает.",
+      tut_a9: "🐒 Ниже на том же экране «Произведение» находится офис: у каждой обезьяны свой стол, и она печатает наугад. ⭐ показывает, сколько верных букв у неё подряд. Нажми на обезьяну, чтобы увидеть, что она печатает.",
       tut_a10: "🏆 В «Наградах» есть цели: когда выполнишь одну, нажми «Забрать», чтобы получить дополнительные бананы.",
       tut_a11: "📓 В «Дневнике» — статистика, рейтинг игроков и хроника текущей фразы.",
       tut_a12: "📚 Когда обезьяна допечатает фразу, издатель покупает её, и ты переходишь к следующей. Здесь можно и сменить фразу когда угодно.",
@@ -2734,7 +3411,7 @@
       pub_btn: "Опубликовать",
       pub_fermo: "Сначала перейди к следующей фразе.",
       pub_conf_tit: "Опубликовать?",
-      pub_conf_testo: "Обезьяны, бананы и улучшения начнутся с нуля. Ты получишь Золотые страницы: {n}. Фразы, рекорды, награды, слова и рейтинг сохранятся.",
+      pub_conf_testo: "Обезьяны, бананы и улучшения начнутся с нуля. Ты получишь Золотые страницы ({n}), больше Славы и Деревянный сундук в подарок. Фразы, рекорды, награды, слова и рейтинг сохранятся.",
       pub_fatto: "📚 Опубликовано! +{n} Золотых страниц",
       tal_tit: "🌳 Таланты",
       tal_sotto: "Постоянные бонусы, которые сохраняются после каждой публикации. Они никогда не меняют удачу: каждое нажатие всегда случайно.",
@@ -2755,13 +3432,13 @@
       nome_a_velocita: "Помощник в мастерской",
       nome_a_traguardi: "Секретарь",
       nome_a_frasi: "Архивариус",
-      eff_t_squadra: "+10 обезьян в начале каждой партии за уровень (сейчас +{n})",
-      eff_t_recl: "Обезьяны ×1,2 за уровень (сейчас ×{x})",
-      eff_t_nido: "+1% обезьян в час за уровень (сейчас +{n}%)",
-      eff_t_scuola: "Скорость ×1,2 за уровень (сейчас ×{x})",
-      eff_t_attrezzi: "+10 нажатий/с каждой обезьяне за уровень (сейчас +{n})",
-      eff_t_qualita: "Нажатия предметов ×1,25 за уровень (сейчас ×{x})",
-      eff_t_contratto: "Бананы ×1,25 за уровень (сейчас ×{x})",
+      eff_t_squadra: "Каждая новая партия начинается с +10 Обезьян и +2 Семей за уровень (сейчас +{a} и +{b})",
+      eff_t_recl: "Обезьяны ×1,5 за уровень (сейчас ×{x})",
+      eff_t_nido: "+2% обезьян в час за уровень (сейчас +{n}%)",
+      eff_t_scuola: "Скорость ×1,5 за уровень (сейчас ×{x})",
+      eff_t_attrezzi: "Каждая новая партия начинается с +5 Перчаток, Ламп и Стульев за уровень (сейчас +{n})",
+      eff_t_qualita: "Нажатия предметов ×1,5 за уровень (сейчас ×{x})",
+      eff_t_contratto: "Бананы ×1,5 за уровень (сейчас ×{x})",
       eff_t_anticipo: "Стартовые бананы ×10 за уровень (сейчас {n})",
       eff_t_notte: "Бананы при закрытой игре ×1,25 за уровень (сейчас ×{x})",
       eff_a_scimmie: "Сам покупает обезьян и их улучшения",
@@ -2821,7 +3498,95 @@
       notif_parola_tit: "📝 Новое слово!",
       notif_parola: "{chi} завершила «{w}» (+{n} 🍌)",
       notif_frase_tit: "🎉 Фраза завершена!",
-      notif_frase: "{chi} напечатала всю фразу «{titolo}»!"
+      notif_frase: "{chi} напечатала всю фразу «{titolo}»!",
+      imp_person: "Оформление",
+      pz_temi: "Темы",
+      pz_avatar: "Аватар",
+      pz_nome: "Имя",
+      pz_colori: "Цвета",
+      pz_effetti: "Анимированные имена",
+      pz_bloccato: "🔒 Можно найти в сундуках Магазина",
+      pz_anteprima: "Так ты выглядишь в рейтинге:",
+      h_bottega: "Магазин",
+      m_bottega: "Магазин",
+      bg_sotto: "За Золотые страницы открывай сундуки с аватарами, цветами и анимированными именами для рейтинга. Это только украшения: они не меняют ни скорость, ни удачу.",
+      bg_collezione: "Твоя коллекция",
+      bg_coll_riga: "{tipo}: {a} из {b}",
+      bg_apri: "Открыть",
+      bg_poche: "Нужно Золотых страниц: {n}. Их дают за публикацию (Улучшить → Издатель).",
+      cassa_legno: "Деревянный сундук",
+      cassa_argento: "Серебряный сундук",
+      cassa_oro: "Золотой сундук",
+      cassa_tit: "Что внутри?",
+      cassa_usa: "Надеть сразу",
+      cassa_ok: "Отлично!",
+      cassa_tutto: "У тебя уже есть всё из этого сундука! Возвращаем Золотые страницы: {n}.",
+      rar_0: "Обычный",
+      rar_1: "Редкий",
+      rar_2: "Эпический",
+      rar_3: "Легендарный",
+      tipo_a: "Аватары",
+      tipo_c: "Цвета имени",
+      tipo_e: "Анимированные имена",
+      cl_car: "{n} симв.",
+      gc_frase: "Самая длинная фраза",
+      gc_parola: "Самое длинное слово",
+      gc_rec: "Рекорд: {modo}",
+      gc_completate: "Завершённых фраз",
+      gc_tasti: "Нажатий",
+      gc_tempo: "Время в игре",
+      gc_pubbl: "Публикаций",
+      gc_scimmie: "Обезьян",
+      gc_raccolto: "Собрано бананов",
+      gc_nodati: "Остальная статистика появится, когда этот игрок снова откроет игру.",
+      gc_agg: "Обновлено {quando}",
+      gc_carico: "Загрузка…",
+      tut_b16: "🛍️ В Магазине открывай сундуки за Золотые страницы: внутри аватары, цвета и анимированные имена для рейтинга. Это только украшения.",
+      nome_t_premio: "Литературная премия",
+      nome_t_eredita: "Наследство",
+      eff_t_premio: "Призы за завершённые слова и фразы ×1,5 за уровень (сейчас ×{x})",
+      eff_t_eredita: "Каждая новая партия начинается с 1% за уровень от бананов, собранных в прошлой партии (сейчас {n}%)",
+      pub_dett: "{a} за бананы + {b} за фразы, завершённые в этой партии (по 2 за каждую)",
+      pub_fama: "⭐ Слава: скорость ×{x}",
+      pub_cassa: "🎁 Каждая публикация дарит ещё и Деревянный сундук",
+      pub_edizione: "Следующее: издание №{n}. Слава растёт на 3% за каждую заработанную Золотую страницу, даже если потом её потратить.",
+      bg_gratis: "Открыть бесплатно ({n})",
+      regalo_avviso: "🎁 В Магазине тебя ждёт приветственный сундук!",
+      nov_tit: "✨ Новое в офисе!",
+      nov_sotto: "Пока тебя не было, обезьяны получили много обновлений:",
+      nov_1: "🛍️ Магазин с сундуками и приветственный сундук в подарок",
+      nov_2: "🎨 Оформление: аватары, цвета и анимированные имена",
+      nov_3: "🏆 Три рейтинга, по одному на сложность: нажми на игрока, чтобы увидеть его статистику",
+      nov_4: "📚 Обновлённые публикации: Слава, более сильные таланты, страницы и за завершённые фразы",
+      nov_5: "📖 Библиотека с папками и предпросмотром, книги по частям, песни целиком и рукописные страницы",
+      nov_6: "🎲 События в офисе, 📤 обмен рекордом и 🔔 уведомления",
+      nov_7: "🌙 Когда игра закрыта, обезьяны работают вечно, без ограничений",
+      nov_tour: "🧭 Пройти обзор",
+      nov_dopo: "Позже",
+      tour_fine: "Готово",
+      tour_1: "🧭 Вот короткий обзор новинок. Его можно пройти снова в любой момент в Настройках через «Обучение заново».",
+      tour_2: "🛍️ Это новый Магазин: за Золотые страницы открывай деревянные, серебряные и золотые сундуки с аватарами, цветами и анимированными именами. Первый сундук — подарок!",
+      tour_3: "⚙️ В Настройках, в разделе «Оформление», выбирай тему, аватар, цвет и анимацию имени. Там же имя, уведомления и экспорт игры.",
+      tour_4: "🏆 В Дневнике теперь три рейтинга, по одному на сложность. Нажми на игрока, чтобы увидеть его статистику.",
+      tour_5: "📚 В «Улучшить → Издатель» — обновлённые публикации: каждая Золотая страница даёт Славу (+3% скорости навсегда), а таланты стали гораздо сильнее.",
+      tour_6: "📖 Библиотека разложена по папкам: знаменитые фразы, стихи, книги, театр, песни, фильмы и мемы. Перед выбором можно прочитать текст, а в «Страницах» — твоя коллекция.",
+      tour_7: "📤 Отсюда можно поделиться картинкой рекорда. Ниже на экране «Произведение» теперь ещё и офис со столами обезьян.",
+      tour_8: "🎲 Время от времени в офисе что-то происходит: праздники, музыка, начальник или корзина бананов, на которую надо нажать. Удачи!",
+      bg_presto: "Другие предметы",
+      presto_cornici: "Рамки для аватара",
+      presto_titoli: "Титулы под именем",
+      presto_scrivanie: "Особые столы для офиса",
+      presto_effetti: "Эффекты для новых рекордов",
+      presto_musiche: "Музыка для офиса",
+      rar_4: "Мифический",
+      ic_sotto: "Шансы при каждом открытии. Повторов нет: если предмет уже есть, выпадет другой.",
+      ic_ognuno: "примерно {p}% каждый",
+      tipo1_a: "Аватар",
+      tipo1_c: "Цвет",
+      tipo1_e: "Анимированное имя",
+      lbl_record_sempre: "Рекорд за всё время:",
+      camp_tit: "🏆 Обезьяна-рекордсменка",
+      camp_sotto: "Из всех твоих обезьян именно она напечатала больше всего верных букв подряд с начала фразы. Вот докуда она дошла:"
     }
   };
 
@@ -3638,26 +4403,34 @@
   //  Cambiano solo quante scimmie ci sono, quanto battono veloce, quante banane rendono e cosa si fa da solo.
   // =====================================================================
   const TALENTI = [
-    { id: "t_squadra", ramo: "scimmie", icona: "👥", max: 10, base: 2, cresce: 1.5 },
-    { id: "t_recl", ramo: "scimmie", icona: "📣", max: 0, base: 1, cresce: 1.6 },
-    { id: "t_nido", ramo: "scimmie", icona: "🍼", max: 20, base: 3, cresce: 1.4 },
-    { id: "t_scuola", ramo: "velocita", icona: "🎓", max: 0, base: 1, cresce: 1.6 },
-    { id: "t_attrezzi", ramo: "velocita", icona: "🧰", max: 10, base: 2, cresce: 1.5 },
-    { id: "t_qualita", ramo: "velocita", icona: "💎", max: 0, base: 2, cresce: 1.6 },
-    { id: "t_contratto", ramo: "banane", icona: "📝", max: 0, base: 1, cresce: 1.6 },
-    { id: "t_anticipo", ramo: "banane", icona: "💰", max: 15, base: 2, cresce: 1.5 },
-    { id: "t_notte", ramo: "banane", icona: "🌙", max: 10, base: 2, cresce: 1.5 },
-    { id: "a_scimmie", ramo: "auto", icona: "🤖", max: 1, base: 5 },
-    { id: "a_velocita", ramo: "auto", icona: "⚙️", max: 1, base: 8 },
-    { id: "a_traguardi", ramo: "auto", icona: "🗂️", max: 1, base: 4 },
-    { id: "a_frasi", ramo: "auto", icona: "📚", max: 1, base: 6 }
+    // 🐒 Assunzioni
+    { id: "t_squadra", ramo: "scimmie", icona: "👥", max: 10, base: 5, cresce: 1.8 },
+    { id: "t_recl", ramo: "scimmie", icona: "📣", max: 0, base: 3, cresce: 2.2 },
+    { id: "t_nido", ramo: "scimmie", icona: "🍼", max: 20, base: 5, cresce: 1.7 },
+    // ⚡ Officina
+    { id: "t_scuola", ramo: "velocita", icona: "🎓", max: 0, base: 3, cresce: 2.2 },
+    { id: "t_attrezzi", ramo: "velocita", icona: "🧰", max: 10, base: 5, cresce: 1.8 },
+    { id: "t_qualita", ramo: "velocita", icona: "💎", max: 0, base: 4, cresce: 2.2 },
+    // 🍌 Contratti
+    { id: "t_contratto", ramo: "banane", icona: "📝", max: 0, base: 3, cresce: 2.2 },
+    { id: "t_premio", ramo: "banane", icona: "🏅", max: 0, base: 4, cresce: 2.2 },
+    { id: "t_anticipo", ramo: "banane", icona: "💰", max: 15, base: 3, cresce: 1.7 },
+    { id: "t_eredita", ramo: "banane", icona: "🏛️", max: 10, base: 8, cresce: 2 },
+    // 🤖 Automazioni
+    { id: "a_traguardi", ramo: "auto", icona: "🗂️", max: 1, base: 10 },
+    { id: "a_frasi", ramo: "auto", icona: "📚", max: 1, base: 15 }
   ];
   const RAMI = ["scimmie", "velocita", "banane", "auto"];
   const livT = id => (G && G.talenti && G.talenti[id]) || 0;
   const costoTalento = tl => Math.ceil(tl.base * Math.pow(tl.cresce || 1, livT(tl.id)));
   // Pagine d'oro: crescono con le banane raccolte in questa partita (da 1 miliardo in su)
-  const pagineDa = r => (r < 1e9 ? 0 : Math.floor(5 * Math.pow(Math.log10(r) - 8, 1.5)));
-  const sogliaPagina = n => Math.pow(10, 8 + Math.pow((n + 1) / 5, 2 / 3));
+  const pagineDa = r => (r < 1e9 ? 0 : Math.floor(Math.pow(Math.log10(r) - 8, 2)));
+  const sogliaPagina = n => Math.pow(10, 8 + Math.sqrt(n + 1));
+  const pagineFrasi = () => ((G.raccoltoRun || 0) < 1e9 ? 0 : 2 * (G.completateRun || 0));
+  const pagineGuadagno = () => pagineDa(G.raccoltoRun || 0) + pagineFrasi();
+  // Fama: +3% di velocità per ogni Pagina d'oro guadagnata (non si perde spendendo le pagine)
+  const moltFama = () => 1 + 0.03 * ((G && G.pagineTot) || 0);
+  const moltPremio = () => Math.pow(1.5, livT("t_premio"));
   const CHIAVE_SALVATAGGIO = "scimmie-infinite-v4";
   const $ = id => document.getElementById(id);
 
@@ -4142,7 +4915,9 @@
   // premio di ogni traguardo: percentuale del raccolto, crescente con la difficoltà
   const PCT_PREMIO = [3, 3, 5, 5, 8, 8, 10, 10, 12, 12, 15];
   const recordMassimo = () => Math.max(G.record, ...Object.values(G.archivio).map(a => a.record || 0),
-    ...Object.values(G.lunghe || {}), G.fraseMio || 0);
+    ...Object.values(G.recordSempre || {}).map(a => a.record || 0), ...Object.values(G.lunghe || {}), G.fraseMio || 0);
+  // record di sempre di una frase (anche delle sessioni passate, prima delle pubblicazioni)
+  const recordSempreDi = chiave => Math.max(((G.recordSempre || {})[chiave] || {}).record || 0, (G.archivio[chiave] || {}).record || 0);
   const TRAGUARDI = [];
   function gruppoTraguardi(prefisso, ico, soglie, desc, val) {
     soglie.forEach((n, i) => TRAGUARDI.push({ id: prefisso + n, ico, desc: () => desc(n), val, obiettivo: n, pct: PCT_PREMIO[i], min: 100 * Math.pow(3, i) }));
@@ -4206,7 +4981,10 @@
     for (const p of POT) liv[p.id] = 0;
     return {
       operaId: "eureka", testoMio: "", record: 0, recordChi: 0, recordTs: 0, opereFatte: [],
-      archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, ufficioVuoto: true, paroleInOrdine: true, paroleScimmie: {}, parolaCasualeMax: 0, completateModo: {}, raccoltoRun: 0, pagine: 0, pagineTot: 0, pubblicazioni: 0, talenti: {}, auto: {}, pagineAut: {}, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
+      archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, ufficioVuoto: true, paroleInOrdine: true, paroleScimmie: {}, parolaCasualeMax: 0, completateModo: {}, raccoltoRun: 0, pagine: 0, pagineTot: 0, pubblicazioni: 0, talenti: {}, auto: {}, pagineAut: {},
+      collezione: ["a_scimmia", "a_nonvedo", "a_banana", "c_bianco", "c_banana", "c_menta", "e_nessuno"],
+      aspetto: { avatar: "a_scimmia", colore: "c_bianco", effetto: "e_nessuno" },
+      casseGratis: 1, regaloBenvenuto: true, completateRun: 0, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
       imp: { musica: 70, effetti: 80, lingua: linguaIniziale(), tema: "giungla", modo: "normale" },
       liv, cuccioli: 1, banane: 150, tasti: 0, tempo: 0, completate: 0,
       diario: [], ts: Date.now()
@@ -4216,30 +4994,30 @@
   // ---------- valori derivati ----------
   const moltStruttura = id => Math.pow(2, SOGLIE.filter(s => G.liv[id] >= s).length);
   const prodotto = gruppo => POT.filter(p => p.tipo === "unico" && p.gruppo === gruppo && G.liv[p.id]).reduce((m, p) => m * p.molt, 1);
-  const scimmieBase = () => SCIMMIE_INIZIALI + 10 * livT("t_squadra") + STRUTTURE.reduce((s, [id, , dim]) => s + G.liv[id] * dim * moltStruttura(id), 0);
-  const moltScimmie = () => prodotto("scimmie") * Math.pow(1.2, livT("t_recl"));
+  const scimmieBase = () => SCIMMIE_INIZIALI + STRUTTURE.reduce((s, [id, , dim]) => s + G.liv[id] * dim * moltStruttura(id), 0);
+  const moltScimmie = () => prodotto("scimmie") * Math.pow(1.5, livT("t_recl"));
   const numScimmie = () => scimmieBase() * moltScimmie() * G.cuccioli;
   const numTraguardi = () => TRAGUARDI.filter(tr => G.traguardi[tr.id]).length;
   const daRiscuotere = () => TRAGUARDI.filter(tr => G.traguardi[tr.id] && !G.traguardi[tr.id].r);
   const moltVelocita = () => MIGLIORAMENTI.reduce((m, [id, , molt]) => m * Math.pow(molt, G.liv[id] || 0), 1);
-  const qualitaOggetti = () => Math.pow(1.25, livT("t_qualita"));
+  const qualitaOggetti = () => Math.pow(1.5, livT("t_qualita"));
   // tappe degli oggetti: a 50, 200 e 800 pezzi i tasti di quell'oggetto crescono del 25%
   const SOGLIE_OGGETTI = [50, 200, 800];
   const moltOggetto = id => Math.pow(1.25, SOGLIE_OGGETTI.filter(x => G.liv[id] >= x).length);
   const tastiOggetti = () => OGGETTI.reduce((s, [id, , agg]) => s + (G.liv[id] || 0) * agg * moltOggetto(id), 0) * qualitaOggetti();
   const moltEvento = () => (R && R.evento && R.evento.molt && Date.now() < R.evento.fine ? R.evento.molt : 1);
-  const velocitaScimmia = () => (VELOCITA_BASE + 10 * livT("t_attrezzi") + tastiOggetti()) * moltVelocita() * Math.pow(1.2, livT("t_scuola")) * moltEvento();
+  const velocitaScimmia = () => (VELOCITA_BASE + tastiOggetti()) * moltVelocita() * Math.pow(1.5, livT("t_scuola")) * moltFama() * moltEvento();
   const tastiAlSecondo = () => numScimmie() * velocitaScimmia();
-  const crescitaAlSecondo = () => (G.liv.asilo + livT("t_nido")) / 100 / 3600;
+  const crescitaAlSecondo = () => (G.liv.asilo + 2 * livT("t_nido")) / 100 / 3600;
   // le banane crescono meno che proporzionalmente ai tasti: tengono l'economia sotto controllo
   // Ogni lettera giusta battuta da una scimmia vale una banana (due in Realistica, dove azzeccarla è più difficile).
   // In media una lettera su "nTasti" è quella giusta, quindi le banane al secondo sono i tasti al secondo diviso i tasti della tastiera.
   const valoreLettera = () => (modoCorrente() === "realistica" ? 2 : 1);
-  const bananeAlSecondo = (tps = tastiAlSecondo()) => tps / ((R && R.nTasti) || 27) * valoreLettera() * Math.pow(1.25, livT("t_contratto"));
+  const bananeAlSecondo = (tps = tastiAlSecondo()) => tps / ((R && R.nTasti) || 27) * valoreLettera() * Math.pow(1.5, livT("t_contratto"));
   // tutto ciò che le scimmie guadagnano battendo lettere giuste finisce nel "raccolto"
   function raccogli(banane) {
     G.banane += banane; G.raccolto += banane; G.raccoltoRun = (G.raccoltoRun || 0) + banane;
-    G.lettere += banane / valoreLettera() / Math.pow(1.25, livT("t_contratto"));
+    G.lettere += banane / valoreLettera() / Math.pow(1.5, livT("t_contratto"));
   }
   // a gioco chiuso le scimmie continuano a scrivere e a guadagnare per sempre, come se il gioco fosse aperto
   const efficienzaNotte = () => 1;
@@ -4416,9 +5194,10 @@
     // un editore compra l'opera: il 20% del raccolto se è la frase più lunga mai completata,
     // il 5% se è nuova ma non più lunga, il 2% se l'avevi già completata
     const quota = !primaVolta ? 0.02 : R.target.length > piuLungaPrima ? 0.2 : 0.05;
-    const premio = Math.max(G.raccolto * quota, R.target.length * (primaVolta ? 1000 : 100));
+    const premio = Math.max(G.raccolto * quota, R.target.length * (primaVolta ? 1000 : 100)) * moltPremio();
     G.banane += premio;
     G.completate++;
+    G.completateRun = (G.completateRun || 0) + 1;
     if (G.operaId !== "mio") G.archivio[chiaveOpera(G.operaId, G.linguaOpera || L, G.modoOpera || modoCorrente())] = { record: 0, chi: 0, ts: 0 };
     aggiungiDiario({ tipo: "opera", chi, operaId: G.operaId });
     R.premioFine = premio;
@@ -4499,7 +5278,8 @@
     return confini;
   }
   // premio di una parola: 50 × lettere², oppure 30 secondi di banane per lettera se è di più
-  const premioParola = lung => Math.max(50 * lung * lung, 30 * lung * bananeAlSecondo());
+  // in Facile (senza spazi) le parole rendono la metà
+  const premioParola = lung => Math.max(50 * lung * lung, 30 * lung * bananeAlSecondo()) * moltPremio() * (modoCorrente() === "facile" ? 0.5 : 1);
   function paroleCompletate(da, a, chi) {
     let totale = 0, ultima = null;
     for (const c of R.confini || []) {
@@ -4671,16 +5451,23 @@
 
   // ---------- Pubblicazione: si riparte da zero in cambio di Pagine d'oro ----------
   function pubblica() {
-    const n = pagineDa(G.raccoltoRun || 0);
+    const n = pagineGuadagno();
     if (n < 1 || R.fermo) return;
     chiedi(t("pub_conf_tit"), t("pub_conf_testo", { n: fmt(n) }), () => {
+      const eredita = (G.raccoltoRun || 0) * livT("t_eredita") / 100;
       G.pagine = (G.pagine || 0) + n;
       G.pagineTot = (G.pagineTot || 0) + n;
       G.pubblicazioni = (G.pubblicazioni || 0) + 1;
       for (const p of POT) G.liv[p.id] = 0;
+      // si riparte con la squadra e gli attrezzi dei talenti
+      G.liv.s0 = 10 * livT("t_squadra");
+      G.liv.s1 = 2 * livT("t_squadra");
+      for (const id of ["o0", "o1", "o2"]) G.liv[id] = 5 * livT("t_attrezzi");
       G.cuccioli = 1;
-      G.banane = 150 * Math.pow(10, livT("t_anticipo"));
+      G.banane = 150 * Math.pow(10, livT("t_anticipo")) + eredita;
       G.raccoltoRun = 0;
+      G.completateRun = 0;
+      G.casseGratis = (G.casseGratis || 0) + 1;   // ogni pubblicazione regala una cassa di legno
       G.ts = Date.now();
       const nelMenu = R.nelMenu;
       avvia(G);
@@ -4711,15 +5498,16 @@
     const l = livT(tl.id);
     const x = (b) => decimale(Math.round(Math.pow(b, l) * 100) / 100);
     switch (tl.id) {
-      case "t_squadra": return t("eff_t_squadra", { n: 10 * l });
-      case "t_recl": return t("eff_t_recl", { x: x(1.2) });
-      case "t_nido": return t("eff_t_nido", { n: l });
-      case "t_scuola": return t("eff_t_scuola", { x: x(1.2) });
-      case "t_attrezzi": return t("eff_t_attrezzi", { n: 10 * l });
-      case "t_qualita": return t("eff_t_qualita", { x: x(1.25) });
-      case "t_contratto": return t("eff_t_contratto", { x: x(1.25) });
+      case "t_squadra": return t("eff_t_squadra", { a: 10 * l, b: 2 * l });
+      case "t_recl": return t("eff_t_recl", { x: x(1.5) });
+      case "t_nido": return t("eff_t_nido", { n: 2 * l });
+      case "t_scuola": return t("eff_t_scuola", { x: x(1.5) });
+      case "t_attrezzi": return t("eff_t_attrezzi", { n: 5 * l });
+      case "t_qualita": return t("eff_t_qualita", { x: x(1.5) });
+      case "t_contratto": return t("eff_t_contratto", { x: x(1.5) });
+      case "t_premio": return t("eff_t_premio", { x: x(1.5) });
       case "t_anticipo": return t("eff_t_anticipo", { n: fmt(150 * Math.pow(10, l)) });
-      case "t_notte": return t("eff_t_notte", { x: x(1.25) });
+      case "t_eredita": return t("eff_t_eredita", { n: l });
       default: return t("eff_" + tl.id);
     }
   }
@@ -4758,11 +5546,15 @@
     }
   }
   function disegnaEditore() {
-    const n = pagineDa(G.raccoltoRun || 0);
+    const daBanane = pagineDa(G.raccoltoRun || 0), daFrasi = pagineFrasi();
+    const n = daBanane + daFrasi;
     $("pubPagine").textContent = fmt(G.pagine || 0) + (G.pagineTot ? " (" + t("pub_intutto", { n: fmt(G.pagineTot) }) + ")" : "");
     $("pubGuadagno").textContent = "+" + fmt(n) + " 📃";
-    $("pubProssima").textContent = n < 1 ? t("pub_minimo", { n: fmt(1e9 * Math.pow(10, Math.pow(1 / 5, 2 / 3))) }) :
-      t("pub_prossima", { n: fmt(sogliaPagina(n)) });
+    $("pubDett").textContent = n ? t("pub_dett", { a: fmt(daBanane), b: fmt(daFrasi) }) : "";
+    const fama = x => decimale(Math.round(x * 100) / 100);
+    $("pubFama").textContent = t("pub_fama", { x: fama(moltFama()) }) + (n ? " → ×" + fama(1 + 0.03 * ((G.pagineTot || 0) + n)) : "");
+    $("pubEdizione").textContent = t("pub_edizione", { n: (G.pubblicazioni || 0) + 1 });
+    $("pubProssima").textContent = n < 1 ? t("pub_minimo", { n: fmt(1e9) }) : t("pub_prossima", { n: fmt(sogliaPagina(daBanane)) });
     $("bPubblica").disabled = n < 1 || R.fermo;
     $("pubFermo").hidden = !R.fermo;
     for (const tl of TALENTI) {
@@ -4804,8 +5596,6 @@
   function automazioni() {
     const auto = G.auto || {};
     let comprati = 0;
-    if (livT("a_scimmie") && auto.a_scimmie) comprati += compraDaSolo(p => p.gruppo === "scimmie");
-    if (livT("a_velocita") && auto.a_velocita) comprati += compraDaSolo(p => p.gruppo === "velocita");
     if (livT("a_traguardi") && auto.a_traguardi) for (const tr of daRiscuotere()) riscuoti(tr);
     if (livT("a_frasi") && auto.a_frasi && R.fermo && aperto("veloFine")) { chiudi("veloFine"); iniziaOpera(R.prossima); }
     if (comprati) controllaTraguardi();
@@ -4902,6 +5692,7 @@
   function disegnaBadge() {
     const pronto = g => POT.some(p => p.gruppo === g && visibile(p) && !(p.max !== undefined && G.liv[p.id] >= p.max) && G.banane >= costoPer(p, 1));
     const ps = pronto("scimmie"), pv = pronto("velocita"), pa = false;
+    $("badgeBottega").classList.toggle("vis", (G.casseGratis || 0) > 0);
     $("pScimmie").classList.toggle("vis", ps);
     $("pVelocita").classList.toggle("vis", pv);
 
@@ -5209,6 +6000,33 @@
       if (!dati.paroleInOrdine) { g.parole = 0; g.parolaMax = null; g.paroleModo = {}; g.diario = (g.diario || []).filter(v => v.tipo !== "parola"); }
       g.paroleInOrdine = true;
       if (dati.raccoltoRun === undefined) g.raccoltoRun = g.raccolto || 0;
+      // i record messi da parte con la "sessione" tornano al loro posto
+      if (g.recordSempre && Object.keys(g.recordSempre).length) {
+        const attuale = g.operaId !== "mio" ? chiaveOpera(g.operaId, g.linguaOpera || (g.imp && g.imp.lingua) || "it", g.modoOpera || "normale") : null;
+        for (const [k, a] of Object.entries(g.recordSempre)) {
+          if (k === attuale) {
+            if ((a.record || 0) > (g.record || 0)) { g.record = a.record; g.recordChi = a.chi || 0; g.recordTs = a.ts || 0; }
+          } else if ((a.record || 0) > ((g.archivio || {})[k] || {}).record || 0) {
+            (g.archivio = g.archivio || {})[k] = { record: a.record, chi: a.chi || 0, ts: a.ts || 0 };
+          }
+        }
+        g.recordSempre = {};
+      }
+      // cassa di benvenuto anche per chi giocava già
+      if (!dati.regaloBenvenuto) { g.casseGratis = (dati.casseGratis || 0) + 1; g.regaloBenvenuto = true; }
+      // le automazioni che compravano da sole non ci sono più: restituisco le pagine
+      for (const [id, costo] of [["a_scimmie", 5], ["a_velocita", 8]]) {
+        if (g.talenti && g.talenti[id]) { g.pagine = (g.pagine || 0) + costo; delete g.talenti[id]; if (g.auto) delete g.auto[id]; }
+      }
+      // il vecchio talento "Turni di notte" non serve più (a gioco chiuso si va avanti per sempre): restituisco le pagine
+      if (g.talenti && g.talenti.t_notte) {
+        let spese = 0;
+        for (let l = 0; l < g.talenti.t_notte; l++) spese += Math.ceil(2 * Math.pow(1.5, l));
+        g.pagine = (g.pagine || 0) + spese;
+        delete g.talenti.t_notte;
+      }
+      // gli oggetti estetici gratuiti ci sono sempre
+      g.collezione = [...new Set([...(g.collezione || []), ...ESTETICI.filter(x => x.g).map(x => x.id)])];
       // pagine autografe delle frasi completate prima che esistesse la collezione
       g.pagineAut = g.pagineAut || {};
       for (const id of g.opereFatte || []) {
@@ -5270,7 +6088,7 @@
     const N0 = numScimmie();
     const crescita = Math.min(g * assente, 400);   // dopo assenze lunghissime i numeri restano finiti
     const tasti = Math.min(1e300, tps * (g > 0 ? Math.expm1(crescita) / g : assente));
-    const banane = bananeAlSecondo(tasti) * efficienzaNotte() * Math.pow(1.25, livT("t_notte"));
+    const banane = bananeAlSecondo(tasti) * efficienzaNotte();
     const paroleAllaPartenza = G.parole || 0;
     if (g > 0) G.cuccioli = Math.min(1e200, G.cuccioli * Math.exp(crescita));
     G.tasti += tasti;
@@ -5541,15 +6359,48 @@
       let frase = 0, fraseId = "";
       for (const [id, l] of Object.entries((G.frasiModo || {})[m] || {})) if (l > frase) { frase = l; fraseId = id; }
       let record = frase;
-      for (const [k, a] of Object.entries(G.archivio)) {
+      for (const [k, a] of [...Object.entries(G.archivio), ...Object.entries(G.recordSempre || {})]) {
         const km = k.includes("#") ? k.split("#")[1] : "normale";
         if (km === m) record = Math.max(record, a.record || 0);
       }
       if ((G.modoOpera || "normale") === m) record = Math.max(record, G.record);
       const parola = ((G.paroleModo || {})[m]) || null;
       const riga = { frase, fraseId, record, opere: G.opereFatte.length, nick: G.nick || "" };
-      if (!this.senzaParola) { riga.parola = parola ? parola.p : ""; riga.parolaL = parola ? parola.l : 0; }
+      if (!this.senzaParola) {
+        riga.parola = parola ? parola.p : ""; riga.parolaL = parola ? parola.l : 0;
+        const sc = aspetto();
+        riga.avatar = sc.avatar; riga.colore = sc.colore; riga.effetto = sc.effetto;
+      }
       return riga;
+    },
+    // statistiche generali del giocatore (si leggono toccando la sua riga in classifica)
+    datiProfilo() {
+      const frasi = MODI.map(m => this.rigaModo(m));
+      const migliore = frasi.reduce((a, b) => (b.frase > a.frase ? b : a));
+      const parola = G.parolaMax || null;
+      const sc = aspetto();
+      return { nick: G.nick || "", avatar: sc.avatar, colore: sc.colore, effetto: sc.effetto,
+        tasti: Math.round(G.tasti || 0), tempo: Math.round(G.tempo || 0), completate: G.completate || 0, opere: G.opereFatte.length,
+        pubblicazioni: G.pubblicazioni || 0, raccolto: Math.round(G.raccolto || 0), scimmie: Math.round(numScimmie()),
+        frase: migliore.frase, fraseId: migliore.fraseId, parola: parola ? parola.p : "",
+        rec: Object.fromEntries(MODI.map((m, i) => [m, frasi[i].record])) };
+    },
+    // il profilo si aggiorna al massimo ogni 5 minuti (o subito se cambi aspetto)
+    async pubblicaProfilo(subito = false) {
+      if (!this.pronto || !this.id || this.solaLettura || this.senzaProfilo) return;
+      if (!subito && Date.now() - (this.ultimoProfilo || 0) < 300000) return;
+      this.ultimoProfilo = Date.now();
+      try {
+        const base = this.tipo === "firebase" ? this.fb : this.db;
+        await base.collection("profili").doc(this.id).set({ ...this.datiProfilo(), agg: Date.now() });
+      } catch (e) { this.senzaProfilo = true; }
+    },
+    async leggiProfilo(id) {
+      try {
+        const base = this.tipo === "firebase" ? this.fb : this.db;
+        const snap = await base.collection("profili").doc(id).get();
+        return snap.exists ? snap.data() : null;
+      } catch (e) { return null; }
     },
     // scrive le righe del giocatore appena cambia qualcosa (frase, parola, record, nome),
     // al massimo una volta ogni 10 secondi: gli altri giocatori le vedono aggiornarsi da sole
@@ -5562,6 +6413,7 @@
         const chiave = JSON.stringify(riga);
         if (chiave !== this.ultimaRiga[m]) daScrivere.push({ m, riga, chiave });
       }
+      this.pubblicaProfilo();
       if (!daScrivere.length) return;
       const attesa = 10000 - (Date.now() - (this.ultimaScrittura || 0));
       if (attesa > 0) {
@@ -5579,7 +6431,7 @@
       } catch (e) {
         const codice = e && e.code;
         if (codice === "permission-denied" && !this.senzaParola) {
-          // regole di Firebase senza la parola: riprovo senza
+          // regole di Firebase vecchie (senza parola o aspetto): riprovo con la riga minima
           this.senzaParola = true;
           this.scrivendoRiga = false;
           this.ultimaScrittura = 0;
@@ -5624,17 +6476,23 @@
         const titolo = r.fraseId === "mio" ? t("cl_mio") : (OPERE.some(o => o.id === r.fraseId) ? operaCorrente(r.fraseId).titolo : "");
         const posEl = document.createElement("span"); posEl.className = "pos";
         posEl.textContent = k === 0 ? "🥇" : k === 1 ? "🥈" : k === 2 ? "🥉" : String(k + 1);
-        const img = document.createElement("img"); img.alt = ""; if (p.avatarUrl) img.src = p.avatarUrl;
+        const img = document.createElement("span"); img.className = "avatar-pg";
+        mostraAvatar(img, r.avatar);
         const chi = document.createElement("span"); chi.className = "chi";
-        const b = document.createElement("b"); b.textContent = chiNome + (r.id === this.id ? " (" + t("cl_tu") + ")" : "");
+        const b = document.createElement("b");
+        const nomeEl = document.createElement("span");
+        mostraNome(nomeEl, chiNome, r.colore, r.effetto);
+        b.appendChild(nomeEl);
+        if (r.id === this.id) b.appendChild(document.createTextNode(" (" + t("cl_tu") + ")"));
         const sm = document.createElement("small");
         const parti = [];
         if (r.frase) parti.push("🏆 " + titolo + " (" + caratteri(r.frase) + ")");
         if (typeof r.parola === "string" && r.parola) parti.push("📝 «" + r.parola.slice(0, 30) + "»");
         sm.textContent = parti.length ? parti.join("\n") : t("cl_nessuna");
         chi.append(b, sm);
-        const rec = document.createElement("span"); rec.className = "rec"; rec.textContent = "⭐ " + fmt(r.record || 0);
+        const rec = document.createElement("span"); rec.className = "rec"; rec.textContent = t("cl_car", { n: fmt(r.record || 0) });
         li.append(posEl, img, chi, rec);
+        li.onclick = () => apriGiocatore(r, modo);
         lista.appendChild(li);
       });
       if (mia >= 5) pos.textContent = t("cl_tua_pos", { n: mia + 1 });
@@ -5731,16 +6589,16 @@
     const dopo = (ms, f) => timer.push(setTimeout(f, ms));
     let finito = false;
     const chiudiApertura = () => { if (!finito) { finito = true; timer.forEach(clearTimeout); fine(); } };
+    const ridotto = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
     // un tocco salta l'animazione: il titolo compare subito giusto
     $("sipario").onclick = () => {
       if (finito) return;
       timer.forEach(clearTimeout);
       el.textContent = titolo;
-      el.classList.add("giusto");
       chiEl.textContent = "⭐ " + chiScimmia(id);
-      setTimeout(chiudiApertura, 350);
+      setTimeout(chiudiApertura, 450);
     };
-    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) { $("sipario").onclick(); return; }
+    if (ridotto) { $("sipario").onclick(); return; }
     const VEL = 40, VEL_FINALE = 34;
     let tempo = 300;
     passi.forEach((p, n) => {
@@ -5759,8 +6617,7 @@
         });
         tempo += v + 420;
       } else {
-        dopo(tempo + 80, () => el.classList.add("giusto"));
-        dopo(tempo + 900, chiudiApertura);
+        dopo(tempo + 900, chiudiApertura);   // titolo scritto tutto giusto: si apre il menu
       }
     });
   }
@@ -5786,6 +6643,583 @@
       if (reg) await reg.showNotification(titolo, opzioni);
       else new Notification(titolo, opzioni);
     } catch (e) {}
+  }
+
+  // =====================================================================
+  //  PERSONALIZZAZIONE E NEGOZIO: avatar, colori del nome, scritte animate (solo estetica)
+  // =====================================================================
+  const ESTETICI = [{"id": "a_scimmia", "t": "a", "v": "🐒", "r": 0, "g": true}, {"id": "a_nonvedo", "t": "a", "v": "🙈", "r": 0, "g": true}, {"id": "a_banana", "t": "a", "v": "🍌", "r": 0, "g": true}, {"id": "a_nonsento", "t": "a", "v": "🙉", "r": 0, "g": false}, {"id": "a_nonparlo", "t": "a", "v": "🙊", "r": 0, "g": false}, {"id": "a_muso", "t": "a", "v": "🐵", "r": 0, "g": false}, {"id": "a_gorilla", "t": "a", "v": "🦍", "r": 0, "g": false}, {"id": "a_orango", "t": "a", "v": "🦧", "r": 0, "g": false}, {"id": "a_palma", "t": "a", "v": "🌴", "r": 0, "g": false}, {"id": "a_pergamena", "t": "a", "v": "📜", "r": 1, "g": false}, {"id": "a_penna", "t": "a", "v": "✍️", "r": 1, "g": false}, {"id": "a_tastiera", "t": "a", "v": "⌨️", "r": 1, "g": false}, {"id": "a_cilindro", "t": "a", "v": "🎩", "r": 1, "g": false}, {"id": "a_occhiali", "t": "a", "v": "🕶️", "r": 1, "g": false}, {"id": "a_cuffie", "t": "a", "v": "🎧", "r": 1, "g": false}, {"id": "a_ananas", "t": "a", "v": "🍍", "r": 1, "g": false}, {"id": "a_corona", "t": "a", "v": "👑", "r": 2, "g": false}, {"id": "a_robot", "t": "a", "v": "🤖", "r": 2, "g": false}, {"id": "a_alieno", "t": "a", "v": "👽", "r": 2, "g": false}, {"id": "a_unicorno", "t": "a", "v": "🦄", "r": 2, "g": false}, {"id": "a_drago", "t": "a", "v": "🐉", "r": 2, "g": false}, {"id": "a_mago", "t": "a", "v": "🧙", "r": 2, "g": false}, {"id": "a_galassia", "t": "a", "v": "🌌", "r": 3, "g": false}, {"id": "a_diamante", "t": "a", "v": "💎", "r": 3, "g": false}, {"id": "a_fuoco", "t": "a", "v": "🔥", "r": 3, "g": false}, {"id": "a_arcobaleno", "t": "a", "v": "🌈", "r": 3, "g": false}, {"id": "c_bianco", "t": "c", "v": "", "r": 0, "g": true}, {"id": "c_banana", "t": "c", "v": "#ffd23f", "r": 0, "g": true}, {"id": "c_menta", "t": "c", "v": "#74d394", "r": 0, "g": true}, {"id": "c_cielo", "t": "c", "v": "#7ec4ff", "r": 0, "g": false}, {"id": "c_rosa", "t": "c", "v": "#ff8ab3", "r": 0, "g": false}, {"id": "c_arancio", "t": "c", "v": "#ff9f43", "r": 0, "g": false}, {"id": "c_lavanda", "t": "c", "v": "#b98cff", "r": 1, "g": false}, {"id": "c_corallo", "t": "c", "v": "#ff7f66", "r": 1, "g": false}, {"id": "c_oro", "t": "c", "v": "#f2c14e", "r": 1, "g": false}, {"id": "c_smeraldo", "t": "c", "v": "#2ee59d", "r": 1, "g": false}, {"id": "c_tramonto", "t": "c", "v": "linear-gradient(90deg,#ff8a5c,#ff2a6d)", "r": 2, "g": false}, {"id": "c_oceano", "t": "c", "v": "linear-gradient(90deg,#3ee0d0,#2f7de1)", "r": 2, "g": false}, {"id": "e_nessuno", "t": "e", "v": "", "r": 0, "g": true}, {"id": "e_bagliore", "t": "e", "v": "", "r": 1, "g": false}, {"id": "e_brillio", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_neon", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_arcobaleno", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_fuoco", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_galassia", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_orofuso", "t": "e", "v": "", "r": 3, "g": false}, {"id": "a_infinita", "t": "a", "v": "♾️", "r": 4, "g": false}, {"id": "a_bardo", "t": "a", "v": "🎭", "r": 4, "g": false}, {"id": "c_aurora", "t": "c", "v": "linear-gradient(90deg,#00f5d4,#9b5de5,#f15bb5,#fee440)", "r": 4, "g": false}, {"id": "e_infinito", "t": "e", "v": "", "r": 4, "g": false}];
+  const NOMI_ESTETICI = {"c_bianco": {"it": "Bianco", "en": "White", "es": "Blanco", "zh": "白色", "fr": "Blanc", "ru": "Белый"}, "c_banana": {"it": "Banana", "en": "Banana", "es": "Plátano", "zh": "香蕉黄", "fr": "Banane", "ru": "Банановый"}, "c_menta": {"it": "Menta", "en": "Mint", "es": "Menta", "zh": "薄荷绿", "fr": "Menthe", "ru": "Мятный"}, "c_cielo": {"it": "Cielo", "en": "Sky", "es": "Cielo", "zh": "天蓝", "fr": "Ciel", "ru": "Небесный"}, "c_rosa": {"it": "Rosa", "en": "Pink", "es": "Rosa", "zh": "粉红", "fr": "Rose", "ru": "Розовый"}, "c_arancio": {"it": "Arancio", "en": "Orange", "es": "Naranja", "zh": "橙色", "fr": "Orange", "ru": "Оранжевый"}, "c_lavanda": {"it": "Lavanda", "en": "Lavender", "es": "Lavanda", "zh": "薰衣草紫", "fr": "Lavande", "ru": "Лавандовый"}, "c_corallo": {"it": "Corallo", "en": "Coral", "es": "Coral", "zh": "珊瑚红", "fr": "Corail", "ru": "Коралловый"}, "c_oro": {"it": "Oro", "en": "Gold", "es": "Oro", "zh": "金色", "fr": "Or", "ru": "Золотой"}, "c_smeraldo": {"it": "Smeraldo", "en": "Emerald", "es": "Esmeralda", "zh": "翡翠绿", "fr": "Émeraude", "ru": "Изумрудный"}, "c_tramonto": {"it": "Tramonto", "en": "Sunset", "es": "Atardecer", "zh": "日落", "fr": "Coucher de soleil", "ru": "Закат"}, "c_oceano": {"it": "Oceano", "en": "Ocean", "es": "Océano", "zh": "海洋", "fr": "Océan", "ru": "Океан"}, "e_nessuno": {"it": "Nessuna", "en": "None", "es": "Ninguno", "zh": "无", "fr": "Aucun", "ru": "Нет"}, "e_bagliore": {"it": "Bagliore", "en": "Glow", "es": "Brillo", "zh": "光晕", "fr": "Lueur", "ru": "Сияние"}, "e_brillio": {"it": "Scintillio", "en": "Shimmer", "es": "Destello", "zh": "闪光", "fr": "Scintillement", "ru": "Мерцание"}, "e_neon": {"it": "Neon", "en": "Neon", "es": "Neón", "zh": "霓虹", "fr": "Néon", "ru": "Неон"}, "e_arcobaleno": {"it": "Arcobaleno", "en": "Rainbow", "es": "Arcoíris", "zh": "彩虹", "fr": "Arc-en-ciel", "ru": "Радуга"}, "e_fuoco": {"it": "Fuoco", "en": "Fire", "es": "Fuego", "zh": "火焰", "fr": "Feu", "ru": "Огонь"}, "e_galassia": {"it": "Galassia", "en": "Galaxy", "es": "Galaxia", "zh": "星系", "fr": "Galaxie", "ru": "Галактика"}, "e_orofuso": {"it": "Oro fuso", "en": "Molten gold", "es": "Oro fundido", "zh": "熔金", "fr": "Or fondu", "ru": "Расплавленное золото"}, "c_aurora": {"it": "Aurora", "en": "Aurora", "es": "Aurora", "zh": "极光", "fr": "Aurore", "ru": "Сияние зари"}, "e_infinito": {"it": "Infinito", "en": "Infinite", "es": "Infinito", "zh": "无限", "fr": "Infini", "ru": "Бесконечность"}, "a_infinita": {"it": "La Scimmia Infinita", "en": "The Infinite Monkey", "es": "El Mono Infinito", "zh": "无限猴子", "fr": "Le Singe Infini", "ru": "Бесконечная Обезьяна"}, "a_bardo": {"it": "Il Bardo", "en": "The Bard", "es": "El Bardo", "zh": "吟游诗人", "fr": "Le Barde", "ru": "Бард"}};
+  // probabilità per rarità: comune, raro, epico, leggendario, mitico
+  const CASSE = [
+    { id: "legno", ico: "📦", costo: 20, prob: [70, 25, 5, 0, 0] },
+    { id: "argento", ico: "🎁", costo: 60, prob: [30, 44.5, 20, 5, 0.5] },
+    { id: "oro", ico: "👑", costo: 180, prob: [0, 30, 48, 20, 2] }
+  ];
+  const RARITA = [0, 1, 2, 3, 4];
+  const estetico = id => ESTETICI.find(x => x.id === id);
+  const nomeEstetico = id => (NOMI_ESTETICI[id] ? NOMI_ESTETICI[id][L] || NOMI_ESTETICI[id].it : "");
+  const possiede = id => (G.collezione || []).includes(id);
+  const aspetto = () => G.aspetto || { avatar: "a_scimmia", colore: "c_bianco", effetto: "e_nessuno" };
+  // =====================================================================
+  //  PIXEL ART: avatar sempre più dettagliati con la rarità, e le tre casse
+  // =====================================================================
+  const AV_STILE = {
+    a_scimmia: { pelo: "#8b5a2b", muso: "#e8c39e", sf: "#2f6b4f" },
+    a_nonvedo: { pelo: "#8b5a2b", muso: "#e8c39e", sf: "#3b5f8a", mani: "occhi" },
+    a_banana: { pelo: "#8b5a2b", muso: "#e8c39e", sf: "#6b4f2b", acc: "banana" },
+    a_nonsento: { pelo: "#7a4a22", muso: "#e8c39e", sf: "#7a3b5c", mani: "orecchie" },
+    a_nonparlo: { pelo: "#9c6b3c", muso: "#f0d2b0", sf: "#5c4a8a", mani: "bocca" },
+    a_muso: { pelo: "#c08a55", muso: "#f6dcc0", sf: "#8a6d2f" },
+    a_gorilla: { pelo: "#3a3a40", muso: "#77727c", sf: "#4a5a3a" },
+    a_orango: { pelo: "#c4561d", muso: "#e9a77c", sf: "#2f5a6b" },
+    a_palma: { pelo: "#8b5a2b", muso: "#e8c39e", sf: "#3e8f6a", acc: "palma" },
+    a_pergamena: { pelo: "#8b5a2b", muso: "#e8c39e", sf: "#6b3f2b", acc: "pergamena" },
+    a_penna: { pelo: "#7a4a22", muso: "#e8c39e", sf: "#2b4f6b", acc: "penna" },
+    a_tastiera: { pelo: "#9c6b3c", muso: "#f0d2b0", sf: "#33485e", acc: "tastiera" },
+    a_cilindro: { pelo: "#8b5a2b", muso: "#e8c39e", sf: "#5e2b3b", acc: "cilindro" },
+    a_occhiali: { pelo: "#c08a55", muso: "#f6dcc0", sf: "#1f6f8b", acc: "occhiali" },
+    a_cuffie: { pelo: "#3a3a40", muso: "#77727c", sf: "#6b2b5e", acc: "cuffie" },
+    a_ananas: { pelo: "#c4561d", muso: "#e9a77c", sf: "#2f6b3b", acc: "ananas" },
+    a_corona: { pelo: "#8b5a2b", muso: "#e8c39e", sf: "#4b2a7a", acc: "corona" },
+    a_robot: { pelo: "#8f99a6", muso: "#cfd6de", sf: "#22344a", acc: "robot" },
+    a_alieno: { pelo: "#3f9f46", muso: "#a5e6a0", sf: "#1d1f3d", acc: "alieno" },
+    a_unicorno: { pelo: "#f1ecff", muso: "#ffd9ec", sf: "#5a3f8a", acc: "corno" },
+    a_drago: { pelo: "#b23a2a", muso: "#f2a35c", sf: "#3a1d1d", acc: "drago" },
+    a_mago: { pelo: "#7a4a22", muso: "#e8c39e", sf: "#1d2f5e", acc: "mago" },
+    a_galassia: { pelo: "#3b2b6b", muso: "#b9a8ff", sf: "galassia", acc: "stelle" },
+    a_diamante: { pelo: "#6fcff5", muso: "#dcf7ff", sf: "diamante", acc: "cristallo" },
+    a_fuoco: { pelo: "#ff6a00", muso: "#ffd08a", sf: "fuoco", acc: "fiamme" },
+    a_arcobaleno: { pelo: "#8b5a2b", muso: "#e8c39e", sf: "arcobaleno", acc: "aureola" },
+    a_infinita: { pelo: "#2b1b5e", muso: "#c9b8ff", sf: "cosmo", acc: "infinito" },
+    a_bardo: { pelo: "#6b4a2b", muso: "#f0d2b0", sf: "pergamenaoro", acc: "bardo" }
+  };
+  const AV_DIM = [16, 20, 24, 32, 40];
+  const tinta = (hex, f) => {
+    const n = parseInt(hex.slice(1), 16);
+    const c = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(v => Math.max(0, Math.min(255, Math.round(f >= 1 ? v + (255 - v) * (f - 1) : v * f))));
+    return "#" + c.map(v => v.toString(16).padStart(2, "0")).join("");
+  };
+  // pseudo-caso stabile (stesse stelle a ogni disegno)
+  const casoFisso = n => { const x = Math.sin(n * 12.9898) * 43758.5453; return x - Math.floor(x); };
+
+  function disegnaAvatarPixel(cv, id, tempo = 0) {
+    const o = estetico(id) && estetico(id).t === "a" ? estetico(id) : estetico("a_scimmia");
+    const st = AV_STILE[o.id] || AV_STILE.a_scimmia;
+    const S = AV_DIM[o.r], u = S / 16, rar = o.r;
+    if (cv.width !== S) { cv.width = S; cv.height = S; }
+    const ctx = cv.getContext && cv.getContext("2d");
+    if (!ctx) return;
+    ctx.clearRect(0, 0, S, S);
+    const f = Math.floor(tempo / 160);   // fotogramma dell'animazione (solo leggendari)
+    // ---------- sfondo ----------
+    const pix = (x, y, c) => { ctx.fillStyle = c; ctx.fillRect(Math.round(x), Math.round(y), 1, 1); };
+    if (st.sf === "galassia") {
+      ctx.fillStyle = "#120a2e"; ctx.fillRect(0, 0, S, S);
+      for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
+        const d = Math.hypot(x - S * 0.7, y - S * 0.3);
+        if (d < S * 0.35 && casoFisso(x * 31 + y) > 0.55) pix(x, y, "#2a1a5e");
+      }
+      for (let k = 0; k < 18; k++) {
+        const x = Math.floor(casoFisso(k + 1) * S), y = Math.floor(casoFisso(k + 50) * S);
+        const luce = (Math.sin(f * 0.9 + k * 1.7) + 1) / 2;
+        pix(x, y, luce > 0.6 ? "#ffffff" : luce > 0.3 ? "#b9a8ff" : "#4b3a8a");
+      }
+    } else if (st.sf === "fuoco") {
+      ctx.fillStyle = "#2a0a05"; ctx.fillRect(0, 0, S, S);
+      for (let x = 0; x < S; x++) {
+        const h = S * (0.35 + 0.25 * casoFisso(x * 7 + f) + 0.1 * Math.sin(f + x));
+        for (let y = S - 1; y > S - h; y--) {
+          const p = (S - y) / h;
+          pix(x, y, p < 0.35 ? "#ffd23f" : p < 0.7 ? "#ff7a00" : "#b3200a");
+        }
+      }
+    } else if (st.sf === "arcobaleno") {
+      const colori = ["#ff5e5e", "#ff9f43", "#ffd23f", "#4ade80", "#38bdf8", "#a78bfa"];
+      for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) pix(x, y, colori[Math.floor((x + y + f) / 4) % colori.length]);
+    } else if (st.sf === "cosmo") {
+      // vortice cosmico che gira
+      const tavolozza = ["#140a33", "#22105a", "#33158a", "#1b2f7a", "#0d4f6e", "#4a1a8a"];
+      for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
+        const dx = x - S / 2, dy = y - S / 2;
+        const ang = Math.atan2(dy, dx), rag = Math.hypot(dx, dy);
+        pix(x, y, tavolozza[Math.abs(Math.floor(ang * 3 / Math.PI + rag / 4 - f / 2)) % tavolozza.length]);
+      }
+      for (let k = 0; k < 24; k++) {
+        const x = Math.floor(casoFisso(k + 3) * S), y = Math.floor(casoFisso(k + 90) * S);
+        if ((Math.sin(f * 1.1 + k) + 1) / 2 > 0.45) pix(x, y, k % 3 ? "#ffffff" : "#7df9ff");
+      }
+    } else if (st.sf === "pergamenaoro") {
+      // pergamena con righe di testo che scorrono e una cornice d'oro
+      ctx.fillStyle = "#ecdcaa"; ctx.fillRect(0, 0, S, S);
+      for (let y = 3; y < S - 3; y += 3) {
+        const yy = (y + f) % (S - 6) + 3;
+        for (let x = 4; x < S - 4; x++) if (casoFisso(x * 3 + y * 11) > 0.3) pix(x, yy, "#b9a26a");
+      }
+      ctx.fillStyle = "#c99a1a"; ctx.fillRect(0, 0, S, 2); ctx.fillRect(0, S - 2, S, 2); ctx.fillRect(0, 0, 2, S); ctx.fillRect(S - 2, 0, 2, S);
+      const giro = (f * 2) % (S * 4);
+      const [lx, ly] = giro < S ? [giro, 0] : giro < 2 * S ? [S - 2, giro - S] : giro < 3 * S ? [3 * S - giro, S - 2] : [0, 4 * S - giro];
+      ctx.fillStyle = "#fff6c9"; ctx.fillRect(Math.max(0, Math.min(S - 2, lx)), Math.max(0, Math.min(S - 2, ly)), 2, 2);
+    } else if (st.sf === "diamante") {
+      for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) pix(x, y, ((x + y) >> 2) % 2 ? "#0e4a6b" : "#13628c");
+    } else if (rar === 0) {
+      ctx.fillStyle = st.sf; ctx.fillRect(0, 0, S, S);
+    } else if (rar === 1) {
+      ctx.fillStyle = tinta(st.sf, 1.25); ctx.fillRect(0, 0, S, S / 2);
+      ctx.fillStyle = st.sf; ctx.fillRect(0, S / 2, S, S / 2);
+      for (let x = 0; x < S; x += 2) pix(x, S / 2 - 1, st.sf);
+    } else {
+      ctx.fillStyle = st.sf; ctx.fillRect(0, 0, S, S);
+      for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) if ((x + y) % 6 === 0) pix(x, y, tinta(st.sf, 1.3));
+    }
+    // ---------- personaggio (su un livello a parte, per il contorno) ----------
+    const liv = new Array(S * S).fill(null);
+    const metti = (x, y, c) => { x = Math.round(x); y = Math.round(y); if (x >= 0 && y >= 0 && x < S && y < S) liv[y * S + x] = c; };
+    const cerchio = (cx, cy, r, c) => {
+      for (let y = Math.floor(cy - r); y <= Math.ceil(cy + r); y++) for (let x = Math.floor(cx - r); x <= Math.ceil(cx + r); x++)
+        if ((x + 0.5 - cx) ** 2 + (y + 0.5 - cy) ** 2 <= r * r) metti(x, y, c);
+    };
+    const ellisse = (cx, cy, rx, ry, c) => {
+      for (let y = Math.floor(cy - ry); y <= Math.ceil(cy + ry); y++) for (let x = Math.floor(cx - rx); x <= Math.ceil(cx + rx); x++)
+        if (((x + 0.5 - cx) / rx) ** 2 + ((y + 0.5 - cy) / ry) ** 2 <= 1) metti(x, y, c);
+    };
+    const rett = (x, y, w, h, c) => { for (let j = Math.round(y); j < Math.round(y + h); j++) for (let i = Math.round(x); i < Math.round(x + w); i++) metti(i, j, c); };
+    const scuro = tinta(st.pelo, 0.72), chiaro = tinta(st.pelo, 1.25), musoScuro = tinta(st.muso, 0.82);
+    const occhio = "#1a1410";
+    // dietro la testa
+    if (st.acc === "drago") { ellisse(2 * u, 9 * u, 2.4 * u, 4.5 * u, "#7a1f16"); ellisse(14 * u, 9 * u, 2.4 * u, 4.5 * u, "#7a1f16"); }
+    if (st.acc === "aureola") { ellisse(8 * u, 2.2 * u, 4.6 * u, 1.4 * u, "#ffd23f"); ellisse(8 * u, 2.2 * u, 3.4 * u, 0.6 * u, null); }
+    // spalle (dal raro in su)
+    if (rar >= 1) ellisse(8 * u, 16.5 * u, 6.5 * u, 3.4 * u, st.pelo);
+    // orecchie
+    cerchio(3.2 * u, 8 * u, 2.2 * u, st.pelo); cerchio(12.8 * u, 8 * u, 2.2 * u, st.pelo);
+    if (rar >= 1) { cerchio(3.2 * u, 8 * u, 1.1 * u, musoScuro); cerchio(12.8 * u, 8 * u, 1.1 * u, musoScuro); }
+    // testa con ombre
+    const cx = 8 * u, cy = 8 * u, r = 5.2 * u;
+    for (let y = Math.floor(cy - r); y <= Math.ceil(cy + r); y++) for (let x = Math.floor(cx - r); x <= Math.ceil(cx + r); x++) {
+      const dx = x + 0.5 - cx, dy = y + 0.5 - cy;
+      if (dx * dx + dy * dy > r * r) continue;
+      let c = st.pelo;
+      if (rar >= 1 && dx + dy > r * 0.62) c = scuro;
+      if (rar >= 2 && dx + dy < -r * 0.75) c = chiaro;
+      metti(x, y, c);
+    }
+    // muso
+    ellisse(8 * u, 9.7 * u, 3.9 * u, 3.1 * u, st.muso);
+    cerchio(6.3 * u, 7.4 * u, 1.75 * u, st.muso); cerchio(9.7 * u, 7.4 * u, 1.75 * u, st.muso);
+    if (rar >= 2) for (let x = Math.round(5 * u); x < Math.round(11 * u); x++) metti(x, Math.round(12.3 * u), musoScuro);
+    // occhi, naso, bocca
+    const occhi = st.acc === "alieno" ? null : st.acc === "robot" ? "visore" : "normali";
+    if (occhi === "normali") {
+      const h = rar >= 1 ? 2 : 1;
+      for (const ox of [6.3 * u, 9.7 * u]) {
+        rett(ox - 0.5, 7.2 * u, Math.max(1, Math.round(u)), h, occhio);
+        if (rar >= 1) metti(ox - 0.5, 7.2 * u, "#ffffff");
+      }
+    } else if (occhi === "visore") {
+      rett(4.6 * u, 7 * u, 6.8 * u, 1.4 * u, "#2b0a0a");
+      rett(4.6 * u + ((f % 6) * u), 7 * u, 1.2 * u, 1.4 * u, "#ff3b3b");
+    } else {
+      ellisse(6.2 * u, 7.6 * u, 1.5 * u, 1.9 * u, "#0b0b14"); ellisse(9.8 * u, 7.6 * u, 1.5 * u, 1.9 * u, "#0b0b14");
+      metti(5.8 * u, 6.8 * u, "#ffffff"); metti(9.4 * u, 6.8 * u, "#ffffff");
+    }
+    metti(7.4 * u, 9.7 * u, musoScuro); metti(8.6 * u, 9.7 * u, musoScuro);
+    rett(6.7 * u, 11.1 * u, 2.6 * u, Math.max(1, Math.round(u * 0.6)), "#5a2a1a");
+    // mani che coprono occhi, orecchie o bocca
+    // mani ben visibili: dita del colore del pelo e palmo più scuro
+    const mano = (x, y) => { cerchio(x, y, 2 * u, scuro); cerchio(x, y + 0.2 * u, 1.6 * u, st.pelo); cerchio(x, y + 0.5 * u, 0.9 * u, musoScuro); };
+    if (st.mani === "occhi") { mano(6.2 * u, 7.6 * u); mano(9.8 * u, 7.6 * u); }
+    if (st.mani === "orecchie") { mano(2.8 * u, 8.4 * u); mano(13.2 * u, 8.4 * u); }
+    if (st.mani === "bocca") { mano(7.2 * u, 11.2 * u); mano(9 * u, 11.2 * u); }
+    // accessori
+    const a = st.acc;
+    if (a === "banana") { ellisse(8 * u, 13.4 * u, 3.4 * u, 1.2 * u, "#ffd23f"); ellisse(8 * u, 12.9 * u, 3 * u, 0.6 * u, "#fff0a0"); metti(11.2 * u, 13 * u, "#6b4f2b"); metti(4.8 * u, 13.4 * u, "#c99a00"); }
+    if (a === "palma") { ellisse(4.5 * u, 2 * u, 3.5 * u, 1.1 * u, "#3fbf5a"); ellisse(11.5 * u, 2 * u, 3.5 * u, 1.1 * u, "#2fa34a"); ellisse(8 * u, 1.2 * u, 2.4 * u, 1 * u, "#4fd36a"); }
+    if (a === "pergamena") { rett(3.5 * u, 12.6 * u, 9 * u, 2.6 * u, "#f1e2b8"); cerchio(3.5 * u, 13.9 * u, 1.3 * u, "#d6c08a"); cerchio(12.5 * u, 13.9 * u, 1.3 * u, "#d6c08a"); for (let x = 5 * u; x < 11 * u; x += 2) metti(x, 13.8 * u, "#8a7a5a"); }
+    if (a === "penna") { for (let k = 0; k < 6 * u; k++) { metti(12.2 * u + k * 0.35, 1.2 * u + k, "#f4f4f4"); metti(13.2 * u + k * 0.35, 1.2 * u + k, "#cfcfcf"); } metti(14.4 * u, 8 * u, "#1a1a1a"); }
+    if (a === "tastiera") { rett(1.5 * u, 13 * u, 13 * u, 2.6 * u, "#2b2b33"); for (let x = 2 * u; x < 14 * u; x += 2) { metti(x, 13.6 * u, "#c9c9d6"); metti(x + 1, 14.6 * u, "#c9c9d6"); } }
+    if (a === "cilindro") { rett(4.6 * u, 0, 6.8 * u, 3.6 * u, "#1d1d22"); rett(3 * u, 3.4 * u, 10 * u, 1.1 * u, "#1d1d22"); rett(4.6 * u, 2.5 * u, 6.8 * u, 0.9 * u, "#c0392b"); }
+    if (a === "occhiali") { rett(4.6 * u, 6.7 * u, 3.1 * u, 1.9 * u, "#111111"); rett(8.3 * u, 6.7 * u, 3.1 * u, 1.9 * u, "#111111"); rett(7.6 * u, 7.1 * u, 0.9 * u, 0.6 * u, "#111111"); metti(5 * u, 7 * u, "#6ec6ff"); metti(8.7 * u, 7 * u, "#6ec6ff"); }
+    if (a === "cuffie") { rett(3 * u, 2.2 * u, 10 * u, 1 * u, "#2a2a2a"); rett(2.6 * u, 2.2 * u, 1 * u, 4 * u, "#2a2a2a"); rett(12.4 * u, 2.2 * u, 1 * u, 4 * u, "#2a2a2a"); rett(1.4 * u, 6.4 * u, 2.6 * u, 3.6 * u, "#e74c3c"); rett(12 * u, 6.4 * u, 2.6 * u, 3.6 * u, "#e74c3c"); }
+    if (a === "ananas") { ellisse(8 * u, 3 * u, 2.8 * u, 2.1 * u, "#f2b705"); for (let k = 0; k < 4; k++) metti(6.5 * u + k * u, 3 * u, "#c98f00"); rett(7.4 * u, 0, 1.2 * u, 1.4 * u, "#2fa34a"); rett(6 * u, 0.5 * u, 1 * u, 1 * u, "#3fbf5a"); rett(9 * u, 0.5 * u, 1 * u, 1 * u, "#3fbf5a"); }
+    if (a === "corona") { rett(4.4 * u, 1.6 * u, 7.2 * u, 2.2 * u, "#f2c14e"); for (const x of [4.4, 7.4, 10.4]) rett(x * u, 0.4 * u, 1.2 * u, 1.3 * u, "#f2c14e"); metti(6 * u, 2.6 * u, "#e74c3c"); metti(8 * u, 2.6 * u, "#3b82f6"); metti(10 * u, 2.6 * u, "#22c55e"); rett(4.4 * u, 3.6 * u, 7.2 * u, 0.5 * u, "#b8860b"); }
+    if (a === "robot") { rett(7.6 * u, 0, 0.9 * u, 2.6 * u, "#8f99a6"); cerchio(8 * u, 0.6 * u, 0.9 * u, f % 4 < 2 ? "#ff3b3b" : "#ffb3b3"); metti(3.2 * u, 8 * u, "#ffd23f"); metti(12.8 * u, 8 * u, "#ffd23f"); }
+    if (a === "alieno") { for (const [x0, x1] of [[6, 4.6], [10, 11.4]]) { for (let k = 0; k <= 4; k++) metti((x0 + (x1 - x0) * k / 4) * u, (3 - k * 0.6) * u, "#3f9f46"); cerchio(x1 * u, 0.6 * u, 0.9 * u, "#d4ff4f"); } }
+    if (a === "corno") { for (let k = 0; k < 3.6 * u; k++) { const w = Math.max(1, Math.round(k / 2)); rett(8 * u - w / 2, k, w, 1, k % 2 ? "#ffd23f" : "#fff6c9"); } const cr = ["#ff5e5e", "#ffd23f", "#4ade80", "#38bdf8", "#a78bfa"]; cr.forEach((c, k) => rett(11.6 * u, (3 + k * 1.2) * u, 1.6 * u, 1.2 * u, c)); }
+    if (a === "drago") { rett(5 * u, 2 * u, 1 * u, 1.6 * u, "#f2e2b0"); rett(10 * u, 2 * u, 1 * u, 1.6 * u, "#f2e2b0"); for (let k = 0; k < 4; k++) metti((5.5 + k * 1.6) * u, 4.6 * u, "#7a1f16"); }
+    if (a === "mago") {
+      for (let k = 0; k < 4.4 * u; k++) { const w = Math.round((k + 1) * 1.6); rett(9 * u - w / 2, k, w, 1, "#4b2a9a"); }
+      rett(3 * u, 4.2 * u, 10 * u, 0.9 * u, "#3a1f7a");
+      metti(7.5 * u, 2 * u, f % 4 < 2 ? "#ffd23f" : "#fff6c9"); metti(9.5 * u, 3.2 * u, "#ffd23f");
+      ellisse(8 * u, 13.4 * u, 2.8 * u, 2 * u, "#eeeeee");
+    }
+    if (a === "cristallo") { for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) { const c = liv[y * S + x]; if (c === st.pelo && (x - y) % 5 === 0) liv[y * S + x] = "#ffffff"; } }
+    if (a === "fiamme") { for (let k = 0; k < 6; k++) { const x = (4 + k * 1.6) * u, h = (1.5 + casoFisso(k + f) * 2.2) * u; rett(x, 3 * u - h, Math.max(1, u), h, k % 2 ? "#ffd23f" : "#ff9100"); } }
+    if (a === "aureola") { /* già disegnata dietro la testa */ }
+    if (a === "infinito") {
+      // il simbolo dell'infinito d'oro sopra la testa, con una luce che lo percorre
+      const punti = [];
+      for (let k = 0; k < 120; k++) {
+        const tt = k / 120 * Math.PI * 2, den = 1 + Math.sin(tt) ** 2;
+        punti.push([8 * u + 3.5 * u * Math.cos(tt) / den, 1.9 * u + 2.6 * u * Math.sin(tt) * Math.cos(tt) / den]);
+      }
+      for (const [x, y] of punti) { metti(x, y, "#ffd23f"); metti(x, y + 1, "#c99a00"); }
+      for (let k = 0; k < 6; k++) { const [x, y] = punti[(f * 4 + k) % punti.length]; metti(x, y, "#fff6c9"); }
+      // occhi che brillano
+      for (const ox of [6.3 * u, 9.7 * u]) { rett(ox - 1, 7 * u, 2, 2, "#7df9ff"); metti(ox - 1, 7 * u, "#ffffff"); }
+      // particelle che girano intorno
+      for (let k = 0; k < 4; k++) {
+        const ang = f * 0.35 + k * Math.PI / 2;
+        metti(8 * u + Math.cos(ang) * 7 * u, 9 * u + Math.sin(ang) * 6 * u, k % 2 ? "#ff4fd8" : "#00f5d4");
+      }
+    }
+    if (a === "bardo") {
+      // capelli ai lati, orecchino, baffi, gorgiera bianca e penna d'oca con l'inchiostro
+      rett(2.4 * u, 5 * u, 1.6 * u, 4.5 * u, "#3a2414"); rett(12 * u, 5 * u, 1.6 * u, 4.5 * u, "#3a2414");
+      metti(3 * u, 10.2 * u, "#ffd23f");
+      rett(6.4 * u, 10 * u, 1.4 * u, 0.45 * u, "#3a2414"); rett(8.2 * u, 10 * u, 1.4 * u, 0.45 * u, "#3a2414");   // baffi
+      rett(7.6 * u, 12.1 * u, 0.8 * u, 0.9 * u, "#3a2414");                                                      // pizzetto
+      ellisse(8 * u, 14 * u, 6.4 * u, 1.9 * u, "#f7f7f7");
+      for (let x = 2 * u; x < 14 * u; x += 2) metti(x, 14 * u, "#c9c9c9");
+      for (let k = 0; k < 5 * u; k++) { metti(11.6 * u + k * 0.3, 1.2 * u + k * 0.9, "#ffffff"); metti(12.2 * u + k * 0.3, 1.2 * u + k * 0.9, "#d8d8d8"); }
+      if (f % 6 < 3) metti(13.2 * u, 6 * u, "#1a1a3a");
+    }
+    // contorno scuro (dall'epico in su)
+    if (rar >= 2) {
+      const bordo = [];
+      for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) {
+        if (liv[y * S + x]) continue;
+        const vicino = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => { const X = x + dx, Y = y + dy; return X >= 0 && Y >= 0 && X < S && Y < S && liv[Y * S + X]; });
+        if (vicino) bordo.push(y * S + x);
+      }
+      for (const k of bordo) liv[k] = "#140f0c";
+    }
+    for (let k = 0; k < S * S; k++) if (liv[k]) { ctx.fillStyle = liv[k]; ctx.fillRect(k % S, Math.floor(k / S), 1, 1); }
+    // scintille dei leggendari e dei mitici
+    if (rar >= 3) for (let k = 0; k < (rar === 4 ? 5 : 3); k++) {
+      const x = Math.floor(casoFisso(k * 7 + f) * S), y = Math.floor(casoFisso(k * 13 + f * 3) * S);
+      ctx.fillStyle = "#ffffff"; ctx.fillRect(x, y, 1, 1);
+      ctx.fillStyle = "rgba(255,255,255,.5)"; ctx.fillRect(x - 1, y, 1, 1); ctx.fillRect(x + 1, y, 1, 1); ctx.fillRect(x, y - 1, 1, 1); ctx.fillRect(x, y + 1, 1, 1);
+    }
+  }
+  // gli avatar leggendari sono animati: li ridisegno finché sono sullo schermo
+  const avatarAnimati = new Set();
+  setInterval(() => {
+    const ora = Date.now();
+    for (const v of avatarAnimati) {
+      if (!v.cv.isConnected) { avatarAnimati.delete(v); continue; }
+      v.disegna(ora);
+    }
+  }, 160);
+
+  // ---------- le tre casse ----------
+  function disegnaCassaPixel(cv, id, tempo = 0) {
+    const S = 32;
+    if (cv.width !== S) { cv.width = S; cv.height = S; }
+    const ctx = cv.getContext && cv.getContext("2d");
+    if (!ctx) return;
+    ctx.clearRect(0, 0, S, S);
+    const r = (x, y, w, h, c) => { ctx.fillStyle = c; ctx.fillRect(x, y, w, h); };
+    const f = Math.floor(tempo / 160);
+    if (id === "legno") {
+      // cassa di legno: cornice scura, assi orizzontali, una trave in diagonale e angoli di metallo
+      const linea = (x0, y0, x1, y1, c, spessore) => {
+        const passi = Math.max(Math.abs(x1 - x0), Math.abs(y1 - y0));
+        for (let k = 0; k <= passi; k++) r(Math.round(x0 + (x1 - x0) * k / passi), Math.round(y0 + (y1 - y0) * k / passi), spessore, 1, c);
+      };
+      r(3, 7, 26, 22, "#6b3f1c");                                       // cornice
+      for (let y = 10; y < 26; y += 4) {                                // assi
+        r(6, y, 20, 3, (y / 4) % 2 ? "#b97a40" : "#a86a35");
+        r(6, y + 3, 20, 1, "#5a3416");
+        r(6, y, 20, 1, "#c98a4e");
+      }
+      linea(6, 10, 23, 25, "#7a4720", 3);                               // trave in diagonale (ombra)
+      linea(6, 9, 23, 24, "#d49a5a", 3);                                // trave in diagonale
+      linea(6, 9, 23, 24, "#e6b37a", 1);
+      r(3, 7, 26, 1, "#8a5428"); r(3, 28, 26, 1, "#3a220e");
+      for (const [x, y] of [[3, 7], [26, 7], [3, 26], [26, 26]]) { r(x, y, 3, 3, "#9aa3ad"); r(x + 1, y + 1, 1, 1, "#e5e9ee"); }
+    } else if (id === "argento") {
+      // valigetta della macchina da scrivere
+      r(11, 4, 10, 2, "#6b7280"); r(11, 4, 2, 5, "#6b7280"); r(19, 4, 2, 5, "#6b7280");
+      r(3, 8, 26, 20, "#c7ced8");
+      r(3, 8, 26, 3, "#e8edf3"); r(3, 25, 26, 3, "#8e97a3");
+      r(3, 8, 1, 20, "#8e97a3"); r(28, 8, 1, 20, "#8e97a3");
+      r(3, 16, 26, 1, "#8e97a3");
+      r(7, 14, 4, 4, "#f2c14e"); r(21, 14, 4, 4, "#f2c14e"); r(8, 15, 2, 2, "#b8860b"); r(22, 15, 2, 2, "#b8860b");
+      for (let x = 12; x < 20; x += 2) { r(x, 20, 1, 1, "#4b5563"); r(x + 1, 22, 1, 1, "#4b5563"); }
+      if (f % 8 < 2) r(5 + (f % 8) * 10, 9, 3, 1, "#ffffff");
+    } else {
+      // scrigno d'oro del manoscritto
+      r(4, 8, 24, 2, "#ffd84d"); r(3, 10, 26, 6, "#f2c14e"); r(5, 6, 22, 2, "#ffe58a");
+      r(3, 16, 26, 13, "#e0a92e"); r(3, 16, 26, 2, "#b8860b"); r(3, 28, 26, 1, "#7a5800");
+      for (const x of [7, 23]) r(x, 6, 2, 23, "#b8860b");
+      r(13, 13, 6, 7, "#7a5800"); r(14, 14, 4, 4, "#ffd84d"); r(15, 16, 2, 2, "#3a2a00");
+      r(14, 21, 4, 3, "#e74c3c"); r(15, 21, 1, 1, "#ff9a8a");
+      r(9, 11, 3, 2, "#3b82f6"); r(20, 11, 3, 2, "#22c55e");
+      const scintille = [[5, 4], [27, 6], [26, 20], [4, 22], [16, 2]];
+      const [sx, sy] = scintille[f % scintille.length];
+      r(sx, sy, 1, 1, "#ffffff"); ctx.fillStyle = "rgba(255,255,255,.55)"; ctx.fillRect(sx - 1, sy, 3, 1); ctx.fillRect(sx, sy - 1, 1, 3);
+    }
+  }
+  function canvasCassa(id) {
+    const cv = document.createElement("canvas");
+    cv.className = "pixel cassa-px";
+    disegnaCassaPixel(cv, id, Date.now());
+    if (id !== "legno") avatarAnimati.add({ cv, disegna: ora => disegnaCassaPixel(cv, id, ora) });
+    return cv;
+  }
+
+  // disegna un avatar in pixel art dentro il suo cerchio (il bordo ha il colore della rarità)
+  function mostraAvatar(el, id) {
+    const a = estetico(id) && estetico(id).t === "a" ? estetico(id) : estetico("a_scimmia");
+    el.textContent = "";
+    const cv = document.createElement("canvas");
+    cv.className = "pixel";
+    disegnaAvatarPixel(cv, a.id, Date.now());
+    el.appendChild(cv);
+    if (a.r >= 3) avatarAnimati.add({ cv, disegna: ora => disegnaAvatarPixel(cv, a.id, ora) });
+    el.className = el.className.replace(/\brar-\d\b/g, "").trim() + " rar-" + a.r;
+  }
+  // scrive un nome con il colore e la scritta animata scelti
+  function mostraNome(el, testo, colore, effetto) {
+    const c = estetico(colore) && estetico(colore).t === "c" ? estetico(colore) : estetico("c_bianco");
+    const e = estetico(effetto) && estetico(effetto).t === "e" ? estetico(effetto) : estetico("e_nessuno");
+    el.textContent = testo;
+    el.className = "nome-pg";
+    el.style.color = ""; el.style.removeProperty("--g"); el.style.removeProperty("--c");
+    const solido = c.v && !c.v.startsWith("linear") ? c.v : "";
+    el.style.setProperty("--c", solido || "var(--testo)");
+    if (c.v.startsWith("linear")) { el.classList.add("ns-grad"); el.style.setProperty("--g", c.v); }
+    else if (solido) el.style.color = solido;
+    if (e.id !== "e_nessuno") el.classList.add(e.id);
+  }
+  function equipaggia(id) {
+    const o = estetico(id);
+    if (!o || !possiede(id)) return;
+    const a = { ...aspetto() };
+    if (o.t === "a") a.avatar = id; else if (o.t === "c") a.colore = id; else a.effetto = id;
+    G.aspetto = a;
+    salva();
+    Online.pubblicaRiga();
+    Online.pubblicaProfilo(true);
+    Online.disegna();
+  }
+
+  // ---------- finestra della personalizzazione: temi, avatar, nome ----------
+  function mostraSchedaPz(scheda) {
+    R.schedaPz = scheda;
+    document.querySelectorAll("[data-pz]").forEach(b => b.setAttribute("aria-pressed", b.dataset.pz === scheda));
+    $("pzTemi").hidden = scheda !== "temi";
+    $("pzAvatar").hidden = scheda !== "avatar";
+    $("pzNome").hidden = scheda !== "nome";
+    if (scheda === "avatar") disegnaSceltaAvatar();
+    if (scheda === "nome") disegnaSceltaNome();
+  }
+  function bottoneEstetico(o, contenuto) {
+    const b = document.createElement("button");
+    const mio = possiede(o.id);
+    if (!mio) b.classList.add("bloccato");
+    const sc = aspetto();
+    b.setAttribute("aria-pressed", sc.avatar === o.id || sc.colore === o.id || sc.effetto === o.id);
+    b.title = (mio ? "" : t("pz_bloccato") + " · ") + t("rar_" + o.r);
+    contenuto(b);
+    b.onclick = () => {
+      if (!mio) { avviso(t("pz_bloccato") + " (" + t("rar_" + o.r) + ")"); return; }
+      equipaggia(o.id);
+      mostraSchedaPz(R.schedaPz);
+    };
+    return b;
+  }
+  function disegnaSceltaAvatar() {
+    const box = $("gAvatar");
+    box.innerHTML = "";
+    for (const o of ESTETICI.filter(x => x.t === "a")) {
+      box.appendChild(bottoneEstetico(o, b => {
+        const av = document.createElement("span");
+        av.className = "avatar-pg";
+        mostraAvatar(av, o.id);
+        const sm = document.createElement("small");
+        sm.className = "rarc-" + o.r;
+        sm.textContent = possiede(o.id) ? "" : "🔒";
+        b.append(av, sm);
+      }));
+    }
+  }
+  function disegnaSceltaNome() {
+    const sc = aspetto();
+    const nome = (G.nick || "").trim() || t("cl_anonimo");
+    mostraAvatar($("pzAvAnt"), sc.avatar);
+    mostraNome($("pzNomeAnt"), nome, sc.colore, sc.effetto);
+    for (const [box, tipo] of [[$("gColori"), "c"], [$("gEffetti"), "e"]]) {
+      box.innerHTML = "";
+      for (const o of ESTETICI.filter(x => x.t === tipo)) {
+        box.appendChild(bottoneEstetico(o, b => {
+          const sp = document.createElement("span");
+          mostraNome(sp, (possiede(o.id) ? "" : "🔒 ") + nomeEstetico(o.id),
+            tipo === "c" ? o.id : sc.colore, tipo === "e" ? o.id : "e_nessuno");
+          b.appendChild(sp);
+        }));
+      }
+    }
+  }
+
+  // ---------- negozio: casse con le Pagine d'oro ----------
+  function disegnaBottega() {
+    $("bgPagine").textContent = "📃 " + fmt(G.pagine || 0);
+    const box = $("casse");
+    if (!box.children.length) {
+      for (const c of CASSE) {
+        const d = document.createElement("div");
+        d.className = "cassa-carta";
+        d.innerHTML = `<span class="ico"></span><span><b></b><small></small></span><button class="info-cassa" aria-label="info">i</button><button class="pulsante apri-cassa"></button>`;
+        d.querySelector(".ico").appendChild(canvasCassa(c.id));
+        d.querySelector(".info-cassa").onclick = () => apriInfoCassa(c);
+        d.querySelector(".apri-cassa").onclick = () => apriCassa(c);
+        c.el = d;
+        box.appendChild(d);
+      }
+    }
+    for (const c of CASSE) {
+      c.el.querySelector("b").textContent = t("cassa_" + c.id);
+      c.el.querySelector("small").textContent = "";
+      const gratis = c.id === "legno" && (G.casseGratis || 0) > 0;
+      c.el.querySelector(".apri-cassa").textContent = gratis ? "🎁 " + t("bg_gratis", { n: G.casseGratis }) : t("bg_apri") + " · 📃 " + c.costo;
+      c.el.classList.toggle("cara", !gratis && (G.pagine || 0) < c.costo);
+    }
+
+  }
+  // cosa si trova in una cassa, con le probabilità
+  function apriInfoCassa(c) {
+    $("icTitolo").textContent = t("cassa_" + c.id);
+    const ico = $("icIco"); ico.innerHTML = ""; ico.appendChild(canvasCassa(c.id));
+    const box = $("icLista");
+    box.innerHTML = "";
+    for (const r of RARITA) {
+      if (!c.prob[r]) continue;
+      const oggetti = ESTETICI.filter(x => x.r === r && !x.g);
+      const h = document.createElement("h4");
+      h.className = "ic-rar rarc-" + r;
+      h.textContent = t("rar_" + r) + " · " + decimale(c.prob[r]) + "%";
+      const sm = document.createElement("small");
+      sm.textContent = t("ic_ognuno", { p: decimale(Math.round(c.prob[r] / oggetti.length * 100) / 100) });
+      h.appendChild(sm);
+      box.appendChild(h);
+      const griglia = document.createElement("div");
+      griglia.className = "ic-griglia";
+      for (const o of oggetti) {
+        const d = document.createElement("div");
+        d.className = "ic-ogg" + (possiede(o.id) ? " mio" : "");
+        if (o.t === "a") { const av = document.createElement("span"); av.className = "avatar-pg"; mostraAvatar(av, o.id); d.appendChild(av); }
+        else { const sp = document.createElement("span"); mostraNome(sp, nomeEstetico(o.id), o.t === "c" ? o.id : "c_bianco", o.t === "e" ? o.id : "e_nessuno"); d.appendChild(sp); }
+        const st = document.createElement("small");
+        st.textContent = (possiede(o.id) ? "✓ " : "") + t("tipo1_" + o.t);
+        d.appendChild(st);
+        griglia.appendChild(d);
+      }
+      box.appendChild(griglia);
+    }
+    apri("veloInfoCassa");
+  }
+  function apriCassa(c) {
+    const gratis = c.id === "legno" && (G.casseGratis || 0) > 0;
+    if (!gratis && (G.pagine || 0) < c.costo) { Suono.nego(); avviso(t("bg_poche", { n: c.costo })); return; }
+    // rarità estratta a caso secondo le probabilità della cassa, poi un oggetto che non hai ancora
+    let tiro = Math.random() * 100, rar = 0;
+    for (const r of RARITA) { tiro -= c.prob[r]; if (tiro < 0) { rar = r; break; } }
+    const mancanti = r => ESTETICI.filter(x => x.r === r && !possiede(x.id));
+    let scelta = null;
+    for (const r of [rar, rar - 1, rar + 1, rar - 2, rar + 2, rar - 3, rar + 3, rar - 4, rar + 4]) {
+      if (r < 0 || r > 4 || (c.prob[r] === 0 && r !== rar)) continue;
+      const lista = mancanti(r);
+      if (lista.length) { scelta = lista[Math.floor(Math.random() * lista.length)]; break; }
+    }
+    if (R.cassaAperta) return;   // una cassa alla volta (evita doppi tocchi)
+    R.cassaAperta = true;
+    const giro = (R.giroCassa = (R.giroCassa || 0) + 1);
+    if (gratis) G.casseGratis--; else G.pagine -= c.costo;
+    $("cassaPremio").innerHTML = "";
+    $("cassaRar").className = "cassa-rar";
+    $("bCassaUsa").hidden = true;
+    $("cassaIco").innerHTML = "";
+    $("cassaIco").appendChild(canvasCassa(c.id));
+    $("cassaIco").hidden = false;
+    $("cassaIco").className = "cassa-ico scuoti";
+    $("cassaPremio").hidden = true;
+    $("cassaRar").textContent = "";
+    $("cassaAzioni").hidden = true;
+    apri("veloCassa");
+    Suono.clic();
+    setTimeout(() => {
+      if (giro !== R.giroCassa) return;
+      R.cassaAperta = false;
+      $("cassaIco").hidden = true;
+      const premio = $("cassaPremio");
+      premio.innerHTML = "";
+      if (!scelta) {
+        const rimborso = gratis ? 2 : Math.ceil(c.costo / 2);
+        G.pagine += rimborso;
+        premio.textContent = "📃";
+        $("cassaRar").textContent = t("cassa_tutto", { n: rimborso });
+        $("bCassaUsa").hidden = true;
+      } else {
+        G.collezione = [...(G.collezione || []), scelta.id];
+        if (scelta.t === "a") {
+          const av = document.createElement("span"); av.className = "avatar-pg grande"; mostraAvatar(av, scelta.id); premio.appendChild(av);
+        } else {
+          const sp = document.createElement("span"); sp.style.fontSize = "30px";
+          mostraNome(sp, nomeEstetico(scelta.id), scelta.t === "c" ? scelta.id : aspetto().colore, scelta.t === "e" ? scelta.id : "e_nessuno");
+          premio.appendChild(sp);
+        }
+        $("cassaRar").className = "cassa-rar rarc-" + scelta.r;
+        $("cassaRar").textContent = t("rar_" + scelta.r) + " · " + t("tipo_" + scelta.t);
+        $("bCassaUsa").hidden = false;
+        $("bCassaUsa").onclick = () => { equipaggia(scelta.id); chiudi("veloCassa"); disegnaBottega(); };
+        if (scelta.r >= 2) Suono.traguardo(); else Suono.moneta();
+      }
+      premio.hidden = false;
+      $("cassaAzioni").hidden = false;
+      salva();
+      disegnaBottega();
+    }, 1400);
+  }
+
+  // ---------- scheda di un giocatore (toccando la sua riga in classifica) ----------
+  async function apriGiocatore(r, modo) {
+    const io = r.id === Online.id;
+    mostraAvatar($("gcAvatar"), io ? aspetto().avatar : r.avatar);
+    const nome = (io ? (G.nick || "").trim() : (typeof r.nick === "string" && r.nick.trim())) || t("cl_anonimo");
+    mostraNome($("gcNome"), nome, io ? aspetto().colore : r.colore, io ? aspetto().effetto : r.effetto);
+    $("gcSotto").textContent = ICONE_MODO[modo] + " " + t("modo_" + modo);
+    const box = $("gcStat");
+    const riquadri = (voci) => {
+      box.innerHTML = "";
+      for (const [etichetta, valore] of voci) {
+        const d = document.createElement("div");
+        const sm = document.createElement("small"); sm.textContent = etichetta;
+        const st = document.createElement("strong"); st.textContent = valore;
+        d.append(sm, st);
+        box.appendChild(d);
+      }
+    };
+    const base = [
+      [t("gc_rec", { modo: t("modo_" + modo) }), caratteri(r.record || 0)],
+      [t("gc_frase"), r.frase ? (OPERE.some(o => o.id === r.fraseId) ? operaCorrente(r.fraseId).titolo : t("cl_mio")) + " (" + r.frase + ")" : "—"],
+      [t("gc_parola"), r.parola ? "«" + r.parola + "»" : "—"]
+    ];
+    riquadri(base);
+    $("gcNota").textContent = t("gc_carico");
+    apri("veloGiocatore");
+    const p = io ? Online.datiProfilo() : await Online.leggiProfilo(r.id);
+    if (!p) { $("gcNota").textContent = t("gc_nodati"); return; }
+    riquadri(base.concat([
+      [t("gc_completate"), fmt(p.completate || 0)],
+      [t("gc_pubbl"), fmt(p.pubblicazioni || 0)],
+      [t("gc_scimmie"), fmt(p.scimmie || 0)],
+      [t("gc_tasti"), fmt(p.tasti || 0)],
+      [t("gc_raccolto"), fmt(p.raccolto || 0)],
+      [t("gc_tempo"), fmtTempo(p.tempo || 0)]
+    ]));
+    $("gcNota").textContent = p.agg && !io ? t("gc_agg", { quando: fmtFa(p.agg) }) : "";
   }
 
   // ---------- collezione di pagine autografe ----------
@@ -6128,6 +7562,12 @@
   }
 
   function dopoTutorial() {
+    // chi giocava già vede le novità (e può fare il tour)
+    if (mostraNovita()) return;
+    if ((G.casseGratis || 0) > 0 && !G.regaloAnnunciato) {
+      G.regaloAnnunciato = true;
+      setTimeout(() => avviso(t("regalo_avviso"), "oro"), 1500);
+    }
     if (G.convertitoVel) {
       avviso(t("convertito_vel"));
       delete G.convertitoVel;
@@ -6173,17 +7613,19 @@
     { sel: '.segmenti button[data-gruppo="velocita"]', testo: "tut_a6", azione: true },
     { sel: "#lista-velocita .pot:not([hidden])", testo: "tut_b8", azione: true, prima: () => mostraGruppo("velocita") },
     { sel: '.segmenti button[data-gruppo="editore"]', testo: "tut_b9" },
-    { sel: '.menu button[data-vista="scimmie"]', testo: "tut_a8", azione: true },
-    { sel: "#ufficio .scrivania", testo: "tut_a9", vista: "scimmie" },
+    { sel: "#ufficio .scrivania", testo: "tut_a9", vista: "opera" },
     { sel: '.menu button[data-vista="traguardi"]', testo: "tut_b12" },
     { sel: '.menu button[data-vista="diario"]', testo: "tut_b13" },
     { sel: "#bApriBiblioteca", testo: "tut_b14", vista: "opera" },
+    { sel: '.menu button[data-vista="bottega"]', testo: "tut_b16" },
     { sel: "#bImpostazioni", testo: "tut_b15" },
     { sel: null, testo: "tut_a13" }
   ];
   let passoTut = -1;
-  function avviaTutorial() {
+  let PASSI = null;   // i passi in corso: quelli del tutorial o quelli del tour delle novità
+  function avviaTutorial(passi = PASSI_TUT) {
     for (const v of ["veloBiblioteca", "veloScimmia", "veloFine", "veloRitorno"]) chiudi(v);
+    PASSI = passi;
     mostraVista("opera");
     passoTut = 0;
     $("tutorial").hidden = false;
@@ -6191,17 +7633,17 @@
   }
   const elementoTut = p => (p && p.sel ? document.querySelector(p.sel) : null);
   function mostraPassoTut() {
-    const p = PASSI_TUT[passoTut];
+    const p = PASSI[passoTut];
     if (p.vista && R.vista !== p.vista) mostraVista(p.vista);
     if (p.prima) p.prima();
-    const ultimo = passoTut === PASSI_TUT.length - 1;
+    const ultimo = passoTut === PASSI.length - 1;
     const testo = p.testo === "tut_a11" && Online.disponibile === false ? "tut_a11" : p.testo;
-    $("tutPasso").textContent = (passoTut + 1) + "/" + PASSI_TUT.length;
+    $("tutPasso").textContent = (passoTut + 1) + "/" + PASSI.length;
     $("tutTesto").textContent = t(testo);
     // se la parte da toccare non c'è, il passo diventa normale (con "Avanti")
     const azione = p.azione && !!elementoTut(p);
     $("bTutAvanti").hidden = azione;
-    $("bTutAvanti").textContent = ultimo ? t("tut_inizia") : t("tut_avanti");
+    $("bTutAvanti").textContent = ultimo ? (PASSI === PASSI_TOUR ? t("tour_fine") : t("tut_inizia")) : t("tut_avanti");
     $("tutLuce").classList.toggle("azione", azione);
     const el = elementoTut(p);
     if (el && !p.sel.startsWith(".menu") && !p.sel.startsWith(".hud")) {
@@ -6213,14 +7655,14 @@
   function avanzaTut() {
     if (passoTut < 0) return;
     passoTut++;
-    if (passoTut >= PASSI_TUT.length) fineTutorial();
+    if (passoTut >= PASSI.length) fineTutorial();
     else mostraPassoTut();
   }
   // durante il tutorial si può toccare solo la parte evidenziata (nei passi "azione") e il riquadro del tutorial
   document.addEventListener("click", e => {
     if (passoTut < 0) return;
     if ($("tutBox").contains(e.target)) return;
-    const p = PASSI_TUT[passoTut];
+    const p = PASSI[passoTut];
     const el = elementoTut(p);
     if (p.azione && el && el.contains(e.target)) {
       const fermo = passoTut;
@@ -6233,7 +7675,7 @@
   window.addEventListener("scroll", () => { if (passoTut >= 0) posizionaTut(); }, { passive: true });
   function posizionaTut() {
     if (passoTut < 0) return;
-    const p = PASSI_TUT[passoTut], luce = $("tutLuce"), box = $("tutBox");
+    const p = PASSI[passoTut], luce = $("tutLuce"), box = $("tutBox");
     const el = elementoTut(p);
     const alto = window.innerHeight || 800, largo = window.innerWidth || 400;
     luce.classList.toggle("vuota", !el);
@@ -6250,11 +7692,86 @@
     }
   }
   function fineTutorial() {
+    const eraTour = PASSI === PASSI_TOUR;
     passoTut = -1;
     $("tutorial").hidden = true;
     G.tutorialFatto = true;
+    G.versioneVista = VERSIONE_NOVITA;   // chi fa il tutorial vede già tutto: niente finestra delle novità
     salva();
+    if (eraTour) { mostraVista("opera"); return; }
     dopoTutorial();
+  }
+  // ---------- pannello sviluppatore ----------
+  // impronta del codice segreto (il codice vero non è scritto nel gioco)
+  const IMPRONTA_ADMIN = 964920100570167;
+  function impronta(testo, seme = 0) {
+    let h1 = 0xdeadbeef ^ seme, h2 = 0x41c6ce57 ^ seme;
+    for (let i = 0, ch; i < testo.length; i++) { ch = testo.charCodeAt(i); h1 = Math.imul(h1 ^ ch, 2654435761); h2 = Math.imul(h2 ^ ch, 1597334677); }
+    h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507); h1 ^= Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+    h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507); h2 ^= Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+    return 4294967296 * (2097151 & h2) + (h1 >>> 0);
+  }
+  function apriAdmin() { chiudi("veloImpostazioni"); apri("veloAdmin"); }
+  function azioneAdmin(comando) {
+    if (!G.admin) return;
+    const [tipo, valore] = comando.split(":");
+    const n = Number(valore);
+    switch (tipo) {
+      case "ban": G.banane += n; avviso("🍌 +" + fmt(n)); break;
+      case "banx": G.banane *= n; avviso("🍌 ×" + n); break;
+      case "pag": G.pagine = (G.pagine || 0) + n; avviso("📃 +" + fmt(n)); break;
+      case "fama": G.pagineTot = (G.pagineTot || 0) + n; avviso("⭐ Fama ×" + decimale(Math.round(moltFama() * 100) / 100)); break;
+      case "cassa": G.casseGratis = (G.casseGratis || 0) + n; avviso("📦 +" + n); break;
+      case "scim": for (const [id] of STRUTTURE) G.liv[id] = (G.liv[id] || 0) + n; avviso("🐒 +" + n); break;
+      case "ogg": for (const [id] of OGGETTI) G.liv[id] = (G.liv[id] || 0) + n; avviso("⌨️ +" + n); break;
+      case "migl": for (const p of POT.filter(x => x.gruppo === "velocita" && x.tipo === "livelli")) G.liv[p.id] = Math.min(p.max || Infinity, (G.liv[p.id] || 0) + n); avviso("⚡ +" + n); break;
+      case "tal":
+        G.talenti = G.talenti || {}; G.auto = G.auto || {};
+        for (const tl of TALENTI) {
+          G.talenti[tl.id] = tl.max ? Math.min(tl.max, livT(tl.id) + n) : livT(tl.id) + n;
+          if (tl.ramo === "auto") G.auto[tl.id] = true;
+        }
+        avviso("🌳 +" + n); break;
+      case "tempo": G.ts = Date.now() - n * 1000; salva(); avvia(G); chiudi("veloAdmin"); dopoTutorial(); break;
+      case "frase": if (!R.fermo) { chiudi("veloAdmin"); nuovoRecord(R.target.length, idCasuale(numScimmie()), Date.now()); } break;
+      case "trag": for (const tr of TRAGUARDI) if (!G.traguardi[tr.id]) G.traguardi[tr.id] = { r: false }; avviso("🏆"); break;
+      case "este":
+        G.collezione = [...new Set([...(G.collezione || []), ...ESTETICI.filter(x => valore === "tutti" || x.r === 4).map(x => x.id)])];
+        avviso("🎨"); break;
+    }
+    salva();
+    Online.pubblicaRiga();
+    disegnaTutto(true);
+  }
+
+  // ---------- novità per chi giocava già ----------
+  const VERSIONE_NOVITA = 24;
+  const PASSI_TOUR = [
+    { sel: null, testo: "tour_1", vista: "opera" },
+    { sel: '.menu button[data-vista="bottega"]', testo: "tour_2" },
+    { sel: "#bImpostazioni", testo: "tour_3" },
+    { sel: '.menu button[data-vista="diario"]', testo: "tour_4" },
+    { sel: '.menu button[data-vista="negozio"]', testo: "tour_5" },
+    { sel: "#bApriBiblioteca", testo: "tour_6", vista: "opera" },
+    { sel: "#bCondividiRecord", testo: "tour_7", vista: "opera" },
+    { sel: null, testo: "tour_8", vista: "opera" }
+  ];
+  function mostraNovita() {
+    if (!G.tutorialFatto || (G.versioneVista || 0) >= VERSIONE_NOVITA) return false;
+    $("listaNovita").innerHTML = "";
+    for (let k = 1; k <= 7; k++) {
+      const li = document.createElement("li");
+      li.textContent = t("nov_" + k);
+      $("listaNovita").appendChild(li);
+    }
+    apri("veloNovita");
+    return true;
+  }
+  function chiudiNovita(tour) {
+    G.versioneVista = VERSIONE_NOVITA;
+    salva();
+    chiudi("veloNovita");
+    if (tour) avviaTutorial(PASSI_TOUR);
   }
 
   // ---------- impostazioni ----------
@@ -6265,6 +7782,7 @@
     $("valEffetti").textContent = G.imp.effetti ? G.imp.effetti + "%" : t("spento");
     $("impLinguaNome").textContent = LINGUE[L].bandiera + " " + LINGUE[L].nome;
     $("impNomeGiocatore").textContent = (G.nick || "").trim() || "—";
+    $("bAdmin").hidden = !G.admin;
     // notifiche: solo sul sito (dentro Claude il browser non le permette)
     const notificheOk = suSitoWeb() && "Notification" in window;
     $("rigaNotifiche").hidden = !notificheOk;
@@ -6401,6 +7919,13 @@
     $("volEffetti").onchange = () => { salva(); Suono.clic(); };
     $("bImpLingua").onclick = apriLingue;
     $("bInfoBanane").onclick = () => apri("veloInfo");
+    document.querySelectorAll("[data-pz]").forEach(b => b.onclick = () => mostraSchedaPz(b.dataset.pz));
+
+    $("bCassaOk").onclick = () => chiudi("veloCassa");
+    $("bIcChiudi").onclick = () => chiudi("veloInfoCassa");
+    $("veloInfoCassa").onclick = e => { if (e.target.id === "veloInfoCassa") chiudi("veloInfoCassa"); };
+    $("bGcChiudi").onclick = () => chiudi("veloGiocatore");
+    $("veloGiocatore").onclick = e => { if (e.target.id === "veloGiocatore") chiudi("veloGiocatore"); };
     $("bCondividiRecord").onclick = condividiRecord;
     $("bCondividiFine").onclick = condividiRecord;
     $("bCondividiPagina").onclick = condividiPagina;
@@ -6412,6 +7937,28 @@
     $("cesto").onclick = raccogliCesto;
     $("bPubblica").onclick = pubblica;
     $("bNomeOk").onclick = confermaNome;
+    $("bNovTour").onclick = () => chiudiNovita(true);
+    // pannello sviluppatore: si apre toccando 5 volte la scritta della versione
+    $("versioneGioco").onclick = () => {
+      const ora = Date.now();
+      R.tocchiVersione = (R.tocchiVersione || []).filter(x => ora - x < 3000).concat(ora);
+      if (R.tocchiVersione.length < 5) return;
+      R.tocchiVersione = [];
+      if (G.admin) apriAdmin();
+      else { $("campoAdmin").value = ""; $("statoAdmin").textContent = ""; apri("veloAdminCodice"); }
+    };
+    $("bAdminOk").onclick = () => {
+      if (impronta($("campoAdmin").value.trim().toLowerCase(), 77) === IMPRONTA_ADMIN) {
+        G.admin = true; salva(); chiudi("veloAdminCodice"); scriviImpostazioni(); apriAdmin();
+      } else $("statoAdmin").textContent = "Codice sbagliato.";
+    };
+    $("campoAdmin").addEventListener("keydown", e => { if (e.key === "Enter") $("bAdminOk").onclick(); });
+    $("bAdminAnnulla").onclick = () => chiudi("veloAdminCodice");
+    $("bAdmin").onclick = apriAdmin;
+    $("bAdminChiudi").onclick = () => chiudi("veloAdmin");
+    $("bAdminEsci").onclick = () => { G.admin = false; salva(); chiudi("veloAdmin"); scriviImpostazioni(); };
+    document.querySelectorAll("[data-adm]").forEach(b => b.onclick = () => azioneAdmin(b.dataset.adm));
+    $("bNovDopo").onclick = () => chiudiNovita(false);
     $("bNomeAnnulla").onclick = () => { dopoNome = null; chiudi("veloNome"); };
     $("bImpNome").onclick = () => chiediNome(null, true);
     $("campoNome").addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); confermaNome(); } });
@@ -6442,7 +7989,7 @@
     };
     window.addEventListener("resize", posizionaTut);
     document.querySelectorAll(".segmenti.modi button").forEach(b => b.onclick = () => impostaModo(b.dataset.modo));
-    $("bImpTema").onclick = apriTemi;
+    $("bImpTema").onclick = () => { apriTemi(); mostraSchedaPz("temi"); };
     $("bChiudiTema").onclick = () => chiudi("veloTema");
     $("veloTema").onclick = e => { if (e.target.id === "veloTema") chiudi("veloTema"); };
     $("bMenuPrincipale").onclick = mostraMenuIniziale;
@@ -6486,7 +8033,8 @@
     disegnaHud();
     if (vistaAttiva("opera")) disegnaOpera();
     if (vistaAttiva("negozio")) disegnaNegozio();
-    if (vistaAttiva("scimmie")) disegnaScimmie();
+    if (vistaAttiva("opera")) disegnaScimmie();
+    if (vistaAttiva("bottega")) disegnaBottega();
     if (vistaAttiva("diario")) disegnaStatistiche();
   }
 
@@ -6532,7 +8080,7 @@
   aperturaAnimata(() => {
     $("sipario").classList.add("via");
     $("menuIniziale").classList.add("entra");
-    setTimeout(() => $("sipario").remove(), 800);
+    setTimeout(() => $("sipario").remove(), 900);
   });
   if (puoInstallare()) {
     $("bInstalla").hidden = false;
@@ -6550,7 +8098,7 @@
     if (ora - R.ultimoFotogramma > 110) {
       if (R.nelMenu) { const cv = $("cvTitolo"); if (cv.getContext) disegnaScrivania(cv.getContext("2d"), 78, ora, false); }
       if (R.sel) disegnaSchedaScimmia(ora);
-      if (vistaAttiva("scimmie")) disegnaUfficio(ora);
+      if (vistaAttiva("opera")) disegnaUfficio(ora);
       R.ultimoFotogramma = ora;
     }
 

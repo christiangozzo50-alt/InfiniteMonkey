@@ -1,6 +1,6 @@
 // Scimmie infinite: salva il gioco sul dispositivo, così si apre anche senza connessione.
 // Quando carichi una nuova versione dei file, cambia il numero qui sotto (v8, v9...).
-const VERSIONE = "scimmie-infinite-v20";
+const VERSIONE = "scimmie-infinite-v30";
 
 self.addEventListener("install", evento => {
   evento.waitUntil(caches.open(VERSIONE).then(cache => cache.addAll(["./", "./index.html"])).then(() => self.skipWaiting()));
@@ -48,5 +48,16 @@ self.addEventListener("fetch", evento => {
       }
       return risposta;
     }))
+  );
+});
+
+// tocco su una notifica: riapre il gioco (o lo porta in primo piano se è già aperto)
+self.addEventListener("notificationclick", evento => {
+  evento.notification.close();
+  evento.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then(finestre => {
+      for (const f of finestre) if ("focus" in f) return f.focus();
+      return self.clients.openWindow("./");
+    })
   );
 });
