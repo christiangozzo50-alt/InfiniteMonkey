@@ -81,6 +81,7 @@
   .cassa .rit { font-size: 13px; color: var(--spento); margin-top: 3px; }
   .riga-tot { display: flex; align-items: center; gap: 8px; }
   .bottone-condividi { margin-top: 12px; width: 100%; }
+  #veloAnteprima .pa-testo { max-height: 45vh; }
   /* collezione di pagine autografe */
   .griglia-pagine { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; margin-bottom: 10px; }
   .mini-pagina {
@@ -750,7 +751,6 @@
     <div class="segmenti" role="group">
       <button data-gruppo="scimmie" aria-pressed="true">🐒 <span data-t="seg_scimmie"></span><span class="punto" id="pScimmie"></span></button>
       <button data-gruppo="velocita" aria-pressed="false">⚡ <span data-t="seg_velocita"></span><span class="punto" id="pVelocita"></span></button>
-      <button data-gruppo="altro" aria-pressed="false">🌙 <span data-t="seg_altro"></span><span class="punto" id="pAltro"></span></button>
       <button data-gruppo="editore" aria-pressed="false">📚 <span data-t="seg_editore"></span></button>
     </div>
     <div class="quantita" role="group">
@@ -769,7 +769,6 @@
       <h3 class="sez-pot"><span data-t="sez_ogg"></span><small data-t="sez_ogg_sotto"></small></h3>
       <div id="sez-ogg"></div>
     </div>
-    <div class="lista-pot" id="lista-altro" hidden></div>
     <div class="lista-pot" id="lista-editore" hidden>
       <div class="riquadro pubblica">
         <h3 data-t="pub_tit"></h3>
@@ -881,6 +880,10 @@
       <span class="valore" id="valEffetti"></span>
     </div>
     <input class="cursore-vol" type="range" min="0" max="100" step="5" id="volEffetti" data-t-aria="imp_effetti">
+    <div class="impostazione" id="rigaNotifiche" hidden>
+      <span class="testo"><b>🔔 <span data-t="imp_notifiche"></span></b><small id="notificheSotto"></small></span>
+      <button class="interruttore" id="bNotifiche" data-t-aria="imp_notifiche"></button>
+    </div>
     <div class="impostazione">
       <span class="testo"><b>✍️ <span data-t="imp_nome"></span></b><small id="impNomeGiocatore"></small></span>
       <button class="pulsante secondario piccolo" id="bImpNome" data-t="cambia"></button>
@@ -902,7 +905,22 @@
       <button class="pulsante secondario" id="bChiudiImpostazioni" data-t="chiudi"></button>
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
-    <p class="versione-gioco">Scimmie infinite · versione 20</p>
+    <p class="versione-gioco">Scimmie infinite · versione 21</p>
+  </div>
+</div>
+
+<!-- =============== ANTEPRIMA DI UNA FRASE (prima di sceglierla) =============== -->
+<div class="velo basso sopra" id="veloAnteprima">
+  <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="titAnteprima">
+    <div class="maniglia"></div>
+    <h2 id="titAnteprima"></h2>
+    <p class="sotto" id="antInfo"></p>
+    <div class="pagina-autografa"><p class="pa-testo" id="antTesto"></p></div>
+    <p class="tappe-info" id="antStato"></p>
+    <div class="azioni">
+      <button class="pulsante" id="bAntScegli"></button>
+      <button class="pulsante secondario" id="bAntChiudi" data-t="chiudi"></button>
+    </div>
   </div>
 </div>
 
@@ -1352,7 +1370,22 @@
       ev_cesto: "🧺 Un cesto di banane! Toccalo prima che sparisca",
       ev_direttore: "👔 Arriva il direttore! Tutti battono ×3 per 30 secondi",
       ev_blackout: "🔌 Black-out! Velocità dimezzata per 20 secondi",
-      ev_cesto_ok: "🧺 Cesto raccolto: +{n} banane!"
+      ev_cesto_ok: "🧺 Cesto raccolto: +{n} banane!",
+      ant_scegli: "✍️ Fai scrivere questa",
+      ant_continua: "Continua a scriverla",
+      ant_fatta: "✅ Già completata: le scimmie possono riscriverla, con un premio più piccolo.",
+      ant_record: "⭐ Record finora: {r} di {l}",
+      ant_nuova: "Mai scritta finora.",
+      rit_parole: "📝 Parole completate: {n}",
+      imp_notifiche: "Notifiche",
+      imp_notifiche_sotto: "Avvisami quando una scimmia completa una parola o una frase",
+      notif_negate: "Notifiche bloccate: riattivale dalle impostazioni del telefono",
+      notif_prova_tit: "🔔 Notifiche attive",
+      notif_prova: "Ti avviserò quando una scimmia completa una parola o una frase.",
+      notif_parola_tit: "📝 Nuova parola!",
+      notif_parola: "{chi} ha completato «{w}» (+{n} 🍌)",
+      notif_frase_tit: "🎉 Frase completata!",
+      notif_frase: "{chi} ha scritto tutta «{titolo}»!"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -1624,7 +1657,22 @@
       ev_cesto: "🧺 A basket of bananas! Tap it before it disappears",
       ev_direttore: "👔 The boss is coming! Everyone types ×3 for 30 seconds",
       ev_blackout: "🔌 Blackout! Speed halved for 20 seconds",
-      ev_cesto_ok: "🧺 Basket collected: +{n} bananas!"
+      ev_cesto_ok: "🧺 Basket collected: +{n} bananas!",
+      ant_scegli: "✍️ Have them type this",
+      ant_continua: "Keep typing it",
+      ant_fatta: "✅ Already completed: the monkeys can type it again, for a smaller prize.",
+      ant_record: "⭐ Record so far: {r} of {l}",
+      ant_nuova: "Never typed yet.",
+      rit_parole: "📝 Words completed: {n}",
+      imp_notifiche: "Notifications",
+      imp_notifiche_sotto: "Let me know when a monkey completes a word or a phrase",
+      notif_negate: "Notifications blocked: turn them back on in your phone's settings",
+      notif_prova_tit: "🔔 Notifications on",
+      notif_prova: "I'll let you know when a monkey completes a word or a phrase.",
+      notif_parola_tit: "📝 New word!",
+      notif_parola: "{chi} completed “{w}” (+{n} 🍌)",
+      notif_frase_tit: "🎉 Phrase completed!",
+      notif_frase: "{chi} typed the whole of “{titolo}”!"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -1896,7 +1944,22 @@
       ev_cesto: "🧺 ¡Una cesta de plátanos! Tócala antes de que desaparezca",
       ev_direttore: "👔 ¡Llega el jefe! Todos teclean ×3 durante 30 segundos",
       ev_blackout: "🔌 ¡Apagón! Velocidad a la mitad durante 20 segundos",
-      ev_cesto_ok: "🧺 Cesta recogida: +{n} plátanos!"
+      ev_cesto_ok: "🧺 Cesta recogida: +{n} plátanos!",
+      ant_scegli: "✍️ Que escriban esta",
+      ant_continua: "Seguir escribiéndola",
+      ant_fatta: "✅ Ya completada: los monos pueden volver a escribirla, con un premio menor.",
+      ant_record: "⭐ Récord hasta ahora: {r} de {l}",
+      ant_nuova: "Nunca escrita hasta ahora.",
+      rit_parole: "📝 Palabras completadas: {n}",
+      imp_notifiche: "Notificaciones",
+      imp_notifiche_sotto: "Avísame cuando un mono complete una palabra o una frase",
+      notif_negate: "Notificaciones bloqueadas: vuelve a activarlas en los ajustes del teléfono",
+      notif_prova_tit: "🔔 Notificaciones activadas",
+      notif_prova: "Te avisaré cuando un mono complete una palabra o una frase.",
+      notif_parola_tit: "📝 ¡Nueva palabra!",
+      notif_parola: "{chi} ha completado «{w}» (+{n} 🍌)",
+      notif_frase_tit: "🎉 ¡Frase completada!",
+      notif_frase: "¡{chi} ha escrito entera «{titolo}»!"
     },
 
     // ------------------------------------------------------------- 中文
@@ -2168,7 +2231,22 @@
       ev_cesto: "🧺 一篮香蕉！在它消失前点一下",
       ev_direttore: "👔 老板来了！所有人打字 ×3，持续 30 秒",
       ev_blackout: "🔌 停电了！速度减半，持续 20 秒",
-      ev_cesto_ok: "🧺 收下了篮子：+{n} 根香蕉！"
+      ev_cesto_ok: "🧺 收下了篮子：+{n} 根香蕉！",
+      ant_scegli: "✍️ 让猴子打这句",
+      ant_continua: "继续打这句",
+      ant_fatta: "✅ 已经完成：猴子可以再打一遍，奖励会少一些。",
+      ant_record: "⭐ 目前纪录：{r}/{l}",
+      ant_nuova: "还从没打过。",
+      rit_parole: "📝 完成的单词：{n}",
+      imp_notifiche: "通知",
+      imp_notifiche_sotto: "猴子完成一个单词或一句话时提醒我",
+      notif_negate: "通知已被阻止：请在手机设置中重新开启",
+      notif_prova_tit: "🔔 通知已开启",
+      notif_prova: "猴子完成单词或句子时我会提醒你。",
+      notif_parola_tit: "📝 新单词！",
+      notif_parola: "{chi}完成了“{w}”（+{n} 🍌）",
+      notif_frase_tit: "🎉 句子完成！",
+      notif_frase: "{chi}打完了整句“{titolo}”！"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -2440,7 +2518,22 @@
       ev_cesto: "🧺 Un panier de bananes ! Touche-le avant qu'il disparaisse",
       ev_direttore: "👔 Le patron arrive ! Tout le monde tape ×3 pendant 30 secondes",
       ev_blackout: "🔌 Panne de courant ! Vitesse divisée par deux pendant 20 secondes",
-      ev_cesto_ok: "🧺 Panier ramassé : +{n} bananes !"
+      ev_cesto_ok: "🧺 Panier ramassé : +{n} bananes !",
+      ant_scegli: "✍️ Faire écrire celle-ci",
+      ant_continua: "Continuer à l'écrire",
+      ant_fatta: "✅ Déjà terminée : les singes peuvent la réécrire, pour une prime plus petite.",
+      ant_record: "⭐ Record jusqu'ici : {r} sur {l}",
+      ant_nuova: "Jamais écrite pour l'instant.",
+      rit_parole: "📝 Mots terminés : {n}",
+      imp_notifiche: "Notifications",
+      imp_notifiche_sotto: "Préviens-moi quand un singe termine un mot ou une phrase",
+      notif_negate: "Notifications bloquées : réactive-les dans les réglages du téléphone",
+      notif_prova_tit: "🔔 Notifications activées",
+      notif_prova: "Je te préviendrai quand un singe termine un mot ou une phrase.",
+      notif_parola_tit: "📝 Nouveau mot !",
+      notif_parola: "{chi} a terminé « {w} » (+{n} 🍌)",
+      notif_frase_tit: "🎉 Phrase terminée !",
+      notif_frase: "{chi} a écrit toute la phrase « {titolo} » !"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -2713,7 +2806,22 @@
       ev_cesto: "🧺 Корзина бананов! Нажми, пока она не исчезла",
       ev_direttore: "👔 Идёт начальник! Все печатают ×3 30 секунд",
       ev_blackout: "🔌 Отключили свет! Скорость вдвое меньше на 20 секунд",
-      ev_cesto_ok: "🧺 Корзина собрана: +{n} бананов!"
+      ev_cesto_ok: "🧺 Корзина собрана: +{n} бананов!",
+      ant_scegli: "✍️ Пусть печатают эту",
+      ant_continua: "Продолжить печатать",
+      ant_fatta: "✅ Уже завершена: обезьяны могут напечатать её снова, но приз будет меньше.",
+      ant_record: "⭐ Рекорд сейчас: {r} из {l}",
+      ant_nuova: "Ещё ни разу не печаталась.",
+      rit_parole: "📝 Завершённых слов: {n}",
+      imp_notifiche: "Уведомления",
+      imp_notifiche_sotto: "Сообщать, когда обезьяна завершит слово или фразу",
+      notif_negate: "Уведомления заблокированы: включи их в настройках телефона",
+      notif_prova_tit: "🔔 Уведомления включены",
+      notif_prova: "Я сообщу, когда обезьяна завершит слово или фразу.",
+      notif_parola_tit: "📝 Новое слово!",
+      notif_parola: "{chi} завершила «{w}» (+{n} 🍌)",
+      notif_frase_tit: "🎉 Фраза завершена!",
+      notif_frase: "{chi} напечатала всю фразу «{titolo}»!"
     }
   };
 
@@ -2796,6 +2904,7 @@
   };
   // Autori e opere
   const AUTORI = {
+    carducci: {"it": "Giosuè Carducci", "en": "Giosuè Carducci", "es": "Giosuè Carducci", "zh": "卡尔杜奇", "fr": "Giosuè Carducci", "ru": "Джозуэ Кардуччи"},
     oracolo: {"it": "Oracolo di Delfi", "en": "Oracle of Delphi", "es": "Oráculo de Delfos", "zh": "德尔斐神谕", "fr": "Oracle de Delphes", "ru": "Дельфийский оракул"},
     pascoli: {"it": "Giovanni Pascoli", "en": "Giovanni Pascoli", "es": "Giovanni Pascoli", "zh": "帕斯科利", "fr": "Giovanni Pascoli", "ru": "Джованни Пасколи"},
     collodi: {"it": "Carlo Collodi", "en": "Carlo Collodi", "es": "Carlo Collodi", "zh": "科洛迪", "fr": "Carlo Collodi", "ru": "Карло Коллоди"},
@@ -2825,6 +2934,7 @@
     leopardi:    { it: "Giacomo Leopardi", en: "Giacomo Leopardi", es: "Giacomo Leopardi", zh: "莱奥帕尔迪", fr: "Giacomo Leopardi", ru: "Джакомо Леопарди" }
   };
   const NOMI_OPERE = {
+    rimenuove: {"it": "Rime nuove", "en": "Rime nuove", "es": "Rime nuove", "zh": "《新诗集》", "fr": "Rime nuove", "ru": "«Новые стихи»"},
     xagosto: {"it": "X Agosto", "en": "August 10th", "es": "X de agosto", "zh": "《八月十日》", "fr": "X Août", "ru": "«10 августа»"},
     pinocchio: {"it": "Le avventure di Pinocchio", "en": "The Adventures of Pinocchio", "es": "Las aventuras de Pinocho", "zh": "《木偶奇遇记》", "fr": "Les Aventures de Pinocchio", "ru": "«Приключения Пиноккио»"},
     mobydick: {"it": "Moby Dick", "en": "Moby-Dick", "es": "Moby Dick", "zh": "《白鲸》", "fr": "Moby Dick", "ru": "«Моби Дик»"},
@@ -2860,7 +2970,7 @@
       testo: `But, soft! what light through yonder window breaks? It is the east, and Juliet is the sun. Arise, fair sun, and kill the envious moon, Who is already sick and pale with grief, That thou her maid art far more fair than she: Be not her maid, since she is envious; Her vestal livery is but sick and green And none but fools do wear it; cast it off. It is my lady, O, it is my love! O, that she knew she were!` },
     { id: "dante", titolo: "Inferno, Canto I", autore: "dante", opera: "inferno",
       testo: `Nel mezzo del cammin di nostra vita mi ritrovai per una selva oscura, ché la diritta via era smarrita. Ahi quanto a dir qual era è cosa dura esta selva selvaggia e aspra e forte che nel pensier rinova la paura! Tant'è amara che poco è più morte; ma per trattar del ben ch'i' vi trovai, dirò de l'altre cose ch'i' v'ho scorte.` },
-    { id: "manzoni", titolo: "Quel ramo del lago di Como", autore: "manzoni", opera: "sposi",
+    { id: "manzoni", titolo: "I promessi sposi, parte 1", autore: "manzoni", opera: "sposi",
       testo: `Quel ramo del lago di Como, che volge a mezzogiorno, tra due catene non interrotte di monti, tutto a seni e a golfi, a seconda dello sporgere e del rientrare di quelli, vien, quasi a un tratto, a ristringersi, e a prender corso e figura di fiume, tra un promontorio a destra, e un'ampia costiera dall'altra parte.` },
     { id: "infinito", titolo: "L'infinito", autore: "leopardi",
       testo: `Sempre caro mi fu quest'ermo colle, e questa siepe, che da tanta parte dell'ultimo orizzonte il guardo esclude. Ma sedendo e mirando, interminati spazi di là da quella, e sovrumani silenzi, e profondissima quiete io nel pensier mi fingo; ove per poco il cor non si spaura. E come il vento odo stormir tra queste piante, io quello infinito silenzio a questa voce vo comparando: e mi sovvien l'eterno, e le morte stagioni, e la presente e viva, e il suon di lei. Così tra questa immensità s'annega il pensier mio: e il naufragar m'è dolce in questo mare.` },
@@ -2872,16 +2982,16 @@
     {"id": "alea", "titolo": "Alea iacta est", "autore": "cesare", "testo": "Alea iacta est"},
     {"id": "sapere", "titolo": "Sapere aude", "autore": "orazio", "testo": "Sapere aude"},
     {"id": "conosci", "titolo": "Conosci te stesso", "autore": "oracolo", "testo": "Conosci te stesso"},
-    {"id": "sanlorenzo", "titolo": "San Lorenzo, io lo so", "autore": "pascoli", "opera": "xagosto", "testo": "San Lorenzo, io lo so perché tanto di stelle per l'aria tranquilla arde e cade, perché sì gran pianto nel concavo cielo sfavilla."},
-    {"id": "pinocchio", "titolo": "C'era una volta", "autore": "collodi", "opera": "pinocchio", "testo": "C'era una volta un pezzo di legno"},
-    {"id": "ishmael", "titolo": "Call me Ishmael", "autore": "melville", "opera": "mobydick", "testo": "Call me Ishmael"},
-    {"id": "dickens", "titolo": "It was the best of times", "autore": "dickens", "opera": "duecitta", "testo": "It was the best of times, it was the worst of times"},
-    {"id": "austen", "titolo": "It is a truth universally acknowledged", "autore": "austen", "opera": "orgoglio", "testo": "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife."},
-    {"id": "twinkle", "titolo": "Twinkle, Twinkle, Little Star", "autore": "jtaylor", "testo": "Twinkle, twinkle, little star, how I wonder what you are"},
-    {"id": "framartino", "titolo": "Frère Jacques", "autore": "tradizionale", "testo": "Frère Jacques, frère Jacques, dormez-vous? Dormez-vous?"},
-    {"id": "jingle", "titolo": "Jingle Bells", "autore": "pierpont", "testo": "Jingle bells, jingle bells, jingle all the way"},
-    {"id": "osole", "titolo": "'O sole mio", "autore": "capurro", "testo": "Che bella cosa na jurnata 'e sole"},
-    {"id": "auguri", "titolo": "Happy Birthday", "autore": "hill", "testo": "Happy birthday to you"},
+    {"id": "sanlorenzo", "titolo": "X Agosto", "autore": "pascoli", "opera": "xagosto", "testo": "San Lorenzo, io lo so perché tanto di stelle per l'aria tranquilla arde e cade, perché sì gran pianto nel concavo cielo sfavilla. Ritornava una rondine al tetto: l'uccisero: cadde tra spini; ella aveva nel becco un insetto: la cena dei suoi rondinini. Ora è là, come in croce, che tende quel verme a quel cielo lontano; e il suo nido è nell'ombra, che attende, che pigola sempre più piano. Anche un uomo tornava al suo nido: l'uccisero: disse: Perdono; e restò negli aperti occhi un grido: portava due bambole in dono. Ora là, nella casa romita, lo aspettano, aspettano in vano: egli immobile, attonito, addita le bambole al cielo lontano. E tu, Cielo, dall'alto dei mondi sereni, infinito, immortale, oh! d'un pianto di stelle lo inondi quest'atomo opaco del Male!"},
+    {"id": "pinocchio", "titolo": "Pinocchio, parte 1", "autore": "collodi", "opera": "pinocchio", "testo": "C'era una volta... - Un re! - diranno subito i miei piccoli lettori. No, ragazzi, avete sbagliato. C'era una volta un pezzo di legno. Non era un legno di lusso, ma un semplice pezzo da catasta, di quelli che d'inverno si mettono nelle stufe e nei caminetti per accendere il fuoco e per riscaldare le stanze."},
+    {"id": "ishmael", "titolo": "Moby-Dick, part 1", "autore": "melville", "opera": "mobydick", "testo": "Call me Ishmael. Some years ago, never mind how long precisely, having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation."},
+    {"id": "dickens", "titolo": "A Tale of Two Cities, part 1", "autore": "dickens", "opera": "duecitta", "testo": "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair."},
+    {"id": "austen", "titolo": "Pride and Prejudice, part 1", "autore": "austen", "opera": "orgoglio", "testo": "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife. However little known the feelings or views of such a man may be on his first entering a neighbourhood, this truth is so well fixed in the minds of the surrounding families, that he is considered the rightful property of some one or other of their daughters."},
+    {"id": "twinkle", "titolo": "Twinkle, Twinkle, Little Star", "autore": "jtaylor", "testo": "Twinkle, twinkle, little star, how I wonder what you are! Up above the world so high, like a diamond in the sky. When the blazing sun is gone, when he nothing shines upon, then you show your little light, twinkle, twinkle, all the night. Then the traveller in the dark thanks you for your tiny spark; he could not see which way to go, if you did not twinkle so. In the dark blue sky you keep, and often through my curtains peep, for you never shut your eye, till the sun is in the sky. As your bright and tiny spark lights the traveller in the dark, though I know not what you are, twinkle, twinkle, little star."},
+    {"id": "framartino", "titolo": "Frère Jacques", "autore": "tradizionale", "testo": "Frère Jacques, frère Jacques, dormez-vous? Dormez-vous? Sonnez les matines! Sonnez les matines! Ding, dang, dong. Ding, dang, dong."},
+    {"id": "jingle", "titolo": "Jingle Bells", "autore": "pierpont", "testo": "Dashing through the snow in a one-horse open sleigh, o'er the fields we go, laughing all the way. Bells on bob tail ring, making spirits bright; what fun it is to ride and sing a sleighing song tonight! Jingle bells, jingle bells, jingle all the way! Oh what fun it is to ride in a one-horse open sleigh! A day or two ago I thought I'd take a ride, and soon Miss Fanny Bright was seated by my side; the horse was lean and lank, misfortune seemed his lot, he got into a drifted bank and then we got upsot. A day or two ago, the story I must tell, I went out on the snow and on my back I fell; a gent was riding by in a one-horse open sleigh, he laughed as there I sprawling lie, but quickly drove away. Now the ground is white, go it while you're young, take the girls tonight and sing this sleighing song; just get a bobtailed bay, two forty as his speed, hitch him to an open sleigh and crack! you'll take the lead."},
+    {"id": "osole", "titolo": "'O sole mio", "autore": "capurro", "testo": "Che bella cosa na jurnata 'e sole, n'aria serena doppo na tempesta! Pe' ll'aria fresca pare già na festa... Che bella cosa na jurnata 'e sole! Ma n'atu sole cchiù bello, oje ne', 'o sole mio sta 'nfronte a te! 'O sole, 'o sole mio, sta 'nfronte a te, sta 'nfronte a te! Lùceno 'e llastre d''a fenesta toja; na lavannara canta e se ne vanta, e pe' tramente torce, spanne e canta, lùceno 'e llastre d''a fenesta toja. Ma n'atu sole cchiù bello, oje ne', 'o sole mio sta 'nfronte a te! Quanno fa notte e 'o sole se ne scenne, me vene quase na malincunia; sotto 'a fenesta toja restarria quanno fa notte e 'o sole se ne scenne. Ma n'atu sole cchiù bello, oje ne', 'o sole mio sta 'nfronte a te!"},
+    {"id": "auguri", "titolo": "Happy Birthday", "autore": "hill", "testo": "Happy birthday to you, happy birthday to you, happy birthday, dear friend, happy birthday to you!"},
     {"id": "jazz", "titolo": "You ain't heard nothin' yet", "autore": "jolson", "opera": "jazzsinger", "testo": "Wait a minute, you ain't heard nothin' yet!"},
     {"id": "metropolis", "titolo": "Il mediatore deve essere il cuore", "autore": "lang", "opera": "metropolis", "testo": "Il mediatore tra la mente e le mani deve essere il cuore"},
     {"id": "watson", "titolo": "Elementary, my dear Watson", "autore": "sherlock", "opera": "ritorno", "testo": "Elementary, my dear Watson"},
@@ -2891,7 +3001,13 @@
     {"id": "thisisfine", "titolo": "This is fine", "autore": "internet", "testo": "This is fine"},
     {"id": "tothemoon", "titolo": "To the moon!", "autore": "internet", "testo": "To the moon!"},
     {"id": "okboomer", "titolo": "OK boomer", "autore": "internet", "testo": "OK boomer"},
-    {"id": "muchwow", "titolo": "Much wow", "autore": "internet", "testo": "Much wow"}
+    {"id": "muchwow", "titolo": "Much wow", "autore": "internet", "testo": "Much wow"},
+    {"id": "pianto", "titolo": "Pianto antico", "autore": "carducci", "opera": "rimenuove", "testo": "L'albero a cui tendevi la pargoletta mano, il verde melograno da' bei vermigli fior, nel muto orto solingo rinverdì tutto or ora, e giugno lo ristora di luce e di calor. Tu fior de la mia pianta percossa e inaridita, tu de l'inutil vita estremo unico fior, sei ne la terra fredda, sei ne la terra negra; né il sol più ti rallegra né ti risveglia amor."},
+    {"id": "pinocchio2", "titolo": "Pinocchio, parte 2", "autore": "collodi", "opera": "pinocchio", "testo": "Non so come andasse, ma il fatto gli è che un bel giorno questo pezzo di legno capitò nella bottega di un vecchio falegname, il quale aveva nome mastr'Antonio, se non che tutti lo chiamavano maestro Ciliegia, per via della punta del suo naso, che era sempre lustra e paonazza, come una ciliegia matura."},
+    {"id": "ishmael2", "titolo": "Moby-Dick, part 2", "autore": "melville", "opera": "mobydick", "testo": "Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; then, I account it high time to get to sea as soon as I can."},
+    {"id": "dickens2", "titolo": "A Tale of Two Cities, part 2", "autore": "dickens", "opera": "duecitta", "testo": "We had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way; in short, the period was so far like the present period, that some of its noisiest authorities insisted on its being received, for good or for evil, in the superlative degree of comparison only."},
+    {"id": "austen2", "titolo": "Pride and Prejudice, part 2", "autore": "austen", "opera": "orgoglio", "testo": "\"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\" Mr. Bennet replied that he had not. \"But it is,\" returned she; \"for Mrs. Long has just been here, and she told me all about it.\" Mr. Bennet made no answer."},
+    {"id": "manzoni2", "titolo": "I promessi sposi, parte 2", "autore": "manzoni", "opera": "sposi", "testo": "Il ponte, che ivi congiunge le due rive, par che renda ancor più sensibile all'occhio questa trasformazione, e segni il punto in cui il lago cessa, e l'Adda rincomincia, per ripigliar poi nome di lago dove le rive, allontanandosi di nuovo, lascian l'acqua distendersi e rallentarsi in nuovi golfi e in nuovi seni."}
   ];
 
   // Traduzioni delle opere nelle lingue del gioco. Il cinese è in pinyin (tastiera latina),
@@ -3019,11 +3135,11 @@
    "manzoni": {
     "orig": "it",
     "titoli": {
-     "en": "That branch of the lake of Como",
-     "es": "Aquel brazo del lago de Como",
-     "fr": "Cette branche du lac de Côme",
-     "ru": "Тот рукав озера Комо",
-     "zh": "科莫湖的那一支"
+     "en": "The Betrothed, part 1",
+     "es": "Los novios, parte 1",
+     "fr": "Les Fiancés, partie 1",
+     "ru": "Обручённые, часть 1",
+     "zh": "约婚夫妇（第1部分）"
     },
     "testi": {
      "en": "That branch of the lake of Como which turns toward the south, between two unbroken chains of mountains, all bays and gulfs as they jut out and draw back, suddenly narrows and takes the course and shape of a river, between a promontory on the right and a wide shore on the other side.",
@@ -3104,86 +3220,86 @@
    "sanlorenzo": {
     "orig": "it",
     "titoli": {
-     "en": "Saint Lawrence, I know",
-     "es": "San Lorenzo, yo sé",
-     "fr": "Saint-Laurent, je sais",
-     "ru": "Святой Лаврентий",
-     "zh": "圣洛伦佐"
+     "en": "August 10th",
+     "es": "X de agosto",
+     "fr": "X Août",
+     "ru": "10 августа",
+     "zh": "八月十日"
     },
     "testi": {
-     "en": "Saint Lawrence, I know why so many stars burn and fall through the still air, why such a great weeping sparkles in the hollow sky.",
-     "es": "San Lorenzo, yo sé por qué tantas estrellas arden y caen por el aire tranquilo, por qué tan gran llanto centellea en el cóncavo cielo.",
-     "fr": "Saint-Laurent, je sais pourquoi tant d'étoiles brûlent et tombent dans l'air tranquille, pourquoi un si grand pleur scintille dans le ciel concave.",
-     "ru": "Святой Лаврентий, я знаю, почему так много звёзд горит и падает в тихом воздухе, почему такой великий плач сверкает в вогнутом небе.",
-     "zh": "sheng luolunzuo wo zhidao weishenme name duo xingxing zai ningjing de kongzhong ranshao you zhuiluo weishenme ruci juda de kuqi zai aoxing de tiankong zhong shanyao"
+     "en": "Saint Lawrence, I know why so many stars burn and fall through the still air, why such a great weeping sparkles in the hollow sky. A swallow was coming back to the roof: they killed her: she fell among the thorns; she had an insect in her beak: the supper for her little ones. Now she is there, as if on a cross, holding out that worm to that distant sky; and her nest is in the shadow, waiting, chirping ever more softly. A man too was coming back to his nest: they killed him: he said: I forgive; and a cry remained in his open eyes: he was bringing two dolls as a gift. Now there, in the lonely house, they wait for him, they wait in vain: he, motionless, astonished, points the dolls to the distant sky. And you, Heaven, from the height of the serene worlds, infinite, immortal, oh! with a weeping of stars you flood this dark atom of Evil!",
+     "es": "San Lorenzo, yo sé por qué tantas estrellas arden y caen por el aire tranquilo, por qué tan gran llanto centellea en el cóncavo cielo. Volvía una golondrina al tejado: la mataron: cayó entre las espinas; llevaba en el pico un insecto: la cena de sus polluelos. Ahora está allí, como en una cruz, tendiendo aquel gusano a aquel cielo lejano; y su nido está en la sombra, esperando, piando cada vez más bajo. También un hombre volvía a su nido: lo mataron: dijo: Perdono; y quedó en sus ojos abiertos un grito: llevaba dos muñecas de regalo. Ahora allí, en la casa solitaria, lo esperan, lo esperan en vano: él, inmóvil, atónito, señala las muñecas al cielo lejano. Y tú, Cielo, desde lo alto de los mundos serenos, infinito, inmortal, ¡oh!, con un llanto de estrellas inundas este átomo opaco del Mal.",
+     "fr": "Saint-Laurent, je sais pourquoi tant d'étoiles brûlent et tombent dans l'air tranquille, pourquoi un si grand pleur scintille dans le ciel concave. Une hirondelle revenait au toit : on la tua : elle tomba parmi les épines ; elle avait dans le bec un insecte : le souper de ses petits. Maintenant elle est là, comme en croix, tendant ce ver vers ce ciel lointain ; et son nid est dans l'ombre, qui attend, qui piaule de plus en plus bas. Un homme aussi revenait à son nid : on le tua : il dit : Je pardonne ; et dans ses yeux ouverts resta un cri : il apportait deux poupées en cadeau. Maintenant là-bas, dans la maison solitaire, on l'attend, on l'attend en vain : lui, immobile, stupéfait, montre les poupées au ciel lointain. Et toi, Ciel, du haut des mondes sereins, infini, immortel, oh ! d'un pleur d'étoiles tu inondes cet atome opaque du Mal !",
+     "ru": "Святой Лаврентий, я знаю, почему так много звёзд горит и падает в тихом воздухе, почему такой великий плач сверкает в вогнутом небе. Возвращалась ласточка под крышу: её убили: она упала в терновник; у неё в клюве было насекомое: ужин для её птенцов. Теперь она там, словно на кресте, протягивает того червяка к далёкому небу; а гнездо её в тени ждёт и пищит всё тише и тише. Возвращался и человек в своё гнездо: его убили: он сказал: Прощаю; и в открытых глазах его застыл крик: он нёс в подарок двух кукол. Теперь там, в одиноком доме, его ждут, ждут напрасно: а он, неподвижный, изумлённый, указывает кукол далёкому небу. И ты, Небо, с высоты ясных миров, бесконечное, бессмертное, о! плачем звёзд заливаешь этот тёмный атом Зла!",
+     "zh": "sheng luolunzuo wo zhidao weishenme name duo xingxing zai ningjing de kongzhong ranshao you zhuiluo weishenme ruci juda de kuqi zai aoxing de tiankong zhong shanyao yi zhi yanzi zheng fei hui wuyan tamen sha le ta ta luo zai jingji zhijian ta zui li xianzhe yi zhi chongzi na shi gei chuyan de wancan xianzai ta zai nali xiang ding zai shizijia shang ba na tiao chong shen xiang yaoyuan de tiankong ta de chao zai yinying li dengdaizhe jiujiu sheng yuelaiyue qing yige ren ye zheng huidao ziji de chao tamen sha le ta ta shuo wo kuanshu ta zhengzhe de yanjing li liuxia yi sheng huhan ta daizhe liang ge yangwawa zuowei liwu xianzai zai na gulingling de fangzi li renmen dengzhe ta baibai de dengzhe ta yidongbudong jinge de ba yangwawa zhixiang yaoyuan de tiankong er ni tiankong a cong ningjing qunxing de gaochu wuxian er buxiu o ni yong xingxing de leishui yanmo zhe xie e de youan yuanzi"
     }
    },
    "pinocchio": {
     "orig": "it",
     "titoli": {
-     "en": "Once upon a time",
-     "es": "Érase una vez",
-     "fr": "Il était une fois",
-     "ru": "Жил-был",
-     "zh": "从前"
+     "en": "Pinocchio, part 1",
+     "es": "Pinocho, parte 1",
+     "fr": "Pinocchio, partie 1",
+     "ru": "Пиноккио, часть 1",
+     "zh": "木偶奇遇记（第1部分）"
     },
     "testi": {
-     "en": "Once upon a time there was a piece of wood",
-     "es": "Érase una vez un trozo de madera",
-     "fr": "Il était une fois un morceau de bois",
-     "ru": "Жил-был кусок дерева",
-     "zh": "congqian you yi kuai mutou"
+     "en": "Once upon a time there was... 'A king!' my little readers will say at once. No, children, you are wrong. Once upon a time there was a piece of wood. It was not a fine piece of wood, but a simple log from the woodpile, the kind that in winter is put in stoves and fireplaces to light the fire and warm the rooms.",
+     "es": "Érase una vez... —¡Un rey! —dirán enseguida mis pequeños lectores. No, chicos, os habéis equivocado. Érase una vez un trozo de madera. No era una madera de lujo, sino un simple leño de la leñera, de esos que en invierno se ponen en las estufas y en las chimeneas para encender el fuego y calentar las habitaciones.",
+     "fr": "Il était une fois... — Un roi ! diront aussitôt mes petits lecteurs. Non, les enfants, vous vous trompez. Il était une fois un morceau de bois. Ce n'était pas un bois de luxe, mais une simple bûche de la réserve, de celles qu'on met l'hiver dans les poêles et les cheminées pour allumer le feu et chauffer les pièces.",
+     "ru": "Жил-был... — Король! — сразу скажут мои маленькие читатели. Нет, ребята, вы ошиблись. Жил-был кусок дерева. Это было не дорогое дерево, а простое полено из поленницы, из тех, что зимой кладут в печи и камины, чтобы развести огонь и согреть комнаты.",
+     "zh": "congqian you yi wei guowang wo de xiao duzhemen mashang hui shuo bu haizimen nimen shuo cuo le congqian you yi kuai mutou na bu shi shenme mingui de mutou zhi shi chaidui li yi kuai putong de muchai jiu shi dongtian fang jin luzi he bilu li shenghuo qunuan de na zhong"
     }
    },
    "ishmael": {
     "orig": "en",
     "titoli": {
-     "it": "Chiamatemi Ismaele",
-     "es": "Llamadme Ismael",
-     "fr": "Appelez-moi Ismaël",
-     "ru": "Зовите меня Измаил",
-     "zh": "叫我以实玛利吧"
+     "it": "Moby Dick, parte 1",
+     "es": "Moby Dick, parte 1",
+     "fr": "Moby Dick, partie 1",
+     "ru": "Моби Дик, часть 1",
+     "zh": "白鲸（第1部分）"
     },
     "testi": {
-     "it": "Chiamatemi Ismaele",
-     "es": "Llamadme Ismael",
-     "fr": "Appelez-moi Ismaël",
-     "ru": "Зовите меня Измаил",
-     "zh": "jiao wo yishimali ba"
+     "it": "Chiamatemi Ismaele. Qualche anno fa, non importa quanti di preciso, avendo pochi o nessun soldo in tasca e niente di particolare che mi interessasse a terra, pensai di andare un po' per mare e vedere la parte acquea del mondo. È il mio modo di scacciare la malinconia e regolare la circolazione.",
+     "es": "Llamadme Ismael. Hace algunos años, no importa cuántos exactamente, con poco o ningún dinero en el bolsillo y nada en particular que me interesara en tierra, pensé en navegar un poco y ver la parte acuática del mundo. Es mi manera de ahuyentar la melancolía y regular la circulación.",
+     "fr": "Appelez-moi Ismaël. Il y a quelques années, peu importe combien exactement, ayant peu ou pas d'argent en poche et rien de particulier pour m'intéresser à terre, je pensai naviguer un peu et voir la partie liquide du monde. C'est ma façon de chasser le spleen et de régler la circulation.",
+     "ru": "Зовите меня Измаил. Несколько лет назад, неважно, сколько именно, когда в кошельке у меня было мало денег или вовсе не было, а на берегу ничто меня особенно не занимало, я решил немного поплавать и посмотреть на водную часть мира. Так я прогоняю хандру и привожу в порядок кровообращение.",
+     "zh": "jiao wo yishimali ba ji nian qian juti duoshao nian bubi zaiyi wo qianbao li jihu meiyou qian an shang ye meiyou shenme tebie rang wo gan xingqu de shi yushi wo xiang chuhai hangxing yizhen kankan shijie shang you shui de na yi bufen zhe shi wo qusan youyu tiaojie xueye xunhuan de fangfa"
     }
    },
    "dickens": {
     "orig": "en",
     "titoli": {
-     "it": "Era il migliore dei tempi",
-     "es": "Era el mejor de los tiempos",
-     "fr": "C'était le meilleur des temps",
-     "ru": "Это было лучшее из времён",
-     "zh": "那是最好的时代"
+     "it": "Racconto di due città, parte 1",
+     "es": "Historia de dos ciudades, parte 1",
+     "fr": "Le Conte de deux cités, partie 1",
+     "ru": "Повесть о двух городах, часть 1",
+     "zh": "双城记（第1部分）"
     },
     "testi": {
-     "it": "Era il migliore dei tempi, era il peggiore dei tempi",
-     "es": "Era el mejor de los tiempos, era el peor de los tiempos",
-     "fr": "C'était le meilleur des temps, c'était le pire des temps",
-     "ru": "Это было лучшее из времён, это было худшее из времён",
-     "zh": "na shi zui hao de shidai na shi zui huai de shidai"
+     "it": "Era il migliore dei tempi, era il peggiore dei tempi, era l'età della saggezza, era l'età della follia, era l'epoca della fede, era l'epoca dell'incredulità, era la stagione della Luce, era la stagione delle Tenebre, era la primavera della speranza, era l'inverno della disperazione.",
+     "es": "Era el mejor de los tiempos, era el peor de los tiempos, era la edad de la sabiduría, era la edad de la locura, era la época de la fe, era la época de la incredulidad, era la estación de la Luz, era la estación de las Tinieblas, era la primavera de la esperanza, era el invierno de la desesperación.",
+     "fr": "C'était le meilleur des temps, c'était le pire des temps, c'était l'âge de la sagesse, c'était l'âge de la folie, c'était l'époque de la foi, c'était l'époque de l'incrédulité, c'était la saison de la Lumière, c'était la saison des Ténèbres, c'était le printemps de l'espoir, c'était l'hiver du désespoir.",
+     "ru": "Это было лучшее из времён, это было худшее из времён, это был век мудрости, это был век глупости, это была эпоха веры, это была эпоха неверия, это была пора Света, это была пора Тьмы, это была весна надежды, это была зима отчаяния.",
+     "zh": "na shi zui hao de shidai na shi zui huai de shidai na shi zhihui de shidai na shi yumei de shidai na shi xinyang de shiqi na shi huaiyi de shiqi na shi guangming de jijie na shi heian de jijie na shi xiwang de chuntian na shi juewang de dongtian"
     }
    },
    "austen": {
     "orig": "en",
     "titoli": {
-     "it": "È una verità universalmente riconosciuta",
-     "es": "Es una verdad universalmente reconocida",
-     "fr": "C'est une vérité universellement reconnue",
-     "ru": "Общепризнанная истина",
-     "zh": "这是一条公认的真理"
+     "it": "Orgoglio e pregiudizio, parte 1",
+     "es": "Orgullo y prejuicio, parte 1",
+     "fr": "Orgueil et Préjugés, partie 1",
+     "ru": "Гордость и предубеждение, часть 1",
+     "zh": "傲慢与偏见（第1部分）"
     },
     "testi": {
-     "it": "È una verità universalmente riconosciuta che uno scapolo in possesso di un buon patrimonio debba essere in cerca di una moglie.",
-     "es": "Es una verdad universalmente reconocida que un hombre soltero, dueño de una buena fortuna, necesita una esposa.",
-     "fr": "C'est une vérité universellement reconnue qu'un célibataire pourvu d'une belle fortune doit être en quête d'une épouse.",
-     "ru": "Это общепризнанная истина: холостяк с хорошим состоянием непременно ищет себе жену.",
-     "zh": "zhe shi yi tiao gongren de zhenli yige yongyou fengfu caichan de danshen nanzi biding xuyao yi wei qizi"
+     "it": "È una verità universalmente riconosciuta che uno scapolo in possesso di un buon patrimonio debba essere in cerca di una moglie. Per quanto poco si sappia dei sentimenti o delle idee di un uomo simile quando arriva per la prima volta in un vicinato, questa verità è così radicata nella mente delle famiglie dei dintorni che egli viene considerato legittima proprietà dell'una o dell'altra delle loro figlie.",
+     "es": "Es una verdad universalmente reconocida que un hombre soltero, dueño de una buena fortuna, necesita una esposa. Por poco que se conozcan los sentimientos o las opiniones de un hombre así cuando llega por primera vez a un vecindario, esta verdad está tan arraigada en la mente de las familias de los alrededores que se le considera propiedad legítima de una u otra de sus hijas.",
+     "fr": "C'est une vérité universellement reconnue qu'un célibataire pourvu d'une belle fortune doit être en quête d'une épouse. Si peu connus que soient les sentiments ou les idées d'un tel homme lorsqu'il arrive pour la première fois dans un voisinage, cette vérité est si bien ancrée dans l'esprit des familles des environs qu'on le considère comme la propriété légitime de l'une ou l'autre de leurs filles.",
+     "ru": "Это общепризнанная истина: холостяк с хорошим состоянием непременно ищет себе жену. Сколь бы мало ни знали о чувствах и взглядах такого человека, когда он впервые поселяется по соседству, эта истина так глубоко сидит в головах окрестных семейств, что его сразу считают законной собственностью одной из их дочерей.",
+     "zh": "zhe shi yi tiao gongren de zhenli yige yongyou fenghou caichan de danshen nanzi biding xuyao yi wei qizi zheyang yige nanren chu dao yige difang shi wulun bieren dui ta de ganqing he xiangfa zhidao de duome shao zhe tiao zhenli zai zhouwei renjia de xinli dou genshendigu tamen zong ba ta kanzuo ziji mouge nuer lisuoyingde de caichan"
     }
    },
    "twinkle": {
@@ -3196,11 +3312,11 @@
      "zh": "小星星"
     },
     "testi": {
-     "it": "Brilla, brilla, stellina, chissà cosa sei",
-     "es": "Brilla, brilla, estrellita, cómo me pregunto qué eres",
-     "fr": "Brille, brille, petite étoile, je me demande ce que tu es",
-     "ru": "Мерцай, мерцай, звёздочка, как я гадаю, кто ты",
-     "zh": "shanshuo shanshuo xiao xingxing wo duo xiang zhidao ni shi shenme"
+     "it": "Brilla, brilla, stellina, chissà cosa sei! Lassù, così in alto sopra il mondo, come un diamante nel cielo. Quando il sole ardente se n'è andato, quando non splende più su niente, allora mostri la tua piccola luce, brilla, brilla, tutta la notte. Allora il viandante nel buio ti ringrazia per la tua minuscola scintilla; non saprebbe da che parte andare, se tu non brillassi così. Resti nel cielo blu scuro e spesso sbirci tra le mie tende, perché non chiudi mai l'occhio finché il sole non è nel cielo. E la tua scintilla luminosa e minuscola illumina il viandante nel buio: anche se non so cosa sei, brilla, brilla, stellina.",
+     "es": "Brilla, brilla, estrellita, ¡cómo me pregunto qué eres! Allá arriba, tan alto sobre el mundo, como un diamante en el cielo. Cuando el sol ardiente se ha ido, cuando ya no brilla sobre nada, entonces muestras tu pequeña luz, brilla, brilla, toda la noche. Entonces el viajero en la oscuridad te agradece tu diminuta chispa; no sabría hacia dónde ir si tú no brillaras así. Te quedas en el cielo azul oscuro y a menudo te asomas entre mis cortinas, porque nunca cierras el ojo hasta que el sol está en el cielo. Y tu chispa brillante y diminuta ilumina al viajero en la oscuridad: aunque no sé qué eres, brilla, brilla, estrellita.",
+     "fr": "Brille, brille, petite étoile, comme je me demande ce que tu es ! Là-haut, si haut au-dessus du monde, comme un diamant dans le ciel. Quand le soleil brûlant est parti, quand il ne brille plus sur rien, alors tu montres ta petite lumière, brille, brille, toute la nuit. Alors le voyageur dans le noir te remercie pour ta minuscule étincelle ; il ne saurait pas où aller si tu ne brillais pas ainsi. Tu restes dans le ciel bleu sombre et tu regardes souvent entre mes rideaux, car tu ne fermes jamais l'œil avant que le soleil soit dans le ciel. Et ta petite étincelle brillante éclaire le voyageur dans le noir : même si je ne sais pas ce que tu es, brille, brille, petite étoile.",
+     "ru": "Мерцай, мерцай, звёздочка, как я гадаю, кто ты! Там, высоко над миром, как алмаз на небе. Когда жаркое солнце уходит, когда оно больше ни на что не светит, ты показываешь свой маленький свет и мерцаешь, мерцаешь всю ночь. Тогда путник во тьме благодарит тебя за крошечную искру; он не знал бы, куда идти, если бы ты так не мерцала. Ты остаёшься в тёмно-синем небе и часто заглядываешь ко мне сквозь шторы, ведь ты не закрываешь глаз, пока солнце не взойдёт. И твоя яркая крошечная искра освещает путника во тьме: хоть я и не знаю, кто ты, мерцай, мерцай, звёздочка.",
+     "zh": "shanshuo shanshuo xiao xingxing wo duo xiang zhidao ni shi shenme gaogao gua zai shijie shangkong xiang tiankong zhong de yi ke zuanshi dang chire de taiyang luoxia dang ta bu zai zhaoyao renhe dongxi ni jiu louchu xiaoxiao de guangmang zhengye shanshuo shanshuo heian zhong de luren ganxie ni xiaoxiao de huohua ruguo ni bu zheyang shanshuo ta jiu bu zhidao gai wang nali zou ni shou zai shenlan de yekong li changchang touguo wo de chuanglian toukan yinwei ni cong bu heshang yanjing zhidao taiyang shengshang tiankong ni mingliang de xiaoxiao huohua zhaoliang heian zhong de luren suiran wo bu zhidao ni shi shenme shanshuo shanshuo xiao xingxing"
     }
    },
    "framartino": {
@@ -3213,11 +3329,11 @@
      "zh": "两只老虎"
     },
     "testi": {
-     "it": "Fra Martino campanaro, dormi tu? Dormi tu?",
-     "en": "Are you sleeping, are you sleeping, Brother John?",
-     "es": "Martinillo, Martinillo, ¿dónde estás? ¿Dónde estás?",
-     "ru": "Братец Яков, братец Яков, спишь ли ты? Спишь ли ты?",
-     "zh": "liang zhi laohu liang zhi laohu pao de kuai pao de kuai"
+     "it": "Fra Martino campanaro, dormi tu? Dormi tu? Suona le campane! Suona le campane! Din, don, dan. Din, don, dan.",
+     "en": "Are you sleeping, are you sleeping, Brother John, Brother John? Morning bells are ringing! Morning bells are ringing! Ding, dang, dong. Ding, dang, dong.",
+     "es": "Martinillo, Martinillo, ¿dónde estás? ¿Dónde estás? ¡Toca la campana! ¡Toca la campana! Din, don, dan. Din, don, dan.",
+     "ru": "Братец Яков, братец Яков, спишь ли ты? Спишь ли ты? Колокол звонит! Колокол звонит! Динь, дан, дон. Динь, дан, дон.",
+     "zh": "liang zhi laohu liang zhi laohu pao de kuai pao de kuai yi zhi meiyou yanjing yi zhi meiyou weiba zhen qiguai zhen qiguai"
     }
    },
    "jingle": {
@@ -3225,16 +3341,16 @@
     "titoli": {
      "it": "Jingle Bells",
      "es": "Jingle Bells",
-     "fr": "Vive le vent",
+     "fr": "Jingle Bells",
      "ru": "Звените, бубенцы",
      "zh": "铃儿响叮当"
     },
     "testi": {
-     "it": "Suonate campanelle, suonate per tutta la strada",
-     "es": "Suenen campanas, suenen campanas, suenen sin parar",
-     "fr": "Sonnez clochettes, sonnez clochettes, sonnez tout le long du chemin",
-     "ru": "Звените, бубенцы, звените всю дорогу",
-     "zh": "dingdang dingdang yilu dingdang xiang"
+     "it": "Correndo nella neve su una slitta aperta a un cavallo, per i campi andiamo, ridendo per tutta la strada. Le campanelle sulla coda suonano e rallegrano gli animi: che bello andare in slitta e cantare una canzone stasera! Suonate campanelle, suonate per tutta la strada! Che bello andare su una slitta aperta a un cavallo! Un giorno o due fa pensai di fare un giro, e presto la signorina Fanny Bright sedeva accanto a me; il cavallo era magro e sfinito, la sfortuna pareva il suo destino, finì dentro un cumulo di neve e noi ci ribaltammo. Un giorno o due fa, la storia devo raccontare, uscii sulla neve e caddi sulla schiena; passava un signore su una slitta aperta a un cavallo, rise mentre io stavo lì disteso, ma se ne andò in fretta. Ora la terra è bianca, approfittane finché sei giovane, porta le ragazze stasera e canta questa canzone; prendi un cavallo baio veloce come il vento, attaccalo a una slitta aperta e via! sarai in testa.",
+     "es": "Corriendo por la nieve en un trineo abierto de un caballo, por los campos vamos, riendo todo el camino. Las campanas en la cola suenan y alegran los ánimos: ¡qué divertido es pasear y cantar una canción de trineo esta noche! ¡Suenen campanas, suenen campanas, suenen sin parar! ¡Qué divertido es pasear en un trineo abierto de un caballo! Hace un día o dos pensé en dar un paseo, y pronto la señorita Fanny Bright estaba sentada a mi lado; el caballo era flaco y débil, la desgracia parecía su destino, se metió en un montón de nieve y nosotros volcamos. Hace un día o dos, la historia debo contar, salí a la nieve y me caí de espaldas; un señor pasaba en un trineo abierto de un caballo, se rió al verme allí tumbado, pero se fue enseguida. Ahora el suelo está blanco, aprovecha mientras eres joven, lleva a las chicas esta noche y canta esta canción de trineo; consigue un caballo bayo veloz como el viento, engánchalo a un trineo abierto y ¡zas!, irás en cabeza.",
+     "fr": "Filant dans la neige sur un traîneau ouvert à un cheval, à travers les champs nous allons, riant tout le long du chemin. Les clochettes de la queue sonnent et réjouissent les cœurs : quel plaisir de rouler et de chanter une chanson de traîneau ce soir ! Sonnez clochettes, sonnez clochettes, sonnez tout le long du chemin ! Quel plaisir de rouler dans un traîneau ouvert à un cheval ! Il y a un jour ou deux, j'ai pensé faire un tour, et bientôt mademoiselle Fanny Bright était assise à mes côtés ; le cheval était maigre et efflanqué, le malheur semblait son destin, il s'est jeté dans un tas de neige et nous avons chaviré. Il y a un jour ou deux, l'histoire je dois raconter, je suis sorti sur la neige et je suis tombé sur le dos ; un monsieur passait dans un traîneau ouvert à un cheval, il a ri en me voyant étendu là, mais il est vite reparti. Maintenant le sol est blanc, profites-en tant que tu es jeune, emmène les filles ce soir et chante cette chanson de traîneau ; prends un cheval bai rapide comme le vent, attelle-le à un traîneau ouvert et hop ! tu prendras la tête.",
+     "ru": "Мчимся по снегу в открытых санях с одной лошадкой, по полям мы едем и смеёмся всю дорогу. Бубенчики на хвосте звенят и поднимают настроение: как весело кататься и петь сегодня песню о санях! Звените, бубенцы, звените всю дорогу! Как весело кататься в открытых санях с одной лошадкой! Пару дней назад я решил прокатиться, и вскоре мисс Фанни Брайт сидела рядом со мной; конь был тощий и худой, несчастье, видно, было его уделом, он угодил в сугроб, и мы перевернулись. Пару дней назад, я должен рассказать, я вышел на снег и упал на спину; мимо ехал господин в открытых санях с одной лошадкой, он посмеялся, глядя, как я лежу, но быстро уехал. Теперь земля бела, гуляй, пока молод, возьми сегодня девушек и спой эту песню о санях; найди гнедого коня, быстрого как ветер, запряги его в открытые сани, и вперёд! ты будешь первым.",
+     "zh": "chongguo baixue zuozhe yi pi ma la de changpeng xueqiao women chuanguo tianye yilu huanxiao mawei shang de lingdang dingdang xiang rang ren xinqing yukuai jinwan zuo xueqiao changge duome kuaile dingdingdang dingdingdang yilu dingdang xiang zuozhe yi pi ma la de changpeng xueqiao duome kuaile yi liang tian qian wo xiang qu doufeng henkuai fanni bulaite xiaojie jiu zuo zai wo shenpang na pi ma you shou you ruo sihu mingzhong zhuding daomei ta chongjin xuedui women dou fan le che yi liang tian qian wo dei jiangjiang zhege gushi wo zou dao xuedi shang yangmian shuaidao yi wei xiansheng zuozhe yi pi ma la de changpeng xueqiao jingguo kan wo tang zai nali haha daxiao que henkuai jiu zou le xianzai dadi yipian jiebai chen nianqing jinqing wan ba jinwan daishang guniangmen changqi zhe shou xueqiao ge zhao yi pi kuai ru jifeng de zaohong ma ba ta taoshang changpeng xueqiao pa ni jiu hui lingxian"
     }
    },
    "osole": {
@@ -3247,11 +3363,11 @@
      "zh": "我的太阳"
     },
     "testi": {
-     "en": "What a beautiful thing is a sunny day",
-     "es": "Qué cosa tan bella es un día de sol",
-     "fr": "Quelle belle chose qu'une journée de soleil",
-     "ru": "Как прекрасен солнечный день",
-     "zh": "yangguang canlan de rizi duome meihao"
+     "en": "What a beautiful thing is a sunny day, a serene air after a storm! In the fresh air it already feels like a celebration... What a beautiful thing is a sunny day! But another sun, more beautiful, oh my dear, my own sun is on your face! The sun, my own sun, is on your face, is on your face! The panes of your window shine; a washerwoman sings and boasts of it, and while she wrings, hangs out and sings, the panes of your window shine. But another sun, more beautiful, oh my dear, my own sun is on your face! When night falls and the sun goes down, almost a melancholy comes over me; I would stay beneath your window when night falls and the sun goes down. But another sun, more beautiful, oh my dear, my own sun is on your face!",
+     "es": "¡Qué cosa tan bella es un día de sol, un aire sereno después de una tormenta! Con el aire fresco ya parece una fiesta... ¡Qué cosa tan bella es un día de sol! Pero otro sol, más bello, ay querida, ¡mi sol está en tu frente! ¡El sol, mi sol, está en tu frente, está en tu frente! Brillan los cristales de tu ventana; una lavandera canta y presume, y mientras retuerce, tiende y canta, brillan los cristales de tu ventana. Pero otro sol, más bello, ay querida, ¡mi sol está en tu frente! Cuando llega la noche y el sol se pone, me entra casi una melancolía; me quedaría bajo tu ventana cuando llega la noche y el sol se pone. Pero otro sol, más bello, ay querida, ¡mi sol está en tu frente!",
+     "fr": "Quelle belle chose qu'une journée de soleil, un air serein après une tempête ! Avec l'air frais, on dirait déjà une fête... Quelle belle chose qu'une journée de soleil ! Mais un autre soleil, plus beau, oh ma belle, mon soleil est sur ton visage ! Le soleil, mon soleil, est sur ton visage, est sur ton visage ! Les vitres de ta fenêtre brillent ; une lavandière chante et s'en vante, et pendant qu'elle tord, étend et chante, les vitres de ta fenêtre brillent. Mais un autre soleil, plus beau, oh ma belle, mon soleil est sur ton visage ! Quand vient la nuit et que le soleil descend, une mélancolie me prend presque ; je resterais sous ta fenêtre quand vient la nuit et que le soleil descend. Mais un autre soleil, plus beau, oh ma belle, mon soleil est sur ton visage !",
+     "ru": "Как прекрасен солнечный день, ясный воздух после бури! Со свежим воздухом уже как будто праздник... Как прекрасен солнечный день! Но другое солнце, ещё прекраснее, о милая, моё солнце — на твоём лице! Солнце, моё солнце — на твоём лице, на твоём лице! Сияют стёкла твоего окна; прачка поёт и этим гордится, и пока выжимает, развешивает и поёт, сияют стёкла твоего окна. Но другое солнце, ещё прекраснее, о милая, моё солнце — на твоём лице! Когда наступает ночь и солнце заходит, меня охватывает почти что грусть; я остался бы под твоим окном, когда наступает ночь и солнце заходит. Но другое солнце, ещё прекраснее, о милая, моё солнце — на твоём лице!",
+     "zh": "yangguang canlan de rizi duome meihao baofengyu guohou kongqi duome qingxin qingxin de kongqi li fangfu yijing zai guojie yangguang canlan de rizi duome meihao dan hai you yige geng mei de taiyang o qinai de wo de taiyang zai ni de lian shang taiyang wo de taiyang zai ni de lian shang zai ni de lian shang ni chuanghu shang de boli shanshan fa liang yi wei xiyinu changzhe ge wei ci jiaoao ta yibian ninggan liangshai yibian gechang ni chuanghu shang de boli shanshan fa liang dan hai you yige geng mei de taiyang o qinai de wo de taiyang zai ni de lian shang dang yewan lailin taiyang luoxia wo jihu gandao yi zhen youshang wo yuan liu zai ni de chuang xia dang yewan lailin taiyang luoxia dan hai you yige geng mei de taiyang o qinai de wo de taiyang zai ni de lian shang"
     }
    },
    "auguri": {
@@ -3264,11 +3380,11 @@
      "zh": "生日快乐"
     },
     "testi": {
-     "it": "Tanti auguri a te",
-     "es": "Cumpleaños feliz",
-     "fr": "Joyeux anniversaire",
-     "ru": "С днём рождения тебя",
-     "zh": "zhu ni shengri kuaile"
+     "it": "Tanti auguri a te, tanti auguri a te, tanti auguri, caro amico, tanti auguri a te!",
+     "es": "Cumpleaños feliz, te deseamos a ti, cumpleaños, querido amigo, ¡cumpleaños feliz!",
+     "fr": "Joyeux anniversaire, joyeux anniversaire, joyeux anniversaire, cher ami, joyeux anniversaire !",
+     "ru": "С днём рождения тебя, с днём рождения тебя, с днём рождения, дорогой друг, с днём рождения тебя!",
+     "zh": "zhu ni shengri kuaile zhu ni shengri kuaile zhu ni shengri kuaile qinai de pengyou zhu ni shengri kuaile"
     }
    },
    "jazz": {
@@ -3338,11 +3454,113 @@
      "ru": "Хьюстон, у нас проблема",
      "zh": "xiusidun women chu wenti le"
     }
+   },
+   "pianto": {
+    "orig": "it",
+    "titoli": {
+     "en": "Ancient Lament",
+     "es": "Llanto antiguo",
+     "fr": "Pleur antique",
+     "ru": "Древний плач",
+     "zh": "古老的哀歌"
+    },
+    "testi": {
+     "en": "The tree to which you stretched your little child's hand, the green pomegranate with its beautiful crimson flowers, in the silent lonely garden has just turned green again, and June restores it with light and warmth. You, flower of my stricken and withered plant, you, last and only flower of my useless life, are in the cold earth, are in the black earth; the sun no longer cheers you, nor does love awaken you.",
+     "es": "El árbol al que tendías tu manita de niño, el verde granado de hermosas flores bermejas, en el huerto mudo y solitario acaba de reverdecer, y junio lo reanima con luz y con calor. Tú, flor de mi planta golpeada y marchita, tú, última y única flor de mi vida inútil, estás en la tierra fría, estás en la tierra negra; ni el sol ya te alegra ni te despierta el amor.",
+     "fr": "L'arbre vers lequel tu tendais ta petite main d'enfant, le grenadier vert aux belles fleurs vermeilles, dans le jardin muet et solitaire vient de reverdir, et juin le ranime de lumière et de chaleur. Toi, fleur de ma plante frappée et desséchée, toi, ultime et unique fleur de ma vie inutile, tu es dans la terre froide, tu es dans la terre noire ; ni le soleil ne te réjouit plus, ni l'amour ne te réveille.",
+     "ru": "Дерево, к которому ты тянул свою детскую ручку, зелёный гранат с красивыми алыми цветами, в немом одиноком саду только что вновь зазеленел, и июнь оживляет его светом и теплом. Ты, цветок моего сломленного и иссохшего растения, ты, последний и единственный цветок моей бесполезной жизни, лежишь в холодной земле, лежишь в чёрной земле; ни солнце тебя больше не радует, ни любовь не пробуждает.",
+     "zh": "ni ceng xiang ta shenchu xiaoshou de na ke shu na kaizhe meili honghua de lu shiliu shu zai jijing gudu de guoyuan li ganggang you bian lu le liuyue yong yangguang he wennuan shi ta fusu ni wo na bei daji er kuwei de zhiwu shang de hua ni wo wuyong shengming zhong zuihou weiyi de hua ni zai bingleng de tu li ni zai heise de tu li taiyang zai ye buneng rang ni huanxi ai ye buneng ba ni huanxing"
+    }
+   },
+   "pinocchio2": {
+    "orig": "it",
+    "titoli": {
+     "en": "Pinocchio, part 2",
+     "es": "Pinocho, parte 2",
+     "fr": "Pinocchio, partie 2",
+     "ru": "Пиноккио, часть 2",
+     "zh": "木偶奇遇记（第2部分）"
+    },
+    "testi": {
+     "en": "I don't know how it happened, but one fine day this piece of wood turned up in the workshop of an old carpenter whose name was Master Antonio, except that everyone called him Master Cherry, because of the tip of his nose, which was always shiny and purple, like a ripe cherry.",
+     "es": "No sé cómo ocurrió, pero el caso es que un buen día este trozo de madera fue a parar al taller de un viejo carpintero que se llamaba maestro Antonio, aunque todos lo llamaban maestro Cereza, por la punta de su nariz, que estaba siempre brillante y morada, como una cereza madura.",
+     "fr": "Je ne sais pas comment cela arriva, mais le fait est qu'un beau jour ce morceau de bois atterrit dans l'atelier d'un vieux menuisier qui s'appelait maître Antoine, sauf que tout le monde l'appelait maître Cerise, à cause du bout de son nez, toujours luisant et violacé, comme une cerise mûre.",
+     "ru": "Не знаю, как это вышло, но однажды этот кусок дерева попал в мастерскую старого столяра по имени мастер Антонио, только все звали его мастером Вишней из-за кончика его носа, который всегда был блестящим и багровым, как спелая вишня.",
+     "zh": "wo bu zhidao shi zenme huishi fanzheng you yi tian zhe kuai mutou laidao le yige lao mujiang de puzi li lao mujiang ming jiao andongniao shifu ke dajia dou jiao ta yingtao shifu yinwei ta de bijian zongshi you liang you zi xiang yi ke shoutou de yingtao"
+    }
+   },
+   "ishmael2": {
+    "orig": "en",
+    "titoli": {
+     "it": "Moby Dick, parte 2",
+     "es": "Moby Dick, parte 2",
+     "fr": "Moby Dick, partie 2",
+     "ru": "Моби Дик, часть 2",
+     "zh": "白鲸（第2部分）"
+    },
+    "testi": {
+     "it": "Ogni volta che mi accorgo di avere una piega amara sulle labbra; ogni volta che nell'anima ho un novembre umido e piovoso; ogni volta che mi sorprendo a fermarmi senza volerlo davanti alle botteghe delle bare e a seguire ogni funerale che incontro; allora capisco che è tempo di prendere il mare al più presto.",
+     "es": "Cada vez que noto que se me tuerce la boca en un gesto amargo; cada vez que en mi alma hay un noviembre húmedo y lluvioso; cada vez que me descubro parándome sin querer ante las tiendas de ataúdes y siguiendo a cada entierro que encuentro; entonces comprendo que ya es hora de hacerme a la mar cuanto antes.",
+     "fr": "Chaque fois que je me sens la bouche amère ; chaque fois que c'est dans mon âme un novembre humide et bruineux ; chaque fois que je me surprends à m'arrêter malgré moi devant les magasins de cercueils et à suivre chaque enterrement que je croise ; alors je juge qu'il est grand temps de prendre la mer au plus vite.",
+     "ru": "Всякий раз, когда я замечаю, что лицо моё становится хмурым; всякий раз, когда в душе у меня сырой, дождливый ноябрь; всякий раз, когда я невольно замедляю шаг у гробовых мастерских и иду следом за каждыми похоронами, что попадаются мне на пути, я понимаю, что пора как можно скорее уйти в море.",
+     "zh": "meidang wo fajue ziji zuijiao biande yinchen meidang wo de linghun li shi yige chaoshi yinyu mianmian de shiyi yue meidang wo faxian ziji buyouzizhu de ting zai guancai pu qian gen zai mei yi zhi yudao de songzang duiwu houmian wo jiu zhidao gai jinkuai chuhai le"
+    }
+   },
+   "dickens2": {
+    "orig": "en",
+    "titoli": {
+     "it": "Racconto di due città, parte 2",
+     "es": "Historia de dos ciudades, parte 2",
+     "fr": "Le Conte de deux cités, partie 2",
+     "ru": "Повесть о двух городах, часть 2",
+     "zh": "双城记（第2部分）"
+    },
+    "testi": {
+     "it": "Avevamo tutto davanti a noi, non avevamo niente davanti a noi, andavamo tutti dritti in Paradiso, andavamo tutti dritti dalla parte opposta; insomma, quel periodo era così simile al presente che alcune delle sue autorità più rumorose insistevano perché fosse accolto, nel bene o nel male, soltanto al grado superlativo.",
+     "es": "Lo teníamos todo ante nosotros, no teníamos nada ante nosotros, íbamos todos directos al Cielo, íbamos todos directos en sentido contrario; en resumen, aquella época se parecía tanto a la actual que algunas de sus autoridades más ruidosas insistían en que se la juzgara, para bien o para mal, solo en grado superlativo.",
+     "fr": "Nous avions tout devant nous, nous n'avions rien devant nous, nous allions tous droit au Ciel, nous allions tous droit dans l'autre direction ; bref, cette période ressemblait tant à la nôtre que certaines de ses autorités les plus bruyantes tenaient à ce qu'on la juge, en bien ou en mal, uniquement au superlatif.",
+     "ru": "Перед нами было всё, перед нами не было ничего, мы все шли прямо в Рай, мы все шли прямо в противоположную сторону; словом, то время так походило на нынешнее, что самые шумные его авторитеты требовали судить о нём, в хорошем или в дурном, только в превосходной степени.",
+     "zh": "women mianqian yingyoujinyou women mianqian yiwusuoyou women dou zai zhiben tiantang women dou zai zhiben xiangfan de fangxiang zongzhi nage shiqi he xianzai ruci xiangxiang yizhiyu ta zui xuannao de yixie quanwei jianchi renwei wulun haohuai dou zhi neng yong zuigaoji lai xingrong ta"
+    }
+   },
+   "austen2": {
+    "orig": "en",
+    "titoli": {
+     "it": "Orgoglio e pregiudizio, parte 2",
+     "es": "Orgullo y prejuicio, parte 2",
+     "fr": "Orgueil et Préjugés, partie 2",
+     "ru": "Гордость и предубеждение, часть 2",
+     "zh": "傲慢与偏见（第2部分）"
+    },
+    "testi": {
+     "it": "«Mio caro signor Bennet», gli disse un giorno la moglie, «hai sentito che Netherfield Park è stato finalmente affittato?» Il signor Bennet rispose di no. «Eppure è così», replicò lei; «la signora Long è appena stata qui e mi ha raccontato tutto.» Il signor Bennet non rispose.",
+     "es": "—Mi querido señor Bennet —le dijo un día su esposa—, ¿has oído que por fin han alquilado Netherfield Park? El señor Bennet respondió que no. —Pues así es —replicó ella—; la señora Long acaba de estar aquí y me lo ha contado todo. El señor Bennet no contestó.",
+     "fr": "« Mon cher monsieur Bennet, lui dit un jour sa femme, avez-vous appris que Netherfield Park est enfin loué ? » M. Bennet répondit que non. « Mais si, reprit-elle ; Mrs Long sort d'ici et elle m'a tout raconté. » M. Bennet ne répondit rien.",
+     "ru": "«Мой дорогой мистер Беннет, — сказала ему однажды жена, — ты слышал, что Незерфилд-парк наконец сдан?» Мистер Беннет ответил, что не слышал. «А вот сдан, — возразила она, — у меня только что была миссис Лонг и всё мне рассказала». Мистер Беннет ничего не ответил.",
+     "zh": "qinai de banneite xiansheng you yi tian ta de taitai dui ta shuo ni tingshuo neiseifeierde zhuangyuan zhongyu zu chuqu le ma banneite xiansheng shuo mei tingshuo ke ta queshi zu chuqu le ta huida lang taitai gang lai guo ba yiqie dou gaosu wo le banneite xiansheng meiyou zuosheng"
+    }
+   },
+   "manzoni2": {
+    "orig": "it",
+    "titoli": {
+     "en": "The Betrothed, part 2",
+     "es": "Los novios, parte 2",
+     "fr": "Les Fiancés, partie 2",
+     "ru": "Обручённые, часть 2",
+     "zh": "约婚夫妇（第2部分）"
+    },
+    "testi": {
+     "en": "The bridge that joins the two banks there seems to make this transformation even more noticeable to the eye, and to mark the point where the lake ends and the Adda begins again, only to take the name of lake once more where the banks, drawing apart again, let the water spread out and slow down in new gulfs and new bays.",
+     "es": "El puente que allí une las dos orillas parece hacer aún más visible esta transformación y señalar el punto en que el lago termina y el Adda vuelve a empezar, para recobrar luego el nombre de lago allí donde las orillas, alejándose de nuevo, dejan que el agua se extienda y se remanse en nuevos golfos y nuevas ensenadas.",
+     "fr": "Le pont qui relie là les deux rives semble rendre cette transformation encore plus sensible à l'œil, et marquer le point où le lac cesse et où l'Adda recommence, pour reprendre ensuite le nom de lac là où les rives, s'éloignant de nouveau, laissent l'eau s'étendre et se ralentir en de nouveaux golfes et de nouvelles anses.",
+     "ru": "Мост, соединяющий там оба берега, словно делает это превращение ещё заметнее для глаза и отмечает место, где озеро кончается и вновь начинается Адда, чтобы затем снова зваться озером там, где берега, опять расходясь, позволяют воде разлиться и замедлиться в новых заливах и бухтах.",
+     "zh": "nali lianjie liang an de qiao sihu rang zhe zhong bianhua gengjia xingmu biaochu le hushui jieshu adahe chongxin kaishi de difang dengdao liang an zaici fenkai heshui zai xin de haiwan he gangwan li zhankai fanghuan ta you chongxin bei chengzuo hu"
+    }
    }
   };
   // cartelle della biblioteca
   const CARTELLE = ["celebri", "poesie", "libri", "teatro", "canzoni", "film", "meme"];
-  const CARTELLA_OPERA = {"eureka": "celebri", "carpe": "celebri", "veni": "celebri", "eppur": "celebri", "cogito": "celebri", "amor": "poesie", "mezzo": "poesie", "dante": "poesie", "infinito": "poesie", "sonetto18": "poesie", "manzoni": "libri", "tobe": "teatro", "macbeth": "teatro", "romeo": "teatro", "amleto": "teatro", "alea": "celebri", "sapere": "celebri", "conosci": "celebri", "sanlorenzo": "poesie", "pinocchio": "libri", "ishmael": "libri", "dickens": "libri", "austen": "libri", "twinkle": "canzoni", "framartino": "canzoni", "jingle": "canzoni", "osole": "canzoni", "auguri": "canzoni", "jazz": "film", "metropolis": "film", "watson": "film", "houston": "film", "hello": "meme", "keepcalm": "meme", "thisisfine": "meme", "tothemoon": "meme", "okboomer": "meme", "muchwow": "meme"};
+  const CARTELLA_OPERA = {"eureka": "celebri", "carpe": "celebri", "veni": "celebri", "eppur": "celebri", "cogito": "celebri", "amor": "poesie", "mezzo": "poesie", "dante": "poesie", "infinito": "poesie", "sonetto18": "poesie", "manzoni": "libri", "tobe": "teatro", "macbeth": "teatro", "romeo": "teatro", "amleto": "teatro", "alea": "celebri", "sapere": "celebri", "conosci": "celebri", "sanlorenzo": "poesie", "pinocchio": "libri", "ishmael": "libri", "dickens": "libri", "austen": "libri", "twinkle": "canzoni", "framartino": "canzoni", "jingle": "canzoni", "osole": "canzoni", "auguri": "canzoni", "jazz": "film", "metropolis": "film", "watson": "film", "houston": "film", "hello": "meme", "keepcalm": "meme", "thisisfine": "meme", "tothemoon": "meme", "okboomer": "meme", "muchwow": "meme", "pianto": "poesie", "pinocchio2": "libri", "ishmael2": "libri", "dickens2": "libri", "austen2": "libri", "manzoni2": "libri"};
   for (const o of OPERE) o.cartella = CARTELLA_OPERA[o.id] || "celebri";
   for (const o of OPERE) {
     const tr = TRADUZIONI_OPERE[o.id];
@@ -3917,14 +4135,6 @@
       return prossima ? t("soglia_ogg", { n: prossima }) : t("soglia_tutte");
     }
   }));
-  POT.push({
-    id: "notte", icona: "🌙", gruppo: "altro", tipo: "livelli", base: 500, rapporto: 4, max: 5,
-    effetto: () => t("eff_notte", { a: Math.round(efficienzaNotte() * 100), b: Math.round(efficienzaNotte(Math.min(5, G.liv.notte + 1)) * 100) })
-  });
-  POT.push({
-    id: "assenza", icona: "🔦", gruppo: "altro", tipo: "livelli", base: 2000, rapporto: 5, max: 6,
-    effetto: () => t("eff_assenza", { a: oreOffline() + t("u_h"), b: oreOffline(Math.min(6, G.liv.assenza + 1)) + t("u_h") })
-  });
 
   // =====================================================================
   //  TRAGUARDI: ognuno dà un premio in banane da riscuotere
@@ -4031,8 +4241,8 @@
     G.banane += banane; G.raccolto += banane; G.raccoltoRun = (G.raccoltoRun || 0) + banane;
     G.lettere += banane / valoreLettera() / Math.pow(1.25, livT("t_contratto"));
   }
-  const efficienzaNotte = (l = G.liv.notte) => 0.5 + 0.1 * l;
-  const oreOffline = (l = G.liv.assenza) => 12 + 6 * l;
+  // a gioco chiuso le scimmie continuano a scrivere e a guadagnare per sempre, come se il gioco fosse aperto
+  const efficienzaNotte = () => 1;
   // nuovo record: 25 banane per ogni lettera del record (es. record di 4 lettere = 100 banane)
   const bonusRecord = (da, a) => { let b = 0; for (let k = da + 1; k <= a; k++) b += 25 * k; return b; };
   // traguardo: una percentuale di tutte le banane raccolte finora dalle scimmie
@@ -4186,6 +4396,7 @@
   function operaCompletata(chi) {
     if (R.fermo) return;
     R.fermo = true;
+    R.notificaFine = false;
     R.vincitrice = chi;
     const primaVolta = G.operaId !== "mio" && !G.opereFatte.includes(G.operaId);
     // la frase più lunga completata finora (prima di questa): serve per il premio dell'editore
@@ -4227,6 +4438,7 @@
   function scriviFinestraFine() {
     if (!R.fermo) return;
     if (R.nuovaPagina) { R.nuovaPagina = false; setTimeout(() => avviso(t("pag_nuova"), "oro"), 600); }
+    if (!R.notificaFine) { R.notificaFine = true; notifica(t("notif_frase_tit"), t("notif_frase", { chi: chiScimmia(R.vincitrice), titolo: operaCorrente().titolo })); }
     const op = operaCorrente();
     $("testoFine").innerHTML =
       t("fine_testo", { chi: chiScimmia(R.vincitrice), n: fmt(R.target.length), titolo: op.titolo }) +
@@ -4305,7 +4517,10 @@
     }
     if (!ultima) return;
     G.banane += totale;
-    if (!R.caricamento) avviso(t("parola_trovata", { chi: chiScimmia(chi), w: ultima.parola, n: fmt(totale) }));
+    if (!R.caricamento) {
+      avviso(t("parola_trovata", { chi: chiScimmia(chi), w: ultima.parola, n: fmt(totale) }));
+      notifica(t("notif_parola_tit"), t("notif_parola", { chi: chiScimmia(chi), w: ultima.parola, n: fmt(totale) }));
+    }
   }
 
   function serieMassimaSuTasti(K) {
@@ -4444,7 +4659,7 @@
   function mostraGruppo(g) {
     R.gruppo = g;
     document.querySelectorAll(".segmenti button[data-gruppo]").forEach(x => x.setAttribute("aria-pressed", x.dataset.gruppo === g));
-    for (const k of ["scimmie", "velocita", "altro", "editore"]) $("lista-" + k).hidden = k !== g;
+    for (const k of ["scimmie", "velocita", "editore"]) $("lista-" + k).hidden = k !== g;
     // nella scheda Editore non servono quantità e suggerimenti del negozio
     const editore = g === "editore";
     document.querySelector("#v-negozio .quantita").hidden = editore;
@@ -4686,10 +4901,10 @@
 
   function disegnaBadge() {
     const pronto = g => POT.some(p => p.gruppo === g && visibile(p) && !(p.max !== undefined && G.liv[p.id] >= p.max) && G.banane >= costoPer(p, 1));
-    const ps = pronto("scimmie"), pv = pronto("velocita"), pa = pronto("altro");
+    const ps = pronto("scimmie"), pv = pronto("velocita"), pa = false;
     $("pScimmie").classList.toggle("vis", ps);
     $("pVelocita").classList.toggle("vis", pv);
-    $("pAltro").classList.toggle("vis", pa);
+
     $("badgeNegozio").classList.toggle("vis", ps || pv || pa);
     const n = daRiscuotere().length;
     $("badgeTrag").textContent = n;
@@ -4903,8 +5118,11 @@
     const box = $("listaOpere");
     box.innerHTML = "";
     if (scelta === "pagine") { disegnaCollezione(box); return; }
-    // dalla più corta alla più lunga, nella lingua del giocatore
-    for (const o of operePerLunghezza()) {
+    // dalla più corta alla più lunga, nella lingua del giocatore (i libri invece in ordine di titolo, così le parti stanno vicine)
+    const elenco = scelta === "libri"
+      ? OPERE.slice().sort((x, y) => operaCorrente(x.id).titolo.localeCompare(operaCorrente(y.id).titolo, loc()))
+      : operePerLunghezza();
+    for (const o of elenco) {
       if (scelta !== "tutte" && o.cartella !== scelta) continue;
       const loc = operaCorrente(o.id);
       const lung = normalizza(loc.testo).length;
@@ -4915,17 +5133,34 @@
       const b = document.createElement("button");
       b.className = "opera-riga" + (corrente ? " corrente" : "");
       b.innerHTML = `<b>${loc.titolo}</b><span class="stato ${fatta ? "fatta" : ""}">${fatta ? t("bib_fatta") : rec ? `⭐ ${rec}/${lung}` : ""}${corrente && !R.fermo ? "<br>" + t("bib_corso") : ""}</span><small>${autoreOpera(o)}, ${caratteri(lung)}</small>`;
-      b.onclick = () => {
-        if (corrente && !R.fermo) { chiudiBiblioteca(); return; }
-        iniziaOpera(o.id);
-        mostraVista("opera");
-      };
+      b.onclick = () => apriAnteprima(o);
       box.appendChild(b);
     }
   }
   // le opere dalla più corta alla più lunga, contando i caratteri nella lingua e difficoltà attuali
   function operePerLunghezza() {
     return OPERE.map(o => ({ o, l: normalizza(operaCorrente(o.id).testo).length })).sort((a, b) => a.l - b.l).map(x => x.o);
+  }
+  // anteprima: si legge la frase intera prima di farla scrivere alle scimmie
+  function apriAnteprima(o) {
+    const loc = operaCorrente(o.id);
+    const lung = normalizza(loc.testo).length;
+    const corrente = o.id === G.operaId && !R.fermo;
+    const arc = G.archivio[chiaveOpera(o.id, L)];
+    const rec = o.id === G.operaId ? G.record : (arc ? arc.record : 0);
+    $("titAnteprima").textContent = loc.titolo;
+    $("antInfo").textContent = autoreOpera(o) + " · " + t("cart_" + o.cartella) + " · " + caratteri(lung);
+    $("antTesto").textContent = loc.testo;
+    $("antStato").textContent = G.opereFatte.includes(o.id) ? t("ant_fatta") :
+      rec ? t("ant_record", { r: rec, l: lung }) : t("ant_nuova");
+    $("bAntScegli").textContent = corrente ? t("ant_continua") : t("ant_scegli");
+    $("bAntScegli").onclick = () => {
+      chiudi("veloAnteprima");
+      if (corrente) { chiudiBiblioteca(); return; }
+      iniziaOpera(o.id);
+      mostraVista("opera");
+    };
+    apri("veloAnteprima");
   }
   function chiudiBiblioteca() {
     chiudi("veloBiblioteca");
@@ -5028,22 +5263,25 @@
 
   // calcola cosa è successo mentre il gioco era chiuso; il riepilogo appare dopo "Gioca"
   function progressiOffline() {
-    const assente = Math.min(oreOffline() * 3600, (Date.now() - (G.ts || Date.now())) / 1000);
+    const assente = Math.max(0, (Date.now() - (G.ts || Date.now())) / 1000);
     if (assente < 60 || R.fermo) return;
     const g = crescitaAlSecondo();
     const tps = tastiAlSecondo();
     const N0 = numScimmie();
-    const tasti = tps * (g > 0 ? Math.expm1(g * assente) / g : assente);
+    const crescita = Math.min(g * assente, 400);   // dopo assenze lunghissime i numeri restano finiti
+    const tasti = Math.min(1e300, tps * (g > 0 ? Math.expm1(crescita) / g : assente));
     const banane = bananeAlSecondo(tasti) * efficienzaNotte() * Math.pow(1.25, livT("t_notte"));
-    if (g > 0) G.cuccioli *= Math.exp(g * assente);
+    const paroleAllaPartenza = G.parole || 0;
+    if (g > 0) G.cuccioli = Math.min(1e200, G.cuccioli * Math.exp(crescita));
     G.tasti += tasti;
     raccogli(banane);
-    const ritorno = { assente, banane, tasti, nuove: g > 0 ? numScimmie() - N0 : 0, record: 0 };
+    const ritorno = { assente, banane, tasti, nuove: g > 0 ? numScimmie() - N0 : 0, record: 0, parole: 0 };
     const migliore = serieMassimaSuTasti(tasti);
     if (migliore > G.record) {
       ritorno.record = Math.min(migliore, R.target.length);
       nuovoRecord(migliore, idCasuale(numScimmie()), Date.now() - Math.random() * assente * 1000);
     }
+    ritorno.parole = (G.parole || 0) - paroleAllaPartenza;
     if (!R.fermo) R.ritorno = ritorno;
   }
   function scriviRitorno() {
@@ -5051,6 +5289,7 @@
     if (!r) return;
     const righe = [t("rit_banane", { n: fmt(r.banane) }), t("rit_tasti", { n: fmt(r.tasti) })];
     if (r.nuove >= 1) righe.push(t("rit_nuove", { n: fmt(r.nuove) }));
+    if (r.parole >= 1) righe.push(t("rit_parole", { n: fmt(r.parole) }));
     righe.push(r.record ? t("rit_record", { car: caratteri(r.record) }) : t("rit_norecord", { r: G.record, l: R.target.length }));
     $("testoRitorno").textContent = t("rit_testo", { t: fmtTempo(r.assente) });
     $("righeRitorno").innerHTML = righe.map(x => `<span>${x}</span>`).join("");
@@ -5524,6 +5763,29 @@
         dopo(tempo + 900, chiudiApertura);
       }
     });
+  }
+
+  // ---------- notifiche: quando una scimmia completa una parola o una frase ----------
+  async function cambiaNotifiche() {
+    if (!("Notification" in window)) return;
+    if (G.imp.notifiche) { G.imp.notifiche = false; salva(); scriviImpostazioni(); return; }
+    let permesso = Notification.permission;
+    if (permesso === "default") { try { permesso = await Notification.requestPermission(); } catch (e) {} }
+    G.imp.notifiche = permesso === "granted";
+    salva();
+    scriviImpostazioni();
+    if (G.imp.notifiche) notifica(t("notif_prova_tit"), t("notif_prova"), true);
+  }
+  // la notifica arriva solo se il gioco non è in primo piano (altrimenti basta l'avviso nel gioco)
+  async function notifica(titolo, corpo, sempre = false) {
+    try {
+      if (!G.imp.notifiche || !("Notification" in window) || Notification.permission !== "granted") return;
+      if (!sempre && !document.hidden) return;
+      const opzioni = { body: corpo, tag: "scimmie-" + Date.now(), icon: document.querySelector('link[rel="apple-touch-icon"]')?.href };
+      const reg = navigator.serviceWorker && await navigator.serviceWorker.getRegistration();
+      if (reg) await reg.showNotification(titolo, opzioni);
+      else new Notification(titolo, opzioni);
+    } catch (e) {}
   }
 
   // ---------- collezione di pagine autografe ----------
@@ -6003,6 +6265,14 @@
     $("valEffetti").textContent = G.imp.effetti ? G.imp.effetti + "%" : t("spento");
     $("impLinguaNome").textContent = LINGUE[L].bandiera + " " + LINGUE[L].nome;
     $("impNomeGiocatore").textContent = (G.nick || "").trim() || "—";
+    // notifiche: solo sul sito (dentro Claude il browser non le permette)
+    const notificheOk = suSitoWeb() && "Notification" in window;
+    $("rigaNotifiche").hidden = !notificheOk;
+    if (notificheOk) {
+      const attive = !!G.imp.notifiche && Notification.permission === "granted";
+      $("bNotifiche").setAttribute("aria-pressed", attive);
+      $("notificheSotto").textContent = Notification.permission === "denied" ? t("notif_negate") : t("imp_notifiche_sotto");
+    }
 
     const tm = TEMI.find(x => x.id === G.imp.tema) || TEMI[0];
     $("impTemaNome").textContent = nomeTema(tm);
@@ -6135,6 +6405,9 @@
     $("bCondividiFine").onclick = condividiRecord;
     $("bCondividiPagina").onclick = condividiPagina;
     $("bChiudiPagina").onclick = () => chiudi("veloPagina");
+    $("bAntChiudi").onclick = () => chiudi("veloAnteprima");
+    $("veloAnteprima").onclick = e => { if (e.target.id === "veloAnteprima") chiudi("veloAnteprima"); };
+    $("bNotifiche").onclick = cambiaNotifiche;
     $("veloPagina").onclick = e => { if (e.target.id === "veloPagina") chiudi("veloPagina"); };
     $("cesto").onclick = raccogliCesto;
     $("bPubblica").onclick = pubblica;
