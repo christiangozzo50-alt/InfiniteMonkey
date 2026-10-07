@@ -80,6 +80,15 @@
   .cassa .tot { font-family: var(--ui); font-size: 30px; font-weight: 800; line-height: 1; color: var(--banana); }
   .cassa .rit { font-size: 13px; color: var(--spento); margin-top: 3px; }
   .riga-tot { display: flex; align-items: center; gap: 8px; }
+  .cartelle { display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 8px; margin: 0 0 4px; scrollbar-width: none; }
+  .cartelle::-webkit-scrollbar { display: none; }
+  .cartella {
+    flex: none; border: 1px solid var(--linea); background: var(--foglia-2); color: var(--testo);
+    border-radius: 999px; padding: 7px 12px; font-size: 13.5px; font-weight: 700; white-space: nowrap;
+  }
+  .cartella[aria-pressed="true"] { background: var(--banana); color: var(--banana-inchiostro); border-color: transparent; }
+  .nota-cartella { color: var(--spento); font-size: 12.5px; margin: 0 0 8px; }
+  .nota-cartella:empty { display: none; }
   .campo-nome {
     width: 100%; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--linea); background: var(--notte);
     color: var(--testo); font: inherit; font-size: 17px; padding: 12px 14px; margin: 4px 0 6px;
@@ -815,6 +824,8 @@
     <div class="maniglia"></div>
     <h2 id="titBiblio" data-t="biblioteca"></h2>
     <p class="sotto" data-t="bib_sotto"></p>
+    <div class="cartelle" id="cartelle"></div>
+    <p class="nota-cartella" id="notaCartella"></p>
     <div id="listaOpere"></div>
     <label for="testoMio" data-t="bib_label"></label>
     <textarea id="testoMio" data-t-ph="bib_ph"></textarea>
@@ -861,7 +872,7 @@
       <button class="pulsante secondario" id="bChiudiImpostazioni" data-t="chiudi"></button>
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
-    <p class="versione-gioco">Scimmie infinite · versione 18</p>
+    <p class="versione-gioco">Scimmie infinite · versione 19</p>
   </div>
 </div>
 
@@ -1118,7 +1129,7 @@
       tut_a10: "🏆 In Traguardi trovi degli obiettivi: quando ne completi uno, tocca Riscuoti per ricevere banane extra.",
       tut_a11: "📓 Nel Diario trovi le statistiche, la classifica dei giocatori e la cronaca della frase in corso.",
       tut_a12: "📚 Quando una scimmia completa la frase, un editore te la compra e passi alla prossima. Qui puoi anche cambiare frase quando vuoi.",
-      tut_a13: "✅ Riassunto: le scimmie scrivono da sole, le lettere giuste diventano banane, e con le banane compri più scimmie e più velocità. Più sono, prima scrivono la frase. Buon divertimento!",
+      tut_a13: "✅ Riassunto: le scimmie scrivono da sole, le lettere giuste diventano banane, e con le banane compri più scimmie e più velocità. Completa le frasi, sali in classifica e pubblica per diventare sempre più forte. Buon divertimento!",
       sez_migl: "🛠️ Miglioramenti",
       sez_migl_sotto: "Ogni livello moltiplica la velocità di tutte le scimmie",
       sez_ogg: "⌨️ Oggetti per scrivere",
@@ -1253,7 +1264,25 @@
       eff_a_frasi: "Passa da solo alla frase successiva quando una è completata",
       desc_pb: "Pubblicazioni: {n}",
       desc_tl: "Livelli di talento: {n}",
-      cat_editore: "📚 Editore"
+      cat_editore: "📚 Editore",
+      cart_tutte: "Tutte",
+      cart_celebri: "🏛️ Frasi celebri",
+      cart_poesie: "🖋️ Poesie",
+      cart_libri: "📚 Libri",
+      cart_teatro: "🎭 Teatro",
+      cart_canzoni: "🎵 Canzoni",
+      cart_film: "🎬 Film",
+      cart_meme: "😂 Meme",
+      cart_nota_pd: "Solo canzoni e film liberi da diritti d'autore (per esempio molto vecchi o tradizionali).",
+      tut_b3: "⭐ Qui sotto c'è l'Opera in corso: il record (quante lettere giuste di fila ha scritto la scimmia migliore) e quanto manca, più o meno, al prossimo record e alla fine della frase.",
+      tut_b4: "🍌 Ogni lettera giusta vale una banana, e le banane arrivano da sole, anche a gioco chiuso. Tocca la ⓘ accanto al numero per vedere tutti i modi di guadagnarle. Per iniziare te ne regaliamo 150!",
+      tut_b6: "👉 Più scimmie = più tentativi = più banane. Tocca per assumere la tua prima scimmia. Più avanti potrai tenere premuto per comprarne tante di fila.",
+      tut_b8: "👉 I Miglioramenti moltiplicano la velocità di tutte le scimmie, gli Oggetti aggiungono tasti al secondo. Tocca per comprare il tuo primo potenziamento di velocità.",
+      tut_b9: "📚 Più avanti, in Editore potrai pubblicare: l'ufficio riparte da zero, ma guadagni Pagine d'oro per talenti permanenti e automazioni. La fortuna non cambia mai: ogni tasto resta casuale.",
+      tut_b12: "🏆 In Traguardi trovi tanti obiettivi divisi per categoria: quando ne completi uno, tocca Riscuoti per ricevere banane extra.",
+      tut_b13: "📓 Nel Diario ci sono le tue statistiche e tre classifiche, una per ogni difficoltà: vince chi completa la frase più lunga.",
+      tut_b14: "📚 Qui scegli la frase da scrivere, divisa in cartelle: frasi celebri, poesie, libri, teatro, canzoni, film e meme. Puoi anche scrivere un testo tuo.",
+      tut_b15: "⚙️ Nelle Impostazioni cambi nome, tema, lingua e musica, e puoi esportare la partita per giocarla su un altro telefono."
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -1354,7 +1383,7 @@
       tut_a10: "🏆 In Goals you'll find objectives: when you complete one, tap Claim to get extra bananas.",
       tut_a11: "📓 In the Journal you'll find your statistics, the players' leaderboard and the chronicle of the current phrase.",
       tut_a12: "📚 When a monkey completes the phrase, a publisher buys it and you move on to the next. You can also change phrase here whenever you like.",
-      tut_a13: "✅ Summary: the monkeys type on their own, correct letters become bananas, and bananas buy more monkeys and more speed. The more you have, the sooner they type the phrase. Have fun!",
+      tut_a13: "✅ Summary: the monkeys type on their own, correct letters become bananas, and bananas buy more monkeys and more speed. Complete phrases, climb the leaderboard and publish to grow stronger and stronger. Have fun!",
       sez_migl: "🛠️ Improvements",
       sez_migl_sotto: "Each level multiplies every monkey's speed",
       sez_ogg: "⌨️ Typing gear",
@@ -1489,7 +1518,25 @@
       eff_a_frasi: "Moves on to the next phrase by itself when one is completed",
       desc_pb: "Publications: {n}",
       desc_tl: "Talent levels: {n}",
-      cat_editore: "📚 Publisher"
+      cat_editore: "📚 Publisher",
+      cart_tutte: "All",
+      cart_celebri: "🏛️ Famous quotes",
+      cart_poesie: "🖋️ Poems",
+      cart_libri: "📚 Books",
+      cart_teatro: "🎭 Theatre",
+      cart_canzoni: "🎵 Songs",
+      cart_film: "🎬 Films",
+      cart_meme: "😂 Memes",
+      cart_nota_pd: "Only songs and films free of copyright (for example very old or traditional ones).",
+      tut_b3: "⭐ Down here is the Work in progress: the record (how many correct letters in a row the best monkey has typed) and roughly how long until the next record and the end of the phrase.",
+      tut_b4: "🍌 Every correct letter is worth one banana, and bananas come in by themselves, even while the game is closed. Tap the ⓘ next to the number to see every way to earn them. Here are 150 to get you started!",
+      tut_b6: "👉 More monkeys = more attempts = more bananas. Tap to hire your first monkey. Later you can press and hold to buy many in a row.",
+      tut_b8: "👉 Improvements multiply every monkey's speed, Items add keys per second. Tap to buy your first speed upgrade.",
+      tut_b9: "📚 Later, in Publisher you can publish: the office starts over, but you earn Golden Pages for permanent talents and automation. Luck never changes: every key stays random.",
+      tut_b12: "🏆 In Goals you'll find lots of objectives by category: when you complete one, tap Claim to get extra bananas.",
+      tut_b13: "📓 The Journal has your statistics and three leaderboards, one per difficulty: whoever completes the longest phrase wins.",
+      tut_b14: "📚 Here you choose the phrase to type, sorted into folders: famous quotes, poems, books, theatre, songs, films and memes. You can also write your own text.",
+      tut_b15: "⚙️ In Settings you change your name, theme, language and music, and you can export your game to play it on another phone."
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -1590,7 +1637,7 @@
       tut_a10: "🏆 En Logros encontrarás objetivos: cuando completes uno, toca Cobrar para recibir plátanos extra.",
       tut_a11: "📓 En el Diario encontrarás las estadísticas, la clasificación de jugadores y la crónica de la frase en curso.",
       tut_a12: "📚 Cuando un mono completa la frase, un editor te la compra y pasas a la siguiente. Aquí también puedes cambiar de frase cuando quieras.",
-      tut_a13: "✅ Resumen: los monos escriben solos, las letras correctas se convierten en plátanos y con los plátanos compras más monos y más velocidad. Cuantos más tengas, antes escribirán la frase. ¡Diviértete!",
+      tut_a13: "✅ Resumen: los monos escriben solos, las letras correctas se convierten en plátanos y con los plátanos compras más monos y más velocidad. Completa frases, sube en la clasificación y publica para hacerte cada vez más fuerte. ¡Diviértete!",
       sez_migl: "🛠️ Perfeccionamiento",
       sez_migl_sotto: "Cada nivel multiplica la velocidad de todos los monos",
       sez_ogg: "⌨️ Objetos para escribir",
@@ -1725,7 +1772,25 @@
       eff_a_frasi: "Pasa solo a la siguiente frase cuando se completa una",
       desc_pb: "Publicaciones: {n}",
       desc_tl: "Niveles de talento: {n}",
-      cat_editore: "📚 Editorial"
+      cat_editore: "📚 Editorial",
+      cart_tutte: "Todas",
+      cart_celebri: "🏛️ Frases célebres",
+      cart_poesie: "🖋️ Poemas",
+      cart_libri: "📚 Libros",
+      cart_teatro: "🎭 Teatro",
+      cart_canzoni: "🎵 Canciones",
+      cart_film: "🎬 Películas",
+      cart_meme: "😂 Memes",
+      cart_nota_pd: "Solo canciones y películas libres de derechos de autor (por ejemplo muy antiguas o tradicionales).",
+      tut_b3: "⭐ Aquí abajo está la Obra en curso: el récord (cuántas letras correctas seguidas ha escrito el mejor mono) y cuánto falta, más o menos, para el próximo récord y el final de la frase.",
+      tut_b4: "🍌 Cada letra correcta vale un plátano, y los plátanos llegan solos, incluso con el juego cerrado. Toca la ⓘ junto al número para ver todas las formas de ganarlos. ¡Para empezar te regalamos 150!",
+      tut_b6: "👉 Más monos = más intentos = más plátanos. Toca para contratar tu primer mono. Más adelante podrás mantener pulsado para comprar muchos seguidos.",
+      tut_b8: "👉 Los Perfeccionamientos multiplican la velocidad de todos los monos, los Objetos añaden teclas por segundo. Toca para comprar tu primera mejora de velocidad.",
+      tut_b9: "📚 Más adelante, en Editorial podrás publicar: la oficina empieza de cero, pero ganas Páginas de oro para talentos permanentes y automatizaciones. La suerte nunca cambia: cada tecla sigue siendo aleatoria.",
+      tut_b12: "🏆 En Logros hay muchos objetivos por categoría: cuando completes uno, toca Cobrar para recibir plátanos extra.",
+      tut_b13: "📓 En el Diario están tus estadísticas y tres clasificaciones, una por dificultad: gana quien completa la frase más larga.",
+      tut_b14: "📚 Aquí eliges la frase que escribir, ordenada en carpetas: frases célebres, poemas, libros, teatro, canciones, películas y memes. También puedes escribir un texto tuyo.",
+      tut_b15: "⚙️ En Ajustes cambias nombre, tema, idioma y música, y puedes exportar la partida para jugarla en otro teléfono."
     },
 
     // ------------------------------------------------------------- 中文
@@ -1826,7 +1891,7 @@
       tut_a10: "🏆 在“成就”里有各种目标：完成一个后，点“领取”获得额外香蕉。",
       tut_a11: "📓 在“日志”里可以看到统计数据、玩家排行榜和当前句子的大事记。",
       tut_a12: "📚 当一只猴子打完整句话，出版商会买下它，你就进入下一句。在这里也可以随时更换句子。",
-      tut_a13: "✅ 总结：猴子们自己打字，打对的字母变成香蕉，用香蕉买更多猴子和更快的速度。猴子越多，越快打出整句话。玩得开心！",
+      tut_a13: "✅ 总结：猴子们自己打字，打对的字母变成香蕉，用香蕉买更多猴子和更快的速度。完成句子、冲上排行榜、出版，让自己越来越强。玩得开心！",
       sez_migl: "🛠️ 改进",
       sez_migl_sotto: "每一级都会成倍提高所有猴子的速度",
       sez_ogg: "⌨️ 打字装备",
@@ -1961,7 +2026,25 @@
       eff_a_frasi: "完成一句后自动进入下一句",
       desc_pb: "出版次数：{n}",
       desc_tl: "天赋等级：{n}",
-      cat_editore: "📚 出版社"
+      cat_editore: "📚 出版社",
+      cart_tutte: "全部",
+      cart_celebri: "🏛️ 名言",
+      cart_poesie: "🖋️ 诗歌",
+      cart_libri: "📚 书籍",
+      cart_teatro: "🎭 戏剧",
+      cart_canzoni: "🎵 歌曲",
+      cart_film: "🎬 电影",
+      cart_meme: "😂 网络梗",
+      cart_nota_pd: "只收录没有版权限制的歌曲和电影（例如非常古老的或传统的）。",
+      tut_b3: "⭐ 下面是“进行中的作品”：纪录（最厉害的猴子连续打对了几个字母），以及大约还要多久才会出现下一个纪录和完成整句话。",
+      tut_b4: "🍌 每打对一个字母值一根香蕉，香蕉会自动到来，即使游戏关闭也一样。点数字旁边的 ⓘ 可以查看所有赚香蕉的方法。作为开始，送你 150 根！",
+      tut_b6: "👉 猴子越多 = 尝试越多 = 香蕉越多。点这里雇用你的第一只猴子。之后可以长按连续购买很多只。",
+      tut_b8: "👉 “改进”会成倍提高所有猴子的速度，“装备”会增加每秒按键数。点这里购买你的第一个速度升级。",
+      tut_b9: "📚 之后可以在“出版社”里出版：办公室从零开始，但你会得到金页，用来购买永久天赋和自动化。运气永远不会改变：每次按键始终随机。",
+      tut_b12: "🏆 “成就”里有很多按类别划分的目标：完成一个后，点“领取”获得额外香蕉。",
+      tut_b13: "📓 “日志”里有你的统计数据和三个排行榜，每个难度一个：完成最长句子的人获胜。",
+      tut_b14: "📚 在这里选择要打的句子，按文件夹分类：名言、诗歌、书籍、戏剧、歌曲、电影和网络梗。你也可以写自己的文字。",
+      tut_b15: "⚙️ 在“设置”里可以修改名字、主题、语言和音乐，还可以导出存档，在另一部手机上继续玩。"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -2062,7 +2145,7 @@
       tut_a10: "🏆 Dans Succès, tu trouveras des objectifs : quand tu en termines un, touche Récupérer pour recevoir des bananes en plus.",
       tut_a11: "📓 Dans le Journal, tu trouveras les statistiques, le classement des joueurs et la chronique de la phrase en cours.",
       tut_a12: "📚 Quand un singe termine la phrase, un éditeur te l'achète et tu passes à la suivante. Ici, tu peux aussi changer de phrase quand tu veux.",
-      tut_a13: "✅ En résumé : les singes écrivent tout seuls, les lettres justes deviennent des bananes, et avec les bananes tu achètes plus de singes et plus de vitesse. Plus ils sont nombreux, plus vite ils écrivent la phrase. Amuse-toi bien !",
+      tut_a13: "✅ En résumé : les singes écrivent tout seuls, les lettres justes deviennent des bananes, et avec les bananes tu achètes plus de singes et plus de vitesse. Termine des phrases, grimpe au classement et publie pour devenir toujours plus fort. Amuse-toi bien !",
       sez_migl: "🛠️ Perfectionnements",
       sez_migl_sotto: "Chaque niveau multiplie la vitesse de tous les singes",
       sez_ogg: "⌨️ Objets pour écrire",
@@ -2197,7 +2280,25 @@
       eff_a_frasi: "Passe tout seul à la phrase suivante quand une est terminée",
       desc_pb: "Publications : {n}",
       desc_tl: "Niveaux de talent : {n}",
-      cat_editore: "📚 Éditeur"
+      cat_editore: "📚 Éditeur",
+      cart_tutte: "Toutes",
+      cart_celebri: "🏛️ Citations célèbres",
+      cart_poesie: "🖋️ Poèmes",
+      cart_libri: "📚 Livres",
+      cart_teatro: "🎭 Théâtre",
+      cart_canzoni: "🎵 Chansons",
+      cart_film: "🎬 Films",
+      cart_meme: "😂 Mèmes",
+      cart_nota_pd: "Uniquement des chansons et des films libres de droits (par exemple très anciens ou traditionnels).",
+      tut_b3: "⭐ Ici en bas, l'Œuvre en cours : le record (combien de lettres justes d'affilée le meilleur singe a écrites) et, à peu près, combien de temps avant le prochain record et la fin de la phrase.",
+      tut_b4: "🍌 Chaque lettre juste vaut une banane, et les bananes arrivent toutes seules, même quand le jeu est fermé. Touche le ⓘ à côté du nombre pour voir toutes les façons d'en gagner. Pour commencer, on t'en offre 150 !",
+      tut_b6: "👉 Plus de singes = plus d'essais = plus de bananes. Touche pour engager ton premier singe. Plus tard, tu pourras maintenir le doigt pour en acheter plusieurs d'affilée.",
+      tut_b8: "👉 Les Perfectionnements multiplient la vitesse de tous les singes, les Objets ajoutent des touches par seconde. Touche pour acheter ta première amélioration de vitesse.",
+      tut_b9: "📚 Plus tard, dans Éditeur, tu pourras publier : le bureau repart de zéro, mais tu gagnes des Pages d'or pour des talents permanents et des automatisations. La chance ne change jamais : chaque touche reste aléatoire.",
+      tut_b12: "🏆 Dans Succès, il y a plein d'objectifs par catégorie : quand tu en termines un, touche Récupérer pour recevoir des bananes en plus.",
+      tut_b13: "📓 Le Journal contient tes statistiques et trois classements, un par difficulté : celui qui termine la phrase la plus longue gagne.",
+      tut_b14: "📚 Ici tu choisis la phrase à écrire, rangée dans des dossiers : citations célèbres, poèmes, livres, théâtre, chansons, films et mèmes. Tu peux aussi écrire ton propre texte.",
+      tut_b15: "⚙️ Dans les Réglages, tu changes ton nom, le thème, la langue et la musique, et tu peux exporter ta partie pour y jouer sur un autre téléphone."
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -2299,7 +2400,7 @@
       tut_a10: "🏆 В «Наградах» есть цели: когда выполнишь одну, нажми «Забрать», чтобы получить дополнительные бананы.",
       tut_a11: "📓 В «Дневнике» — статистика, рейтинг игроков и хроника текущей фразы.",
       tut_a12: "📚 Когда обезьяна допечатает фразу, издатель покупает её, и ты переходишь к следующей. Здесь можно и сменить фразу когда угодно.",
-      tut_a13: "✅ Итого: обезьяны печатают сами, верные буквы превращаются в бананы, а на бананы ты покупаешь больше обезьян и скорости. Чем их больше, тем быстрее они напечатают фразу. Удачи!",
+      tut_a13: "✅ Итого: обезьяны печатают сами, верные буквы превращаются в бананы, а на бананы ты покупаешь больше обезьян и скорости. Завершай фразы, поднимайся в рейтинге и публикуйся, чтобы становиться всё сильнее. Удачи!",
       sez_migl: "🛠️ Улучшения",
       sez_migl_sotto: "Каждый уровень умножает скорость всех обезьян",
       sez_ogg: "⌨️ Предметы для печати",
@@ -2434,7 +2535,25 @@
       eff_a_frasi: "Сам переходит к следующей фразе, когда одна завершена",
       desc_pb: "Публикаций: {n}",
       desc_tl: "Уровней талантов: {n}",
-      cat_editore: "📚 Издатель"
+      cat_editore: "📚 Издатель",
+      cart_tutte: "Все",
+      cart_celebri: "🏛️ Знаменитые фразы",
+      cart_poesie: "🖋️ Стихи",
+      cart_libri: "📚 Книги",
+      cart_teatro: "🎭 Театр",
+      cart_canzoni: "🎵 Песни",
+      cart_film: "🎬 Фильмы",
+      cart_meme: "😂 Мемы",
+      cart_nota_pd: "Только песни и фильмы, свободные от авторских прав (например, очень старые или народные).",
+      tut_b3: "⭐ Ниже — «Текущее произведение»: рекорд (сколько верных букв подряд напечатала лучшая обезьяна) и примерно сколько осталось до следующего рекорда и до конца фразы.",
+      tut_b4: "🍌 Каждая верная буква стоит один банан, и бананы приходят сами, даже когда игра закрыта. Нажми ⓘ рядом с числом, чтобы увидеть все способы их заработать. Для начала дарим тебе 150!",
+      tut_b6: "👉 Больше обезьян — больше попыток — больше бананов. Нажми, чтобы нанять первую обезьяну. Позже можно удерживать кнопку, чтобы покупать много подряд.",
+      tut_b8: "👉 Улучшения умножают скорость всех обезьян, Предметы добавляют нажатия в секунду. Нажми, чтобы купить первое улучшение скорости.",
+      tut_b9: "📚 Позже в разделе «Издатель» можно будет опубликоваться: офис начнётся с нуля, но ты получишь Золотые страницы для постоянных талантов и автоматизации. Удача не меняется никогда: каждое нажатие остаётся случайным.",
+      tut_b12: "🏆 В «Наградах» много целей по категориям: выполнив одну, нажми «Забрать», чтобы получить дополнительные бананы.",
+      tut_b13: "📓 В «Дневнике» — твоя статистика и три рейтинга, по одному на сложность: побеждает тот, кто завершит самую длинную фразу.",
+      tut_b14: "📚 Здесь выбирается фраза, разложенная по папкам: знаменитые фразы, стихи, книги, театр, песни, фильмы и мемы. Можно написать и свой текст.",
+      tut_b15: "⚙️ В «Настройках» меняются имя, тема, язык и музыка, а ещё можно экспортировать игру, чтобы играть на другом телефоне."
     }
   };
 
@@ -2517,6 +2636,24 @@
   };
   // Autori e opere
   const AUTORI = {
+    oracolo: {"it": "Oracolo di Delfi", "en": "Oracle of Delphi", "es": "Oráculo de Delfos", "zh": "德尔斐神谕", "fr": "Oracle de Delphes", "ru": "Дельфийский оракул"},
+    pascoli: {"it": "Giovanni Pascoli", "en": "Giovanni Pascoli", "es": "Giovanni Pascoli", "zh": "帕斯科利", "fr": "Giovanni Pascoli", "ru": "Джованни Пасколи"},
+    collodi: {"it": "Carlo Collodi", "en": "Carlo Collodi", "es": "Carlo Collodi", "zh": "科洛迪", "fr": "Carlo Collodi", "ru": "Карло Коллоди"},
+    melville: {"it": "Herman Melville", "en": "Herman Melville", "es": "Herman Melville", "zh": "梅尔维尔", "fr": "Herman Melville", "ru": "Герман Мелвилл"},
+    dickens: {"it": "Charles Dickens", "en": "Charles Dickens", "es": "Charles Dickens", "zh": "狄更斯", "fr": "Charles Dickens", "ru": "Чарльз Диккенс"},
+    austen: {"it": "Jane Austen", "en": "Jane Austen", "es": "Jane Austen", "zh": "简·奥斯汀", "fr": "Jane Austen", "ru": "Джейн Остин"},
+    jtaylor: {"it": "Jane Taylor", "en": "Jane Taylor", "es": "Jane Taylor", "zh": "简·泰勒", "fr": "Jane Taylor", "ru": "Джейн Тейлор"},
+    tradizionale: {"it": "Canzone tradizionale", "en": "Traditional song", "es": "Canción tradicional", "zh": "传统儿歌", "fr": "Chanson traditionnelle", "ru": "Народная песня"},
+    pierpont: {"it": "James Lord Pierpont", "en": "James Lord Pierpont", "es": "James Lord Pierpont", "zh": "皮尔彭特", "fr": "James Lord Pierpont", "ru": "Джеймс Лорд Пьерпонт"},
+    capurro: {"it": "Giovanni Capurro", "en": "Giovanni Capurro", "es": "Giovanni Capurro", "zh": "卡普罗", "fr": "Giovanni Capurro", "ru": "Джованни Капурро"},
+    hill: {"it": "Mildred e Patty Hill", "en": "Mildred and Patty Hill", "es": "Mildred y Patty Hill", "zh": "希尔姐妹", "fr": "Mildred et Patty Hill", "ru": "Милдред и Патти Хилл"},
+    jolson: {"it": "Al Jolson", "en": "Al Jolson", "es": "Al Jolson", "zh": "艾尔·乔森", "fr": "Al Jolson", "ru": "Эл Джолсон"},
+    lang: {"it": "Fritz Lang e Thea von Harbou", "en": "Fritz Lang and Thea von Harbou", "es": "Fritz Lang y Thea von Harbou", "zh": "弗里茨·朗与西娅·冯·哈布", "fr": "Fritz Lang et Thea von Harbou", "ru": "Фриц Ланг и Теа фон Харбоу"},
+    sherlock: {"it": "Sherlock Holmes", "en": "Sherlock Holmes", "es": "Sherlock Holmes", "zh": "福尔摩斯", "fr": "Sherlock Holmes", "ru": "Шерлок Холмс"},
+    apollo13: {"it": "Apollo 13 (1970)", "en": "Apollo 13 (1970)", "es": "Apolo 13 (1970)", "zh": "阿波罗13号（1970）", "fr": "Apollo 13 (1970)", "ru": "«Аполлон-13» (1970)"},
+    programmatori: {"it": "I programmatori", "en": "Programmers", "es": "Los programadores", "zh": "程序员", "fr": "Les programmeurs", "ru": "Программисты"},
+    manifesto1939: {"it": "Manifesto britannico (1939)", "en": "British poster (1939)", "es": "Cartel británico (1939)", "zh": "英国海报（1939）", "fr": "Affiche britannique (1939)", "ru": "Британский плакат (1939)"},
+    internet: {"it": "Internet", "en": "The internet", "es": "Internet", "zh": "互联网", "fr": "Internet", "ru": "Интернет"},
     archimede:   { it: "Archimede", en: "Archimedes", es: "Arquímedes", zh: "阿基米德", fr: "Archimède", ru: "Архимед" },
     orazio:      { it: "Orazio", en: "Horace", es: "Horacio", zh: "贺拉斯", fr: "Horace", ru: "Гораций" },
     cesare:      { it: "Giulio Cesare", en: "Julius Caesar", es: "Julio César", zh: "尤利乌斯·恺撒", fr: "Jules César", ru: "Юлий Цезарь" },
@@ -2528,6 +2665,14 @@
     leopardi:    { it: "Giacomo Leopardi", en: "Giacomo Leopardi", es: "Giacomo Leopardi", zh: "莱奥帕尔迪", fr: "Giacomo Leopardi", ru: "Джакомо Леопарди" }
   };
   const NOMI_OPERE = {
+    xagosto: {"it": "X Agosto", "en": "August 10th", "es": "X de agosto", "zh": "《八月十日》", "fr": "X Août", "ru": "«10 августа»"},
+    pinocchio: {"it": "Le avventure di Pinocchio", "en": "The Adventures of Pinocchio", "es": "Las aventuras de Pinocho", "zh": "《木偶奇遇记》", "fr": "Les Aventures de Pinocchio", "ru": "«Приключения Пиноккио»"},
+    mobydick: {"it": "Moby Dick", "en": "Moby-Dick", "es": "Moby Dick", "zh": "《白鲸》", "fr": "Moby Dick", "ru": "«Моби Дик»"},
+    duecitta: {"it": "Racconto di due città", "en": "A Tale of Two Cities", "es": "Historia de dos ciudades", "zh": "《双城记》", "fr": "Le Conte de deux cités", "ru": "«Повесть о двух городах»"},
+    orgoglio: {"it": "Orgoglio e pregiudizio", "en": "Pride and Prejudice", "es": "Orgullo y prejuicio", "zh": "《傲慢与偏见》", "fr": "Orgueil et Préjugés", "ru": "«Гордость и предубеждение»"},
+    jazzsinger: {"it": "Il cantante di jazz (1927)", "en": "The Jazz Singer (1927)", "es": "El cantante de jazz (1927)", "zh": "《爵士歌手》（1927）", "fr": "Le Chanteur de jazz (1927)", "ru": "«Певец джаза» (1927)"},
+    metropolis: {"it": "Metropolis (1927)", "en": "Metropolis (1927)", "es": "Metrópolis (1927)", "zh": "《大都会》（1927）", "fr": "Metropolis (1927)", "ru": "«Метрополис» (1927)"},
+    ritorno: {"it": "Il ritorno di Sherlock Holmes (1929)", "en": "The Return of Sherlock Holmes (1929)", "es": "El regreso de Sherlock Holmes (1929)", "zh": "《福尔摩斯归来》（1929）", "fr": "Le Retour de Sherlock Holmes (1929)", "ru": "«Возвращение Шерлока Холмса» (1929)"},
     amleto:   { it: "Amleto", en: "Hamlet", es: "Hamlet", zh: "《哈姆雷特》", fr: "Hamlet", ru: "«Гамлет»" },
     macbeth:  { it: "Macbeth", en: "Macbeth", es: "Macbeth", zh: "《麦克白》", fr: "Macbeth", ru: "«Макбет»" },
     romeo:    { it: "Romeo e Giulietta", en: "Romeo and Juliet", es: "Romeo y Julieta", zh: "《罗密欧与朱丽叶》", fr: "Roméo et Juliette", ru: "«Ромео и Джульетта»" },
@@ -2563,6 +2708,30 @@
       testo: `Shall I compare thee to a summer's day? Thou art more lovely and more temperate: Rough winds do shake the darling buds of May, And summer's lease hath all too short a date; Sometime too hot the eye of heaven shines, And often is his gold complexion dimm'd; And every fair from fair sometime declines, By chance or nature's changing course untrimm'd; But thy eternal summer shall not fade, Nor lose possession of that fair thou ow'st; Nor shall death brag thou wander'st in his shade, When in eternal lines to time thou grow'st: So long as men can breathe or eyes can see, So long lives this, and this gives life to thee.` },
     { id: "amleto", titolo: "That is the question", autore: "shakespeare", opera: "amleto",
       testo: `To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take arms against a sea of troubles And by opposing end them. To die, to sleep, No more; and by a sleep to say we end The heart-ache and the thousand natural shocks That flesh is heir to: 'tis a consummation Devoutly to be wish'd. To die, to sleep; To sleep, perchance to dream: ay, there's the rub: For in that sleep of death what dreams may come, When we have shuffled off this mortal coil, Must give us pause: there's the respect That makes calamity of so long life.` }
+  ,
+    {"id": "alea", "titolo": "Alea iacta est", "autore": "cesare", "testo": "Alea iacta est"},
+    {"id": "sapere", "titolo": "Sapere aude", "autore": "orazio", "testo": "Sapere aude"},
+    {"id": "conosci", "titolo": "Conosci te stesso", "autore": "oracolo", "testo": "Conosci te stesso"},
+    {"id": "sanlorenzo", "titolo": "San Lorenzo, io lo so", "autore": "pascoli", "opera": "xagosto", "testo": "San Lorenzo, io lo so perché tanto di stelle per l'aria tranquilla arde e cade, perché sì gran pianto nel concavo cielo sfavilla."},
+    {"id": "pinocchio", "titolo": "C'era una volta", "autore": "collodi", "opera": "pinocchio", "testo": "C'era una volta un pezzo di legno"},
+    {"id": "ishmael", "titolo": "Call me Ishmael", "autore": "melville", "opera": "mobydick", "testo": "Call me Ishmael"},
+    {"id": "dickens", "titolo": "It was the best of times", "autore": "dickens", "opera": "duecitta", "testo": "It was the best of times, it was the worst of times"},
+    {"id": "austen", "titolo": "It is a truth universally acknowledged", "autore": "austen", "opera": "orgoglio", "testo": "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife."},
+    {"id": "twinkle", "titolo": "Twinkle, Twinkle, Little Star", "autore": "jtaylor", "testo": "Twinkle, twinkle, little star, how I wonder what you are"},
+    {"id": "framartino", "titolo": "Frère Jacques", "autore": "tradizionale", "testo": "Frère Jacques, frère Jacques, dormez-vous? Dormez-vous?"},
+    {"id": "jingle", "titolo": "Jingle Bells", "autore": "pierpont", "testo": "Jingle bells, jingle bells, jingle all the way"},
+    {"id": "osole", "titolo": "'O sole mio", "autore": "capurro", "testo": "Che bella cosa na jurnata 'e sole"},
+    {"id": "auguri", "titolo": "Happy Birthday", "autore": "hill", "testo": "Happy birthday to you"},
+    {"id": "jazz", "titolo": "You ain't heard nothin' yet", "autore": "jolson", "opera": "jazzsinger", "testo": "Wait a minute, you ain't heard nothin' yet!"},
+    {"id": "metropolis", "titolo": "Il mediatore deve essere il cuore", "autore": "lang", "opera": "metropolis", "testo": "Il mediatore tra la mente e le mani deve essere il cuore"},
+    {"id": "watson", "titolo": "Elementary, my dear Watson", "autore": "sherlock", "opera": "ritorno", "testo": "Elementary, my dear Watson"},
+    {"id": "houston", "titolo": "Houston, we've had a problem", "autore": "apollo13", "testo": "Houston, we've had a problem"},
+    {"id": "hello", "titolo": "Hello, world!", "autore": "programmatori", "testo": "Hello, world!"},
+    {"id": "keepcalm", "titolo": "Keep calm and carry on", "autore": "manifesto1939", "testo": "Keep calm and carry on"},
+    {"id": "thisisfine", "titolo": "This is fine", "autore": "internet", "testo": "This is fine"},
+    {"id": "tothemoon", "titolo": "To the moon!", "autore": "internet", "testo": "To the moon!"},
+    {"id": "okboomer", "titolo": "OK boomer", "autore": "internet", "testo": "OK boomer"},
+    {"id": "muchwow", "titolo": "Much wow", "autore": "internet", "testo": "Much wow"}
   ];
 
   // Traduzioni delle opere nelle lingue del gioco. Il cinese è in pinyin (tastiera latina),
@@ -2754,8 +2923,267 @@
      "ru": "Быть или не быть, вот в чём вопрос: что благороднее для духа — сносить удары и стрелы яростной судьбы или поднять оружие против моря бед и, восстав, покончить с ними. Умереть, уснуть, не более; и сном сказать, что мы кончаем с болью сердца и тысячей природных мук, что достались в наследство плоти: вот развязка, которой стоит горячо желать. Умереть, уснуть; уснуть, быть может, видеть сны: да, вот в чём трудность: какие сны приснятся в смертном сне, когда мы сбросим этот бренный шум, — вот что заставляет нас медлить: вот мысль, что делает беду столь долговечной.",
      "zh": "shengcun haishi huimie zhe shi yige zhide kaolu de wenti moran renshou mingyun de baonue de dujian huoshi tingshen fankang renshi de wuya de kunan tongguo douzheng ba tamen saoqing zhe liang zhong xingwei na yi zhong geng gaogui si le shuizhao le shenme dou wan le yaoshi zai zhe yi zhong shuimian zhi zhong women xintou de chuangtong yiji qita wushu xuerou zhi qu suo buneng bimian de daji dou keyi congci xiaoshi na zheng shi women qiuzhibude de jieju si le shuizhao le shuizhao le yexu hai hui zuomeng en zuai jiu zai zher yinwei dang women baituo le zhe yi ju xiufu de pinang yihou zai na si de shuimian li jiujing jiangyao zuo xie shenme meng na buneng bu shi women chouchu gulu renmen ganxin jiu kun yu huannan zhi zhong ye jiushi weile zhege yuangu"
     }
+   },
+   "conosci": {
+    "orig": "it",
+    "titoli": {
+     "en": "Know thyself",
+     "es": "Conócete a ti mismo",
+     "fr": "Connais-toi toi-même",
+     "ru": "Познай самого себя",
+     "zh": "认识你自己"
+    },
+    "testi": {
+     "en": "Know thyself",
+     "es": "Conócete a ti mismo",
+     "fr": "Connais-toi toi-même",
+     "ru": "Познай самого себя",
+     "zh": "renshi ni ziji"
+    }
+   },
+   "sanlorenzo": {
+    "orig": "it",
+    "titoli": {
+     "en": "Saint Lawrence, I know",
+     "es": "San Lorenzo, yo sé",
+     "fr": "Saint-Laurent, je sais",
+     "ru": "Святой Лаврентий",
+     "zh": "圣洛伦佐"
+    },
+    "testi": {
+     "en": "Saint Lawrence, I know why so many stars burn and fall through the still air, why such a great weeping sparkles in the hollow sky.",
+     "es": "San Lorenzo, yo sé por qué tantas estrellas arden y caen por el aire tranquilo, por qué tan gran llanto centellea en el cóncavo cielo.",
+     "fr": "Saint-Laurent, je sais pourquoi tant d'étoiles brûlent et tombent dans l'air tranquille, pourquoi un si grand pleur scintille dans le ciel concave.",
+     "ru": "Святой Лаврентий, я знаю, почему так много звёзд горит и падает в тихом воздухе, почему такой великий плач сверкает в вогнутом небе.",
+     "zh": "sheng luolunzuo wo zhidao weishenme name duo xingxing zai ningjing de kongzhong ranshao you zhuiluo weishenme ruci juda de kuqi zai aoxing de tiankong zhong shanyao"
+    }
+   },
+   "pinocchio": {
+    "orig": "it",
+    "titoli": {
+     "en": "Once upon a time",
+     "es": "Érase una vez",
+     "fr": "Il était une fois",
+     "ru": "Жил-был",
+     "zh": "从前"
+    },
+    "testi": {
+     "en": "Once upon a time there was a piece of wood",
+     "es": "Érase una vez un trozo de madera",
+     "fr": "Il était une fois un morceau de bois",
+     "ru": "Жил-был кусок дерева",
+     "zh": "congqian you yi kuai mutou"
+    }
+   },
+   "ishmael": {
+    "orig": "en",
+    "titoli": {
+     "it": "Chiamatemi Ismaele",
+     "es": "Llamadme Ismael",
+     "fr": "Appelez-moi Ismaël",
+     "ru": "Зовите меня Измаил",
+     "zh": "叫我以实玛利吧"
+    },
+    "testi": {
+     "it": "Chiamatemi Ismaele",
+     "es": "Llamadme Ismael",
+     "fr": "Appelez-moi Ismaël",
+     "ru": "Зовите меня Измаил",
+     "zh": "jiao wo yishimali ba"
+    }
+   },
+   "dickens": {
+    "orig": "en",
+    "titoli": {
+     "it": "Era il migliore dei tempi",
+     "es": "Era el mejor de los tiempos",
+     "fr": "C'était le meilleur des temps",
+     "ru": "Это было лучшее из времён",
+     "zh": "那是最好的时代"
+    },
+    "testi": {
+     "it": "Era il migliore dei tempi, era il peggiore dei tempi",
+     "es": "Era el mejor de los tiempos, era el peor de los tiempos",
+     "fr": "C'était le meilleur des temps, c'était le pire des temps",
+     "ru": "Это было лучшее из времён, это было худшее из времён",
+     "zh": "na shi zui hao de shidai na shi zui huai de shidai"
+    }
+   },
+   "austen": {
+    "orig": "en",
+    "titoli": {
+     "it": "È una verità universalmente riconosciuta",
+     "es": "Es una verdad universalmente reconocida",
+     "fr": "C'est une vérité universellement reconnue",
+     "ru": "Общепризнанная истина",
+     "zh": "这是一条公认的真理"
+    },
+    "testi": {
+     "it": "È una verità universalmente riconosciuta che uno scapolo in possesso di un buon patrimonio debba essere in cerca di una moglie.",
+     "es": "Es una verdad universalmente reconocida que un hombre soltero, dueño de una buena fortuna, necesita una esposa.",
+     "fr": "C'est une vérité universellement reconnue qu'un célibataire pourvu d'une belle fortune doit être en quête d'une épouse.",
+     "ru": "Это общепризнанная истина: холостяк с хорошим состоянием непременно ищет себе жену.",
+     "zh": "zhe shi yi tiao gongren de zhenli yige yongyou fengfu caichan de danshen nanzi biding xuyao yi wei qizi"
+    }
+   },
+   "twinkle": {
+    "orig": "en",
+    "titoli": {
+     "it": "Brilla, brilla, stellina",
+     "es": "Brilla, brilla, estrellita",
+     "fr": "Brille, brille, petite étoile",
+     "ru": "Мерцай, мерцай, звёздочка",
+     "zh": "小星星"
+    },
+    "testi": {
+     "it": "Brilla, brilla, stellina, chissà cosa sei",
+     "es": "Brilla, brilla, estrellita, cómo me pregunto qué eres",
+     "fr": "Brille, brille, petite étoile, je me demande ce que tu es",
+     "ru": "Мерцай, мерцай, звёздочка, как я гадаю, кто ты",
+     "zh": "shanshuo shanshuo xiao xingxing wo duo xiang zhidao ni shi shenme"
+    }
+   },
+   "framartino": {
+    "orig": "fr",
+    "titoli": {
+     "it": "Fra Martino",
+     "en": "Brother John",
+     "es": "Martinillo",
+     "ru": "Братец Яков",
+     "zh": "两只老虎"
+    },
+    "testi": {
+     "it": "Fra Martino campanaro, dormi tu? Dormi tu?",
+     "en": "Are you sleeping, are you sleeping, Brother John?",
+     "es": "Martinillo, Martinillo, ¿dónde estás? ¿Dónde estás?",
+     "ru": "Братец Яков, братец Яков, спишь ли ты? Спишь ли ты?",
+     "zh": "liang zhi laohu liang zhi laohu pao de kuai pao de kuai"
+    }
+   },
+   "jingle": {
+    "orig": "en",
+    "titoli": {
+     "it": "Jingle Bells",
+     "es": "Jingle Bells",
+     "fr": "Vive le vent",
+     "ru": "Звените, бубенцы",
+     "zh": "铃儿响叮当"
+    },
+    "testi": {
+     "it": "Suonate campanelle, suonate per tutta la strada",
+     "es": "Suenen campanas, suenen campanas, suenen sin parar",
+     "fr": "Sonnez clochettes, sonnez clochettes, sonnez tout le long du chemin",
+     "ru": "Звените, бубенцы, звените всю дорогу",
+     "zh": "dingdang dingdang yilu dingdang xiang"
+    }
+   },
+   "osole": {
+    "orig": "it",
+    "titoli": {
+     "en": "'O sole mio",
+     "es": "'O sole mio",
+     "fr": "'O sole mio",
+     "ru": "О соле мио",
+     "zh": "我的太阳"
+    },
+    "testi": {
+     "en": "What a beautiful thing is a sunny day",
+     "es": "Qué cosa tan bella es un día de sol",
+     "fr": "Quelle belle chose qu'une journée de soleil",
+     "ru": "Как прекрасен солнечный день",
+     "zh": "yangguang canlan de rizi duome meihao"
+    }
+   },
+   "auguri": {
+    "orig": "en",
+    "titoli": {
+     "it": "Tanti auguri",
+     "es": "Cumpleaños feliz",
+     "fr": "Joyeux anniversaire",
+     "ru": "С днём рождения",
+     "zh": "生日快乐"
+    },
+    "testi": {
+     "it": "Tanti auguri a te",
+     "es": "Cumpleaños feliz",
+     "fr": "Joyeux anniversaire",
+     "ru": "С днём рождения тебя",
+     "zh": "zhu ni shengri kuaile"
+    }
+   },
+   "jazz": {
+    "orig": "en",
+    "titoli": {
+     "it": "Non avete ancora sentito niente",
+     "es": "Todavía no han oído nada",
+     "fr": "Vous n'avez encore rien entendu",
+     "ru": "Вы ещё ничего не слышали",
+     "zh": "你们还什么都没听到"
+    },
+    "testi": {
+     "it": "Aspettate un momento, non avete ancora sentito niente!",
+     "es": "¡Esperen un momento, todavía no han oído nada!",
+     "fr": "Attendez une minute, vous n'avez encore rien entendu !",
+     "ru": "Подождите минутку, вы ещё ничего не слышали!",
+     "zh": "deng yixia nimen hai shenme dou mei tingdao ne"
+    }
+   },
+   "metropolis": {
+    "orig": "it",
+    "titoli": {
+     "en": "The mediator must be the heart",
+     "es": "El mediador debe ser el corazón",
+     "fr": "Le médiateur doit être le cœur",
+     "ru": "Посредником должно быть сердце",
+     "zh": "调停人必须是心"
+    },
+    "testi": {
+     "en": "The mediator between head and hands must be the heart",
+     "es": "El mediador entre el cerebro y las manos debe ser el corazón",
+     "fr": "Le médiateur entre la tête et les mains doit être le cœur",
+     "ru": "Посредником между головой и руками должно быть сердце",
+     "zh": "tounao he shuangshou zhijian de tiaotingren bixu shi xin"
+    }
+   },
+   "watson": {
+    "orig": "en",
+    "titoli": {
+     "it": "Elementare, mio caro Watson",
+     "es": "Elemental, mi querido Watson",
+     "fr": "Élémentaire, mon cher Watson",
+     "ru": "Элементарно, мой дорогой Ватсон",
+     "zh": "这很简单，亲爱的华生"
+    },
+    "testi": {
+     "it": "Elementare, mio caro Watson",
+     "es": "Elemental, mi querido Watson",
+     "fr": "Élémentaire, mon cher Watson",
+     "ru": "Элементарно, мой дорогой Ватсон",
+     "zh": "zhe hen jiandan qinai de huasheng"
+    }
+   },
+   "houston": {
+    "orig": "en",
+    "titoli": {
+     "it": "Houston, abbiamo un problema",
+     "es": "Houston, tenemos un problema",
+     "fr": "Houston, on a un problème",
+     "ru": "Хьюстон, у нас проблема",
+     "zh": "休斯敦，我们出问题了"
+    },
+    "testi": {
+     "it": "Houston, abbiamo avuto un problema",
+     "es": "Houston, hemos tenido un problema",
+     "fr": "Houston, nous avons eu un problème",
+     "ru": "Хьюстон, у нас проблема",
+     "zh": "xiusidun women chu wenti le"
+    }
    }
   };
+  // cartelle della biblioteca
+  const CARTELLE = ["celebri", "poesie", "libri", "teatro", "canzoni", "film", "meme"];
+  const CARTELLA_OPERA = {"eureka": "celebri", "carpe": "celebri", "veni": "celebri", "eppur": "celebri", "cogito": "celebri", "amor": "poesie", "mezzo": "poesie", "dante": "poesie", "infinito": "poesie", "sonetto18": "poesie", "manzoni": "libri", "tobe": "teatro", "macbeth": "teatro", "romeo": "teatro", "amleto": "teatro", "alea": "celebri", "sapere": "celebri", "conosci": "celebri", "sanlorenzo": "poesie", "pinocchio": "libri", "ishmael": "libri", "dickens": "libri", "austen": "libri", "twinkle": "canzoni", "framartino": "canzoni", "jingle": "canzoni", "osole": "canzoni", "auguri": "canzoni", "jazz": "film", "metropolis": "film", "watson": "film", "houston": "film", "hello": "meme", "keepcalm": "meme", "thisisfine": "meme", "tothemoon": "meme", "okboomer": "meme", "muchwow": "meme"};
+  for (const o of OPERE) o.cartella = CARTELLA_OPERA[o.id] || "celebri";
   for (const o of OPERE) {
     const tr = TRADUZIONI_OPERE[o.id];
     if (!tr) continue;
@@ -3599,6 +4027,8 @@
     R.fermo = true;
     R.vincitrice = chi;
     const primaVolta = G.operaId !== "mio" && !G.opereFatte.includes(G.operaId);
+    // la frase più lunga completata finora (prima di questa): serve per il premio dell'editore
+    const piuLungaPrima = Math.max(0, ...Object.values(G.lunghe || {}), G.fraseMio || 0);
     if (primaVolta) G.opereFatte.push(G.operaId);
     if (G.operaId === "mio") { if (R.target.length > (G.fraseMio || 0)) { G.fraseMio = R.target.length; G.fraseMioModo = modoCorrente(); } }
     else if (R.target.length > (G.lunghe[G.operaId] || 0)) { G.lunghe[G.operaId] = R.target.length; G.lungheModo[G.operaId] = modoCorrente(); }
@@ -3606,15 +4036,18 @@
     fm[G.operaId] = Math.max(fm[G.operaId] || 0, R.target.length);
     G.completateModo = G.completateModo || {};
     G.completateModo[modoCorrente()] = (G.completateModo[modoCorrente()] || 0) + 1;
-    // un editore compra l'opera: metà del raccolto la prima volta, un decimo le volte successive
-    const premio = Math.max(G.raccolto * (primaVolta ? 0.2 : 0.05), R.target.length * (primaVolta ? 1000 : 100));
+    // un editore compra l'opera: il 20% del raccolto se è la frase più lunga mai completata,
+    // il 5% se è nuova ma non più lunga, il 2% se l'avevi già completata
+    const quota = !primaVolta ? 0.02 : R.target.length > piuLungaPrima ? 0.2 : 0.05;
+    const premio = Math.max(G.raccolto * quota, R.target.length * (primaVolta ? 1000 : 100));
     G.banane += premio;
     G.completate++;
     if (G.operaId !== "mio") G.archivio[chiaveOpera(G.operaId, G.linguaOpera || L, G.modoOpera || modoCorrente())] = { record: 0, chi: 0, ts: 0 };
     aggiungiDiario({ tipo: "opera", chi, operaId: G.operaId });
     R.premioFine = premio;
     R.primaVoltaFine = primaVolta;
-    const prossima = OPERE.find(o => !G.opereFatte.includes(o.id)) || OPERE[OPERE.length - 1];
+    const ordinate = operePerLunghezza();
+    const prossima = ordinate.find(o => !G.opereFatte.includes(o.id)) || ordinate[ordinate.length - 1];
     R.prossima = prossima.id;
     scriviFinestraFine();
     controllaTraguardi();
@@ -4282,9 +4715,28 @@
   }
   // ---------- biblioteca ----------
   function disegnaBiblioteca() {
+    // cartelle: Tutte, Frasi celebri, Poesie, Libri, Teatro, Canzoni, Film, Meme
+    const scelta = R.cartella || "tutte";
+    const barra = $("cartelle");
+    const scorrimento = barra.scrollLeft;
+    barra.innerHTML = "";
+    for (const c of ["tutte", ...CARTELLE]) {
+      const b = document.createElement("button");
+      b.className = "cartella";
+      b.setAttribute("aria-pressed", c === scelta);
+      const quante = c === "tutte" ? OPERE.length : OPERE.filter(o => o.cartella === c).length;
+      const fatte = OPERE.filter(o => (c === "tutte" || o.cartella === c) && G.opereFatte.includes(o.id)).length;
+      b.textContent = t("cart_" + c) + " " + fatte + "/" + quante;
+      b.onclick = () => { R.cartella = c; disegnaBiblioteca(); };
+      barra.appendChild(b);
+    }
+    barra.scrollLeft = scorrimento;
+    $("notaCartella").textContent = scelta === "canzoni" || scelta === "film" ? t("cart_nota_pd") : "";
     const box = $("listaOpere");
     box.innerHTML = "";
-    for (const o of OPERE) {
+    // dalla più corta alla più lunga, nella lingua del giocatore
+    for (const o of operePerLunghezza()) {
+      if (scelta !== "tutte" && o.cartella !== scelta) continue;
       const loc = operaCorrente(o.id);
       const lung = normalizza(loc.testo).length;
       const fatta = G.opereFatte.includes(o.id);
@@ -4301,6 +4753,10 @@
       };
       box.appendChild(b);
     }
+  }
+  // le opere dalla più corta alla più lunga, contando i caratteri nella lingua e difficoltà attuali
+  function operePerLunghezza() {
+    return OPERE.map(o => ({ o, l: normalizza(operaCorrente(o.id).testo).length })).sort((a, b) => a.l - b.l).map(x => x.o);
   }
   function chiudiBiblioteca() {
     chiudi("veloBiblioteca");
@@ -4736,7 +5192,7 @@
       const vecchie = (this.righeVecchie || [])
         .filter(r => typeof r.nick === "string" && r.nick.trim() && r.id !== this.id && !giaDentro.has(r.id) && (r.modo || "normale") === modo)
         .map(r => ({ ...r, parola: "", parolaL: 0 }));   // le parole di prima erano casuali: non valgono più
-      const righe = nuove.concat(vecchie).filter(r => (r.frase || 0) > 0 || (r.record || 0) > 0 || (r.parolaL || 0) > 0).slice()
+      const righe = nuove.concat(vecchie).filter(r => (r.frase || 0) > 0 || (r.parolaL || 0) > 0).slice()
         .sort((a, b) => (b.frase || 0) - (a.frase || 0) || (b.parolaL || 0) - (a.parolaL || 0) ||
           (b.record || 0) - (a.record || 0) || (a.agg || 0) - (b.agg || 0));
       if (!righe.length) { stato.textContent = (avviso ? avviso + " " : "") + t("cl_vuota"); lista.innerHTML = ""; return; }
@@ -5066,16 +5522,19 @@
   const PASSI_TUT = [
     { sel: null, testo: "tut_a1", vista: "opera" },
     { sel: "#v-opera .foglio", testo: "tut_a2", vista: "opera" },
-    { sel: ".hud .cassa", testo: "tut_a3" },
+    { sel: "#v-opera .statistiche-opera", testo: "tut_b3", vista: "opera" },
+    { sel: ".hud .cassa", testo: "tut_b4" },
     { sel: '.menu button[data-vista="negozio"]', testo: "tut_a4", azione: true },
-    { sel: "#lista-scimmie .pot:not([hidden])", testo: "tut_a5", azione: true, prima: () => mostraGruppo("scimmie") },
+    { sel: "#lista-scimmie .pot:not([hidden])", testo: "tut_b6", azione: true, prima: () => mostraGruppo("scimmie") },
     { sel: '.segmenti button[data-gruppo="velocita"]', testo: "tut_a6", azione: true },
-    { sel: "#lista-velocita .pot:not([hidden])", testo: "tut_a7", azione: true, prima: () => mostraGruppo("velocita") },
+    { sel: "#lista-velocita .pot:not([hidden])", testo: "tut_b8", azione: true, prima: () => mostraGruppo("velocita") },
+    { sel: '.segmenti button[data-gruppo="editore"]', testo: "tut_b9" },
     { sel: '.menu button[data-vista="scimmie"]', testo: "tut_a8", azione: true },
     { sel: "#ufficio .scrivania", testo: "tut_a9", vista: "scimmie" },
-    { sel: '.menu button[data-vista="traguardi"]', testo: "tut_a10" },
-    { sel: '.menu button[data-vista="diario"]', testo: "tut_a11" },
-    { sel: "#bApriBiblioteca", testo: "tut_a12", vista: "opera" },
+    { sel: '.menu button[data-vista="traguardi"]', testo: "tut_b12" },
+    { sel: '.menu button[data-vista="diario"]', testo: "tut_b13" },
+    { sel: "#bApriBiblioteca", testo: "tut_b14", vista: "opera" },
+    { sel: "#bImpostazioni", testo: "tut_b15" },
     { sel: null, testo: "tut_a13" }
   ];
   let passoTut = -1;
@@ -5397,6 +5856,7 @@
     if (!R.nelMenu && R.fermo) apri("veloFine");
   }
 
+  OPERE.sort((a, b) => normalizza(a.testo, "normale").length - normalizza(b.testo, "normale").length);
   costruisciNegozio();
   costruisciEditore();
   costruisciTraguardi();
