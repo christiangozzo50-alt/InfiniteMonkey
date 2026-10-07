@@ -1185,7 +1185,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 44</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 46</p>
   </div>
 </div>
 
@@ -1630,7 +1630,7 @@
       st_lettere: "Lettere giuste",
       tut_a1: "👋 Benvenuto! Il teorema dice che delle scimmie che battono tasti a caso, prima o poi, scrivono qualsiasi testo. Il tuo obiettivo: far scrivere a una di loro una frase famosa, lettera per lettera, senza sbagliare. Per ora il tuo ufficio è vuoto: tra poco assumerai la prima scimmia!",
       tut_a2: "📜 Questa è la frase da scrivere. Le lettere in nero sono quelle che la scimmia più brava ha già azzeccato di fila. Basta un tasto sbagliato e ricomincia da capo: per questo servono tante scimmie!",
-      tut_a3: "🍌 Ogni lettera giusta fa guadagnare una banana. Le banane si accumulano qui da sole, anche quando chiudi il gioco. Per iniziare te ne regaliamo 15!",
+      tut_a3: "🍌 Ogni lettera giusta fa guadagnare una banana. Le banane si accumulano qui da sole, anche quando chiudi il gioco. Per iniziare te ne regaliamo 150!",
       tut_a4: "👉 Con le banane potenzi il tuo ufficio. Tocca Potenzia.",
       tut_a5: "👉 Più scimmie = più tentativi = più banane. Tocca per assumere la tua prima scimmia.",
       tut_a6: "👉 Ottimo! Anche la velocità conta: tocca Velocità.",
@@ -1648,9 +1648,9 @@
       eff_ogg: "{testo}: +{n} tasti/s a ogni scimmia",
       convertito_vel: "⚡ Velocità rinnovata: i tuoi vecchi potenziamenti unici sono diventati oggetti per scrivere, con la stessa velocità di prima",
       info_tit: "🍌 Come si guadagnano le banane",
-      info_1: "✍️ Lettere giuste: ogni 10 lettere giuste battute dalle scimmie ricevi 1 banana (il doppio in Realistica). Con il Contratto editoriale, in Editore, ne servono di meno.",
+      info_1: "✍️ Lettere giuste: ogni volta che una scimmia batte la lettera giusta della frase, ricevi 1 banana (2 in Realistica).",
       info_2: "📝 Parole della frase: quando una scimmia, scrivendo la frase dall'inizio, completa una parola (di almeno 2 lettere), ricevi un premio. Più la parola è lunga, più vale.",
-      info_3: "⭐ Record: quando una scimmia scrive più lettere giuste di fila di tutte le altre, ricevi qualche banana per ogni lettera.",
+      info_3: "⭐ Record: quando una scimmia scrive più lettere giuste di fila di tutte le altre, ricevi 25 banane per ogni lettera.",
       info_4: "📜 Frasi completate: quando la frase è finita, un editore te la compra. È il premio più grande.",
       info_5: "🏆 Traguardi: quando ne completi uno, tocca Riscuoti.",
       info_6: "🌙 Anche a gioco chiuso le scimmie continuano a lavorare.",
@@ -1766,7 +1766,7 @@
       eff_t_scuola: "Velocità ×1,5 per livello (ora ×{x})",
       eff_t_attrezzi: "Ogni nuova partita parte con +5 Guanti, Lampade e Sedie per livello (ora +{n})",
       eff_t_qualita: "Tasti degli oggetti ×1,5 per livello (ora ×{x})",
-      eff_t_contratto: "1 banana ogni {n} lettere giuste (il prossimo livello: ogni {m})",
+      eff_t_contratto: "Banane ×1,5 per livello (ora ×{x})",
       eff_t_anticipo: "Banane di partenza ×10 per livello (ora {n})",
       eff_t_notte: "Banane a gioco chiuso ×1,25 per livello (ora ×{x})",
       eff_a_scimmie: "Compra da solo scimmie e potenziamenti delle scimmie",
@@ -1786,7 +1786,7 @@
       cart_meme: "😂 Meme",
       cart_nota_pd: "Solo canzoni e film liberi da diritti d'autore (per esempio molto vecchi o tradizionali).",
       tut_b3: "⭐ Qui sotto c'è l'Opera in corso: il record (quante lettere giuste di fila ha scritto la scimmia migliore) e quanto manca, più o meno, al prossimo record e alla fine della frase.",
-      tut_b4: "🍌 Ogni 10 lettere giuste guadagni una banana, e le banane arrivano da sole, anche a gioco chiuso. Tocca la ⓘ accanto al numero per vedere tutti i modi di guadagnarle. Per iniziare te ne regaliamo 15!",
+      tut_b4: "🍌 Ogni lettera giusta vale una banana, e le banane arrivano da sole, anche a gioco chiuso. Tocca la ⓘ accanto al numero per vedere tutti i modi di guadagnarle. Per iniziare te ne regaliamo 150!",
       tut_b6: "👉 Più scimmie = più tentativi = più banane. Tocca per assumere la tua prima scimmia. Più avanti potrai tenere premuto per comprarne tante di fila.",
       tut_b8: "👉 I Miglioramenti moltiplicano la velocità di tutte le scimmie, gli Oggetti aggiungono tasti al secondo. Tocca per comprare il tuo primo potenziamento di velocità.",
       tut_b9: "📚 Più avanti, in Editore potrai pubblicare: l'ufficio riparte da zero, ma guadagni Pagine d'oro per talenti permanenti e automazioni. La fortuna non cambia mai: ogni tasto resta casuale.",
@@ -2058,14 +2058,22 @@
       sb_ricomincia: "Ricomincia",
       sb_vuoto: "Scrivi un testo qui sopra.",
       nov3_1: "🧪 Nuovo menu: scegli tra la partita Classica e la Sandbox, dove scrivi un tuo testo e decidi quante scimmie e quanto veloci",
-      nov3_2: "🍌 Ora serve 1 banana ogni 10 lettere giuste (e i prezzi sono 10 volte più bassi): con il Contratto editoriale ne servono di meno",
-      nov3_3: "🚀 Nuovi potenziamenti più forti e più cari: tre strutture, due oggetti, due unici e il Cervello potenziato",
+      nov3_2: "🚀 Ancora più potenziamenti, sempre più forti e più cari, fino alla Magia delle scimmie",
+      nov3_3: "🧠 Nuovi miglioramenti di velocità: Cervello potenziato e Ispirazione divina",
       nov3_4: "🏆 La classifica mostra tutti i giocatori e si scorre",
       nov3_5: "👥 Amici in ordine di forza: toccane uno per vedere le sue statistiche. Le sfide ora usano frasi più lunghe",
       nov3_6: "📃 Le Pagine d'oro ora sono dorate e valgono di più: talenti e casse costano il doppio",
-      tour3_1: "🚀 In Potenzia trovi i nuovi potenziamenti più forti. In Editore c'è il Contratto editoriale: ogni livello fa servire una lettera in meno per ogni banana.",
+      tour3_1: "🚀 In Potenzia trovi i nuovi potenziamenti, più forti e molto più cari: strutture, oggetti, unici e miglioramenti di velocità.",
       tour3_2: "🏆 Nel Diario la classifica ora mostra tutti i giocatori: scorrila per vederli.",
-      tour3_3: "👥 Negli amici i più forti sono in cima: toccane uno per vedere le sue statistiche."
+      tour3_3: "👥 Negli amici i più forti sono in cima: toccane uno per vedere le sue statistiche.",
+      tut_c1: "👋 Benvenuto! Il tutorial dura 30 secondi.",
+      tut_c2: "📜 Le scimmie battono a caso per scrivere questa frase.",
+      tut_c3: "🍌 Ogni lettera giusta = 1 banana.",
+      tut_c4: "👉 Tocca Potenzia.",
+      tut_c5: "👉 Compra una scimmia.",
+      tut_c6: "🏆 Qui riscuoti i premi.",
+      tut_c7: "📚 Qui cambi frase.",
+      tut_c8: "✅ Fatto! Le scimmie lavorano anche a gioco chiuso."
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -2174,9 +2182,9 @@
       eff_ogg: "{testo}: +{n} keys/s for every monkey",
       convertito_vel: "⚡ Speed revamped: your old one-time upgrades have become typing gear, with the same speed as before",
       info_tit: "🍌 How to earn bananas",
-      info_1: "✍️ Correct letters: every 10 correct letters typed by the monkeys give you 1 banana (double on Realistic). The Publishing contract, in Publisher, lowers how many are needed.",
+      info_1: "✍️ Correct letters: every time a monkey types the right next letter of the phrase, you get 1 banana (2 on Realistic).",
       info_2: "📝 Words of the phrase: when a monkey, typing the phrase from the start, completes a word (at least 2 letters), you get a prize. The longer the word, the more it's worth.",
-      info_3: "⭐ Record: when a monkey types more correct letters in a row than all the others, you get a few bananas for each letter.",
+      info_3: "⭐ Record: when a monkey types more correct letters in a row than all the others, you get 25 bananas for each letter.",
       info_4: "📜 Completed phrases: when the phrase is finished, a publisher buys it from you. It's the biggest prize.",
       info_5: "🏆 Goals: when you complete one, tap Claim.",
       info_6: "🌙 Even when the game is closed, the monkeys keep working.",
@@ -2292,7 +2300,7 @@
       eff_t_scuola: "Speed ×1.5 per level (now ×{x})",
       eff_t_attrezzi: "Every new run starts with +5 Gloves, Lamps and Chairs per level (now +{n})",
       eff_t_qualita: "Item keys ×1.5 per level (now ×{x})",
-      eff_t_contratto: "1 banana every {n} correct letters (next level: every {m})",
+      eff_t_contratto: "Bananas ×1.5 per level (now ×{x})",
       eff_t_anticipo: "Starting bananas ×10 per level (now {n})",
       eff_t_notte: "Bananas while closed ×1.25 per level (now ×{x})",
       eff_a_scimmie: "Buys monkeys and monkey upgrades by itself",
@@ -2312,7 +2320,7 @@
       cart_meme: "😂 Memes",
       cart_nota_pd: "Only songs and films free of copyright (for example very old or traditional ones).",
       tut_b3: "⭐ Down here is the Work in progress: the record (how many correct letters in a row the best monkey has typed) and roughly how long until the next record and the end of the phrase.",
-      tut_b4: "🍌 Every 10 correct letters earn you a banana, and bananas keep coming in on their own, even with the game closed. Tap the ⓘ next to the number to see every way to earn them. To start, here are 15 for free!",
+      tut_b4: "🍌 Every correct letter is worth a banana, and bananas keep coming in on their own, even with the game closed. Tap the ⓘ next to the number to see every way to earn them. To start, here are 150 for free!",
       tut_b6: "👉 More monkeys = more attempts = more bananas. Tap to hire your first monkey. Later you can press and hold to buy many in a row.",
       tut_b8: "👉 Improvements multiply every monkey's speed, Items add keys per second. Tap to buy your first speed upgrade.",
       tut_b9: "📚 Later, in Publisher you can publish: the office starts over, but you earn Golden Pages for permanent talents and automation. Luck never changes: every key stays random.",
@@ -2584,14 +2592,22 @@
       sb_ricomincia: "Restart",
       sb_vuoto: "Write a text above.",
       nov3_1: "🧪 New menu: choose between the Classic game and the Sandbox, where you write your own text and decide how many monkeys and how fast",
-      nov3_2: "🍌 Now it takes 10 correct letters for 1 banana (and prices are 10 times lower): the Publishing contract lowers that number",
-      nov3_3: "🚀 New, stronger and pricier upgrades: three structures, two items, two one-offs and the Boosted brain",
+      nov3_2: "🚀 Even more upgrades, ever stronger and pricier, up to Monkey magic",
+      nov3_3: "🧠 New speed improvements: Boosted brain and Divine inspiration",
       nov3_4: "🏆 The leaderboard shows every player and can be scrolled",
       nov3_5: "👥 Friends sorted by strength: tap one to see their statistics. Challenges now use longer phrases",
       nov3_6: "📃 Golden Pages are now golden and worth more: talents and crates cost twice as much",
-      tour3_1: "🚀 In Upgrades you'll find the new, stronger upgrades. In Publisher there's the Publishing contract: each level needs one letter fewer per banana.",
+      tour3_1: "🚀 In Upgrades you'll find the new upgrades, stronger and much pricier: structures, items, one-offs and speed improvements.",
       tour3_2: "🏆 In the Journal the leaderboard now shows every player: scroll it to see them all.",
-      tour3_3: "👥 Among your friends the strongest are on top: tap one to see their statistics."
+      tour3_3: "👥 Among your friends the strongest are on top: tap one to see their statistics.",
+      tut_c1: "👋 Welcome! The tutorial takes 30 seconds.",
+      tut_c2: "📜 Monkeys type at random to write this phrase.",
+      tut_c3: "🍌 Every correct letter = 1 banana.",
+      tut_c4: "👉 Tap Upgrades.",
+      tut_c5: "👉 Buy a monkey.",
+      tut_c6: "🏆 Collect your prizes here.",
+      tut_c7: "📚 Change phrase here.",
+      tut_c8: "✅ Done! Monkeys keep working even with the game closed."
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -2682,7 +2698,7 @@
       st_lettere: "Letras correctas",
       tut_a1: "👋 ¡Bienvenido! El teorema dice que unos monos que pulsan teclas al azar, tarde o temprano, escriben cualquier texto. Tu objetivo: que uno de ellos escriba una frase famosa, letra a letra, sin equivocarse. Por ahora tu oficina está vacía: ¡enseguida contratarás a tu primer mono!",
       tut_a2: "📜 Esta es la frase que hay que escribir. Las letras en negro son las que el mejor mono ya ha acertado seguidas. Una tecla equivocada y vuelve a empezar: ¡por eso hacen falta muchos monos!",
-      tut_a3: "🍌 Cada letra correcta da un plátano. Los plátanos se acumulan aquí solos, incluso con el juego cerrado. Para empezar, ¡te regalamos 15!",
+      tut_a3: "🍌 Cada letra correcta da un plátano. Los plátanos se acumulan aquí solos, incluso con el juego cerrado. Para empezar, ¡te regalamos 150!",
       tut_a4: "👉 Con los plátanos mejoras tu oficina. Toca Mejoras.",
       tut_a5: "👉 Más monos = más intentos = más plátanos. Toca para contratar tu primer mono.",
       tut_a6: "👉 ¡Muy bien! La velocidad también cuenta: toca Velocidad.",
@@ -2700,9 +2716,9 @@
       eff_ogg: "{testo}: +{n} teclas/s a cada mono",
       convertito_vel: "⚡ Velocidad renovada: tus antiguas mejoras únicas se han convertido en objetos para escribir, con la misma velocidad que antes",
       info_tit: "🍌 Cómo se ganan los plátanos",
-      info_1: "✍️ Letras correctas: cada 10 letras correctas que teclean los monos recibes 1 plátano (el doble en Realista). Con el Contrato editorial, en Editorial, hacen falta menos.",
+      info_1: "✍️ Letras correctas: cada vez que un mono teclea la letra correcta de la frase, recibes 1 plátano (2 en Realista).",
       info_2: "📝 Palabras de la frase: cuando un mono, escribiendo la frase desde el principio, completa una palabra (de al menos 2 letras), recibes un premio. Cuanto más larga, más vale.",
-      info_3: "⭐ Récord: cuando un mono escribe más letras correctas seguidas que todos los demás, recibes unos plátanos por cada letra.",
+      info_3: "⭐ Récord: cuando un mono escribe más letras correctas seguidas que todos los demás, recibes 25 plátanos por cada letra.",
       info_4: "📜 Frases completadas: cuando la frase está terminada, un editor te la compra. Es el premio más grande.",
       info_5: "🏆 Logros: cuando completes uno, toca Cobrar.",
       info_6: "🌙 Incluso con el juego cerrado, los monos siguen trabajando.",
@@ -2818,7 +2834,7 @@
       eff_t_scuola: "Velocidad ×1,5 por nivel (ahora ×{x})",
       eff_t_attrezzi: "Cada nueva partida empieza con +5 Guantes, Lámparas y Sillas por nivel (ahora +{n})",
       eff_t_qualita: "Teclas de los objetos ×1,5 por nivel (ahora ×{x})",
-      eff_t_contratto: "1 plátano cada {n} letras correctas (siguiente nivel: cada {m})",
+      eff_t_contratto: "Plátanos ×1,5 por nivel (ahora ×{x})",
       eff_t_anticipo: "Plátanos iniciales ×10 por nivel (ahora {n})",
       eff_t_notte: "Plátanos con el juego cerrado ×1,25 por nivel (ahora ×{x})",
       eff_a_scimmie: "Compra solo monos y mejoras de monos",
@@ -2838,7 +2854,7 @@
       cart_meme: "😂 Memes",
       cart_nota_pd: "Solo canciones y películas libres de derechos de autor (por ejemplo muy antiguas o tradicionales).",
       tut_b3: "⭐ Aquí abajo está la Obra en curso: el récord (cuántas letras correctas seguidas ha escrito el mejor mono) y cuánto falta, más o menos, para el próximo récord y el final de la frase.",
-      tut_b4: "🍌 Cada 10 letras correctas ganas un plátano, y los plátanos llegan solos, incluso con el juego cerrado. Toca la ⓘ junto al número para ver todas las formas de ganarlos. ¡Para empezar te regalamos 15!",
+      tut_b4: "🍌 Cada letra correcta vale un plátano, y los plátanos llegan solos, incluso con el juego cerrado. Toca la ⓘ junto al número para ver todas las formas de ganarlos. ¡Para empezar te regalamos 150!",
       tut_b6: "👉 Más monos = más intentos = más plátanos. Toca para contratar tu primer mono. Más adelante podrás mantener pulsado para comprar muchos seguidos.",
       tut_b8: "👉 Los Perfeccionamientos multiplican la velocidad de todos los monos, los Objetos añaden teclas por segundo. Toca para comprar tu primera mejora de velocidad.",
       tut_b9: "📚 Más adelante, en Editorial podrás publicar: la oficina empieza de cero, pero ganas Páginas de oro para talentos permanentes y automatizaciones. La suerte nunca cambia: cada tecla sigue siendo aleatoria.",
@@ -3110,14 +3126,22 @@
       sb_ricomincia: "Empezar de nuevo",
       sb_vuoto: "Escribe un texto arriba.",
       nov3_1: "🧪 Nuevo menú: elige entre la partida Clásica y la Sandbox, donde escribes tu propio texto y decides cuántos monos y qué tan rápidos",
-      nov3_2: "🍌 Ahora hacen falta 10 letras correctas por cada plátano (y los precios son 10 veces más bajos): el Contrato editorial reduce ese número",
-      nov3_3: "🚀 Nuevas mejoras más fuertes y más caras: tres estructuras, dos objetos, dos únicos y el Cerebro potenciado",
+      nov3_2: "🚀 Todavía más mejoras, cada vez más fuertes y más caras, hasta la Magia de los monos",
+      nov3_3: "🧠 Nuevas mejoras de velocidad: Cerebro potenciado e Inspiración divina",
       nov3_4: "🏆 La clasificación muestra a todos los jugadores y se puede desplazar",
       nov3_5: "👥 Amigos ordenados por fuerza: toca uno para ver sus estadísticas. Los desafíos usan ahora frases más largas",
       nov3_6: "📃 Las Páginas de oro ahora son doradas y valen más: talentos y cajas cuestan el doble",
-      tour3_1: "🚀 En Mejoras encontrarás las nuevas mejoras más fuertes. En Editorial está el Contrato editorial: cada nivel pide una letra menos por plátano.",
+      tour3_1: "🚀 En Mejoras encontrarás las nuevas mejoras, más fuertes y mucho más caras: estructuras, objetos, únicos y mejoras de velocidad.",
       tour3_2: "🏆 En el Diario la clasificación muestra ahora a todos los jugadores: desplázala para verlos.",
-      tour3_3: "👥 Entre tus amigos los más fuertes están arriba: toca uno para ver sus estadísticas."
+      tour3_3: "👥 Entre tus amigos los más fuertes están arriba: toca uno para ver sus estadísticas.",
+      tut_c1: "👋 ¡Bienvenido! El tutorial dura 30 segundos.",
+      tut_c2: "📜 Los monos teclean al azar para escribir esta frase.",
+      tut_c3: "🍌 Cada letra correcta = 1 plátano.",
+      tut_c4: "👉 Toca Mejoras.",
+      tut_c5: "👉 Compra un mono.",
+      tut_c6: "🏆 Aquí cobras los premios.",
+      tut_c7: "📚 Aquí cambias de frase.",
+      tut_c8: "✅ ¡Listo! Los monos trabajan incluso con el juego cerrado."
     },
 
     // ------------------------------------------------------------- 中文
@@ -3226,9 +3250,9 @@
       eff_ogg: "{testo}：每只猴子 +{n} 键/秒",
       convertito_vel: "⚡ 速度系统已更新：你以前的一次性升级已转换为打字装备，速度和以前一样",
       info_tit: "🍌 如何赚香蕉",
-      info_1: "✍️ 打对的字母：猴子每打对 10 个字母，你得到 1 根香蕉（写实模式翻倍）。出版社里的“出版合同”可以减少所需字母数。",
+      info_1: "✍️ 打对的字母：猴子每打对句子里的下一个字母，你就得到 1 根香蕉（写实模式 2 根）。",
       info_2: "📝 句子里的单词：当一只猴子从头打句子、完成其中一个单词（至少 2 个字母）时，你会得到奖励。单词越长，奖励越多。",
-      info_3: "⭐ 纪录：当一只猴子连续打对的字母比其他猴子都多时，每个字母都会给你一些香蕉。",
+      info_3: "⭐ 纪录：当一只猴子连续打对的字母比其他猴子都多时，每个字母给你 25 根香蕉。",
       info_4: "📜 完成句子：句子打完后，出版商会买下它。这是最大的奖励。",
       info_5: "🏆 成就：完成一个后，点“领取”。",
       info_6: "🌙 即使游戏关闭，猴子们也会继续工作。",
@@ -3344,7 +3368,7 @@
       eff_t_scuola: "每级速度 ×1.5（现在 ×{x}）",
       eff_t_attrezzi: "每级让每局开始时多 5 副手套、5 盏台灯和 5 把椅子（现在 +{n}）",
       eff_t_qualita: "每级装备按键 ×1.5（现在 ×{x}）",
-      eff_t_contratto: "每 {n} 个打对的字母得 1 根香蕉（下一级：每 {m} 个）",
+      eff_t_contratto: "每级香蕉 ×1.5（现在 ×{x}）",
       eff_t_anticipo: "每级初始香蕉 ×10（现在 {n}）",
       eff_t_notte: "每级离线香蕉 ×1.25（现在 ×{x}）",
       eff_a_scimmie: "自动购买猴子和猴子升级",
@@ -3364,7 +3388,7 @@
       cart_meme: "😂 网络梗",
       cart_nota_pd: "只收录没有版权限制的歌曲和电影（例如非常古老的或传统的）。",
       tut_b3: "⭐ 下面是“进行中的作品”：纪录（最厉害的猴子连续打对了几个字母），以及大约还要多久才会出现下一个纪录和完成整句话。",
-      tut_b4: "🍌 每打对 10 个字母赚 1 根香蕉，香蕉会自己到账，关掉游戏也一样。点数字旁边的 ⓘ 查看所有赚香蕉的方法。开局送你 15 根！",
+      tut_b4: "🍌 每个打对的字母值一根香蕉，香蕉会自己到账，关掉游戏也一样。点数字旁边的 ⓘ 查看所有赚香蕉的方法。开局送你 150 根！",
       tut_b6: "👉 猴子越多 = 尝试越多 = 香蕉越多。点这里雇用你的第一只猴子。之后可以长按连续购买很多只。",
       tut_b8: "👉 “改进”会成倍提高所有猴子的速度，“装备”会增加每秒按键数。点这里购买你的第一个速度升级。",
       tut_b9: "📚 之后可以在“出版社”里出版：办公室从零开始，但你会得到金页，用来购买永久天赋和自动化。运气永远不会改变：每次按键始终随机。",
@@ -3636,14 +3660,22 @@
       sb_ricomincia: "重新开始",
       sb_vuoto: "在上面写一段文字。",
       nov3_1: "🧪 新菜单：在经典模式和沙盒之间选择，沙盒里可以写自己的文字，并决定猴子数量和速度",
-      nov3_2: "🍌 现在每打对 10 个字母才得 1 根香蕉（价格也降低到十分之一）：出版合同可以减少所需字母",
-      nov3_3: "🚀 更强也更贵的新升级：三种建筑、两件装备、两个独特升级，还有强化大脑",
+      nov3_2: "🚀 更多升级，一个比一个强、一个比一个贵，直到猴子魔法",
+      nov3_3: "🧠 新的速度升级：强化大脑和神圣灵感",
       nov3_4: "🏆 排行榜现在显示所有玩家，可以滚动查看",
       nov3_5: "👥 好友按实力排序：点一位好友查看他的统计。挑战现在使用更长的句子",
       nov3_6: "📃 金页现在是金色的，也更值钱了：天赋和箱子的价格翻倍",
-      tour3_1: "🚀 在“升级”里有更强的新升级。“出版社”里有出版合同：每升一级，每根香蕉少需要一个字母。",
+      tour3_1: "🚀 在“升级”里有新的升级，更强也贵得多：建筑、装备、独特升级和速度升级。",
       tour3_2: "🏆 “日志”里的排行榜现在显示所有玩家：滚动就能看到。",
-      tour3_3: "👥 好友里最强的排在最上面：点一位就能看他的统计。"
+      tour3_3: "👥 好友里最强的排在最上面：点一位就能看他的统计。",
+      tut_c1: "👋 欢迎！教程只要 30 秒。",
+      tut_c2: "📜 猴子随机打字，想打出这句话。",
+      tut_c3: "🍌 每个打对的字母 = 1 根香蕉。",
+      tut_c4: "👉 点“升级”。",
+      tut_c5: "👉 买一只猴子。",
+      tut_c6: "🏆 在这里领取奖励。",
+      tut_c7: "📚 在这里换句子。",
+      tut_c8: "✅ 完成！关掉游戏猴子也会继续工作。"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -3752,9 +3784,9 @@
       eff_ogg: "{testo} : +{n} touches/s pour chaque singe",
       convertito_vel: "⚡ Vitesse revue : tes anciennes améliorations uniques sont devenues des objets pour écrire, avec la même vitesse qu'avant",
       info_tit: "🍌 Comment gagner des bananes",
-      info_1: "✍️ Lettres justes : toutes les 10 lettres justes tapées par les singes, tu reçois 1 banane (le double en Réaliste). Le Contrat d'édition, dans Éditeur, en demande moins.",
+      info_1: "✍️ Lettres justes : chaque fois qu'un singe tape la bonne lettre de la phrase, tu reçois 1 banane (2 en Réaliste).",
       info_2: "📝 Mots de la phrase : quand un singe, en écrivant la phrase depuis le début, termine un mot (d'au moins 2 lettres), tu reçois une prime. Plus le mot est long, plus il rapporte.",
-      info_3: "⭐ Record : quand un singe tape plus de lettres justes d'affilée que tous les autres, tu reçois quelques bananes par lettre.",
+      info_3: "⭐ Record : quand un singe tape plus de lettres justes d'affilée que tous les autres, tu reçois 25 bananes par lettre.",
       info_4: "📜 Phrases terminées : quand la phrase est finie, un éditeur te l'achète. C'est la plus grosse prime.",
       info_5: "🏆 Succès : quand tu en termines un, touche Récupérer.",
       info_6: "🌙 Même quand le jeu est fermé, les singes continuent de travailler.",
@@ -3870,7 +3902,7 @@
       eff_t_scuola: "Vitesse ×1,5 par niveau (maintenant ×{x})",
       eff_t_attrezzi: "Chaque nouvelle partie commence avec +5 Gants, Lampes et Chaises par niveau (maintenant +{n})",
       eff_t_qualita: "Touches des objets ×1,5 par niveau (maintenant ×{x})",
-      eff_t_contratto: "1 banane toutes les {n} lettres justes (niveau suivant : toutes les {m})",
+      eff_t_contratto: "Bananes ×1,5 par niveau (maintenant ×{x})",
       eff_t_anticipo: "Bananes de départ ×10 par niveau (maintenant {n})",
       eff_t_notte: "Bananes jeu fermé ×1,25 par niveau (maintenant ×{x})",
       eff_a_scimmie: "Achète tout seul les singes et leurs améliorations",
@@ -3890,7 +3922,7 @@
       cart_meme: "😂 Mèmes",
       cart_nota_pd: "Uniquement des chansons et des films libres de droits (par exemple très anciens ou traditionnels).",
       tut_b3: "⭐ Ici en bas, l'Œuvre en cours : le record (combien de lettres justes d'affilée le meilleur singe a écrites) et, à peu près, combien de temps avant le prochain record et la fin de la phrase.",
-      tut_b4: "🍌 Toutes les 10 lettres justes, tu gagnes une banane, et les bananes arrivent toutes seules, même jeu fermé. Touche le ⓘ à côté du nombre pour voir toutes les façons d'en gagner. Pour commencer, en voici 15 offertes !",
+      tut_b4: "🍌 Chaque lettre juste vaut une banane, et les bananes arrivent toutes seules, même jeu fermé. Touche le ⓘ à côté du nombre pour voir toutes les façons d'en gagner. Pour commencer, en voici 150 offertes !",
       tut_b6: "👉 Plus de singes = plus d'essais = plus de bananes. Touche pour engager ton premier singe. Plus tard, tu pourras maintenir le doigt pour en acheter plusieurs d'affilée.",
       tut_b8: "👉 Les Perfectionnements multiplient la vitesse de tous les singes, les Objets ajoutent des touches par seconde. Touche pour acheter ta première amélioration de vitesse.",
       tut_b9: "📚 Plus tard, dans Éditeur, tu pourras publier : le bureau repart de zéro, mais tu gagnes des Pages d'or pour des talents permanents et des automatisations. La chance ne change jamais : chaque touche reste aléatoire.",
@@ -4162,14 +4194,22 @@
       sb_ricomincia: "Recommencer",
       sb_vuoto: "Écris un texte ci-dessus.",
       nov3_1: "🧪 Nouveau menu : choisis entre la partie Classique et le bac à sable, où tu écris ton texte et décides combien de singes et à quelle vitesse",
-      nov3_2: "🍌 Il faut maintenant 10 lettres justes pour 1 banane (et les prix sont 10 fois plus bas) : le Contrat d'édition réduit ce nombre",
-      nov3_3: "🚀 De nouvelles améliorations plus fortes et plus chères : trois structures, deux objets, deux uniques et le Cerveau boosté",
+      nov3_2: "🚀 Encore plus d'améliorations, toujours plus fortes et plus chères, jusqu'à la Magie des singes",
+      nov3_3: "🧠 Nouvelles améliorations de vitesse : Cerveau boosté et Inspiration divine",
       nov3_4: "🏆 Le classement montre tous les joueurs et se fait défiler",
       nov3_5: "👥 Amis classés par force : touche-en un pour voir ses statistiques. Les défis utilisent désormais des phrases plus longues",
       nov3_6: "📃 Les Pages d'or sont maintenant dorées et valent plus : talents et coffres coûtent le double",
-      tour3_1: "🚀 Dans Améliorer tu trouves les nouvelles améliorations plus fortes. Dans Éditeur il y a le Contrat d'édition : chaque niveau demande une lettre de moins par banane.",
+      tour3_1: "🚀 Dans Améliorer tu trouves les nouvelles améliorations, plus fortes et bien plus chères : structures, objets, uniques et améliorations de vitesse.",
       tour3_2: "🏆 Dans le Journal, le classement montre maintenant tous les joueurs : fais-le défiler pour les voir.",
-      tour3_3: "👥 Parmi tes amis, les plus forts sont en haut : touche-en un pour voir ses statistiques."
+      tour3_3: "👥 Parmi tes amis, les plus forts sont en haut : touche-en un pour voir ses statistiques.",
+      tut_c1: "👋 Bienvenue ! Le tutoriel dure 30 secondes.",
+      tut_c2: "📜 Les singes tapent au hasard pour écrire cette phrase.",
+      tut_c3: "🍌 Chaque lettre juste = 1 banane.",
+      tut_c4: "👉 Touche Améliorer.",
+      tut_c5: "👉 Achète un singe.",
+      tut_c6: "🏆 Ici tu récupères les primes.",
+      tut_c7: "📚 Ici tu changes de phrase.",
+      tut_c8: "✅ C'est fait ! Les singes travaillent même jeu fermé."
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -4261,7 +4301,7 @@
       st_lettere: "Верных букв",
       tut_a1: "👋 Добро пожаловать! Теорема гласит, что обезьяны, нажимающие клавиши наугад, рано или поздно напечатают любой текст. Твоя цель — чтобы одна из них напечатала знаменитую фразу, букву за буквой, без единой ошибки. Пока твой офис пуст: сейчас ты наймёшь первую обезьяну!",
       tut_a2: "📜 Это фраза, которую нужно напечатать. Чёрные буквы — те, что лучшая обезьяна уже угадала подряд. Одна неверная клавиша — и она начинает сначала: поэтому нужно много обезьян!",
-      tut_a3: "🍌 Каждая верная буква приносит банан. Бананы копятся здесь сами, даже когда игра закрыта. Для начала дарим тебе 15!",
+      tut_a3: "🍌 Каждая верная буква приносит банан. Бананы копятся здесь сами, даже когда игра закрыта. Для начала дарим тебе 150!",
       tut_a4: "👉 На бананы ты улучшаешь свой офис. Нажми «Улучшить».",
       tut_a5: "👉 Больше обезьян — больше попыток — больше бананов. Нажми, чтобы нанять первую обезьяну.",
       tut_a6: "👉 Отлично! Скорость тоже важна: нажми «Скорость».",
@@ -4279,9 +4319,9 @@
       eff_ogg: "{testo}: +{n} нажатий/с каждой обезьяне",
       convertito_vel: "⚡ Скорость обновлена: твои старые разовые улучшения превратились в предметы для печати, скорость та же",
       info_tit: "🍌 Как зарабатывать бананы",
-      info_1: "✍️ Верные буквы: за каждые 10 верных букв, напечатанных обезьянами, ты получаешь 1 банан (вдвое больше на Реалистичной). Издательский контракт в разделе Издатель уменьшает нужное число букв.",
+      info_1: "✍️ Верные буквы: каждый раз, когда обезьяна печатает верную следующую букву фразы, ты получаешь 1 банан (2 на Реалистичной).",
       info_2: "📝 Слова фразы: когда обезьяна, печатая фразу с начала, завершает слово (хотя бы из 2 букв), ты получаешь приз. Чем длиннее слово, тем он больше.",
-      info_3: "⭐ Рекорд: когда обезьяна печатает больше верных букв подряд, чем все остальные, ты получаешь немного бананов за каждую букву.",
+      info_3: "⭐ Рекорд: когда обезьяна печатает больше верных букв подряд, чем все остальные, ты получаешь 25 бананов за каждую букву.",
       info_4: "📜 Готовые фразы: когда фраза допечатана, её покупает издатель. Это самый большой приз.",
       info_5: "🏆 Награды: выполнив цель, нажми «Забрать».",
       info_6: "🌙 Даже когда игра закрыта, обезьяны продолжают работать.",
@@ -4397,7 +4437,7 @@
       eff_t_scuola: "Скорость ×1,5 за уровень (сейчас ×{x})",
       eff_t_attrezzi: "Каждая новая партия начинается с +5 Перчаток, Ламп и Стульев за уровень (сейчас +{n})",
       eff_t_qualita: "Нажатия предметов ×1,5 за уровень (сейчас ×{x})",
-      eff_t_contratto: "1 банан за каждые {n} верных букв (на следующем уровне: за {m})",
+      eff_t_contratto: "Бананы ×1,5 за уровень (сейчас ×{x})",
       eff_t_anticipo: "Стартовые бананы ×10 за уровень (сейчас {n})",
       eff_t_notte: "Бананы при закрытой игре ×1,25 за уровень (сейчас ×{x})",
       eff_a_scimmie: "Сам покупает обезьян и их улучшения",
@@ -4417,7 +4457,7 @@
       cart_meme: "😂 Мемы",
       cart_nota_pd: "Только песни и фильмы, свободные от авторских прав (например, очень старые или народные).",
       tut_b3: "⭐ Ниже — «Текущее произведение»: рекорд (сколько верных букв подряд напечатала лучшая обезьяна) и примерно сколько осталось до следующего рекорда и до конца фразы.",
-      tut_b4: "🍌 За каждые 10 верных букв ты получаешь банан, и бананы приходят сами, даже когда игра закрыта. Нажми ⓘ рядом с числом, чтобы увидеть все способы их заработать. Для начала держи 15 в подарок!",
+      tut_b4: "🍌 Каждая верная буква стоит банан, и бананы приходят сами, даже когда игра закрыта. Нажми ⓘ рядом с числом, чтобы увидеть все способы их заработать. Для начала держи 150 в подарок!",
       tut_b6: "👉 Больше обезьян — больше попыток — больше бананов. Нажми, чтобы нанять первую обезьяну. Позже можно удерживать кнопку, чтобы покупать много подряд.",
       tut_b8: "👉 Улучшения умножают скорость всех обезьян, Предметы добавляют нажатия в секунду. Нажми, чтобы купить первое улучшение скорости.",
       tut_b9: "📚 Позже в разделе «Издатель» можно будет опубликоваться: офис начнётся с нуля, но ты получишь Золотые страницы для постоянных талантов и автоматизации. Удача не меняется никогда: каждое нажатие остаётся случайным.",
@@ -4689,14 +4729,22 @@
       sb_ricomincia: "Начать заново",
       sb_vuoto: "Напиши текст выше.",
       nov3_1: "🧪 Новое меню: выбери Классику или Песочницу, где пишешь свой текст и решаешь, сколько обезьян и как быстро",
-      nov3_2: "🍌 Теперь 1 банан даётся за 10 верных букв (а цены в 10 раз ниже): Издательский контракт уменьшает это число",
-      nov3_3: "🚀 Новые, более сильные и дорогие улучшения: три постройки, два предмета, два уникальных и Усиленный мозг",
+      nov3_2: "🚀 Ещё больше улучшений, всё сильнее и дороже, вплоть до Обезьяньей магии",
+      nov3_3: "🧠 Новые улучшения скорости: Усиленный мозг и Божественное вдохновение",
       nov3_4: "🏆 Рейтинг показывает всех игроков, его можно прокручивать",
       nov3_5: "👥 Друзья отсортированы по силе: нажми на друга, чтобы увидеть статистику. Вызовы теперь на более длинных фразах",
       nov3_6: "📃 Золотые страницы теперь золотые и ценятся выше: таланты и сундуки стоят вдвое дороже",
-      tour3_1: "🚀 В «Улучшить» есть новые, более сильные улучшения. В «Издатель» — Издательский контракт: каждый уровень уменьшает на одну букву цену банана.",
+      tour3_1: "🚀 В «Улучшить» есть новые улучшения, сильнее и намного дороже: постройки, предметы, уникальные и улучшения скорости.",
       tour3_2: "🏆 В «Дневнике» рейтинг теперь показывает всех игроков: прокрути, чтобы их увидеть.",
-      tour3_3: "👥 Среди друзей самые сильные наверху: нажми на друга, чтобы увидеть его статистику."
+      tour3_3: "👥 Среди друзей самые сильные наверху: нажми на друга, чтобы увидеть его статистику.",
+      tut_c1: "👋 Привет! Обучение займёт 30 секунд.",
+      tut_c2: "📜 Обезьяны печатают наугад, чтобы написать эту фразу.",
+      tut_c3: "🍌 Каждая верная буква = 1 банан.",
+      tut_c4: "👉 Нажми «Улучшить».",
+      tut_c5: "👉 Купи обезьяну.",
+      tut_c6: "🏆 Здесь забираешь награды.",
+      tut_c7: "📚 Здесь меняешь фразу.",
+      tut_c8: "✅ Готово! Обезьяны работают даже при закрытой игре."
     }
   };
 
@@ -6075,8 +6123,8 @@
     return LINGUE[cod] ? cod : "it";
   }
   // potenziamenti aggiunti dopo: nomi e descrizioni in tabelle separate
-  const NOMI_EXTRA = {"it": {"v0b": "Guanti senza dita", "v1b": "Tasti lubrificati", "v2b": "Sedia ergonomica", "v4b": "Turni a staffetta", "v5b": "Tastiera meccanica", "v6b": "Fibra ottica", "v7b": "Rete di supercomputer", "v9": "Tastiera tra i mondi", "lezioni": "Lezioni di dattilografia", "o1": "Lampada da scrivania", "s9": "Ammasso di galassie", "s10": "Buco nero di scimmie", "s11": "Big Bang delle scimmie", "o10": "Tastiera quantistica", "o11": "Macchina del tempo", "m6": "Scimmie stellari", "m7": "Scimmia onnisciente", "cervello": "Cervello potenziato"}, "en": {"v0b": "Fingerless gloves", "v1b": "Oiled keys", "v2b": "Ergonomic chair", "v4b": "Relay shifts", "v5b": "Mechanical keyboard", "v6b": "Fiber optics", "v7b": "Supercomputer network", "v9": "Keyboard between worlds", "lezioni": "Typing lessons", "o1": "Desk lamp", "s9": "Galaxy cluster", "s10": "Monkey black hole", "s11": "Monkey Big Bang", "o10": "Quantum keyboard", "o11": "Time machine", "m6": "Star monkeys", "m7": "All-knowing monkey", "cervello": "Boosted brain"}, "es": {"v0b": "Guantes sin dedos", "v1b": "Teclas engrasadas", "v2b": "Silla ergonómica", "v4b": "Turnos de relevo", "v5b": "Teclado mecánico", "v6b": "Fibra óptica", "v7b": "Red de superordenadores", "v9": "Teclado entre mundos", "lezioni": "Clases de mecanografía", "o1": "Lámpara de escritorio", "s9": "Cúmulo de galaxias", "s10": "Agujero negro de monos", "s11": "Big Bang de los monos", "o10": "Teclado cuántico", "o11": "Máquina del tiempo", "m6": "Monos estelares", "m7": "Mono omnisciente", "cervello": "Cerebro potenciado"}, "zh": {"v0b": "无指手套", "v1b": "润滑过的按键", "v2b": "人体工学椅", "v4b": "接力轮班", "v5b": "机械键盘", "v6b": "光纤", "v7b": "超级计算机网络", "v9": "跨越世界的键盘", "lezioni": "打字课", "o1": "台灯", "s9": "星系团", "s10": "猴子黑洞", "s11": "猴子大爆炸", "o10": "量子键盘", "o11": "时间机器", "m6": "星辰猴子", "m7": "全知猴子", "cervello": "强化大脑"}, "fr": {"v0b": "Mitaines", "v1b": "Touches huilées", "v2b": "Chaise ergonomique", "v4b": "Équipes en relais", "v5b": "Clavier mécanique", "v6b": "Fibre optique", "v7b": "Réseau de superordinateurs", "v9": "Clavier entre les mondes", "lezioni": "Cours de dactylographie", "o1": "Lampe de bureau", "s9": "Amas de galaxies", "s10": "Trou noir de singes", "s11": "Big Bang des singes", "o10": "Clavier quantique", "o11": "Machine à remonter le temps", "m6": "Singes stellaires", "m7": "Singe omniscient", "cervello": "Cerveau boosté"}, "ru": {"v0b": "Перчатки без пальцев", "v1b": "Смазанные клавиши", "v2b": "Эргономичное кресло", "v4b": "Работа посменно", "v5b": "Механическая клавиатура", "v6b": "Оптоволокно", "v7b": "Сеть суперкомпьютеров", "v9": "Клавиатура между мирами", "lezioni": "Уроки машинописи", "o1": "Настольная лампа", "s9": "Скопление галактик", "s10": "Чёрная дыра обезьян", "s11": "Большой взрыв обезьян", "o10": "Квантовая клавиатура", "o11": "Машина времени", "m6": "Звёздные обезьяны", "m7": "Всезнающая обезьяна", "cervello": "Усиленный мозг"}};
-  const DESC_EXTRA = {"it": {"v0b": "Mani calde, dita libere", "v1b": "Scorrono senza attrito", "v2b": "Niente mal di schiena, più ritmo", "v4b": "Le macchine non si fermano mai", "v5b": "Tasti che rimbalzano da soli", "v6b": "I tasti viaggiano alla velocità della luce", "v7b": "Migliaia di supercomputer insieme", "v9": "Ogni tasto si preme in tutti i mondi", "o1": "Con più luce le scimmie trovano i tasti più in fretta", "o10": "Ogni tasto è premuto e non premuto insieme", "o11": "Le scimmie scrivono anche nel passato", "m6": "Ogni stella del cielo ha la sua scimmia", "m7": "Una scimmia che è tutte le scimmie"}, "en": {"v0b": "Warm hands, free fingers", "v1b": "They glide without friction", "v2b": "No backache, more rhythm", "v4b": "The typewriters never stop", "v5b": "Keys that bounce back on their own", "v6b": "Keystrokes travel at light speed", "v7b": "Thousands of supercomputers together", "v9": "Every key is pressed in every world", "o1": "With more light, monkeys find the keys faster", "o10": "Every key is pressed and not pressed at once", "o11": "Monkeys type in the past too", "m6": "Every star in the sky has its own monkey", "m7": "One monkey that is every monkey"}, "es": {"v0b": "Manos calientes, dedos libres", "v1b": "Se deslizan sin fricción", "v2b": "Sin dolor de espalda, más ritmo", "v4b": "Las máquinas nunca se detienen", "v5b": "Teclas que rebotan solas", "v6b": "Las pulsaciones viajan a la velocidad de la luz", "v7b": "Miles de superordenadores juntos", "v9": "Cada tecla se pulsa en todos los mundos", "o1": "Con más luz, los monos encuentran las teclas más rápido", "o10": "Cada tecla está pulsada y sin pulsar a la vez", "o11": "Los monos escriben también en el pasado", "m6": "Cada estrella del cielo tiene su mono", "m7": "Un mono que es todos los monos"}, "zh": {"v0b": "手暖，手指灵活", "v1b": "按起来毫无阻力", "v2b": "不再腰酸背痛，节奏更快", "v4b": "打字机从不停歇", "v5b": "按键自己弹回来", "v6b": "按键以光速传输", "v7b": "成千上万台超级计算机协同工作", "v9": "每个按键在所有世界同时按下", "o1": "光线更好，猴子找键更快", "o10": "每个键同时被按下又没被按下", "o11": "猴子在过去也在打字", "m6": "天上每颗星都有自己的猴子", "m7": "一只猴子即是所有猴子"}, "fr": {"v0b": "Mains au chaud, doigts libres", "v1b": "Elles glissent sans frottement", "v2b": "Plus de mal de dos, plus de rythme", "v4b": "Les machines ne s'arrêtent jamais", "v5b": "Des touches qui rebondissent toutes seules", "v6b": "Les frappes voyagent à la vitesse de la lumière", "v7b": "Des milliers de superordinateurs ensemble", "v9": "Chaque touche est frappée dans tous les mondes", "o1": "Avec plus de lumière, les singes trouvent les touches plus vite", "o10": "Chaque touche est enfoncée et relâchée à la fois", "o11": "Les singes tapent aussi dans le passé", "m6": "Chaque étoile du ciel a son singe", "m7": "Un singe qui est tous les singes"}, "ru": {"v0b": "Тёплые руки, свободные пальцы", "v1b": "Нажимаются без трения", "v2b": "Спина не болит, ритм выше", "v4b": "Машинки никогда не простаивают", "v5b": "Клавиши пружинят сами", "v6b": "Нажатия летят со скоростью света", "v7b": "Тысячи суперкомпьютеров вместе", "v9": "Каждая клавиша нажимается во всех мирах", "o1": "При хорошем свете обезьяны быстрее находят клавиши", "o10": "Каждая клавиша нажата и не нажата одновременно", "o11": "Обезьяны печатают и в прошлом", "m6": "У каждой звезды на небе своя обезьяна", "m7": "Одна обезьяна, которая — все обезьяны"}};
+  const NOMI_EXTRA = {"it": {"v0b": "Guanti senza dita", "v1b": "Tasti lubrificati", "v2b": "Sedia ergonomica", "v4b": "Turni a staffetta", "v5b": "Tastiera meccanica", "v6b": "Fibra ottica", "v7b": "Rete di supercomputer", "v9": "Tastiera tra i mondi", "lezioni": "Lezioni di dattilografia", "o1": "Lampada da scrivania", "s9": "Ammasso di galassie", "s10": "Buco nero di scimmie", "s11": "Big Bang delle scimmie", "o10": "Tastiera quantistica", "o11": "Macchina del tempo", "m6": "Scimmie stellari", "m7": "Scimmia onnisciente", "cervello": "Cervello potenziato", "s12": "Pioggia di comete di scimmie", "s13": "Realtà alternativa delle scimmie", "o12": "Antenna interstellare", "o13": "Costellazione di satelliti", "m8": "Magia delle scimmie", "ispirazione": "Ispirazione divina"}, "en": {"v0b": "Fingerless gloves", "v1b": "Oiled keys", "v2b": "Ergonomic chair", "v4b": "Relay shifts", "v5b": "Mechanical keyboard", "v6b": "Fiber optics", "v7b": "Supercomputer network", "v9": "Keyboard between worlds", "lezioni": "Typing lessons", "o1": "Desk lamp", "s9": "Galaxy cluster", "s10": "Monkey black hole", "s11": "Monkey Big Bang", "o10": "Quantum keyboard", "o11": "Time machine", "m6": "Star monkeys", "m7": "All-knowing monkey", "cervello": "Boosted brain", "s12": "Monkey comet shower", "s13": "Alternate monkey reality", "o12": "Interstellar antenna", "o13": "Satellite constellation", "m8": "Monkey magic", "ispirazione": "Divine inspiration"}, "es": {"v0b": "Guantes sin dedos", "v1b": "Teclas engrasadas", "v2b": "Silla ergonómica", "v4b": "Turnos de relevo", "v5b": "Teclado mecánico", "v6b": "Fibra óptica", "v7b": "Red de superordenadores", "v9": "Teclado entre mundos", "lezioni": "Clases de mecanografía", "o1": "Lámpara de escritorio", "s9": "Cúmulo de galaxias", "s10": "Agujero negro de monos", "s11": "Big Bang de los monos", "o10": "Teclado cuántico", "o11": "Máquina del tiempo", "m6": "Monos estelares", "m7": "Mono omnisciente", "cervello": "Cerebro potenciado", "s12": "Lluvia de cometas de monos", "s13": "Realidad alternativa de los monos", "o12": "Antena interestelar", "o13": "Constelación de satélites", "m8": "Magia de los monos", "ispirazione": "Inspiración divina"}, "zh": {"v0b": "无指手套", "v1b": "润滑过的按键", "v2b": "人体工学椅", "v4b": "接力轮班", "v5b": "机械键盘", "v6b": "光纤", "v7b": "超级计算机网络", "v9": "跨越世界的键盘", "lezioni": "打字课", "o1": "台灯", "s9": "星系团", "s10": "猴子黑洞", "s11": "猴子大爆炸", "o10": "量子键盘", "o11": "时间机器", "m6": "星辰猴子", "m7": "全知猴子", "cervello": "强化大脑", "s12": "猴子彗星雨", "s13": "猴子的平行现实", "o12": "星际天线", "o13": "卫星星座", "m8": "猴子魔法", "ispirazione": "神圣灵感"}, "fr": {"v0b": "Mitaines", "v1b": "Touches huilées", "v2b": "Chaise ergonomique", "v4b": "Équipes en relais", "v5b": "Clavier mécanique", "v6b": "Fibre optique", "v7b": "Réseau de superordinateurs", "v9": "Clavier entre les mondes", "lezioni": "Cours de dactylographie", "o1": "Lampe de bureau", "s9": "Amas de galaxies", "s10": "Trou noir de singes", "s11": "Big Bang des singes", "o10": "Clavier quantique", "o11": "Machine à remonter le temps", "m6": "Singes stellaires", "m7": "Singe omniscient", "cervello": "Cerveau boosté", "s12": "Pluie de comètes de singes", "s13": "Réalité alternative des singes", "o12": "Antenne interstellaire", "o13": "Constellation de satellites", "m8": "Magie des singes", "ispirazione": "Inspiration divine"}, "ru": {"v0b": "Перчатки без пальцев", "v1b": "Смазанные клавиши", "v2b": "Эргономичное кресло", "v4b": "Работа посменно", "v5b": "Механическая клавиатура", "v6b": "Оптоволокно", "v7b": "Сеть суперкомпьютеров", "v9": "Клавиатура между мирами", "lezioni": "Уроки машинописи", "o1": "Настольная лампа", "s9": "Скопление галактик", "s10": "Чёрная дыра обезьян", "s11": "Большой взрыв обезьян", "o10": "Квантовая клавиатура", "o11": "Машина времени", "m6": "Звёздные обезьяны", "m7": "Всезнающая обезьяна", "cervello": "Усиленный мозг", "s12": "Звездопад из обезьян", "s13": "Альтернативная реальность обезьян", "o12": "Межзвёздная антенна", "o13": "Созвездие спутников", "m8": "Обезьянья магия", "ispirazione": "Божественное вдохновение"}};
+  const DESC_EXTRA = {"it": {"v0b": "Mani calde, dita libere", "v1b": "Scorrono senza attrito", "v2b": "Niente mal di schiena, più ritmo", "v4b": "Le macchine non si fermano mai", "v5b": "Tasti che rimbalzano da soli", "v6b": "I tasti viaggiano alla velocità della luce", "v7b": "Migliaia di supercomputer insieme", "v9": "Ogni tasto si preme in tutti i mondi", "o1": "Con più luce le scimmie trovano i tasti più in fretta", "o10": "Ogni tasto è premuto e non premuto insieme", "o11": "Le scimmie scrivono anche nel passato", "m6": "Ogni stella del cielo ha la sua scimmia", "m7": "Una scimmia che è tutte le scimmie", "o12": "I tasti arrivano da tutte le stelle", "o13": "Migliaia di satelliti che battono a macchina", "m8": "Basta una bacchetta e le scimmie si moltiplicano"}, "en": {"v0b": "Warm hands, free fingers", "v1b": "They glide without friction", "v2b": "No backache, more rhythm", "v4b": "The typewriters never stop", "v5b": "Keys that bounce back on their own", "v6b": "Keystrokes travel at light speed", "v7b": "Thousands of supercomputers together", "v9": "Every key is pressed in every world", "o1": "With more light, monkeys find the keys faster", "o10": "Every key is pressed and not pressed at once", "o11": "Monkeys type in the past too", "m6": "Every star in the sky has its own monkey", "m7": "One monkey that is every monkey", "o12": "Keystrokes arrive from every star", "o13": "Thousands of typing satellites", "m8": "One wave of the wand and the monkeys multiply"}, "es": {"v0b": "Manos calientes, dedos libres", "v1b": "Se deslizan sin fricción", "v2b": "Sin dolor de espalda, más ritmo", "v4b": "Las máquinas nunca se detienen", "v5b": "Teclas que rebotan solas", "v6b": "Las pulsaciones viajan a la velocidad de la luz", "v7b": "Miles de superordenadores juntos", "v9": "Cada tecla se pulsa en todos los mundos", "o1": "Con más luz, los monos encuentran las teclas más rápido", "o10": "Cada tecla está pulsada y sin pulsar a la vez", "o11": "Los monos escriben también en el pasado", "m6": "Cada estrella del cielo tiene su mono", "m7": "Un mono que es todos los monos", "o12": "Las pulsaciones llegan de todas las estrellas", "o13": "Miles de satélites que escriben a máquina", "m8": "Un toque de varita y los monos se multiplican"}, "zh": {"v0b": "手暖，手指灵活", "v1b": "按起来毫无阻力", "v2b": "不再腰酸背痛，节奏更快", "v4b": "打字机从不停歇", "v5b": "按键自己弹回来", "v6b": "按键以光速传输", "v7b": "成千上万台超级计算机协同工作", "v9": "每个按键在所有世界同时按下", "o1": "光线更好，猴子找键更快", "o10": "每个键同时被按下又没被按下", "o11": "猴子在过去也在打字", "m6": "天上每颗星都有自己的猴子", "m7": "一只猴子即是所有猴子", "o12": "按键来自每一颗星星", "o13": "成千上万颗打字卫星", "m8": "魔杖一挥，猴子成倍增加"}, "fr": {"v0b": "Mains au chaud, doigts libres", "v1b": "Elles glissent sans frottement", "v2b": "Plus de mal de dos, plus de rythme", "v4b": "Les machines ne s'arrêtent jamais", "v5b": "Des touches qui rebondissent toutes seules", "v6b": "Les frappes voyagent à la vitesse de la lumière", "v7b": "Des milliers de superordinateurs ensemble", "v9": "Chaque touche est frappée dans tous les mondes", "o1": "Avec plus de lumière, les singes trouvent les touches plus vite", "o10": "Chaque touche est enfoncée et relâchée à la fois", "o11": "Les singes tapent aussi dans le passé", "m6": "Chaque étoile du ciel a son singe", "m7": "Un singe qui est tous les singes", "o12": "Les frappes arrivent de toutes les étoiles", "o13": "Des milliers de satellites qui tapent à la machine", "m8": "Un coup de baguette et les singes se multiplient"}, "ru": {"v0b": "Тёплые руки, свободные пальцы", "v1b": "Нажимаются без трения", "v2b": "Спина не болит, ритм выше", "v4b": "Машинки никогда не простаивают", "v5b": "Клавиши пружинят сами", "v6b": "Нажатия летят со скоростью света", "v7b": "Тысячи суперкомпьютеров вместе", "v9": "Каждая клавиша нажимается во всех мирах", "o1": "При хорошем свете обезьяны быстрее находят клавиши", "o10": "Каждая клавиша нажата и не нажата одновременно", "o11": "Обезьяны печатают и в прошлом", "m6": "У каждой звезды на небе своя обезьяна", "m7": "Одна обезьяна, которая — все обезьяны", "o12": "Нажатия приходят со всех звёзд", "o13": "Тысячи печатающих спутников", "m8": "Один взмах палочки — и обезьяны множатся"}};
   const ALIAS_POT = { stretch: "v0", o0: "v0b", o2: "v2b", o3: "v2", o4: "v5", o5: "v5b", o6: "v6", o7: "v7", o8: "v8", o9: "v9" };
   const nomePot = id => { id = ALIAS_POT[id] || id; return NOMI_EXTRA[L][id] || NOMI_POT[L][ID_POT.indexOf(id)]; };
   const descUnico = id => { id = ALIAS_POT[id] || id; return DESC_EXTRA[L][id] || DESC_POT[L][ID_POT.indexOf(id) - 9]; };
@@ -6124,7 +6172,7 @@
     { id: "t_attrezzi", ramo: "velocita", icona: "🧰", max: 10, base: 10, cresce: 1.9 },
     { id: "t_qualita", ramo: "velocita", icona: "💎", max: 0, base: 8, cresce: 2.4 },
     // 🍌 Contratti
-    { id: "t_contratto", ramo: "banane", icona: "📝", max: 9, base: 3, cresce: 2.4 },
+    { id: "t_contratto", ramo: "banane", icona: "📝", max: 0, base: 6, cresce: 2.4 },
     { id: "t_premio", ramo: "banane", icona: "🏅", max: 0, base: 8, cresce: 2.4 },
     { id: "t_anticipo", ramo: "banane", icona: "💰", max: 15, base: 6, cresce: 1.8 },
     { id: "t_eredita", ramo: "banane", icona: "🏛️", max: 10, base: 16, cresce: 2.1 }
@@ -6133,9 +6181,9 @@
   const livT = id => (G && G.talenti && G.talenti[id]) || 0;
   const costoTalento = tl => Math.ceil(tl.base * Math.pow(tl.cresce || 1, livT(tl.id)));
   // Pagine d'oro: crescono con le banane raccolte in questa partita (da 1 miliardo in su)
-  const pagineDa = r => (r < 1e8 ? 0 : Math.floor(Math.pow(Math.log10(r) - 7, 2)));
-  const sogliaPagina = n => Math.pow(10, 7 + Math.sqrt(n + 1));
-  const pagineFrasi = () => ((G.raccoltoRun || 0) < 1e8 ? 0 : 2 * (G.completateRun || 0));
+  const pagineDa = r => (r < 1e9 ? 0 : Math.floor(Math.pow(Math.log10(r) - 8, 2)));
+  const sogliaPagina = n => Math.pow(10, 8 + Math.sqrt(n + 1));
+  const pagineFrasi = () => ((G.raccoltoRun || 0) < 1e9 ? 0 : 2 * (G.completateRun || 0));
   const pagineGuadagno = () => pagineDa(G.raccoltoRun || 0) + pagineFrasi();
   // Fama: +3% di velocità per ogni Pagina d'oro guadagnata (non si perde spendendo le pagine)
   const moltFama = () => 1 + 0.03 * ((G && G.pagineTot) || 0);
@@ -6552,33 +6600,36 @@
   //  POTENZIAMENTI (solo quantità di scimmie e velocità di battitura)
   // =====================================================================
   const STRUTTURE = [
-    ["s0", "🐒", 1, 1], ["s1", "👨‍👩‍👧", 6, 400], ["s2", "🦍", 36, 160000], ["s3", "🏕️", 200, 6.4e7], ["s4", "🎪", 1200, 2.6e10],
-    ["s5", "🌴", 7500, 1e13], ["s6", "🏝️", 45000, 4e15], ["s7", "🪐", 280000, 1.6e18], ["s8", "🌌", 1.7e6, 6.4e20],
+    ["s0", "🐒", 1, 10], ["s1", "👨‍👩‍👧", 6, 4000], ["s2", "🦍", 36, 1.6e6], ["s3", "🏕️", 200, 6.4e8], ["s4", "🎪", 1200, 2.6e11],
+    ["s5", "🌴", 7500, 1e14], ["s6", "🏝️", 45000, 4e16], ["s7", "🪐", 280000, 1.6e19], ["s8", "🌌", 1.7e6, 6.4e21],
     // più potenti e molto più cari
-    ["s9", "🌠", 1.4e7, 3.2e23], ["s10", "🕳️", 1.1e8, 1.6e26], ["s11", "💥", 9e8, 8e28]
+    ["s9", "🌠", 1.4e7, 1e27], ["s10", "🕳️", 1.1e8, 1e31], ["s11", "💥", 9e8, 1e36],
+    ["s12", "☄️", 7e9, 1e42], ["s13", "🔮", 6e10, 1e49]
   ];
   const UNICI_SCIMMIE = [
-    ["m0", "👯", 2, 500], ["m1", "📣", 3, 70000], ["m2", "🧬", 5, 1e8],
-    ["m3", "🌀", 10, 3e12], ["m4", "🪞", 100, 3e21], ["m5", "♾️", 1000, 1e35],
-    ["m6", "🌟", 5000, 1e47], ["m7", "🧿", 1e5, 1e65]
+    ["m0", "👯", 2, 5000], ["m1", "📣", 3, 700000], ["m2", "🧬", 5, 1e9],
+    ["m3", "🌀", 10, 3e13], ["m4", "🪞", 100, 3e22], ["m5", "♾️", 1000, 1e36],
+    ["m6", "🌟", 5000, 1e55], ["m7", "🧿", 1e5, 1e80], ["m8", "🪄", 1e6, 1e110]
   ];
   // ---------- VELOCITÀ ----------
   // Miglioramenti: livelli senza limite, ogni livello moltiplica la velocità di tutte le scimmie.
   // [id, icona, moltiplicatore per livello, costo del primo livello, quanto cresce il costo a ogni livello]
   const MIGLIORAMENTI = [
-    ["stretch", "🤸", 1.1, 5, 6],
-    ["lezioni", "📝", 1.15, 30, 8],
-    ["macchina", "🔧", 1.25, 200, 10],
-    ["caffe", "☕", 1.5, 5000, 40],
-    ["cervello", "🧠", 2, 1e9, 1000]
+    ["stretch", "🤸", 1.1, 50, 6],
+    ["lezioni", "📝", 1.15, 300, 8],
+    ["macchina", "🔧", 1.25, 2000, 10],
+    ["caffe", "☕", 1.5, 50000, 40],
+    ["cervello", "🧠", 2, 1e15, 1e4],
+    ["ispirazione", "🕯️", 3, 1e30, 1e7]
   ];
   // Oggetti per scrivere: si comprano a pezzi (come le scimmie), ognuno aggiunge tasti al secondo a ogni scimmia.
   // [id, icona, tasti/s in più per scimmia, costo del primo pezzo]
   const OGGETTI = [
-    ["o0", "🧤", 1, 3], ["o1", "💡", 6, 12000], ["o2", "🪑", 36, 4.8e7], ["o3", "🔌", 216, 1.9e11],
-    ["o4", "📠", 1300, 7.7e14], ["o5", "⌨️", 7800, 3.1e18], ["o6", "💻", 4.7e4, 1.2e22], ["o7", "🖥️", 2.8e5, 4.9e25],
-    ["o8", "🚀", 1.7e6, 2e29], ["o9", "🌠", 1e7, 7.9e32],
-    ["o10", "🛸", 6e7, 3.2e36], ["o11", "⏳", 3.6e8, 1.3e40]
+    ["o0", "🧤", 1, 30], ["o1", "💡", 6, 120000], ["o2", "🪑", 36, 4.8e8], ["o3", "🔌", 216, 1.9e12],
+    ["o4", "📠", 1300, 7.7e15], ["o5", "⌨️", 7800, 3.1e19], ["o6", "💻", 4.7e4, 1.2e23], ["o7", "🖥️", 2.8e5, 4.9e26],
+    ["o8", "🚀", 1.7e6, 2e30], ["o9", "🌠", 1e7, 7.9e33],
+    ["o10", "🛸", 6e7, 1e40], ["o11", "⏳", 3.6e8, 1e46],
+    ["o12", "📡", 2.2e9, 1e53], ["o13", "🛰️", 1.3e10, 1e61]
   ];
   // vecchi potenziamenti unici di velocità (ora tolti) con il loro moltiplicatore:
   // nei salvataggi vecchi vengono convertiti in oggetti che danno la stessa velocità
@@ -6601,11 +6652,11 @@
     effetto: () => t("eff_scimmie", { testo: descUnico(id), m: molt < 1000 ? decimale(molt) : fmt(molt) })
   }));
   POT.push({
-    id: "asilo", icona: "🍼", gruppo: "scimmie", tipo: "livelli", base: 300, rapporto: 3.5,
+    id: "asilo", icona: "🍼", gruppo: "scimmie", tipo: "livelli", base: 3000, rapporto: 3.5,
     vis: () => G.liv.s2 >= 1,
     effetto: () => t("eff_asilo", { a: G.liv.asilo, b: G.liv.asilo + 1 })
   });
-  const VIS_MIGL = { stretch: () => true, lezioni: () => G.liv.stretch >= 1, macchina: () => G.liv.o1 >= 1, caffe: () => G.liv.o2 >= 1, cervello: () => G.liv.o4 >= 1 };
+  const VIS_MIGL = { stretch: () => true, lezioni: () => G.liv.stretch >= 1, macchina: () => G.liv.o1 >= 1, caffe: () => G.liv.o2 >= 1, cervello: () => G.liv.o4 >= 1, ispirazione: () => G.liv.o7 >= 1 };
   MIGLIORAMENTI.forEach(([id, icona, molt, base, rapporto]) => POT.push({
     id, icona, gruppo: "velocita", sezione: "sez-migl", tipo: "livelli", molt, base, rapporto,
     vis: VIS_MIGL[id],
@@ -6634,7 +6685,7 @@
   const recordSempreDi = chiave => Math.max(((G.recordSempre || {})[chiave] || {}).record || 0, (G.archivio[chiave] || {}).record || 0);
   const TRAGUARDI = [];
   function gruppoTraguardi(prefisso, ico, soglie, desc, val) {
-    soglie.forEach((n, i) => TRAGUARDI.push({ id: prefisso + n, ico, desc: () => desc(n), val, obiettivo: n, pct: PCT_PREMIO[i], min: 10 * Math.pow(3, i) }));
+    soglie.forEach((n, i) => TRAGUARDI.push({ id: prefisso + n, ico, desc: () => desc(n), val, obiettivo: n, pct: PCT_PREMIO[i], min: 100 * Math.pow(3, i) }));
   }
   gruppoTraguardi("sc", "🐒", [25, 500, 1e4, 1e6, 1e9, 1e12, 1e18], n => t("desc_sc", { n: fmt(n) }), () => numScimmie());
   gruppoTraguardi("ts", "⌨️", [1e3, 1e5, 1e8, 1e11, 1e15, 1e20], n => t("desc_ts", { n: fmt(n) }), () => tastiAlSecondo());
@@ -6663,7 +6714,7 @@
   const conta = n => fmt(n);
   function nuovoGruppo(prefisso, cat, ico, soglie, chiaveDesc, val) {
     soglie.forEach((n, i) => TRAGUARDI.push({ id: prefisso + n, cat, ico, desc: () => t(chiaveDesc, { n: conta(n) }), val,
-      obiettivo: n, pct: [2, 3, 4, 5, 6, 8, 8][Math.min(i, 6)], min: 20 * Math.pow(4, i) }));
+      obiettivo: n, pct: [2, 3, 4, 5, 6, 8, 8][Math.min(i, 6)], min: 200 * Math.pow(4, i) }));
   }
   nuovoGruppo("fc", "frasi", "📚", [10, 25, 50], "desc_fc", () => G.completate || 0);
   nuovoGruppo("pf", "frasi", "🧭", [5, 25, 100, 500], "desc_pf", () => G.parole || 0);
@@ -6698,9 +6749,9 @@
       archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, ufficioVuoto: true, paroleInOrdine: true, paroleScimmie: {}, parolaCasualeMax: 0, completateModo: {}, raccoltoRun: 0, pagine: 0, pagineTot: 0, pubblicazioni: 0, talenti: {}, auto: {}, pagineAut: {},
       collezione: ["a_scimmia", "a_nonvedo", "a_banana", "c_bianco", "c_banana", "c_menta", "e_nessuno"],
       aspetto: { avatar: "a_scimmia", colore: "c_bianco", effetto: "e_nessuno" },
-      casseGratis: 1, regaloBenvenuto: true, completateRun: 0, tariffa1: true, amici: [], sfideMie: {}, richiesteInviate: {}, richiesteRicevute: {}, risposteAmicizia: {}, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
+      casseGratis: 1, regaloBenvenuto: true, completateRun: 0, tariffa1: true, tariffa2: true, amici: [], sfideMie: {}, richiesteInviate: {}, richiesteRicevute: {}, risposteAmicizia: {}, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
       imp: { musica: 70, effetti: 80, lingua: linguaIniziale(), tema: "giungla", modo: "normale" },
-      liv, cuccioli: 1, banane: 15, tasti: 0, tempo: 0, completate: 0,
+      liv, cuccioli: 1, banane: 150, tasti: 0, tempo: 0, completate: 0,
       diario: [], ts: Date.now()
     };
   }
@@ -6728,23 +6779,21 @@
   // le banane crescono meno che proporzionalmente ai tasti: tengono l'economia sotto controllo
   // Ogni lettera giusta battuta da una scimmia vale una banana (due in Realistica, dove azzeccarla è più difficile).
   // In media una lettera su "nTasti" è quella giusta, quindi le banane al secondo sono i tasti al secondo diviso i tasti della tastiera.
-  // 1 banana ogni 10 lettere giuste (in Realistica vale il doppio); il Contratto editoriale abbassa il numero di lettere
-  const letterePerBanana = () => Math.max(1, 10 - livT("t_contratto"));
-  const valoreLettera = () => (modoCorrente() === "realistica" ? 2 : 1) / letterePerBanana();
+  const valoreLettera = () => (modoCorrente() === "realistica" ? 2 : 1);
   // mercato saturo: oltre 10 miliardi di banane al secondo ogni lettera rende sempre meno (radice quadrata),
   // così l'economia resta bilanciata anche dopo giorni di gioco. Talenti ed eventi si applicano dopo.
-  const bananeAlSecondo = (tps = tastiAlSecondo()) => tps / ((R && R.nTasti) || 27) * valoreLettera() * ((eventoAttivo() || {}).moltB || 1);
+  const bananeAlSecondo = (tps = tastiAlSecondo()) => tps / ((R && R.nTasti) || 27) * valoreLettera() * Math.pow(1.5, livT("t_contratto")) * ((eventoAttivo() || {}).moltB || 1);
   // tutto ciò che le scimmie guadagnano battendo lettere giuste finisce nel "raccolto"
   function raccogli(banane) {
     G.banane += banane; G.raccolto += banane; G.raccoltoRun = (G.raccoltoRun || 0) + banane;
-    G.lettere += banane / valoreLettera();
+    G.lettere += banane / valoreLettera() / Math.pow(1.5, livT("t_contratto"));
   }
   // a gioco chiuso le scimmie continuano a scrivere e a guadagnare per sempre, come se il gioco fosse aperto
   const efficienzaNotte = () => 1;
   // nuovo record: 25 banane per ogni lettera del record (es. record di 4 lettere = 100 banane)
-  const bonusRecord = (da, a) => { let b = 0; for (let k = da + 1; k <= a; k++) b += 2.5 * k; return b; };
+  const bonusRecord = (da, a) => { let b = 0; for (let k = da + 1; k <= a; k++) b += 25 * k; return b; };
   // traguardo: una percentuale di tutte le banane raccolte finora dalle scimmie
-  const premioTraguardo = tr => Math.max(G.raccolto * tr.pct / 100, tr.min || 100);
+  const premioTraguardo = tr => Math.max(G.raccolto * tr.pct / 100, tr.min || 1000);
 
   // ---------- costi ----------
   function costoPer(p, n) {
@@ -6921,7 +6970,7 @@
     // un editore compra l'opera: il 20% del raccolto se è la frase più lunga mai completata,
     // il 5% se è nuova ma non più lunga, il 2% se l'avevi già completata
     const quota = !primaVolta ? 0.02 : R.target.length > piuLungaPrima ? 0.2 : 0.05;
-    const premio = Math.max(G.raccolto * quota, R.target.length * (primaVolta ? 100 : 10)) * moltPremio();
+    const premio = Math.max(G.raccolto * quota, R.target.length * (primaVolta ? 1000 : 100)) * moltPremio();
     G.banane += premio;
     G.completate++;
     G.completateRun = (G.completateRun || 0) + 1;
@@ -7010,7 +7059,7 @@
   }
   // premio di una parola: 50 × lettere², oppure 30 secondi di banane per lettera se è di più
   // in Facile (senza spazi) le parole rendono la metà
-  const premioParola = lung => Math.max(5 * lung * lung, 30 * lung * bananeAlSecondo()) * moltPremio() * (modoCorrente() === "facile" ? 0.5 : 1);
+  const premioParola = lung => Math.max(50 * lung * lung, 30 * lung * bananeAlSecondo()) * moltPremio() * (modoCorrente() === "facile" ? 0.5 : 1);
   function paroleCompletate(da, a, chi) {
     let totale = 0, ultima = null;
     for (const c of R.confini || []) {
@@ -7202,7 +7251,7 @@
       G.liv.s1 = 2 * livT("t_squadra");
       for (const id of ["o0", "o1", "o2"]) G.liv[id] = 5 * livT("t_attrezzi");
       G.cuccioli = 1;
-      G.banane = 15 * Math.pow(10, livT("t_anticipo")) + eredita;
+      G.banane = 150 * Math.pow(10, livT("t_anticipo")) + eredita;
       G.raccoltoRun = 0;
       G.completateRun = 0;
       G.casseGratis = (G.casseGratis || 0) + 1;   // ogni pubblicazione regala una cassa di legno
@@ -7220,7 +7269,7 @@
     });
   }
   // mercato delle pagine: una Pagina d'oro in cambio di banane, ogni volta 50 volte più cara (non dà Fama)
-  const prezzoPagina = () => 1e11 * Math.pow(100, G.pagineComprate || 0);
+  const prezzoPagina = () => 1e12 * Math.pow(100, G.pagineComprate || 0);
   function compraPagina() {
     const prezzo = prezzoPagina();
     if (G.banane < prezzo) { Suono.nego(); return; }
@@ -7254,9 +7303,9 @@
       case "t_scuola": return t("eff_t_scuola", { x: x(1.5) });
       case "t_attrezzi": return t("eff_t_attrezzi", { n: 5 * l });
       case "t_qualita": return t("eff_t_qualita", { x: x(1.5) });
-      case "t_contratto": return t("eff_t_contratto", { n: Math.max(1, 10 - l), m: Math.max(1, 9 - l) });
+      case "t_contratto": return t("eff_t_contratto", { x: x(1.5) });
       case "t_premio": return t("eff_t_premio", { x: x(1.5) });
-      case "t_anticipo": return t("eff_t_anticipo", { n: fmt(15 * Math.pow(10, l)) });
+      case "t_anticipo": return t("eff_t_anticipo", { n: fmt(150 * Math.pow(10, l)) });
       case "t_eredita": return t("eff_t_eredita", { n: l });
       default: return t("eff_" + tl.id);
     }
@@ -7304,7 +7353,7 @@
     const fama = x => decimale(Math.round(x * 100) / 100);
     $("pubFama").textContent = t("pub_fama", { x: fama(moltFama()) }) + (n ? " → ×" + fama(1 + 0.03 * ((G.pagineTot || 0) + n)) : "");
     $("pubEdizione").textContent = t("pub_edizione", { n: (G.pubblicazioni || 0) + 1 });
-    $("pubProssima").textContent = n < 1 ? t("pub_minimo", { n: fmt(1e8) }) : t("pub_prossima", { n: fmt(sogliaPagina(daBanane)) });
+    $("pubProssima").textContent = n < 1 ? t("pub_minimo", { n: fmt(1e9) }) : t("pub_prossima", { n: fmt(sogliaPagina(daBanane)) });
     $("bPubblica").disabled = n < 1 || R.fermo;
     $("bCompraPagina").textContent = t("merc_btn", { n: fmt(prezzoPagina()) });
     $("bCompraPagina").disabled = G.banane < prezzoPagina();
@@ -7596,7 +7645,7 @@
       tr.el.querySelector("b").textContent = tr.nome();
       tr.el.querySelector(".desc").textContent = tr.desc();
       tr.el.querySelector(".fatto").textContent = t("premio_riscosso");
-      tr.el.querySelector(".premio").textContent = s && s.r ? "" : (s ? t("premio_pct", { p: tr.pct, n: fmt(premioFisso(tr)) }) : t("premio_pct_breve", { p: tr.pct, m: fmt(tr.min || 100) }));
+      tr.el.querySelector(".premio").textContent = s && s.r ? "" : (s ? t("premio_pct", { p: tr.pct, n: fmt(premioFisso(tr)) }) : t("premio_pct_breve", { p: tr.pct, m: fmt(tr.min || 1000) }));
       if (s && !s.r) tr.el.querySelector(".riscuoti").textContent = t("riscuoti", { n: fmt(premioFisso(tr)) });
       if (!s) {
         const v = tr.val(), o = tr.obiettivo;
@@ -7794,19 +7843,26 @@
         if (!sess || sess.tariffa1) return;
         sess.talenti = sess.talenti || {};
         if (sess.talenti.a_traguardi) { sess.pagine = (sess.pagine || 0) + 10; delete sess.talenti.a_traguardi; if (sess.auto) delete sess.auto.a_traguardi; }
-        // ora serve 1 banana ogni 10 lettere e tutti i prezzi sono divisi per 10: divido per 10 anche le banane
-        // della partita, così resta identica a prima. Le pagine del vecchio Contratto tornano indietro.
-        const vecchio = sess.talenti.t_contratto || 0;
-        let rimborso = 0;
-        for (let k = 0; k < vecchio; k++) rimborso += Math.ceil(3 * Math.pow(2.2, k));
-        sess.pagine = (sess.pagine || 0) + rimborso;
-        delete sess.talenti.t_contratto;
-        for (const k of ["banane", "raccolto", "raccoltoRun"]) if (sess[k]) sess[k] /= 10;
-        for (const tr of Object.values(sess.traguardi || {})) if (tr && tr.p) tr.p /= 10;
         sess.tariffa1 = true;
       };
+      // versione 44: le banane erano state divise per 10 (1 banana ogni 10 lettere). Tornano come prima:
+      // chi ha giocato con quella versione le riavrà ×10, e le pagine del Contratto di allora tornano indietro
+      const ripristina = (sess, eraDivisa) => {
+        if (!sess || sess.tariffa2) return;
+        if (eraDivisa) {
+          for (const k of ["banane", "raccolto", "raccoltoRun"]) if (sess[k]) sess[k] *= 10;
+          for (const tr of Object.values(sess.traguardi || {})) if (tr && tr.p) tr.p *= 10;
+          const l = (sess.talenti || {}).t_contratto || 0;
+          let rimborso = 0;
+          for (let k = 0; k < l; k++) rimborso += Math.ceil(3 * Math.pow(2.4, k));
+          sess.pagine = (sess.pagine || 0) + rimborso;
+          if (sess.talenti) delete sess.talenti.t_contratto;
+        }
+        sess.tariffa2 = true;
+      };
       if (!dati.tariffa1) { g.tariffa1 = false; sistemaSessione(g); }
-      for (const sess of Object.values(g.sessioni || {})) sistemaSessione(sess);
+      if (!dati.tariffa2) { g.tariffa2 = false; ripristina(g, !!dati.tariffa1); }
+      for (const sess of Object.values(g.sessioni || {})) { const divisa = !!sess.tariffa1; sistemaSessione(sess); ripristina(sess, divisa); }
       // il vecchio talento "Turni di notte" non serve più (a gioco chiuso si va avanti per sempre): restituisco le pagine
       if (g.talenti && g.talenti.t_notte) {
         let spese = 0;
@@ -9158,7 +9214,7 @@
     s.recAltro = altro.rec || 0;
     if (esito === "vinta" && !s.premiato) {
       const lv = LIVELLI_SFIDA[s.livello] || LIVELLI_SFIDA.facile;
-      s.premio = Math.max(100, lv.ore * 3600 * bananeAlSecondo());
+      s.premio = Math.max(1000, lv.ore * 3600 * bananeAlSecondo());
       G.banane += s.premio;
       G.pagine = (G.pagine || 0) + lv.pagine;
       s.premiato = true;
@@ -9803,7 +9859,7 @@
       salva();
       return;
     }
-    const premio = Math.max(10, 120 * bananeAlSecondo());
+    const premio = Math.max(100, 120 * bananeAlSecondo());
     G.banane += premio;
     Suono.moneta();
     avviso(t("ev_cesto_ok", { n: fmt(premio) }), "oro");
@@ -10126,24 +10182,16 @@
   // ---------- tutorial: evidenzia una parte del gioco alla volta ----------
   // Ogni passo evidenzia una parte del gioco. I passi con "azione" chiedono di toccare la parte evidenziata:
   // il tutorial va avanti da solo quando il giocatore lo fa (così impara facendo).
+  // tutorial corto: poche parole per passo, il resto si scopre giocando
   const PASSI_TUT = [
-    { sel: null, testo: "tut_a1", vista: "opera" },
-    { sel: "#v-opera .foglio", testo: "tut_a2", vista: "opera" },
-    { sel: "#v-opera .statistiche-opera", testo: "tut_b3", vista: "opera" },
-    { sel: ".hud .cassa", testo: "tut_b4" },
-    { sel: '.menu button[data-vista="negozio"]', testo: "tut_a4", azione: true },
-    { sel: "#lista-scimmie .pot:not([hidden])", testo: "tut_b6", azione: true, prima: () => mostraGruppo("scimmie") },
-    { sel: '.segmenti button[data-gruppo="velocita"]', testo: "tut_a6", azione: true },
-    { sel: "#lista-velocita .pot:not([hidden])", testo: "tut_b8", azione: true, prima: () => mostraGruppo("velocita") },
-    { sel: '.segmenti button[data-gruppo="editore"]', testo: "tut_b9" },
-    { sel: "#ufficio .scrivania", testo: "tut_a9", vista: "opera" },
-    { sel: '.menu button[data-vista="traguardi"]', testo: "tut_b12" },
-    { sel: '.menu button[data-vista="diario"]', testo: "tut_b13" },
-    { sel: "#bApriBiblioteca", testo: "tut_b14", vista: "opera" },
-    { sel: '.menu button[data-vista="bottega"]', testo: "tut_b16" },
-    { sel: "#bAmici", testo: "tut_b17" },
-    { sel: "#bImpostazioni", testo: "tut_b15" },
-    { sel: null, testo: "tut_a13" }
+    { sel: null, testo: "tut_c1", vista: "opera" },
+    { sel: "#v-opera .foglio", testo: "tut_c2", vista: "opera" },
+    { sel: ".hud .cassa", testo: "tut_c3" },
+    { sel: '.menu button[data-vista="negozio"]', testo: "tut_c4", azione: true },
+    { sel: "#lista-scimmie .pot:not([hidden])", testo: "tut_c5", azione: true, prima: () => mostraGruppo("scimmie") },
+    { sel: '.menu button[data-vista="traguardi"]', testo: "tut_c6" },
+    { sel: "#bApriBiblioteca", testo: "tut_c7", vista: "opera" },
+    { sel: null, testo: "tut_c8", vista: "opera" }
   ];
   let passoTut = -1;
   let PASSI = null;   // i passi in corso: quelli del tutorial o quelli del tour delle novità
@@ -10361,7 +10409,7 @@
   const CAMPI_SESSIONE = ["banane", "liv", "cuccioli", "raccolto", "raccoltoRun", "tasti", "lettere", "tempo", "completate", "completateRun",
     "operaId", "testoMio", "record", "recordChi", "recordTs", "linguaOpera", "modoOpera", "opereFatte", "archivio", "lunghe", "lungheModo",
     "fraseMio", "fraseMioModo", "parole", "parolaMax", "pagine", "pagineTot", "pubblicazioni", "talenti", "auto", "traguardi",
-    "diario", "diarioTarget", "ultimaTappa", "pagineComprate", "riequilibrato", "tariffa1"];
+    "diario", "diarioTarget", "ultimaTappa", "pagineComprate", "riequilibrato", "tariffa1", "tariffa2"];
   function cambiaSessione(da, a) {
     G.sessioni = G.sessioni || {};
     const vecchia = {};

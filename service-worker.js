@@ -1,6 +1,6 @@
 // Scimmie infinite: salva il gioco sul dispositivo, così si apre anche senza connessione.
 // Quando carichi una nuova versione dei file, cambia il numero qui sotto (v8, v9...).
-const VERSIONE = "scimmie-infinite-v44";
+const VERSIONE = "scimmie-infinite-v46";
 
 self.addEventListener("install", evento => {
   evento.waitUntil(caches.open(VERSIONE).then(cache => cache.addAll(["./", "./index.html"])).then(() => self.skipWaiting()));
