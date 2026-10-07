@@ -238,8 +238,15 @@
   .sfida-barre i.loro { background: #c084fc; }
   .sfida-azioni { display: flex; gap: 8px; margin-top: 8px; }
   .sfida-azioni .pulsante { flex: 1; }
-  .amico { display: grid; grid-template-columns: 36px 1fr auto 30px; gap: 10px; align-items: center; padding: 8px 4px; border-bottom: 1px solid var(--bordo); }
+  .bottone-ritira { margin-top: 8px; width: 100%; }
+  .amico { display: grid; grid-template-columns: 36px 1fr auto; gap: 10px; align-items: center; padding: 8px 4px; border-bottom: 1px solid var(--bordo); }
+  .amico-corpo { min-width: 0; display: grid; }
+  .amico-corpo small { color: var(--spento); font-size: 12.5px; line-height: 1.35; }
+  .amico-azioni { display: flex; gap: 6px; align-items: center; }
   .amico-nome { font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .esito-ico { font-size: 60px; text-align: center; line-height: 1.1; }
+  #veloEsitoSfida h2 { text-align: center; margin: 4px 0 0; }
+  .esito-contro { text-align: center; margin: 0 0 10px; }
   .togli-amico { width: 28px; height: 28px; font-size: 12px; font-style: normal; }
   .livelli-sfida { display: grid; gap: 8px; margin: 6px 0 12px; }
   .livello-sfida { text-align: left; background: var(--foglia-2); border: 1px solid var(--bordo); border-radius: 14px; padding: 12px 14px; color: var(--testo); }
@@ -1128,7 +1135,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 41</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 42</p>
   </div>
 </div>
 
@@ -1281,11 +1288,22 @@
     <div class="maniglia"></div>
     <h2 id="titAmici" data-t="am_tit"></h2>
     <p class="tappe-info" id="amOffline" data-t="am_offline" hidden></p>
-    <h3 class="gruppo-temi" data-t="am_sfide"></h3>
+    <h3 class="gruppo-temi" data-t="am_richieste"></h3>
+    <div id="amRichieste"></div>
+    <h3 class="gruppo-temi" data-t="sf_in_corso_tit"></h3>
     <div id="amSfide"></div>
     <h3 class="gruppo-temi" data-t="am_amici"></h3>
     <div id="amLista"></div>
     <div class="azioni"><button class="pulsante secondario" id="bAmChiudi" data-t="chiudi"></button></div>
+  </div>
+</div>
+<div class="velo centro sopra" id="veloEsitoSfida">
+  <div class="finestra" role="dialog" aria-modal="true" aria-labelledby="esTitolo">
+    <div class="esito-ico" id="esIco"></div>
+    <h2 id="esTitolo"></h2>
+    <p class="tappe-info esito-contro" id="esContro"></p>
+    <div class="stat" id="esStat"></div>
+    <div class="azioni"><button class="pulsante" id="bEsOk" data-t="es_ok"></button></div>
   </div>
 </div>
 <div class="velo basso sopra" id="veloSceltaSfida">
@@ -1889,8 +1907,8 @@
       am_tit: "👥 Amici e sfide",
       am_sfide: "⚔️ Sfide",
       am_amici: "👥 I tuoi amici",
-      am_vuoto: "Non hai ancora amici. Tocca un giocatore in classifica e premi «Aggiungi agli amici».",
-      am_nessuna: "Nessuna sfida per ora: sfida un amico qui sotto!",
+      am_vuoto: "Non hai ancora amici. Tocca un giocatore in classifica e premi «Chiedi l'amicizia».",
+      am_nessuna: "Nessuna sfida in corso: sfida un amico qui sotto!",
       am_sfida_btn: "⚔️ Sfida",
       am_rimuovi: "Rimuovi dagli amici",
       am_offline: "Le sfide funzionano solo quando il gioco è collegato alla classifica online.",
@@ -1923,7 +1941,36 @@
       sf_vinto_avviso: "🏆 Hai battuto {nick}! +{n} 🍌 +{p} 📃",
       sf_perso_avviso: "😿 {nick} ha completato la frase della sfida prima di te",
       sf_vinta_tit: "Sfida vinta!",
-      sf_persa_tit: "Sfida persa"
+      sf_persa_tit: "Sfida persa",
+      am_richieste: "📨 Richieste",
+      am_nessuna_rich: "Nessuna richiesta.",
+      sf_in_corso_tit: "⚔️ Sfide in corso",
+      rich_amicizia: "vuole diventare tuo amico",
+      rich_inviata_avviso: "📨 Richiesta di amicizia inviata a {nick}",
+      rich_ricevuta_avviso: "📨 {nick} vuole diventare tuo amico",
+      rich_accettata_avviso: "👥 {nick} ha accettato la tua amicizia!",
+      rich_rifiutata_avviso: "{nick} ha rifiutato la richiesta di amicizia",
+      gc_chiedi: "➕ Chiedi l'amicizia",
+      gc_inviata: "⏳ Richiesta inviata",
+      gc_accetta_rich: "✓ Accetta la sua richiesta",
+      am_in_attesa: "richiesta inviata",
+      am_annulla_rich: "Annulla",
+      sf_ritira: "↩️ Ritira la sfida",
+      sf_ritira_tra: "↩️ Potrai ritirarla tra {t}",
+      es_vinta_tit: "Sfida vinta!",
+      es_persa_tit: "Sfida persa",
+      es_patta_tit: "Pareggio",
+      es_ritirata_tit: "Sfida ritirata",
+      es_scaduta_tit: "Sfida scaduta",
+      es_rifiutata_tit: "Sfida rifiutata",
+      es_contro: "contro {nick}",
+      es_frase: "Frase",
+      es_livello: "Difficoltà",
+      es_durata: "Durata",
+      es_tuo: "Il tuo record",
+      es_suo: "Record di {nick}",
+      es_premio: "Premio",
+      es_ok: "OK"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -2341,8 +2388,8 @@
       am_tit: "👥 Friends and challenges",
       am_sfide: "⚔️ Challenges",
       am_amici: "👥 Your friends",
-      am_vuoto: "No friends yet. Tap a player on the leaderboard and press “Add friend”.",
-      am_nessuna: "No challenges yet: challenge a friend below!",
+      am_vuoto: "No friends yet. Tap a player on the leaderboard and press “Send friend request”.",
+      am_nessuna: "No ongoing challenges: challenge a friend below!",
       am_sfida_btn: "⚔️ Challenge",
       am_rimuovi: "Remove friend",
       am_offline: "Challenges only work when the game is connected to the online leaderboard.",
@@ -2375,7 +2422,36 @@
       sf_vinto_avviso: "🏆 You beat {nick}! +{n} 🍌 +{p} 📃",
       sf_perso_avviso: "😿 {nick} completed the challenge phrase before you",
       sf_vinta_tit: "Challenge won!",
-      sf_persa_tit: "Challenge lost"
+      sf_persa_tit: "Challenge lost",
+      am_richieste: "📨 Requests",
+      am_nessuna_rich: "No requests.",
+      sf_in_corso_tit: "⚔️ Ongoing challenges",
+      rich_amicizia: "wants to be your friend",
+      rich_inviata_avviso: "📨 Friend request sent to {nick}",
+      rich_ricevuta_avviso: "📨 {nick} wants to be your friend",
+      rich_accettata_avviso: "👥 {nick} accepted your friend request!",
+      rich_rifiutata_avviso: "{nick} declined your friend request",
+      gc_chiedi: "➕ Send friend request",
+      gc_inviata: "⏳ Request sent",
+      gc_accetta_rich: "✓ Accept their request",
+      am_in_attesa: "request sent",
+      am_annulla_rich: "Cancel",
+      sf_ritira: "↩️ Withdraw the challenge",
+      sf_ritira_tra: "↩️ You can withdraw it in {t}",
+      es_vinta_tit: "Challenge won!",
+      es_persa_tit: "Challenge lost",
+      es_patta_tit: "Draw",
+      es_ritirata_tit: "Challenge withdrawn",
+      es_scaduta_tit: "Challenge expired",
+      es_rifiutata_tit: "Challenge declined",
+      es_contro: "against {nick}",
+      es_frase: "Phrase",
+      es_livello: "Difficulty",
+      es_durata: "Duration",
+      es_tuo: "Your record",
+      es_suo: "{nick}'s record",
+      es_premio: "Prize",
+      es_ok: "OK"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -2793,8 +2869,8 @@
       am_tit: "👥 Amigos y desafíos",
       am_sfide: "⚔️ Desafíos",
       am_amici: "👥 Tus amigos",
-      am_vuoto: "Todavía no tienes amigos. Toca a un jugador en la clasificación y pulsa «Añadir a amigos».",
-      am_nessuna: "Ningún desafío por ahora: ¡desafía a un amigo aquí abajo!",
+      am_vuoto: "Todavía no tienes amigos. Toca a un jugador en la clasificación y pulsa «Pedir amistad».",
+      am_nessuna: "Ningún desafío en curso: ¡desafía a un amigo aquí abajo!",
       am_sfida_btn: "⚔️ Desafiar",
       am_rimuovi: "Quitar de amigos",
       am_offline: "Los desafíos solo funcionan cuando el juego está conectado a la clasificación online.",
@@ -2827,7 +2903,36 @@
       sf_vinto_avviso: "🏆 ¡Has vencido a {nick}! +{n} 🍌 +{p} 📃",
       sf_perso_avviso: "😿 {nick} completó la frase del desafío antes que tú",
       sf_vinta_tit: "¡Desafío ganado!",
-      sf_persa_tit: "Desafío perdido"
+      sf_persa_tit: "Desafío perdido",
+      am_richieste: "📨 Solicitudes",
+      am_nessuna_rich: "Ninguna solicitud.",
+      sf_in_corso_tit: "⚔️ Desafíos en curso",
+      rich_amicizia: "quiere ser tu amigo",
+      rich_inviata_avviso: "📨 Solicitud de amistad enviada a {nick}",
+      rich_ricevuta_avviso: "📨 {nick} quiere ser tu amigo",
+      rich_accettata_avviso: "👥 ¡{nick} ha aceptado tu amistad!",
+      rich_rifiutata_avviso: "{nick} ha rechazado la solicitud de amistad",
+      gc_chiedi: "➕ Pedir amistad",
+      gc_inviata: "⏳ Solicitud enviada",
+      gc_accetta_rich: "✓ Aceptar su solicitud",
+      am_in_attesa: "solicitud enviada",
+      am_annulla_rich: "Cancelar",
+      sf_ritira: "↩️ Retirar el desafío",
+      sf_ritira_tra: "↩️ Podrás retirarlo dentro de {t}",
+      es_vinta_tit: "¡Desafío ganado!",
+      es_persa_tit: "Desafío perdido",
+      es_patta_tit: "Empate",
+      es_ritirata_tit: "Desafío retirado",
+      es_scaduta_tit: "Desafío caducado",
+      es_rifiutata_tit: "Desafío rechazado",
+      es_contro: "contra {nick}",
+      es_frase: "Frase",
+      es_livello: "Dificultad",
+      es_durata: "Duración",
+      es_tuo: "Tu récord",
+      es_suo: "Récord de {nick}",
+      es_premio: "Premio",
+      es_ok: "OK"
     },
 
     // ------------------------------------------------------------- 中文
@@ -3245,8 +3350,8 @@
       am_tit: "👥 好友与挑战",
       am_sfide: "⚔️ 挑战",
       am_amici: "👥 你的好友",
-      am_vuoto: "还没有好友。在排行榜上点一位玩家，然后点“加为好友”。",
-      am_nessuna: "暂时没有挑战：在下面挑战一位好友吧！",
+      am_vuoto: "还没有好友。在排行榜上点一位玩家，然后点“发送好友请求”。",
+      am_nessuna: "没有进行中的挑战：在下面挑战一位好友吧！",
       am_sfida_btn: "⚔️ 挑战",
       am_rimuovi: "删除好友",
       am_offline: "只有游戏连接到在线排行榜时，挑战才能进行。",
@@ -3279,7 +3384,36 @@
       sf_vinto_avviso: "🏆 你打败了 {nick}！+{n} 🍌 +{p} 📃",
       sf_perso_avviso: "😿 {nick} 比你先完成了挑战句子",
       sf_vinta_tit: "挑战胜利！",
-      sf_persa_tit: "挑战失败"
+      sf_persa_tit: "挑战失败",
+      am_richieste: "📨 请求",
+      am_nessuna_rich: "没有请求。",
+      sf_in_corso_tit: "⚔️ 进行中的挑战",
+      rich_amicizia: "想成为你的好友",
+      rich_inviata_avviso: "📨 已向 {nick} 发送好友请求",
+      rich_ricevuta_avviso: "📨 {nick} 想成为你的好友",
+      rich_accettata_avviso: "👥 {nick} 接受了你的好友请求！",
+      rich_rifiutata_avviso: "{nick} 拒绝了好友请求",
+      gc_chiedi: "➕ 发送好友请求",
+      gc_inviata: "⏳ 已发送请求",
+      gc_accetta_rich: "✓ 接受他的请求",
+      am_in_attesa: "已发送请求",
+      am_annulla_rich: "取消",
+      sf_ritira: "↩️ 撤回挑战",
+      sf_ritira_tra: "↩️ {t}后可以撤回",
+      es_vinta_tit: "挑战胜利！",
+      es_persa_tit: "挑战失败",
+      es_patta_tit: "平局",
+      es_ritirata_tit: "挑战已撤回",
+      es_scaduta_tit: "挑战已过期",
+      es_rifiutata_tit: "挑战被拒绝",
+      es_contro: "对手：{nick}",
+      es_frase: "句子",
+      es_livello: "难度",
+      es_durata: "用时",
+      es_tuo: "你的纪录",
+      es_suo: "{nick} 的纪录",
+      es_premio: "奖励",
+      es_ok: "好"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -3697,8 +3831,8 @@
       am_tit: "👥 Amis et défis",
       am_sfide: "⚔️ Défis",
       am_amici: "👥 Tes amis",
-      am_vuoto: "Pas encore d'amis. Touche un joueur dans le classement et appuie sur « Ajouter aux amis ».",
-      am_nessuna: "Aucun défi pour l'instant : défie un ami ci-dessous !",
+      am_vuoto: "Pas encore d'amis. Touche un joueur dans le classement et appuie sur « Demander en ami ».",
+      am_nessuna: "Aucun défi en cours : défie un ami ci-dessous !",
       am_sfida_btn: "⚔️ Défier",
       am_rimuovi: "Retirer des amis",
       am_offline: "Les défis ne fonctionnent que lorsque le jeu est connecté au classement en ligne.",
@@ -3731,7 +3865,36 @@
       sf_vinto_avviso: "🏆 Tu as battu {nick} ! +{n} 🍌 +{p} 📃",
       sf_perso_avviso: "😿 {nick} a terminé la phrase du défi avant toi",
       sf_vinta_tit: "Défi gagné !",
-      sf_persa_tit: "Défi perdu"
+      sf_persa_tit: "Défi perdu",
+      am_richieste: "📨 Demandes",
+      am_nessuna_rich: "Aucune demande.",
+      sf_in_corso_tit: "⚔️ Défis en cours",
+      rich_amicizia: "veut devenir ton ami",
+      rich_inviata_avviso: "📨 Demande d'ami envoyée à {nick}",
+      rich_ricevuta_avviso: "📨 {nick} veut devenir ton ami",
+      rich_accettata_avviso: "👥 {nick} a accepté ta demande d'ami !",
+      rich_rifiutata_avviso: "{nick} a refusé la demande d'ami",
+      gc_chiedi: "➕ Demander en ami",
+      gc_inviata: "⏳ Demande envoyée",
+      gc_accetta_rich: "✓ Accepter sa demande",
+      am_in_attesa: "demande envoyée",
+      am_annulla_rich: "Annuler",
+      sf_ritira: "↩️ Retirer le défi",
+      sf_ritira_tra: "↩️ Tu pourras le retirer dans {t}",
+      es_vinta_tit: "Défi gagné !",
+      es_persa_tit: "Défi perdu",
+      es_patta_tit: "Égalité",
+      es_ritirata_tit: "Défi retiré",
+      es_scaduta_tit: "Défi expiré",
+      es_rifiutata_tit: "Défi refusé",
+      es_contro: "contre {nick}",
+      es_frase: "Phrase",
+      es_livello: "Difficulté",
+      es_durata: "Durée",
+      es_tuo: "Ton record",
+      es_suo: "Record de {nick}",
+      es_premio: "Prime",
+      es_ok: "OK"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -4151,7 +4314,7 @@
       am_sfide: "⚔️ Вызовы",
       am_amici: "👥 Твои друзья",
       am_vuoto: "Пока нет друзей. Нажми на игрока в рейтинге и выбери «Добавить в друзья».",
-      am_nessuna: "Пока нет вызовов: брось вызов другу ниже!",
+      am_nessuna: "Текущих вызовов нет: брось вызов другу ниже!",
       am_sfida_btn: "⚔️ Вызов",
       am_rimuovi: "Удалить из друзей",
       am_offline: "Вызовы работают, только когда игра подключена к онлайн-рейтингу.",
@@ -4184,7 +4347,36 @@
       sf_vinto_avviso: "🏆 Ты победил игрока {nick}! +{n} 🍌 +{p} 📃",
       sf_perso_avviso: "😿 {nick} завершил фразу вызова раньше тебя",
       sf_vinta_tit: "Вызов выигран!",
-      sf_persa_tit: "Вызов проигран"
+      sf_persa_tit: "Вызов проигран",
+      am_richieste: "📨 Заявки",
+      am_nessuna_rich: "Заявок нет.",
+      sf_in_corso_tit: "⚔️ Текущие вызовы",
+      rich_amicizia: "хочет добавить тебя в друзья",
+      rich_inviata_avviso: "📨 Заявка в друзья отправлена игроку {nick}",
+      rich_ricevuta_avviso: "📨 {nick} хочет добавить тебя в друзья",
+      rich_accettata_avviso: "👥 {nick} принял заявку в друзья!",
+      rich_rifiutata_avviso: "{nick} отклонил заявку в друзья",
+      gc_chiedi: "➕ Добавить в друзья",
+      gc_inviata: "⏳ Заявка отправлена",
+      gc_accetta_rich: "✓ Принять его заявку",
+      am_in_attesa: "заявка отправлена",
+      am_annulla_rich: "Отменить",
+      sf_ritira: "↩️ Отозвать вызов",
+      sf_ritira_tra: "↩️ Отозвать можно через {t}",
+      es_vinta_tit: "Вызов выигран!",
+      es_persa_tit: "Вызов проигран",
+      es_patta_tit: "Ничья",
+      es_ritirata_tit: "Вызов отозван",
+      es_scaduta_tit: "Вызов истёк",
+      es_rifiutata_tit: "Вызов отклонён",
+      es_contro: "против игрока {nick}",
+      es_frase: "Фраза",
+      es_livello: "Сложность",
+      es_durata: "Длительность",
+      es_tuo: "Твой рекорд",
+      es_suo: "Рекорд игрока {nick}",
+      es_premio: "Приз",
+      es_ok: "ОК"
     }
   };
 
@@ -6184,7 +6376,7 @@
       archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, ufficioVuoto: true, paroleInOrdine: true, paroleScimmie: {}, parolaCasualeMax: 0, completateModo: {}, raccoltoRun: 0, pagine: 0, pagineTot: 0, pubblicazioni: 0, talenti: {}, auto: {}, pagineAut: {},
       collezione: ["a_scimmia", "a_nonvedo", "a_banana", "c_bianco", "c_banana", "c_menta", "e_nessuno"],
       aspetto: { avatar: "a_scimmia", colore: "c_bianco", effetto: "e_nessuno" },
-      casseGratis: 1, regaloBenvenuto: true, completateRun: 0, amici: [], sfideMie: {}, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
+      casseGratis: 1, regaloBenvenuto: true, completateRun: 0, amici: [], sfideMie: {}, richiesteInviate: {}, richiesteRicevute: {}, risposteAmicizia: {}, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
       imp: { musica: 70, effetti: 80, lingua: linguaIniziale(), tema: "giungla", modo: "normale" },
       liv, cuccioli: 1, banane: 150, tasti: 0, tempo: 0, completate: 0,
       diario: [], ts: Date.now()
@@ -7260,6 +7452,7 @@
         }
         g.pulizia1 = true;
       }
+      for (const sf of Object.values(g.sfideMie || {})) if (sf.esito) sf.visto = true;
       // cassa di benvenuto anche per chi giocava già
       if (!dati.regaloBenvenuto) { g.casseGratis = (dati.casseGratis || 0) + 1; g.regaloBenvenuto = true; }
       // le automazioni che compravano da sole non ci sono più: restituisco le pagine
@@ -8542,9 +8735,14 @@
     $("gcNota").textContent = t("gc_carico");
     const amico = $("bGcAmico");
     amico.hidden = io || !r.id;
-    amico.disabled = sonoAmici(r.id);
-    amico.textContent = sonoAmici(r.id) ? t("gc_amico") : t("gc_aggiungi");
-    amico.onclick = () => { aggiungiAmico(r.id, nome); amico.disabled = true; amico.textContent = t("gc_amico"); };
+    const statoAmico = () => sonoAmici(r.id) ? "amico" : (G.richiesteInviate || {})[r.id] ? "inviata" : (G.richiesteRicevute || {})[r.id] ? "ricevuta" : "no";
+    const scriviAmico = () => {
+      const st = statoAmico();
+      amico.disabled = st === "amico" || st === "inviata";
+      amico.textContent = { amico: t("gc_amico"), inviata: t("gc_inviata"), ricevuta: t("gc_accetta_rich"), no: t("gc_chiedi") }[st];
+    };
+    scriviAmico();
+    amico.onclick = () => { chiediAmicizia(r.id, nome); scriviAmico(); };
     apri("veloGiocatore");
     const p = io ? Online.datiProfilo() : await Online.leggiProfilo(r.id);
     if (!p) { $("gcNota").textContent = t("gc_nodati"); return; }
@@ -8561,9 +8759,10 @@
 
   // =====================================================================
   //  AMICI E SFIDE
-  //  Una sfida usa una frase predefinita a caso della difficoltà scelta. Le scimmie di tutti e due
-  //  ci lavorano insieme alla frase di sempre (gli stessi tasti casuali valgono per entrambe):
-  //  vince chi la completa per primo e si prende il premio. La fortuna non cambia mai.
+  //  Amicizia: si manda una richiesta, l'altro la accetta o la rifiuta.
+  //  Sfida: una frase predefinita a caso della difficoltà scelta. Le scimmie di tutti e due ci lavorano
+  //  insieme alla frase di sempre (gli stessi tasti casuali valgono per entrambe): vince chi la completa
+  //  per primo e si prende il premio. La fortuna non cambia mai.
   // =====================================================================
   const LIVELLI_SFIDA = {
     facile: { ico: "🌱", min: 6, max: 10, ore: 0.5, pagine: 1 },
@@ -8571,12 +8770,12 @@
     difficile: { ico: "🎩", min: 17, max: 24, ore: 8, pagine: 8 },
     epica: { ico: "🔥", min: 25, max: 40, ore: 24, pagine: 20 }
   };
-  const DURATA_SFIDA = 3 * 86400000;
-  const durataBreve = ore => (ore < 1 ? Math.round(ore * 60) + " min" : ore + " h");   // 3 giorni per accettare e altri 3 per finirla
+  const DURATA_SFIDA = 3 * 86400000;     // 3 giorni per accettare e altri 3 per finirla
+  const ATTESA_RITIRO = 3600000;         // una sfida già accettata si può ritirare dopo un'ora
+  const durataBreve = ore => (ore < 1 ? Math.round(ore * 60) + " min" : ore + " h");
   const testoSfida = s => normalizza((OPERE.find(o => o.id === s.fraseId) || { testo: "" }).testo, "normale");
   const titoloSfida = s => (OPERE.some(o => o.id === s.fraseId) ? operaCorrente(s.fraseId).titolo : s.fraseId);
   const avversario = s => (s.da === Online.id ? { id: s.a, nick: s.aNick } : { id: s.da, nick: s.daNick });
-  // record massimo su K tasti per un testo di L caratteri con n tasti (stesso calcolo della frase principale)
   function serieMassima(K, n, L) {
     const P = 1 / n, tentativi = K * (1 - P);
     if (tentativi <= 0) return 0;
@@ -8594,7 +8793,6 @@
     return adatte[Math.floor(Math.random() * adatte.length)] || OPERE[0];
   }
   const sfideAttive = () => Object.values(G.sfideMie || {}).filter(s => s.acc && !s.esito && !s.fatto);
-  // le scimmie lavorano anche alle frasi delle sfide accettate
   function avanzaSfide(tasti) {
     let cambiato = false;
     for (const s of sfideAttive()) {
@@ -8605,41 +8803,73 @@
     }
     if (cambiato) { aggiornaSfide(); Sfide.pubblica(); }
   }
+  // chiude una sfida e mette in coda la finestra con le sue statistiche
+  function chiudiSfida(s, esito) {
+    s.esito = esito;
+    s.fine = Date.now();
+    const altro = Sfide.esitiAltri[s.sid] || {};
+    s.recAltro = altro.rec || 0;
+    if (esito === "vinta" && !s.premiato) {
+      const lv = LIVELLI_SFIDA[s.livello] || LIVELLI_SFIDA.facile;
+      s.premio = Math.max(1000, lv.ore * 3600 * bananeAlSecondo());
+      G.banane += s.premio;
+      G.pagine = (G.pagine || 0) + lv.pagine;
+      s.premiato = true;
+      Suono.traguardo();
+    }
+    const opp = avversario(s);
+    if (esito === "vinta") notifica("🏆 " + t("es_vinta_tit"), t("es_contro", { nick: opp.nick }));
+    if (esito === "persa") notifica("😿 " + t("es_persa_tit"), t("es_contro", { nick: opp.nick }));
+    R.esitiDaMostrare = (R.esitiDaMostrare || []).concat(s.sid);
+  }
   function aggiornaSfide() {
     const ora = Date.now();
     let cambiato = false;
     for (const s of Object.values(G.sfideMie || {})) {
       if (s.esito) continue;
       const altro = Sfide.esitiAltri[s.sid] || {}, opp = avversario(s);
-      if (altro.rif) { s.esito = "rifiutata"; cambiato = true; continue; }
-      // chi ha lanciato la sfida inizia a contare quando l'altro accetta
+      if (altro.rif) { chiudiSfida(s, "rifiutata"); cambiato = true; continue; }
+      if (altro.rit) { chiudiSfida(s, "ritirata"); cambiato = true; continue; }
       if (s.da === Online.id && altro.acc && !s.acc) { s.acc = ora; cambiato = true; avviso(t("sf_accettata_avviso", { nick: opp.nick }), "oro"); }
-      if (!s.acc && ora - s.creata > DURATA_SFIDA) { s.esito = "scaduta"; cambiato = true; continue; }
-      if (altro.fatto && (!s.fatto || altro.fatto < s.fatto)) {
-        s.esito = "persa"; cambiato = true;
-        avviso(t("sf_perso_avviso", { nick: opp.nick }));
-        notifica("⚔️ " + t("sf_persa_tit"), t("sf_perso_avviso", { nick: opp.nick }));
-        continue;
-      }
-      if (s.fatto && (!altro.fatto || s.fatto <= altro.fatto)) {
-        s.esito = "vinta"; cambiato = true;
-        if (!s.premiato) {
-          const lv = LIVELLI_SFIDA[s.livello] || LIVELLI_SFIDA.facile;
-          s.premio = Math.max(1000, lv.ore * 3600 * bananeAlSecondo());
-          G.banane += s.premio;
-          G.pagine = (G.pagine || 0) + lv.pagine;
-          s.premiato = true;
-          Suono.traguardo();
-          avviso(t("sf_vinto_avviso", { nick: opp.nick, n: fmt(s.premio), p: lv.pagine }), "oro");
-          notifica("🏆 " + t("sf_vinta_tit"), t("sf_vinto_avviso", { nick: opp.nick, n: fmt(s.premio), p: lv.pagine }));
-        }
-        continue;
-      }
-      if (s.acc && ora - s.acc > DURATA_SFIDA) { s.esito = "patta"; cambiato = true; }
+      if (!s.acc && ora - s.creata > DURATA_SFIDA) { chiudiSfida(s, "scaduta"); cambiato = true; continue; }
+      if (altro.fatto && (!s.fatto || altro.fatto < s.fatto)) { chiudiSfida(s, "persa"); cambiato = true; continue; }
+      if (s.fatto && (!altro.fatto || s.fatto <= altro.fatto)) { chiudiSfida(s, "vinta"); cambiato = true; continue; }
+      if (s.acc && ora - s.acc > DURATA_SFIDA) { chiudiSfida(s, "patta"); cambiato = true; }
     }
     if (cambiato) { salva(); Sfide.pubblica(true); Sfide.aggiornaAscolti(); }
     scriviBadgeAmici();
+    mostraEsitoSfida();
     if (aperto("veloAmici")) disegnaAmici();
+  }
+  // finestra con le statistiche della sfida appena finita (una alla volta)
+  function mostraEsitoSfida() {
+    if (aperto("veloEsitoSfida") || R.nelMenu || passoTut >= 0 || !(R.esitiDaMostrare || []).length) return;
+    const sid = R.esitiDaMostrare.shift();
+    const s = (G.sfideMie || {})[sid];
+    if (!s || s.visto) return mostraEsitoSfida();
+    const opp = avversario(s), lv = LIVELLI_SFIDA[s.livello] || LIVELLI_SFIDA.facile, L = testoSfida(s).length;
+    const ico = { vinta: "🏆", persa: "😿", patta: "🤝", ritirata: "↩️", scaduta: "⌛", rifiutata: "🚫" }[s.esito] || "⚔️";
+    $("esIco").textContent = ico;
+    $("esTitolo").textContent = t("es_" + s.esito + "_tit");
+    $("esContro").textContent = t("es_contro", { nick: opp.nick });
+    const voci = [
+      [t("es_frase"), "«" + titoloSfida(s) + "» · " + caratteri(L)],
+      [t("es_livello"), lv.ico + " " + t("sf_liv_" + s.livello)]
+    ];
+    if (s.acc) voci.push([t("es_durata"), fmtTempo(Math.max(1, ((s.fatto || s.fine || Date.now()) - s.acc) / 1000))]);
+    if (s.acc) voci.push([t("es_tuo"), (s.rec || 0) + "/" + L], [t("es_suo", { nick: opp.nick }), (s.recAltro || 0) + "/" + L]);
+    if (s.esito === "vinta") voci.push([t("es_premio"), "+" + fmt(s.premio || 0) + " 🍌 · +" + lv.pagine + " 📃"]);
+    const box = $("esStat");
+    box.innerHTML = "";
+    for (const [et, val] of voci) {
+      const d = document.createElement("div");
+      const sm = document.createElement("small"); sm.textContent = et;
+      const st = document.createElement("strong"); st.textContent = val;
+      d.append(sm, st);
+      box.appendChild(d);
+    }
+    $("bEsOk").onclick = () => { s.visto = true; salva(); chiudi("veloEsitoSfida"); if (aperto("veloAmici")) disegnaAmici(); setTimeout(mostraEsitoSfida, 300); };
+    apri("veloEsitoSfida");
   }
   // la parte online: ognuno scrive solo il proprio documento "sfide/<id>", tutti possono leggerlo
   const Sfide = {
@@ -8649,32 +8879,59 @@
     avvia() {
       if (this.avviato || !this.disponibile()) return;
       this.avviato = true;
-      // sfide ricevute: i documenti di chi mi ha sfidato hanno il mio id tra i destinatari
+      // sfide e richieste di amicizia ricevute: i documenti di chi me le manda mi hanno tra i destinatari
       try {
         this.base().collection("sfide").where("destinatari", "array-contains", Online.id).onSnapshot(snap => {
-          for (const d of snap.docs) this.leggi(d.id, d.data());
+          const visti = new Set();
+          for (const d of snap.docs) { visti.add(d.id); this.leggi(d.id, d.data()); }
+          // richieste ritirate da chi le aveva mandate
+          for (const uid of Object.keys(G.richiesteRicevute || {})) if (!visti.has(uid)) delete G.richiesteRicevute[uid];
           aggiornaSfide();
         }, () => {});
       } catch (e) {}
       this.aggiornaAscolti();
       this.pubblica(true);
     },
-    // per le sfide che ho lanciato seguo il documento dell'avversario
+    // seguo i documenti di chi ho sfidato e di chi ho chiesto come amico, per leggere le loro risposte
     aggiornaAscolti() {
       if (!this.avviato) return;
-      for (const s of Object.values(G.sfideMie || {})) {
-        if (s.da !== Online.id || s.esito || this.ascolti[s.a]) continue;
+      const da = new Set(Object.keys(G.richiesteInviate || {}));
+      for (const s of Object.values(G.sfideMie || {})) if (s.da === Online.id && !s.esito) da.add(s.a);
+      for (const uid of da) {
+        if (this.ascolti[uid]) continue;
         try {
-          this.ascolti[s.a] = this.base().collection("sfide").doc(s.a).onSnapshot(snap => {
-            if (snap.exists) { this.leggi(s.a, snap.data()); aggiornaSfide(); }
+          this.ascolti[uid] = this.base().collection("sfide").doc(uid).onSnapshot(snap => {
+            if (snap.exists) { this.leggi(uid, snap.data()); aggiornaSfide(); }
           }, () => {});
         } catch (e) {}
       }
     },
     leggi(uid, dati) {
       G.sfideMie = G.sfideMie || {};
+      G.richiesteRicevute = G.richiesteRicevute || {};
+      const me = Online.id;
+      // richiesta di amicizia per me
+      if ((dati.richieste || {})[me] && !sonoAmici(uid) && !(G.risposteAmicizia || {})[uid] && !G.richiesteRicevute[uid]) {
+        if ((G.richiesteInviate || {})[uid]) { accettaAmicizia(uid, dati.nick); }   // ci siamo chiesti a vicenda
+        else {
+          G.richiesteRicevute[uid] = { nick: dati.nick || "?", ts: dati.richieste[me].ts || Date.now() };
+          avviso(t("rich_ricevuta_avviso", { nick: dati.nick || "?" }), "oro");
+          notifica("📨 " + t("am_richieste"), t("rich_ricevuta_avviso", { nick: dati.nick || "?" }));
+        }
+      }
+      // risposta a una mia richiesta
+      const risposta = (dati.risposte || {})[me];
+      if ((G.richiesteInviate || {})[uid] && risposta) {
+        delete G.richiesteInviate[uid];
+        if (risposta === "ok") {
+          if (!sonoAmici(uid)) G.amici = [...(G.amici || []), { id: uid, nick: dati.nick || "?" }];
+          avviso(t("rich_accettata_avviso", { nick: dati.nick || "?" }), "oro");
+        } else avviso(t("rich_rifiutata_avviso", { nick: dati.nick || "?" }));
+        salva();
+      }
+      // sfide per me
       for (const [sid, sf] of Object.entries(dati.sfide || {})) {
-        if (sf.a !== Online.id || G.sfideMie[sid]) continue;
+        if (sf.a !== me || G.sfideMie[sid]) continue;
         if (Date.now() - (sf.creata || 0) > 2 * DURATA_SFIDA) continue;
         G.sfideMie[sid] = { sid, da: uid, a: sf.a, daNick: sf.daNick || "?", aNick: sf.aNick || G.nick, fraseId: sf.fraseId, livello: sf.livello, creata: sf.creata };
         avviso(t("sf_ricevuta", { nick: sf.daNick || "?" }), "oro");
@@ -8686,14 +8943,20 @@
       if (!this.disponibile()) return;
       const ora = Date.now();
       const tutte = Object.values(G.sfideMie || {}).filter(s => ora - s.creata < 3 * DURATA_SFIDA).sort((a, b) => b.creata - a.creata).slice(0, 20);
-      const doc = { nick: G.nick || "", destinatari: [], sfide: {}, esiti: {} };
+      const doc = { nick: G.nick || "", destinatari: [], sfide: {}, esiti: {}, richieste: {}, risposte: {} };
       for (const s of tutte) {
         if (s.da === Online.id) {
           doc.sfide[s.sid] = { a: s.a, aNick: s.aNick || "", daNick: G.nick || "", fraseId: s.fraseId, livello: s.livello, creata: s.creata };
           if (!doc.destinatari.includes(s.a)) doc.destinatari.push(s.a);
         }
-        doc.esiti[s.sid] = { acc: s.acc || 0, rif: s.rif || 0, fatto: s.fatto || 0, rec: s.rec || 0 };
+        doc.esiti[s.sid] = { acc: s.acc || 0, rif: s.rif || 0, rit: s.rit || 0, fatto: s.fatto || 0, rec: s.rec || 0 };
       }
+      for (const [uid, r] of Object.entries(G.richiesteInviate || {})) {
+        doc.richieste[uid] = { ts: r.ts };
+        if (!doc.destinatari.includes(uid)) doc.destinatari.push(uid);
+      }
+      for (const [uid, r] of Object.entries(G.risposteAmicizia || {}).slice(-50)) doc.risposte[uid] = r;
+      doc.destinatari = doc.destinatari.slice(0, 40);
       const chiave = JSON.stringify(doc);
       if (chiave === this.ultimoDoc) return;
       const attesa = subito ? 0 : 5000 - (ora - this.ultimaScrittura);
@@ -8703,52 +8966,111 @@
     }
   };
 
-  // ---------- amici ----------
+  // ---------- amici: richieste, accetta, rifiuta ----------
   const sonoAmici = id => (G.amici || []).some(a => a.id === id);
-  function aggiungiAmico(id, nick) {
+  function chiediAmicizia(id, nick) {
     if (!id || id === Online.id || sonoAmici(id)) return;
-    G.amici = [...(G.amici || []), { id, nick: nick || "?" }];
+    if ((G.richiesteRicevute || {})[id]) { accettaAmicizia(id, nick); return; }
+    G.richiesteInviate = { ...(G.richiesteInviate || {}), [id]: { nick: nick || "?", ts: Date.now() } };
     salva();
-    avviso(t("am_aggiunto", { nick: nick || "?" }), "oro");
+    Sfide.pubblica(true);
+    Sfide.aggiornaAscolti();
+    avviso(t("rich_inviata_avviso", { nick: nick || "?" }), "oro");
+  }
+  function accettaAmicizia(id, nick) {
+    const r = (G.richiesteRicevute || {})[id];
+    nick = nick || (r && r.nick) || "?";
+    if (!sonoAmici(id)) G.amici = [...(G.amici || []), { id, nick }];
+    G.risposteAmicizia = { ...(G.risposteAmicizia || {}), [id]: "ok" };
+    if (G.richiesteRicevute) delete G.richiesteRicevute[id];
+    if (G.richiesteInviate) delete G.richiesteInviate[id];
+    salva();
+    Sfide.pubblica(true);
+    avviso(t("am_aggiunto", { nick }), "oro");
+  }
+  function rifiutaAmicizia(id) {
+    G.risposteAmicizia = { ...(G.risposteAmicizia || {}), [id]: "no" };
+    if (G.richiesteRicevute) delete G.richiesteRicevute[id];
+    salva();
+    Sfide.pubblica(true);
+  }
+  function annullaRichiesta(id) {
+    if (G.richiesteInviate) delete G.richiesteInviate[id];
+    salva();
+    Sfide.pubblica(true);
+    disegnaAmici();
   }
   function rimuoviAmico(id) {
     G.amici = (G.amici || []).filter(a => a.id !== id);
     salva();
     disegnaAmici();
   }
-  // aspetto di un amico preso dalle classifiche (se c'è)
   function rigaDi(id) {
     for (const m of MODI) { const r = (Online.righe[m] || []).find(x => x.id === id); if (r) return r; }
     return null;
   }
   function scriviBadgeAmici() {
-    const daRispondere = Object.values(G.sfideMie || {}).filter(s => s.a === Online.id && !s.acc && !s.esito).length;
-    $("badgeAmici").textContent = daRispondere || "";
-    $("badgeAmici").classList.toggle("vis", daRispondere > 0);
+    const sfideNuove = Object.values(G.sfideMie || {}).filter(s => s.a === Online.id && !s.acc && !s.esito).length;
+    const n = sfideNuove + Object.keys(G.richiesteRicevute || {}).length;
+    $("badgeAmici").textContent = n || "";
+    $("badgeAmici").classList.toggle("vis", n > 0);
   }
   function apriAmici() { disegnaAmici(); apri("veloAmici"); }
+  // una riga con avatar, nome, testo e pulsanti
+  function rigaAmico(id, nick, testo, pulsanti) {
+    const r = rigaDi(id) || {};
+    const riga = document.createElement("div"); riga.className = "amico";
+    const av = document.createElement("span"); av.className = "avatar-pg"; mostraAvatar(av, r.avatar);
+    const corpo = document.createElement("span"); corpo.className = "amico-corpo";
+    const nome = document.createElement("span"); nome.className = "amico-nome"; mostraNome(nome, (r.nick || nick || "?"), r.colore, r.effetto);
+    corpo.appendChild(nome);
+    if (testo) { const sm = document.createElement("small"); sm.textContent = testo; corpo.appendChild(sm); }
+    const az = document.createElement("span"); az.className = "amico-azioni";
+    for (const [testoB, classe, azione, disattivo] of pulsanti) {
+      const b = document.createElement("button"); b.className = classe; b.textContent = testoB;
+      b.disabled = !!disattivo; b.onclick = azione;
+      az.appendChild(b);
+    }
+    riga.append(av, corpo, az);
+    return riga;
+  }
   function disegnaAmici() {
     const ora = Date.now();
     $("amOffline").hidden = Sfide.disponibile();
-    // sfide: prima quelle da accettare, poi quelle in corso, poi le ultime finite
+    // 📨 richieste: amicizie e sfide da accettare o rifiutare
+    const rich = $("amRichieste");
+    rich.innerHTML = "";
+    for (const [uid, r] of Object.entries(G.richiesteRicevute || {})) {
+      rich.appendChild(rigaAmico(uid, r.nick, t("rich_amicizia"), [
+        [t("sf_accetta"), "pulsante piccolo", () => { accettaAmicizia(uid, r.nick); disegnaAmici(); scriviBadgeAmici(); }],
+        [t("sf_rifiuta"), "pulsante secondario piccolo", () => { rifiutaAmicizia(uid); disegnaAmici(); scriviBadgeAmici(); }]
+      ]));
+    }
+    for (const s of Object.values(G.sfideMie || {}).filter(s => s.a === Online.id && !s.acc && !s.esito)) {
+      const lv = LIVELLI_SFIDA[s.livello] || LIVELLI_SFIDA.facile;
+      rich.appendChild(rigaAmico(s.da, s.daNick, `⚔️ ${lv.ico} ${t("sf_liv_" + s.livello)} · «${titoloSfida(s)}» · ${t("sf_premio", { ore: durataBreve(lv.ore), p: lv.pagine })}`, [
+        [t("sf_accetta"), "pulsante piccolo", () => {
+          s.acc = Date.now();
+          if (!sonoAmici(s.da)) G.amici = [...(G.amici || []), { id: s.da, nick: s.daNick || "?" }];
+          salva(); Sfide.pubblica(true); avviso(t("sf_via"), "oro"); disegnaAmici(); scriviBadgeAmici();
+        }],
+        [t("sf_rifiuta"), "pulsante secondario piccolo", () => { s.rif = Date.now(); s.esito = "rifiutata"; s.visto = true; salva(); Sfide.pubblica(true); disegnaAmici(); scriviBadgeAmici(); }]
+      ]));
+    }
+    if (!rich.children.length) rich.innerHTML = `<p class="tappe-info">${t("am_nessuna_rich")}</p>`;
+    // ⚔️ sfide in corso (quelle finite non restano: se ne vedono le statistiche nella finestra che compare alla fine)
     const box = $("amSfide");
     box.innerHTML = "";
-    const ordine = s => (s.esito ? 3 : !s.acc && s.a === Online.id ? 0 : s.acc ? 1 : 2);
-    const lista = Object.values(G.sfideMie || {}).sort((a, b) => ordine(a) - ordine(b) || b.creata - a.creata).slice(0, 12);
-    if (!lista.length) box.innerHTML = `<p class="tappe-info">${t("am_nessuna")}</p>`;
-    for (const s of lista) {
+    const inCorso = Object.values(G.sfideMie || {}).filter(s => !s.esito && (s.acc || s.da === Online.id)).sort((a, b) => b.creata - a.creata);
+    if (!inCorso.length) box.innerHTML = `<p class="tappe-info">${t("am_nessuna")}</p>`;
+    for (const s of inCorso) {
       const opp = avversario(s), lv = LIVELLI_SFIDA[s.livello] || LIVELLI_SFIDA.facile, L = testoSfida(s).length;
-      const d = document.createElement("div");
-      d.className = "sfida" + (s.esito ? " finita esito-" + s.esito : "");
-      const testa = document.createElement("div"); testa.className = "sfida-testa";
-      testa.textContent = `${lv.ico} ${t("sf_liv_" + s.livello)} · ${opp.nick}`;
+      const altro = Sfide.esitiAltri[s.sid] || {};
+      const d = document.createElement("div"); d.className = "sfida";
+      const testa = document.createElement("div"); testa.className = "sfida-testa"; testa.textContent = `${lv.ico} ${t("sf_liv_" + s.livello)} · ${opp.nick}`;
       const frase = document.createElement("div"); frase.className = "sfida-frase"; frase.textContent = "«" + titoloSfida(s) + "» · " + caratteri(L);
       const stato = document.createElement("div"); stato.className = "sfida-stato";
-      const altro = Sfide.esitiAltri[s.sid] || {};
-      if (s.esito === "vinta") stato.textContent = t("sf_vinta", { n: fmt(s.premio || 0), p: lv.pagine });
-      else if (s.esito) stato.textContent = t("sf_" + s.esito, { nick: opp.nick });
-      else if (!s.acc && s.a === Online.id) stato.textContent = t("sf_stato_ricevuta", { nick: opp.nick }) + " · " + t("sf_premio", { ore: durataBreve(lv.ore), p: lv.pagine });
-      else if (!s.acc) stato.textContent = t("sf_stato_attesa", { nick: opp.nick });
+      if (!s.acc) stato.textContent = t("sf_stato_attesa", { nick: opp.nick });
       else {
         stato.textContent = t("sf_stato_corsa", { a: s.rec || 0, b: altro.rec || 0, l: L, nick: opp.nick }) + " · " + t("sf_scade", { t: fmtTempo(Math.max(0, (s.acc + DURATA_SFIDA - ora) / 1000)) });
         const barre = document.createElement("div"); barre.className = "sfida-barre";
@@ -8756,38 +9078,31 @@
         stato.appendChild(barre);
       }
       d.append(testa, frase, stato);
-      if (!s.acc && !s.esito && s.a === Online.id) {
-        const az = document.createElement("div"); az.className = "sfida-azioni";
-        const si = document.createElement("button"); si.className = "pulsante piccolo"; si.textContent = t("sf_accetta");
-        si.onclick = () => {
-          s.acc = Date.now();
-          if (!sonoAmici(s.da)) G.amici = [...(G.amici || []), { id: s.da, nick: s.daNick || "?" }];
-          salva(); Sfide.pubblica(true); avviso(t("sf_via"), "oro"); disegnaAmici(); scriviBadgeAmici();
-        };
-        const no = document.createElement("button"); no.className = "pulsante secondario piccolo"; no.textContent = t("sf_rifiuta");
-        no.onclick = () => { s.rif = Date.now(); s.esito = "rifiutata"; salva(); Sfide.pubblica(true); disegnaAmici(); scriviBadgeAmici(); };
-        az.append(si, no);
-        d.appendChild(az);
+      // chi ha lanciato la sfida può ritirarla: subito se non è ancora accettata, dopo un'ora se è già in corso
+      if (s.da === Online.id) {
+        const manca = s.acc ? s.acc + ATTESA_RITIRO - ora : 0;
+        const rit = document.createElement("button"); rit.className = "pulsante secondario piccolo bottone-ritira";
+        rit.textContent = manca > 0 ? t("sf_ritira_tra", { t: fmtTempo(manca / 1000) }) : t("sf_ritira");
+        rit.disabled = manca > 0;
+        rit.onclick = () => { s.rit = Date.now(); chiudiSfida(s, "ritirata"); salva(); Sfide.pubblica(true); disegnaAmici(); mostraEsitoSfida(); };
+        d.appendChild(rit);
       }
       box.appendChild(d);
     }
-    // amici
+    // 👥 amici (e richieste mandate in attesa)
     const am = $("amLista");
     am.innerHTML = "";
-    if (!(G.amici || []).length) am.innerHTML = `<p class="tappe-info">${t("am_vuoto")}</p>`;
-    for (const a of G.amici || []) {
-      const r = rigaDi(a.id) || {};
-      const riga = document.createElement("div"); riga.className = "amico";
-      const av = document.createElement("span"); av.className = "avatar-pg"; mostraAvatar(av, r.avatar);
-      const nome = document.createElement("span"); nome.className = "amico-nome"; mostraNome(nome, (r.nick || a.nick || "?"), r.colore, r.effetto);
-      const sf = document.createElement("button"); sf.className = "pulsante piccolo"; sf.textContent = t("am_sfida_btn");
-      sf.disabled = !Sfide.disponibile() || Object.values(G.sfideMie || {}).some(s => !s.esito && avversario(s).id === a.id);
-      sf.onclick = () => apriSceltaSfida(a);
-      const via = document.createElement("button"); via.className = "info-i togli-amico"; via.textContent = "✕"; via.setAttribute("aria-label", t("am_rimuovi"));
-      via.onclick = () => rimuoviAmico(a.id);
-      riga.append(av, nome, sf, via);
-      am.appendChild(riga);
+    for (const [uid, r] of Object.entries(G.richiesteInviate || {})) {
+      am.appendChild(rigaAmico(uid, r.nick, "⏳ " + t("am_in_attesa"), [[t("am_annulla_rich"), "pulsante secondario piccolo", () => annullaRichiesta(uid)]]));
     }
+    for (const a of G.amici || []) {
+      const occupato = Object.values(G.sfideMie || {}).some(s => !s.esito && avversario(s).id === a.id);
+      am.appendChild(rigaAmico(a.id, a.nick, "", [
+        [t("am_sfida_btn"), "pulsante piccolo", () => apriSceltaSfida(a), !Sfide.disponibile() || occupato],
+        ["✕", "info-i togli-amico", () => rimuoviAmico(a.id)]
+      ]));
+    }
+    if (!am.children.length) am.innerHTML = `<p class="tappe-info">${t("am_vuoto")}</p>`;
   }
   function apriSceltaSfida(amico) {
     $("sfTitolo").textContent = t("sf_scegli_tit", { nick: amico.nick });
