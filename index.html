@@ -82,6 +82,9 @@
   .riga-tot { display: flex; align-items: center; gap: 8px; }
   .bottone-condividi { margin-top: 12px; width: 100%; }
   .blocco-ufficio { margin-top: 22px; }
+  #miSalvato { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-height: 1.5em; max-width: 100%; }
+  #modoSotto { min-height: 2.9em; }
+  .nota-modo { color: var(--spento); font-size: 12.5px; text-align: center; margin: 6px 0 0; line-height: 1.4; }
   .schede-trasf { margin: 0 0 10px; }
   .campione-tit { margin: 0 0 4px; font-weight: 800; font-size: 16px; color: var(--banana); }
   .campione-sotto { margin: 0 0 12px; color: var(--spento); font-size: 13.5px; line-height: 1.45; }
@@ -833,6 +836,7 @@
         <button data-modo="normale" aria-pressed="true">⌨️ <span data-t="modo_normale"></span></button>
         <button data-modo="realistica" aria-pressed="false">🎩 <span data-t="modo_realistica"></span></button>
       </div>
+      <p class="nota-modo" data-t="sess_nota"></p>
       <p class="mi-modo-desc" id="modoSotto"></p>
     </div>
     <div class="mi-pulsanti">
@@ -981,6 +985,11 @@
         <p class="tappe-info" id="pubFermo" hidden data-t="pub_fermo"></p>
         <button class="pulsante" id="bPubblica">📚 <span data-t="pub_btn"></span></button>
       </div>
+      <div class="riquadro pubblica">
+        <h3 data-t="merc_tit"></h3>
+        <p class="sotto-cl" data-t="merc_sotto"></p>
+        <button class="pulsante" id="bCompraPagina"></button>
+      </div>
       <h3 class="sez-pot"><span data-t="tal_tit"></span><small data-t="tal_sotto"></small></h3>
       <div id="talenti"></div>
     </div>
@@ -1097,7 +1106,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 37</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 39</p>
   </div>
 </div>
 
@@ -1267,6 +1276,7 @@
       <li data-t="info_4"></li>
       <li data-t="info_5"></li>
       <li data-t="info_6"></li>
+      <li data-t="info_satura"></li>
     </ul>
     <p class="info-fine" data-t="info_fine"></p>
     <div class="azioni"><button class="pulsante" id="bChiudiInfo" data-t="ho_capito"></button></div>
@@ -1456,7 +1466,7 @@
       porta: { one: "Porta {n} scimmia nella stanza", other: "Porta {n} scimmie nella stanza" },
       soglia: "A {n}: produzione ×2", soglia_tutte: "Tutte le soglie raggiunte",
       eff_scimmie: "{testo}: scimmie ×{m}", eff_vel: "{testo}: velocità ×{m}",
-      eff_asilo: "Le scimmie fanno cuccioli: +{a}% → +{b}% scimmie all'ora, anche offline",
+      eff_asilo: "Le scimmie fanno cuccioli: +{a}% → +{b}% scimmie all'ora, anche offline (fino a ×{c})",
       eff_liv_vel: "Velocità ×{x} per livello",
       eff_notte: "Banane guadagnate mentre sei via: {a}% → {b}%",
       eff_assenza: "Le scimmie lavorano mentre sei via fino a {a} → {b}",
@@ -1821,7 +1831,14 @@
       ev_nome_consegna: "Consegna speciale",
       ev_desc_consegna: "Una cassa di legno scende col paracadute: toccala entro 20 secondi per tenerla.",
       ev_nome_cosmico: "Allineamento cosmico",
-      ev_desc_cosmico: "Il più raro di tutti: per 30 secondi la velocità è 50 volte più alta."
+      ev_desc_cosmico: "Il più raro di tutti: per 30 secondi la velocità è 50 volte più alta.",
+      sess_nota: "Ogni difficoltà ha la sua partita: banane, scimmie e potenziamenti non passano da una all'altra.",
+      sess_nuova: "🆕 Nuova partita in {modo}: si parte da zero!",
+      sess_ripresa: "↩️ Bentornato nella tua partita in {modo}",
+      merc_tit: "🏪 Mercato delle pagine",
+      merc_sotto: "Hai troppe banane? Scambiale con Pagine d'oro. Ogni pagina costa 50 volte la precedente e non dà Fama.",
+      merc_btn: "Compra 1 📃 · {n} 🍌",
+      info_satura: "📉 Mercato saturo: quando superi i 10 miliardi di banane al secondo, ogni lettera giusta rende un po' meno. Così il gioco resta bilanciato anche dopo giorni."
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -1863,7 +1880,7 @@
       porta: { one: "Brings {n} monkey to the room", other: "Brings {n} monkeys to the room" },
       soglia: "At {n}: output ×2", soglia_tutte: "All milestones reached",
       eff_scimmie: "{testo}: monkeys ×{m}", eff_vel: "{testo}: speed ×{m}",
-      eff_asilo: "Monkeys have babies: +{a}% → +{b}% monkeys per hour, even offline",
+      eff_asilo: "Monkeys have babies: +{a}% → +{b}% monkeys per hour, even offline (up to ×{c})",
       eff_liv_vel: "Speed ×{x} per level",
       eff_notte: "Bananas earned while you're away: {a}% → {b}%",
       eff_assenza: "Monkeys keep working while you're away for up to {a} → {b}",
@@ -2228,7 +2245,14 @@
       ev_nome_consegna: "Special delivery",
       ev_desc_consegna: "A wooden crate floats down on a parachute: tap it within 20 seconds to keep it.",
       ev_nome_cosmico: "Cosmic alignment",
-      ev_desc_cosmico: "The rarest of all: for 30 seconds speed is 50 times higher."
+      ev_desc_cosmico: "The rarest of all: for 30 seconds speed is 50 times higher.",
+      sess_nota: "Each difficulty has its own game: bananas, monkeys and upgrades don't carry over.",
+      sess_nuova: "🆕 New game on {modo}: starting from scratch!",
+      sess_ripresa: "↩️ Welcome back to your {modo} game",
+      merc_tit: "🏪 Page market",
+      merc_sotto: "Too many bananas? Trade them for Golden Pages. Each page costs 50 times the previous one and gives no Fame.",
+      merc_btn: "Buy 1 📃 · {n} 🍌",
+      info_satura: "📉 Saturated market: once you pass 10 billion bananas per second, each correct letter is worth a little less. This keeps the game balanced even after days."
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -2270,7 +2294,7 @@
       porta: { one: "Trae {n} mono a la sala", other: "Trae {n} monos a la sala" },
       soglia: "Con {n}: producción ×2", soglia_tutte: "Todos los hitos alcanzados",
       eff_scimmie: "{testo}: monos ×{m}", eff_vel: "{testo}: velocidad ×{m}",
-      eff_asilo: "Los monos tienen crías: +{a}% → +{b}% monos por hora, también sin conexión",
+      eff_asilo: "Los monos tienen crías: +{a}% → +{b}% monos por hora, también sin conexión (hasta ×{c})",
       eff_liv_vel: "Velocidad ×{x} por nivel",
       eff_notte: "Plátanos ganados mientras no estás: {a}% → {b}%",
       eff_assenza: "Los monos trabajan mientras no estás hasta {a} → {b}",
@@ -2635,7 +2659,14 @@
       ev_nome_consegna: "Entrega especial",
       ev_desc_consegna: "Una caja de madera baja en paracaídas: tócala antes de 20 segundos para quedártela.",
       ev_nome_cosmico: "Alineación cósmica",
-      ev_desc_cosmico: "El más raro de todos: durante 30 segundos la velocidad es 50 veces mayor."
+      ev_desc_cosmico: "El más raro de todos: durante 30 segundos la velocidad es 50 veces mayor.",
+      sess_nota: "Cada dificultad tiene su propia partida: plátanos, monos y mejoras no pasan de una a otra.",
+      sess_nuova: "🆕 Nueva partida en {modo}: ¡se empieza de cero!",
+      sess_ripresa: "↩️ Bienvenido de nuevo a tu partida en {modo}",
+      merc_tit: "🏪 Mercado de páginas",
+      merc_sotto: "¿Demasiados plátanos? Cámbialos por Páginas de oro. Cada página cuesta 50 veces la anterior y no da Fama.",
+      merc_btn: "Comprar 1 📃 · {n} 🍌",
+      info_satura: "📉 Mercado saturado: cuando superas los 10.000 millones de plátanos por segundo, cada letra correcta rinde un poco menos. Así el juego sigue equilibrado incluso después de días."
     },
 
     // ------------------------------------------------------------- 中文
@@ -2677,7 +2708,7 @@
       porta: { other: "为房间带来 {n} 只猴子" },
       soglia: "达到 {n} 个：产量 ×2", soglia_tutte: "所有里程碑已达成",
       eff_scimmie: "{testo}：猴子 ×{m}", eff_vel: "{testo}：速度 ×{m}",
-      eff_asilo: "猴子会生幼崽：每小时猴子 +{a}% → +{b}%，离线时也会增长",
+      eff_asilo: "猴子会生幼崽：每小时猴子 +{a}% → +{b}%，离线时也会增长（最多 ×{c}）",
       eff_liv_vel: "每级速度 ×{x}",
       eff_notte: "离开期间获得的香蕉：{a}% → {b}%",
       eff_assenza: "你离开时猴子最多工作 {a} → {b}",
@@ -3042,7 +3073,14 @@
       ev_nome_consegna: "特别快递",
       ev_desc_consegna: "一个木箱挂着降落伞落下：20 秒内点击它就能留下。",
       ev_nome_cosmico: "宇宙连珠",
-      ev_desc_cosmico: "最稀有的事件：30 秒内速度变为 50 倍。"
+      ev_desc_cosmico: "最稀有的事件：30 秒内速度变为 50 倍。",
+      sess_nota: "每个难度都有自己的存档：香蕉、猴子和升级不会互通。",
+      sess_nuova: "🆕 {modo}难度的新存档：从零开始！",
+      sess_ripresa: "↩️ 欢迎回到你的{modo}难度存档",
+      merc_tit: "🏪 金页市场",
+      merc_sotto: "香蕉太多了？换成金页吧。每页价格是上一页的 50 倍，并且不增加名气。",
+      merc_btn: "购买 1 📃 · {n} 🍌",
+      info_satura: "📉 市场饱和：当每秒香蕉超过 100 亿时，每个打对的字母收益会少一点。这样即使玩了好几天，游戏也能保持平衡。"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -3084,7 +3122,7 @@
       porta: { one: "Amène {n} singe dans la salle", other: "Amène {n} singes dans la salle" },
       soglia: "À {n} : production ×2", soglia_tutte: "Tous les paliers atteints",
       eff_scimmie: "{testo} : singes ×{m}", eff_vel: "{testo} : vitesse ×{m}",
-      eff_asilo: "Les singes ont des petits : +{a} % → +{b} % de singes par heure, même hors ligne",
+      eff_asilo: "Les singes ont des petits : +{a} % → +{b} % de singes par heure, même hors ligne (jusqu'à ×{c})",
       eff_liv_vel: "Vitesse ×{x} par niveau",
       eff_notte: "Bananes gagnées pendant ton absence : {a} % → {b} %",
       eff_assenza: "Les singes travaillent pendant ton absence jusqu'à {a} → {b}",
@@ -3449,7 +3487,14 @@
       ev_nome_consegna: "Livraison spéciale",
       ev_desc_consegna: "Un coffre en bois descend en parachute : touche-le en moins de 20 secondes pour le garder.",
       ev_nome_cosmico: "Alignement cosmique",
-      ev_desc_cosmico: "Le plus rare de tous : pendant 30 secondes, la vitesse est 50 fois plus élevée."
+      ev_desc_cosmico: "Le plus rare de tous : pendant 30 secondes, la vitesse est 50 fois plus élevée.",
+      sess_nota: "Chaque difficulté a sa propre partie : bananes, singes et améliorations ne passent pas de l'une à l'autre.",
+      sess_nuova: "🆕 Nouvelle partie en {modo} : on repart de zéro !",
+      sess_ripresa: "↩️ Bon retour dans ta partie en {modo}",
+      merc_tit: "🏪 Marché des pages",
+      merc_sotto: "Trop de bananes ? Échange-les contre des Pages d'or. Chaque page coûte 50 fois la précédente et ne donne pas de Renommée.",
+      merc_btn: "Acheter 1 📃 · {n} 🍌",
+      info_satura: "📉 Marché saturé : au-delà de 10 milliards de bananes par seconde, chaque lettre juste rapporte un peu moins. Le jeu reste ainsi équilibré même après plusieurs jours."
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -3491,7 +3536,7 @@
       porta: { other: "Обезьян в комнате: +{n}" },
       soglia: "При {n}: производство ×2", soglia_tutte: "Все пороги достигнуты",
       eff_scimmie: "{testo}: обезьяны ×{m}", eff_vel: "{testo}: скорость ×{m}",
-      eff_asilo: "У обезьян рождаются детёныши: +{a}% → +{b}% обезьян в час, даже офлайн",
+      eff_asilo: "У обезьян рождаются детёныши: +{a}% → +{b}% обезьян в час, даже офлайн (до ×{c})",
       eff_liv_vel: "Скорость ×{x} за уровень",
       eff_notte: "Бананы, пока тебя нет: {a}% → {b}%",
       eff_assenza: "Обезьяны работают в твоё отсутствие до {a} → {b}",
@@ -3857,7 +3902,14 @@
       ev_nome_consegna: "Особая доставка",
       ev_desc_consegna: "Деревянный сундук спускается на парашюте: нажми на него за 20 секунд, чтобы оставить себе.",
       ev_nome_cosmico: "Космический парад",
-      ev_desc_cosmico: "Самое редкое событие: 30 секунд скорость в 50 раз выше."
+      ev_desc_cosmico: "Самое редкое событие: 30 секунд скорость в 50 раз выше.",
+      sess_nota: "У каждой сложности своя игра: бананы, обезьяны и улучшения не переносятся.",
+      sess_nuova: "🆕 Новая игра на сложности {modo}: всё с нуля!",
+      sess_ripresa: "↩️ С возвращением в твою игру на сложности {modo}",
+      merc_tit: "🏪 Рынок страниц",
+      merc_sotto: "Слишком много бананов? Обменяй их на Золотые страницы. Каждая страница в 50 раз дороже предыдущей и не даёт Славы.",
+      merc_btn: "Купить 1 📃 · {n} 🍌",
+      info_satura: "📉 Насыщенный рынок: больше 10 миллиардов бананов в секунду — и каждая верная буква приносит чуть меньше. Так игра остаётся сбалансированной даже через несколько дней."
     }
   };
 
@@ -3940,6 +3992,33 @@
   };
   // Autori e opere
   const AUTORI = {
+    latino: {"it": "Proverbio latino", "en": "Latin proverb", "es": "Proverbio latino", "zh": "拉丁谚语", "fr": "Proverbe latin", "ru": "Латинская пословица"},
+    cicerone: {"it": "Cicerone", "en": "Cicero", "es": "Cicerón", "zh": "西塞罗", "fr": "Cicéron", "ru": "Цицерон"},
+    virgilio: {"it": "Virgilio", "en": "Virgil", "es": "Virgilio", "zh": "维吉尔", "fr": "Virgile", "ru": "Вергилий"},
+    augusto: {"it": "Augusto", "en": "Augustus", "es": "Augusto", "zh": "奥古斯都", "fr": "Auguste", "ru": "Август"},
+    giovenale: {"it": "Giovenale", "en": "Juvenal", "es": "Juvenal", "zh": "尤维纳利斯", "fr": "Juvénal", "ru": "Ювенал"},
+    seneca: {"it": "Seneca", "en": "Seneca", "es": "Séneca", "zh": "塞涅卡", "fr": "Sénèque", "ru": "Сенека"},
+    plauto: {"it": "Plauto", "en": "Plautus", "es": "Plauto", "zh": "普劳图斯", "fr": "Plaute", "ru": "Плавт"},
+    socrate: {"it": "Socrate", "en": "Socrates", "es": "Sócrates", "zh": "苏格拉底", "fr": "Socrate", "ru": "Сократ"},
+    protagora: {"it": "Protagora", "en": "Protagoras", "es": "Protágoras", "zh": "普罗泰戈拉", "fr": "Protagoras", "ru": "Протагор"},
+    ippocrate: {"it": "Ippocrate", "en": "Hippocrates", "es": "Hipócrates", "zh": "希波克拉底", "fr": "Hippocrate", "ru": "Гиппократ"},
+    proverbio: {"it": "Proverbio italiano", "en": "Italian proverb", "es": "Proverbio italiano", "zh": "意大利谚语", "fr": "Proverbe italien", "ru": "Итальянская пословица"},
+    goethe: {"it": "Goethe", "en": "Goethe", "es": "Goethe", "zh": "歌德", "fr": "Goethe", "ru": "Гёте"},
+    petrarca: {"it": "Francesco Petrarca", "en": "Petrarch", "es": "Petrarca", "zh": "彼特拉克", "fr": "Pétrarque", "ru": "Петрарка"},
+    dickinson: {"it": "Emily Dickinson", "en": "Emily Dickinson", "es": "Emily Dickinson", "zh": "艾米莉·狄金森", "fr": "Emily Dickinson", "ru": "Эмили Дикинсон"},
+    blake: {"it": "William Blake", "en": "William Blake", "es": "William Blake", "zh": "威廉·布莱克", "fr": "William Blake", "ru": "Уильям Блейк"},
+    keats: {"it": "John Keats", "en": "John Keats", "es": "John Keats", "zh": "约翰·济慈", "fr": "John Keats", "ru": "Джон Китс"},
+    wordsworth: {"it": "William Wordsworth", "en": "William Wordsworth", "es": "William Wordsworth", "zh": "华兹华斯", "fr": "William Wordsworth", "ru": "Уильям Вордсворт"},
+    tolstoj: {"it": "Lev Tolstoj", "en": "Leo Tolstoy", "es": "León Tolstói", "zh": "列夫·托尔斯泰", "fr": "Léon Tolstoï", "ru": "Лев Толстой"},
+    kafka: {"it": "Franz Kafka", "en": "Franz Kafka", "es": "Franz Kafka", "zh": "卡夫卡", "fr": "Franz Kafka", "ru": "Франц Кафка"},
+    cervantes: {"it": "Miguel de Cervantes", "en": "Miguel de Cervantes", "es": "Miguel de Cervantes", "zh": "塞万提斯", "fr": "Miguel de Cervantes", "ru": "Мигель де Сервантес"},
+    carroll: {"it": "Lewis Carroll", "en": "Lewis Carroll", "es": "Lewis Carroll", "zh": "刘易斯·卡罗尔", "fr": "Lewis Carroll", "ru": "Льюис Кэрролл"},
+    barrie: {"it": "J. M. Barrie", "en": "J. M. Barrie", "es": "J. M. Barrie", "zh": "巴里", "fr": "J. M. Barrie", "ru": "Джеймс Барри"},
+    bronte: {"it": "Charlotte Brontë", "en": "Charlotte Brontë", "es": "Charlotte Brontë", "zh": "夏洛蒂·勃朗特", "fr": "Charlotte Brontë", "ru": "Шарлотта Бронте"},
+    mshelley: {"it": "Mary Shelley", "en": "Mary Shelley", "es": "Mary Shelley", "zh": "玛丽·雪莱", "fr": "Mary Shelley", "ru": "Мэри Шелли"},
+    moliere: {"it": "Molière", "en": "Molière", "es": "Molière", "zh": "莫里哀", "fr": "Molière", "ru": "Мольер"},
+    turco: {"it": "Peppino Turco e Luigi Denza", "en": "Peppino Turco and Luigi Denza", "es": "Peppino Turco y Luigi Denza", "zh": "图尔科与登扎", "fr": "Peppino Turco et Luigi Denza", "ru": "Пеппино Турко и Луиджи Денца"},
+    piave: {"it": "Giuseppe Verdi e Francesco Maria Piave", "en": "Giuseppe Verdi and Francesco Maria Piave", "es": "Giuseppe Verdi y Francesco Maria Piave", "zh": "威尔第与皮亚韦", "fr": "Giuseppe Verdi et Francesco Maria Piave", "ru": "Джузеппе Верди и Франческо Мария Пьяве"},
     carducci: {"it": "Giosuè Carducci", "en": "Giosuè Carducci", "es": "Giosuè Carducci", "zh": "卡尔杜奇", "fr": "Giosuè Carducci", "ru": "Джозуэ Кардуччи"},
     oracolo: {"it": "Oracolo di Delfi", "en": "Oracle of Delphi", "es": "Oráculo de Delfos", "zh": "德尔斐神谕", "fr": "Oracle de Delphes", "ru": "Дельфийский оракул"},
     pascoli: {"it": "Giovanni Pascoli", "en": "Giovanni Pascoli", "es": "Giovanni Pascoli", "zh": "帕斯科利", "fr": "Giovanni Pascoli", "ru": "Джованни Пасколи"},
@@ -4043,7 +4122,55 @@
     {"id": "ishmael2", "titolo": "Moby-Dick, part 2", "autore": "melville", "opera": "mobydick", "testo": "Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; then, I account it high time to get to sea as soon as I can."},
     {"id": "dickens2", "titolo": "A Tale of Two Cities, part 2", "autore": "dickens", "opera": "duecitta", "testo": "We had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way; in short, the period was so far like the present period, that some of its noisiest authorities insisted on its being received, for good or for evil, in the superlative degree of comparison only."},
     {"id": "austen2", "titolo": "Pride and Prejudice, part 2", "autore": "austen", "opera": "orgoglio", "testo": "\"My dear Mr. Bennet,\" said his lady to him one day, \"have you heard that Netherfield Park is let at last?\" Mr. Bennet replied that he had not. \"But it is,\" returned she; \"for Mrs. Long has just been here, and she told me all about it.\" Mr. Bennet made no answer."},
-    {"id": "manzoni2", "titolo": "I promessi sposi, parte 2", "autore": "manzoni", "opera": "sposi", "testo": "Il ponte, che ivi congiunge le due rive, par che renda ancor più sensibile all'occhio questa trasformazione, e segni il punto in cui il lago cessa, e l'Adda rincomincia, per ripigliar poi nome di lago dove le rive, allontanandosi di nuovo, lascian l'acqua distendersi e rallentarsi in nuovi golfi e in nuovi seni."}
+    {"id": "manzoni2", "titolo": "I promessi sposi, parte 2", "autore": "manzoni", "opera": "sposi", "testo": "Il ponte, che ivi congiunge le due rive, par che renda ancor più sensibile all'occhio questa trasformazione, e segni il punto in cui il lago cessa, e l'Adda rincomincia, per ripigliar poi nome di lago dove le rive, allontanandosi di nuovo, lascian l'acqua distendersi e rallentarsi in nuovi golfi e in nuovi seni."},
+    {"id": "errare", "titolo": "Errare humanum est", "autore": "latino", "testo": "Errare humanum est"},
+    {"id": "dumspiro", "titolo": "Dum spiro, spero", "autore": "cicerone", "testo": "Dum spiro, spero"},
+    {"id": "memento", "titolo": "Memento mori", "autore": "latino", "testo": "Memento mori"},
+    {"id": "tempus", "titolo": "Tempus fugit", "autore": "virgilio", "testo": "Tempus fugit"},
+    {"id": "festina", "titolo": "Festina lente", "autore": "augusto", "testo": "Festina lente"},
+    {"id": "panem", "titolo": "Panem et circenses", "autore": "giovenale", "testo": "Panem et circenses"},
+    {"id": "mens", "titolo": "Mens sana in corpore sano", "autore": "giovenale", "testo": "Mens sana in corpore sano"},
+    {"id": "vino", "titolo": "In vino veritas", "autore": "latino", "testo": "In vino veritas"},
+    {"id": "aspera", "titolo": "Per aspera ad astra", "autore": "seneca", "testo": "Per aspera ad astra"},
+    {"id": "lupus", "titolo": "Homo homini lupus", "autore": "plauto", "testo": "Homo homini lupus"},
+    {"id": "divide", "titolo": "Divide et impera", "autore": "latino", "testo": "Divide et impera"},
+    {"id": "ubimaior", "titolo": "Ubi maior, minor cessat", "autore": "latino", "testo": "Ubi maior, minor cessat"},
+    {"id": "monkeysee", "titolo": "Monkey see, monkey do", "autore": "internet", "testo": "Monkey see, monkey do"},
+    {"id": "bananascale", "titolo": "Banana for scale", "autore": "internet", "testo": "Banana for scale"},
+    {"id": "nobug", "titolo": "It's not a bug, it's a feature", "autore": "programmatori", "testo": "It's not a bug, it's a feature"},
+    {"id": "grass", "titolo": "Touch grass", "autore": "internet", "testo": "Touch grass"},
+    {"id": "holdbanana", "titolo": "Hold my banana", "autore": "internet", "testo": "Hold my banana"},
+    {"id": "appoggio", "titolo": "Un punto d'appoggio", "autore": "archimede", "testo": "Datemi un punto d'appoggio e solleverò il mondo"},
+    {"id": "sodi", "titolo": "So di non sapere", "autore": "socrate", "testo": "So di non sapere"},
+    {"id": "misura", "titolo": "L'uomo è la misura", "autore": "protagora", "testo": "L'uomo è la misura di tutte le cose"},
+    {"id": "arslonga", "titolo": "La vita è breve", "autore": "ippocrate", "testo": "La vita è breve, l'arte è lunga"},
+    {"id": "piano", "titolo": "Chi va piano", "autore": "proverbio", "testo": "Chi va piano va sano e va lontano"},
+    {"id": "piuluce", "titolo": "Più luce!", "autore": "goethe", "testo": "Più luce!"},
+    {"id": "fattinon", "titolo": "Fatti non foste a viver come bruti", "autore": "dante", "testo": "Fatti non foste a viver come bruti, ma per seguir virtute e canoscenza."},
+    {"id": "chiare", "titolo": "Chiare, fresche et dolci acque", "autore": "petrarca", "testo": "Chiare, fresche et dolci acque, ove le belle membra pose colei che sola a me par donna"},
+    {"id": "speranza", "titolo": "Hope is the thing with feathers", "autore": "dickinson", "testo": "Hope is the thing with feathers that perches in the soul, and sings the tune without the words, and never stops at all"},
+    {"id": "tigre", "titolo": "The Tyger", "autore": "blake", "testo": "Tyger Tyger, burning bright, in the forests of the night"},
+    {"id": "bellezza", "titolo": "A thing of beauty", "autore": "keats", "testo": "A thing of beauty is a joy for ever"},
+    {"id": "nuvola", "titolo": "I wandered lonely as a cloud", "autore": "wordsworth", "testo": "I wandered lonely as a cloud that floats on high o'er vales and hills"},
+    {"id": "anna", "titolo": "Анна Каренина", "autore": "tolstoj", "testo": "Все счастливые семьи похожи друг на друга, каждая несчастливая семья несчастлива по-своему."},
+    {"id": "kafka", "titolo": "La metamorfosi", "autore": "kafka", "testo": "Gregor Samsa, svegliandosi una mattina da sogni agitati, si trovò trasformato nel suo letto in un enorme insetto."},
+    {"id": "quijote", "titolo": "Don Quijote", "autore": "cervantes", "testo": "En un lugar de la Mancha, de cuyo nombre no quiero acordarme, no ha mucho tiempo que vivía un hidalgo"},
+    {"id": "alice", "titolo": "Alice in Wonderland", "autore": "carroll", "testo": "Curiouser and curiouser!"},
+    {"id": "peterpan", "titolo": "Peter Pan", "autore": "barrie", "testo": "All children, except one, grow up."},
+    {"id": "marley", "titolo": "A Christmas Carol", "autore": "dickens", "testo": "Marley was dead: to begin with."},
+    {"id": "eyre", "titolo": "Jane Eyre", "autore": "bronte", "testo": "Reader, I married him."},
+    {"id": "frankenstein", "titolo": "Frankenstein", "autore": "mshelley", "testo": "Beware; for I am fearless, and therefore powerful."},
+    {"id": "palcoscenico", "titolo": "All the world's a stage", "autore": "shakespeare", "testo": "All the world's a stage, and all the men and women merely players"},
+    {"id": "inverno", "titolo": "The winter of our discontent", "autore": "shakespeare", "testo": "Now is the winter of our discontent made glorious summer by this sun of York"},
+    {"id": "cavallo", "titolo": "My kingdom for a horse", "autore": "shakespeare", "testo": "A horse! a horse! my kingdom for a horse!"},
+    {"id": "rosa", "titolo": "What's in a name?", "autore": "shakespeare", "testo": "What's in a name? That which we call a rose by any other name would smell as sweet"},
+    {"id": "moliere", "titolo": "L'Avare", "autore": "moliere", "testo": "Il faut manger pour vivre, et non pas vivre pour manger."},
+    {"id": "barchetta", "titolo": "Row, Row, Row Your Boat", "autore": "tradizionale", "testo": "Row, row, row your boat, gently down the stream, merrily, merrily, merrily, merrily, life is but a dream"},
+    {"id": "macdonald", "titolo": "Old MacDonald", "autore": "tradizionale", "testo": "Old MacDonald had a farm, E I E I O, and on that farm he had a cow, E I E I O"},
+    {"id": "funicula", "titolo": "Funiculì, funiculà", "autore": "turco", "testo": "Jamme, jamme, 'ncoppa jamme jà, jamme, jamme, 'ncoppa jamme jà, funiculì, funiculà, funiculì, funiculà, 'ncoppa jamme jà, funiculì, funiculà!"},
+    {"id": "donnamobile", "titolo": "La donna è mobile", "autore": "piave", "testo": "La donna è mobile qual piuma al vento, muta d'accento e di pensiero."},
+    {"id": "alouette", "titolo": "Alouette", "autore": "tradizionale", "testo": "Alouette, gentille alouette, alouette, je te plumerai. Je te plumerai la tête, je te plumerai la tête."},
+    {"id": "londonbridge", "titolo": "London Bridge", "autore": "tradizionale", "testo": "London Bridge is falling down, falling down, falling down, London Bridge is falling down, my fair lady."}
   ];
 
   // Traduzioni delle opere nelle lingue del gioco. Il cinese è in pinyin (tastiera latina),
@@ -4592,11 +4719,538 @@
      "ru": "Мост, соединяющий там оба берега, словно делает это превращение ещё заметнее для глаза и отмечает место, где озеро кончается и вновь начинается Адда, чтобы затем снова зваться озером там, где берега, опять расходясь, позволяют воде разлиться и замедлиться в новых заливах и бухтах.",
      "zh": "nali lianjie liang an de qiao sihu rang zhe zhong bianhua gengjia xingmu biaochu le hushui jieshu adahe chongxin kaishi de difang dengdao liang an zaici fenkai heshui zai xin de haiwan he gangwan li zhankai fanghuan ta you chongxin bei chengzuo hu"
     }
+   },
+   "appoggio": {
+    "orig": "it",
+    "titoli": {
+     "en": "A place to stand",
+     "es": "Un punto de apoyo",
+     "zh": "一个支点",
+     "fr": "Un point d'appui",
+     "ru": "Точка опоры"
+    },
+    "testi": {
+     "en": "Give me a place to stand and I will move the world",
+     "es": "Dadme un punto de apoyo y moveré el mundo",
+     "zh": "gei wo yige zhidian wo jiu neng qiaodong zhengge diqiu",
+     "fr": "Donnez-moi un point d'appui et je soulèverai le monde",
+     "ru": "Дайте мне точку опоры, и я переверну мир"
+    }
+   },
+   "sodi": {
+    "orig": "it",
+    "titoli": {
+     "en": "I know that I know nothing",
+     "es": "Solo sé que no sé nada",
+     "zh": "我只知道我一无所知",
+     "fr": "Je sais que je ne sais rien",
+     "ru": "Я знаю, что ничего не знаю"
+    },
+    "testi": {
+     "en": "I know that I know nothing",
+     "es": "Solo sé que no sé nada",
+     "zh": "wo zhi zhidao wo yiwusuozhi",
+     "fr": "Je sais que je ne sais rien",
+     "ru": "Я знаю, что ничего не знаю"
+    }
+   },
+   "misura": {
+    "orig": "it",
+    "titoli": {
+     "en": "Man is the measure",
+     "es": "El hombre es la medida",
+     "zh": "人是万物的尺度",
+     "fr": "L'homme est la mesure",
+     "ru": "Человек есть мера"
+    },
+    "testi": {
+     "en": "Man is the measure of all things",
+     "es": "El hombre es la medida de todas las cosas",
+     "zh": "ren shi wanwu de chidu",
+     "fr": "L'homme est la mesure de toutes choses",
+     "ru": "Человек есть мера всех вещей"
+    }
+   },
+   "arslonga": {
+    "orig": "it",
+    "titoli": {
+     "en": "Life is short",
+     "es": "La vida es breve",
+     "zh": "生命短暂",
+     "fr": "La vie est brève",
+     "ru": "Жизнь коротка"
+    },
+    "testi": {
+     "en": "Life is short, art is long",
+     "es": "La vida es breve, el arte es largo",
+     "zh": "shengming duanzan yishu changcun",
+     "fr": "La vie est brève, l'art est long",
+     "ru": "Жизнь коротка, искусство долговечно"
+    }
+   },
+   "piano": {
+    "orig": "it",
+    "titoli": {
+     "en": "Slow and steady",
+     "es": "Quien va despacio",
+     "zh": "慢慢走",
+     "fr": "Qui va doucement",
+     "ru": "Тише едешь"
+    },
+    "testi": {
+     "en": "Who goes slowly goes safely and goes far",
+     "es": "Quien va despacio va sano y llega lejos",
+     "zh": "man man zou zou de wen zou de yuan",
+     "fr": "Qui va doucement va sûrement et va loin",
+     "ru": "Тише едешь — дальше будешь"
+    }
+   },
+   "piuluce": {
+    "orig": "it",
+    "titoli": {
+     "en": "More light!",
+     "es": "¡Más luz!",
+     "zh": "更多的光",
+     "fr": "Plus de lumière !",
+     "ru": "Больше света!"
+    },
+    "testi": {
+     "en": "More light!",
+     "es": "¡Más luz!",
+     "zh": "geng duo de guang",
+     "fr": "Plus de lumière !",
+     "ru": "Больше света!"
+    }
+   },
+   "fattinon": {
+    "orig": "it",
+    "titoli": {
+     "en": "You were not made to live like brutes",
+     "es": "No fuisteis hechos para vivir como brutos",
+     "zh": "你们生来不是为了像野兽一样生活",
+     "fr": "Vous n'avez pas été faits pour vivre comme des bêtes",
+     "ru": "Вы созданы не для того, чтобы жить как звери"
+    },
+    "testi": {
+     "en": "You were not made to live like brutes, but to follow virtue and knowledge.",
+     "es": "No fuisteis hechos para vivir como brutos, sino para seguir virtud y conocimiento.",
+     "zh": "nimen shenglai bushi weile xiang yeshou yiyang shenghuo er shi weile zhuiqiu meide he zhishi",
+     "fr": "Vous n'avez pas été faits pour vivre comme des bêtes, mais pour suivre vertu et connaissance.",
+     "ru": "Вы созданы не для того, чтобы жить как звери, а чтобы стремиться к доблести и знанию."
+    }
+   },
+   "chiare": {
+    "orig": "it",
+    "titoli": {
+     "en": "Clear, fresh and sweet waters",
+     "es": "Claras, frescas y dulces aguas",
+     "zh": "清澈、清凉而甜美的水",
+     "fr": "Claires, fraîches et douces eaux",
+     "ru": "Светлые, свежие и сладкие воды"
+    },
+    "testi": {
+     "en": "Clear, fresh and sweet waters, where she who alone seems a woman to me rested her lovely limbs",
+     "es": "Claras, frescas y dulces aguas, donde posó sus bellos miembros aquella que sola me parece mujer",
+     "zh": "qingche qingliang er tianmei de shui na wei zai wo kanlai weiyi de nuzi zeng zai zheli anfang ta meili de shenqu",
+     "fr": "Claires, fraîches et douces eaux, où posa ses beaux membres celle qui seule me semble femme",
+     "ru": "Светлые, свежие и сладкие воды, где отдыхала та, что одна мне кажется женщиной"
+    }
+   },
+   "speranza": {
+    "orig": "en",
+    "titoli": {
+     "it": "La speranza è quella cosa piumata",
+     "es": "La esperanza es esa cosa con plumas",
+     "zh": "希望是长着羽毛的东西",
+     "fr": "L'espoir est cette chose à plumes",
+     "ru": "Надежда — это нечто пернатое"
+    },
+    "testi": {
+     "it": "La speranza è quella cosa piumata che si posa sull'anima, e canta melodie senza parole, e non smette mai",
+     "es": "La esperanza es esa cosa con plumas que se posa en el alma, y canta la melodía sin palabras, y nunca se detiene",
+     "zh": "xiwang shi zhangzhe yumao de dongxi ta qixi zai linghun li chang zhe meiyou geci de qudiao yongbu tingxi",
+     "fr": "L'espoir est cette chose à plumes qui se pose sur l'âme, et chante l'air sans les paroles, et ne s'arrête jamais",
+     "ru": "Надежда — это нечто пернатое, что садится на душу, и поёт мелодию без слов, и никогда не умолкает"
+    }
+   },
+   "tigre": {
+    "orig": "en",
+    "titoli": {
+     "it": "La tigre",
+     "es": "El tigre",
+     "zh": "老虎",
+     "fr": "Le Tigre",
+     "ru": "Тигр"
+    },
+    "testi": {
+     "it": "Tigre, tigre, che bruci luminosa nelle foreste della notte",
+     "es": "Tigre, tigre, que ardes brillante en los bosques de la noche",
+     "zh": "laohu laohu zai heiye de senlin li chiliang de ranshao",
+     "fr": "Tigre, tigre, qui brûles et brilles dans les forêts de la nuit",
+     "ru": "Тигр, тигр, ярко горящий в лесах ночи"
+    }
+   },
+   "bellezza": {
+    "orig": "en",
+    "titoli": {
+     "it": "Una cosa bella",
+     "es": "Una cosa bella",
+     "zh": "美好的事物",
+     "fr": "Une chose belle",
+     "ru": "Прекрасное"
+    },
+    "testi": {
+     "it": "Una cosa bella è una gioia per sempre",
+     "es": "Una cosa bella es una alegría para siempre",
+     "zh": "meihao de shiwu shi yongheng de xiyue",
+     "fr": "Une chose belle est une joie pour toujours",
+     "ru": "Прекрасное — это радость навсегда"
+    }
+   },
+   "nuvola": {
+    "orig": "en",
+    "titoli": {
+     "it": "Vagavo solitario come una nuvola",
+     "es": "Vagaba solitario como una nube",
+     "zh": "我孤独地漫游，像一朵云",
+     "fr": "J'errais solitaire comme un nuage",
+     "ru": "Я бродил одиноко, как облако"
+    },
+    "testi": {
+     "it": "Vagavo solitario come una nuvola che fluttua in alto su valli e colline",
+     "es": "Vagaba solitario como una nube que flota en lo alto sobre valles y colinas",
+     "zh": "wo gudu de manyou xiang yi duo yun gaogao piaoguo shangu he qiuling",
+     "fr": "J'errais solitaire comme un nuage qui flotte haut au-dessus des vallées et des collines",
+     "ru": "Я бродил одиноко, как облако, что плывёт высоко над долинами и холмами"
+    }
+   },
+   "anna": {
+    "orig": "ru",
+    "titoli": {
+     "it": "Anna Karenina",
+     "en": "Anna Karenina",
+     "es": "Ana Karenina",
+     "zh": "安娜·卡列尼娜",
+     "fr": "Anna Karénine"
+    },
+    "testi": {
+     "it": "Tutte le famiglie felici si somigliano; ogni famiglia infelice è infelice a modo suo.",
+     "en": "All happy families are alike; each unhappy family is unhappy in its own way.",
+     "es": "Todas las familias felices se parecen; cada familia infeliz lo es a su manera.",
+     "zh": "xingfu de jiating dou shi xiangsi de buxing de jiating ge you ge de buxing",
+     "fr": "Toutes les familles heureuses se ressemblent ; chaque famille malheureuse l'est à sa façon."
+    }
+   },
+   "kafka": {
+    "orig": "it",
+    "titoli": {
+     "en": "The Metamorphosis",
+     "es": "La metamorfosis",
+     "zh": "变形记",
+     "fr": "La Métamorphose",
+     "ru": "Превращение"
+    },
+    "testi": {
+     "en": "As Gregor Samsa awoke one morning from uneasy dreams, he found himself transformed in his bed into a gigantic insect.",
+     "es": "Una mañana, al despertar de sueños inquietos, Gregor Samsa se encontró en su cama transformado en un insecto enorme.",
+     "zh": "yi tian zaoshang geligeer shamusha cong buan de meng zhong xinglai faxian ziji zai chuang shang bian cheng le yi zhi juda de kunchong",
+     "fr": "Un matin, au sortir de rêves agités, Gregor Samsa se retrouva dans son lit transformé en un énorme insecte.",
+     "ru": "Однажды утром Грегор Замза очнулся от тревожных снов и увидел, что лежит в своей кровати, превращённый в огромное насекомое."
+    }
+   },
+   "quijote": {
+    "orig": "es",
+    "titoli": {
+     "it": "Don Chisciotte",
+     "en": "Don Quixote",
+     "zh": "堂吉诃德",
+     "fr": "Don Quichotte",
+     "ru": "Дон Кихот"
+    },
+    "testi": {
+     "it": "In un luogo della Mancia, di cui non voglio ricordarmi il nome, viveva non molto tempo fa un hidalgo",
+     "en": "In a village of La Mancha, the name of which I have no desire to call to mind, there lived not long since a gentleman",
+     "zh": "zai la man cha de mou ge difang mingzi wo bu xiang ti le bu jiu yiqian zhuzhe yi wei shishen",
+     "fr": "Dans un village de la Manche, dont je ne veux pas me rappeler le nom, vivait il n'y a pas longtemps un hidalgo",
+     "ru": "В одном местечке Ламанчи, названия которого не хочу вспоминать, не так давно жил один идальго"
+    }
+   },
+   "alice": {
+    "orig": "en",
+    "titoli": {
+     "it": "Alice nel Paese delle Meraviglie",
+     "es": "Alicia en el País de las Maravillas",
+     "zh": "爱丽丝漫游奇境",
+     "fr": "Alice au pays des merveilles",
+     "ru": "Алиса в Стране чудес"
+    },
+    "testi": {
+     "it": "Sempre più curioso!",
+     "es": "¡Cada vez más curiosísimo!",
+     "zh": "yuelaiyue qiguai le",
+     "fr": "De plus en plus curieux !",
+     "ru": "Всё любопытнее и любопытнее!"
+    }
+   },
+   "peterpan": {
+    "orig": "en",
+    "titoli": {
+     "it": "Peter Pan",
+     "es": "Peter Pan",
+     "zh": "彼得·潘",
+     "fr": "Peter Pan",
+     "ru": "Питер Пэн"
+    },
+    "testi": {
+     "it": "Tutti i bambini, tranne uno, crescono.",
+     "es": "Todos los niños, excepto uno, crecen.",
+     "zh": "suoyou de haizi chule yige dou hui zhangda",
+     "fr": "Tous les enfants, sauf un, grandissent.",
+     "ru": "Все дети, кроме одного, вырастают."
+    }
+   },
+   "marley": {
+    "orig": "en",
+    "titoli": {
+     "it": "Canto di Natale",
+     "es": "Canción de Navidad",
+     "zh": "圣诞颂歌",
+     "fr": "Un chant de Noël",
+     "ru": "Рождественская песнь"
+    },
+    "testi": {
+     "it": "Marley era morto, tanto per cominciare.",
+     "es": "Marley estaba muerto, para empezar.",
+     "zh": "xian shuo yi ju mali yijing si le",
+     "fr": "Marley était mort, pour commencer.",
+     "ru": "Марли был мёртв, начнём с этого."
+    }
+   },
+   "eyre": {
+    "orig": "en",
+    "titoli": {
+     "it": "Jane Eyre",
+     "es": "Jane Eyre",
+     "zh": "简·爱",
+     "fr": "Jane Eyre",
+     "ru": "Джейн Эйр"
+    },
+    "testi": {
+     "it": "Lettore, l'ho sposato.",
+     "es": "Lector, me casé con él.",
+     "zh": "duzhe wo jia gei le ta",
+     "fr": "Lecteur, je l'ai épousé.",
+     "ru": "Читатель, я вышла за него замуж."
+    }
+   },
+   "frankenstein": {
+    "orig": "en",
+    "titoli": {
+     "it": "Frankenstein",
+     "es": "Frankenstein",
+     "zh": "弗兰肯斯坦",
+     "fr": "Frankenstein",
+     "ru": "Франкенштейн"
+    },
+    "testi": {
+     "it": "Stai attento, perché io non ho paura, e quindi sono potente.",
+     "es": "Cuidado, porque no tengo miedo y, por tanto, soy poderoso.",
+     "zh": "xiaoxin yinwei wo wusuoweiju suoyi wo qiangda",
+     "fr": "Prends garde, car je suis sans peur, et donc puissant.",
+     "ru": "Берегись: я не знаю страха, а значит, я могуществен."
+    }
+   },
+   "palcoscenico": {
+    "orig": "en",
+    "titoli": {
+     "it": "Tutto il mondo è un palcoscenico",
+     "es": "El mundo entero es un escenario",
+     "zh": "全世界是一个舞台",
+     "fr": "Le monde entier est une scène",
+     "ru": "Весь мир — театр"
+    },
+    "testi": {
+     "it": "Tutto il mondo è un palcoscenico, e tutti gli uomini e le donne sono soltanto attori",
+     "es": "El mundo entero es un escenario, y todos los hombres y mujeres son meros actores",
+     "zh": "quan shijie shi yige wutai suoyou de nanren he nuren buguo shi yanyuan",
+     "fr": "Le monde entier est une scène, et tous, hommes et femmes, n'en sont que les acteurs",
+     "ru": "Весь мир — театр, а все мужчины и женщины в нём лишь актёры"
+    }
+   },
+   "inverno": {
+    "orig": "en",
+    "titoli": {
+     "it": "L'inverno del nostro scontento",
+     "es": "El invierno de nuestro descontento",
+     "zh": "我们不满的冬天",
+     "fr": "L'hiver de notre mécontentement",
+     "ru": "Зима нашего недовольства"
+    },
+    "testi": {
+     "it": "Ora l'inverno del nostro scontento è reso estate gloriosa da questo sole di York",
+     "es": "Ahora el invierno de nuestro descontento se vuelve glorioso verano con este sol de York",
+     "zh": "xianzai women buman de dongtian bei yueke de taiyang bian cheng le guangrong de xiatian",
+     "fr": "Voici l'hiver de notre mécontentement changé en glorieux été par ce soleil d'York",
+     "ru": "Теперь зима нашего недовольства стала славным летом под этим солнцем Йорка"
+    }
+   },
+   "cavallo": {
+    "orig": "en",
+    "titoli": {
+     "it": "Il mio regno per un cavallo",
+     "es": "Mi reino por un caballo",
+     "zh": "用我的王国换一匹马",
+     "fr": "Mon royaume pour un cheval",
+     "ru": "Моё королевство за коня"
+    },
+    "testi": {
+     "it": "Un cavallo! Un cavallo! Il mio regno per un cavallo!",
+     "es": "¡Un caballo! ¡Un caballo! ¡Mi reino por un caballo!",
+     "zh": "yi pi ma yi pi ma yong wo de wangguo huan yi pi ma",
+     "fr": "Un cheval ! un cheval ! mon royaume pour un cheval !",
+     "ru": "Коня! Коня! Моё королевство за коня!"
+    }
+   },
+   "rosa": {
+    "orig": "en",
+    "titoli": {
+     "it": "Che cos'è un nome?",
+     "es": "¿Qué hay en un nombre?",
+     "zh": "名字有什么关系？",
+     "fr": "Qu'y a-t-il dans un nom ?",
+     "ru": "Что значит имя?"
+    },
+    "testi": {
+     "it": "Che cos'è un nome? Quella che chiamiamo rosa, con qualsiasi altro nome, avrebbe lo stesso dolce profumo",
+     "es": "¿Qué hay en un nombre? Lo que llamamos rosa, con cualquier otro nombre, olería igual de dulce",
+     "zh": "mingzi you shenme guanxi women suo jiao de meigui huan ge mingzi yiyang fangxiang",
+     "fr": "Qu'y a-t-il dans un nom ? Ce que nous appelons une rose, sous un autre nom, sentirait aussi bon",
+     "ru": "Что значит имя? То, что мы зовём розой, пахло бы так же сладко под любым другим именем"
+    }
+   },
+   "moliere": {
+    "orig": "fr",
+    "titoli": {
+     "it": "L'avaro",
+     "en": "The Miser",
+     "es": "El avaro",
+     "zh": "吝啬鬼",
+     "ru": "Скупой"
+    },
+    "testi": {
+     "it": "Bisogna mangiare per vivere, e non vivere per mangiare.",
+     "en": "One must eat to live, and not live to eat.",
+     "es": "Hay que comer para vivir, y no vivir para comer.",
+     "zh": "chi fan shi weile huozhe er bushi huozhe weile chi fan",
+     "ru": "Надо есть, чтобы жить, а не жить, чтобы есть."
+    }
+   },
+   "barchetta": {
+    "orig": "en",
+    "titoli": {
+     "it": "Rema, rema la tua barca",
+     "es": "Rema, rema tu barca",
+     "zh": "划呀划小船",
+     "fr": "Rame, rame ta barque",
+     "ru": "Греби, греби"
+    },
+    "testi": {
+     "it": "Rema, rema, rema la tua barca, piano lungo il fiume, allegramente, allegramente, allegramente, allegramente, la vita è solo un sogno",
+     "es": "Rema, rema, rema tu barca, suave río abajo, alegremente, alegremente, alegremente, alegremente, la vida es solo un sueño",
+     "zh": "hua hua hua xiao chuan qingqing shun liu xia kuaile kuaile kuaile kuaile rensheng zhi shi meng",
+     "fr": "Rame, rame, rame ta barque, doucement sur le courant, gaiement, gaiement, gaiement, gaiement, la vie n'est qu'un rêve",
+     "ru": "Греби, греби, греби в лодке тихо по реке, весело, весело, весело, весело, жизнь — лишь сон"
+    }
+   },
+   "macdonald": {
+    "orig": "en",
+    "titoli": {
+     "it": "Il vecchio MacDonald",
+     "es": "El viejo MacDonald",
+     "zh": "老麦克唐纳",
+     "fr": "Le vieux MacDonald",
+     "ru": "Старый Макдональд"
+    },
+    "testi": {
+     "it": "Il vecchio MacDonald aveva una fattoria, i a i a o, e nella fattoria aveva una mucca, i a i a o",
+     "es": "El viejo MacDonald tenía una granja, i a i a o, y en esa granja tenía una vaca, i a i a o",
+     "zh": "lao maikedangna you ge nongchang yi ya yi ya ou nongchang li you tou nainiu yi ya yi ya ou",
+     "fr": "Le vieux MacDonald avait une ferme, i a i a o, et dans cette ferme il avait une vache, i a i a o",
+     "ru": "У старого Макдональда была ферма, и а и а о, и на этой ферме была корова, и а и а о"
+    }
+   },
+   "funicula": {
+    "orig": "it",
+    "titoli": {
+     "en": "Funiculì, funiculà",
+     "es": "Funiculí, funiculá",
+     "zh": "缆车之歌",
+     "fr": "Funiculi, funicula",
+     "ru": "Фуникули, фуникула"
+    },
+    "testi": {
+     "en": "Let's go, let's go, up we go, let's go, let's go, up we go, funiculì, funiculà, funiculì, funiculà, up we go, funiculì, funiculà!",
+     "es": "Vamos, vamos, arriba vamos ya, vamos, vamos, arriba vamos ya, funiculí, funiculá, funiculí, funiculá, arriba vamos ya, funiculí, funiculá!",
+     "zh": "zou ba zou ba shang shan qu zou ba zou ba shang shan qu fu ni gu li fu ni gu la fu ni gu li fu ni gu la shang shan qu fu ni gu li fu ni gu la",
+     "fr": "Allons, allons, là-haut allons-y, allons, allons, là-haut allons-y, funiculi, funicula, funiculi, funicula, là-haut allons-y, funiculi, funicula !",
+     "ru": "Вперёд, вперёд, наверх идём, вперёд, вперёд, наверх идём, фуникули, фуникула, фуникули, фуникула, наверх идём, фуникули, фуникула!"
+    }
+   },
+   "donnamobile": {
+    "orig": "it",
+    "titoli": {
+     "en": "La donna è mobile",
+     "es": "La donna è mobile",
+     "zh": "女人善变",
+     "fr": "La donna è mobile",
+     "ru": "Сердце красавицы"
+    },
+    "testi": {
+     "en": "Woman is fickle like a feather in the wind, she changes her words and her thoughts.",
+     "es": "La mujer es voluble como pluma al viento, cambia de acento y de pensamiento.",
+     "zh": "nuren shi yibian de xiang feng zhong de yumao tamen gaibian yudiao he xiangfa",
+     "fr": "La femme est changeante comme une plume au vent, elle change de ton et de pensée.",
+     "ru": "Женщина изменчива, как перо на ветру, меняет и речи, и мысли."
+    }
+   },
+   "alouette": {
+    "orig": "fr",
+    "titoli": {
+     "it": "Allodola",
+     "en": "Alouette",
+     "es": "Alondra",
+     "zh": "云雀",
+     "ru": "Жаворонок"
+    },
+    "testi": {
+     "it": "Allodola, gentile allodola, allodola, ti spiumerò. Ti spiumerò la testa, ti spiumerò la testa.",
+     "en": "Lark, lovely lark, lark, I'll pluck your feathers. I'll pluck the feathers from your head, I'll pluck the feathers from your head.",
+     "es": "Alondra, gentil alondra, alondra, te desplumaré. Te desplumaré la cabeza, te desplumaré la cabeza.",
+     "zh": "baiying keai de baiying baiying wo yao ba ni de yumao ba guang ba ni tou shang de yumao ba guang ba ni tou shang de yumao ba guang",
+     "ru": "Жаворонок, милый жаворонок, жаворонок, я тебя ощиплю. Я ощиплю тебе головку, я ощиплю тебе головку."
+    }
+   },
+   "londonbridge": {
+    "orig": "en",
+    "titoli": {
+     "it": "Il ponte di Londra",
+     "es": "El puente de Londres",
+     "zh": "伦敦大桥",
+     "fr": "Le pont de Londres",
+     "ru": "Лондонский мост"
+    },
+    "testi": {
+     "it": "Il ponte di Londra sta crollando, sta crollando, sta crollando, il ponte di Londra sta crollando, mia bella signora.",
+     "es": "El puente de Londres se está cayendo, se está cayendo, se está cayendo, el puente de Londres se está cayendo, mi bella dama.",
+     "zh": "lundun da qiao yao ta le yao ta le yao ta le lundun da qiao yao ta le wo de mei xiaojie",
+     "fr": "Le pont de Londres s'écroule, s'écroule, s'écroule, le pont de Londres s'écroule, ma belle dame.",
+     "ru": "Лондонский мост падает, падает, падает, Лондонский мост падает, моя прекрасная леди."
+    }
    }
   };
   // cartelle della biblioteca
   const CARTELLE = ["celebri", "poesie", "libri", "teatro", "canzoni", "film", "meme"];
-  const CARTELLA_OPERA = {"eureka": "celebri", "carpe": "celebri", "veni": "celebri", "eppur": "celebri", "cogito": "celebri", "amor": "poesie", "mezzo": "poesie", "dante": "poesie", "infinito": "poesie", "sonetto18": "poesie", "manzoni": "libri", "tobe": "teatro", "macbeth": "teatro", "romeo": "teatro", "amleto": "teatro", "alea": "celebri", "sapere": "celebri", "conosci": "celebri", "sanlorenzo": "poesie", "pinocchio": "libri", "ishmael": "libri", "dickens": "libri", "austen": "libri", "twinkle": "canzoni", "framartino": "canzoni", "jingle": "canzoni", "osole": "canzoni", "auguri": "canzoni", "jazz": "film", "metropolis": "film", "watson": "film", "houston": "film", "hello": "meme", "keepcalm": "meme", "thisisfine": "meme", "tothemoon": "meme", "okboomer": "meme", "muchwow": "meme", "pianto": "poesie", "pinocchio2": "libri", "ishmael2": "libri", "dickens2": "libri", "austen2": "libri", "manzoni2": "libri"};
+  const CARTELLA_OPERA = {"eureka": "celebri", "carpe": "celebri", "veni": "celebri", "eppur": "celebri", "cogito": "celebri", "amor": "poesie", "mezzo": "poesie", "dante": "poesie", "infinito": "poesie", "sonetto18": "poesie", "manzoni": "libri", "tobe": "teatro", "macbeth": "teatro", "romeo": "teatro", "amleto": "teatro", "alea": "celebri", "sapere": "celebri", "conosci": "celebri", "sanlorenzo": "poesie", "pinocchio": "libri", "ishmael": "libri", "dickens": "libri", "austen": "libri", "twinkle": "canzoni", "framartino": "canzoni", "jingle": "canzoni", "osole": "canzoni", "auguri": "canzoni", "jazz": "film", "metropolis": "film", "watson": "film", "houston": "film", "hello": "meme", "keepcalm": "meme", "thisisfine": "meme", "tothemoon": "meme", "okboomer": "meme", "muchwow": "meme", "pianto": "poesie", "pinocchio2": "libri", "ishmael2": "libri", "dickens2": "libri", "austen2": "libri", "manzoni2": "libri", "errare": "celebri", "dumspiro": "celebri", "memento": "celebri", "tempus": "celebri", "festina": "celebri", "panem": "celebri", "mens": "celebri", "vino": "celebri", "aspera": "celebri", "lupus": "celebri", "divide": "celebri", "ubimaior": "celebri", "monkeysee": "meme", "bananascale": "meme", "nobug": "meme", "grass": "meme", "holdbanana": "meme", "appoggio": "celebri", "sodi": "celebri", "misura": "celebri", "arslonga": "celebri", "piano": "celebri", "piuluce": "celebri", "fattinon": "poesie", "chiare": "poesie", "speranza": "poesie", "tigre": "poesie", "bellezza": "poesie", "nuvola": "poesie", "anna": "libri", "kafka": "libri", "quijote": "libri", "alice": "libri", "peterpan": "libri", "marley": "libri", "eyre": "libri", "frankenstein": "libri", "palcoscenico": "teatro", "inverno": "teatro", "cavallo": "teatro", "rosa": "teatro", "moliere": "teatro", "barchetta": "canzoni", "macdonald": "canzoni", "funicula": "canzoni", "donnamobile": "canzoni", "alouette": "canzoni", "londonbridge": "canzoni"};
   for (const o of OPERE) o.cartella = CARTELLA_OPERA[o.id] || "celebri";
   for (const o of OPERE) {
     const tr = TRADUZIONI_OPERE[o.id];
@@ -5160,7 +5814,7 @@
   POT.push({
     id: "asilo", icona: "🍼", gruppo: "scimmie", tipo: "livelli", base: 3000, rapporto: 3.5,
     vis: () => G.liv.s2 >= 1,
-    effetto: () => t("eff_asilo", { a: G.liv.asilo, b: G.liv.asilo + 1 })
+    effetto: () => t("eff_asilo", { a: G.liv.asilo, b: G.liv.asilo + 1, c: decimale(tettoCuccioli()) })
   });
   const VIS_MIGL = { stretch: () => true, lezioni: () => G.liv.stretch >= 1, macchina: () => G.liv.o1 >= 1, caffe: () => G.liv.o2 >= 1 };
   MIGLIORAMENTI.forEach(([id, icona, molt, base, rapporto]) => POT.push({
@@ -5268,7 +5922,9 @@
   const scimmieBase = () => SCIMMIE_INIZIALI + STRUTTURE.reduce((s, [id, , dim]) => s + G.liv[id] * dim * moltStruttura(id), 0);
   const moltScimmie = () => prodotto("scimmie") * Math.pow(1.5, livT("t_recl"));
   const eventoAttivo = () => (R && R.evento && Date.now() < R.evento.fine ? R.evento : null);
-  const numScimmie = () => scimmieBase() * moltScimmie() * G.cuccioli * ((eventoAttivo() || {}).moltS || 1);
+  // i cuccioli moltiplicano le scimmie fino a un tetto che sale con l'asilo (così l'economia non esplode con i giorni)
+  const tettoCuccioli = () => 1 + 0.5 * ((G.liv.asilo || 0) + 2 * livT("t_nido"));
+  const numScimmie = () => scimmieBase() * moltScimmie() * Math.min(G.cuccioli, tettoCuccioli()) * ((eventoAttivo() || {}).moltS || 1);
   const numTraguardi = () => TRAGUARDI.filter(tr => G.traguardi[tr.id]).length;
   const daRiscuotere = () => TRAGUARDI.filter(tr => G.traguardi[tr.id] && !G.traguardi[tr.id].r);
   const moltVelocita = () => MIGLIORAMENTI.reduce((m, [id, , molt]) => m * Math.pow(molt, G.liv[id] || 0), 1);
@@ -5285,7 +5941,11 @@
   // Ogni lettera giusta battuta da una scimmia vale una banana (due in Realistica, dove azzeccarla è più difficile).
   // In media una lettera su "nTasti" è quella giusta, quindi le banane al secondo sono i tasti al secondo diviso i tasti della tastiera.
   const valoreLettera = () => (modoCorrente() === "realistica" ? 2 : 1);
-  const bananeAlSecondo = (tps = tastiAlSecondo()) => tps / ((R && R.nTasti) || 27) * valoreLettera() * Math.pow(1.5, livT("t_contratto")) * ((eventoAttivo() || {}).moltB || 1);
+  // mercato saturo: oltre 10 miliardi di banane al secondo ogni lettera rende sempre meno (radice quadrata),
+  // così l'economia resta bilanciata anche dopo giorni di gioco. Talenti ed eventi si applicano dopo.
+  const SATURAZIONE = 1e10;
+  const satura = b => (b <= SATURAZIONE ? b : SATURAZIONE * Math.pow(b / SATURAZIONE, 0.55));
+  const bananeAlSecondo = (tps = tastiAlSecondo()) => satura(tps / ((R && R.nTasti) || 27) * valoreLettera()) * Math.pow(1.5, livT("t_contratto")) * ((eventoAttivo() || {}).moltB || 1);
   // tutto ciò che le scimmie guadagnano battendo lettere giuste finisce nel "raccolto"
   function raccogli(banane) {
     G.banane += banane; G.raccolto += banane; G.raccoltoRun = (G.raccoltoRun || 0) + banane;
@@ -5457,7 +6117,11 @@
     const chiavePagina = G.operaId === "mio" ? "mio:" + R.target.slice(0, 40) : G.operaId;
     R.nuovaPagina = !G.pagineAut[chiavePagina];
     if (R.nuovaPagina) G.pagineAut[chiavePagina] = { id: G.operaId, testo: R.target, chi, ts: Date.now(), modo: modoCorrente(), lingua: L };
-    if (G.operaId === "mio") { if (R.target.length > (G.fraseMio || 0)) { G.fraseMio = R.target.length; G.fraseMioModo = modoCorrente(); } }
+    if (G.operaId === "mio") {
+      if (R.target.length > (G.fraseMio || 0)) { G.fraseMio = R.target.length; G.fraseMioModo = modoCorrente(); }
+      const precedente = ((G.frasiModo || {})[modoCorrente()] || {}).mio || 0;
+      if (R.target.length >= precedente) (G.testiMio = G.testiMio || {})[modoCorrente()] = (G.testoMio || R.target).slice(0, 160);
+    }
     else if (R.target.length > (G.lunghe[G.operaId] || 0)) { G.lunghe[G.operaId] = R.target.length; G.lungheModo[G.operaId] = modoCorrente(); }
     const fm = (G.frasiModo = G.frasiModo || {})[modoCorrente()] = G.frasiModo[modoCorrente()] || {};
     fm[G.operaId] = Math.max(fm[G.operaId] || 0, R.target.length);
@@ -5667,7 +6331,7 @@
     if (R.fermo) return;
     G.tempo += dt;
     const g = crescitaAlSecondo();
-    if (g > 0) G.cuccioli *= Math.exp(g * dt);
+    if (g > 0) G.cuccioli = Math.min(tettoCuccioli(), G.cuccioli * Math.exp(g * dt));
     const N = numScimmie(), v = velocitaScimmia();
     G.tasti += N * v * dt;
     raccogli(bananeAlSecondo(N * v) * dt);
@@ -5695,12 +6359,18 @@
   // =====================================================================
   //  TRAGUARDI
   // =====================================================================
+  // premio di un traguardo: fissato nel momento in cui lo completi, non cresce aspettando
+  const premioFisso = tr => {
+    const s = G.traguardi[tr.id];
+    if (s && !s.r && s.p === undefined) s.p = premioTraguardo(tr);
+    return s && s.p !== undefined ? s.p : premioTraguardo(tr);
+  };
   function controllaTraguardi() {
     let nuovi = 0;
     for (const tr of TRAGUARDI) {
       if (G.traguardi[tr.id]) continue;
       if (tr.val() >= tr.obiettivo) {
-        G.traguardi[tr.id] = { r: false };
+        G.traguardi[tr.id] = { r: false, p: premioTraguardo(tr) };
         nuovi++;
         if (!R.caricamento) avviso(t("trag_avviso", { nome: tr.nome() }), "oro");
       }
@@ -5752,6 +6422,18 @@
       mostraGruppo("editore");
       Online.pubblicaRiga();
     });
+  }
+  // mercato delle pagine: una Pagina d'oro in cambio di banane, ogni volta 50 volte più cara (non dà Fama)
+  const prezzoPagina = () => 1e12 * Math.pow(50, G.pagineComprate || 0);
+  function compraPagina() {
+    const prezzo = prezzoPagina();
+    if (G.banane < prezzo) { Suono.nego(); return; }
+    G.banane -= prezzo;
+    G.pagine = (G.pagine || 0) + 1;
+    G.pagineComprate = (G.pagineComprate || 0) + 1;
+    Suono.compra();
+    salva();
+    disegnaEditore();
   }
   function compraTalento(tl) {
     if (tl.max && livT(tl.id) >= tl.max) return;
@@ -5828,6 +6510,8 @@
     $("pubEdizione").textContent = t("pub_edizione", { n: (G.pubblicazioni || 0) + 1 });
     $("pubProssima").textContent = n < 1 ? t("pub_minimo", { n: fmt(1e9) }) : t("pub_prossima", { n: fmt(sogliaPagina(daBanane)) });
     $("bPubblica").disabled = n < 1 || R.fermo;
+    $("bCompraPagina").textContent = t("merc_btn", { n: fmt(prezzoPagina()) });
+    $("bCompraPagina").disabled = G.banane < prezzoPagina();
     $("pubFermo").hidden = !R.fermo;
     for (const tl of TALENTI) {
       const l = livT(tl.id), alMax = tl.max && l >= tl.max, c = costoTalento(tl);
@@ -5875,7 +6559,7 @@
   function riscuoti(tr) {
     const stato = G.traguardi[tr.id];
     if (!stato || stato.r) return 0;
-    const premio = premioTraguardo(tr);
+    const premio = premioFisso(tr);
     G.banane += premio;
     stato.r = true;
     return premio;
@@ -6118,8 +6802,8 @@
       tr.el.querySelector("b").textContent = tr.nome();
       tr.el.querySelector(".desc").textContent = tr.desc();
       tr.el.querySelector(".fatto").textContent = t("premio_riscosso");
-      tr.el.querySelector(".premio").textContent = s && s.r ? "" : (s ? t("premio_pct", { p: tr.pct, n: fmt(premioTraguardo(tr)) }) : t("premio_pct_breve", { p: tr.pct, m: fmt(tr.min || 1000) }));
-      if (s && !s.r) tr.el.querySelector(".riscuoti").textContent = t("riscuoti", { n: fmt(premioTraguardo(tr)) });
+      tr.el.querySelector(".premio").textContent = s && s.r ? "" : (s ? t("premio_pct", { p: tr.pct, n: fmt(premioFisso(tr)) }) : t("premio_pct_breve", { p: tr.pct, m: fmt(tr.min || 1000) }));
+      if (s && !s.r) tr.el.querySelector(".riscuoti").textContent = t("riscuoti", { n: fmt(premioFisso(tr)) });
       if (!s) {
         const v = tr.val(), o = tr.obiettivo;
         const frazione = o >= 1000 ? Math.log10(Math.max(1, v)) / Math.log10(o) : v / o;
@@ -6284,6 +6968,22 @@
         }
         g.recordSempre = {};
       }
+      // prima delle partite separate, cambiare difficoltà poteva "completare" una frase senza scriverla:
+      // le difficoltà mai giocate davvero ripartono pulite e la loro riga in classifica viene azzerata
+      if (!dati.pulizia1) {
+        const attuale = (g.imp && g.imp.modo) || "normale";
+        g.righeDaAzzerare = [];
+        for (const m of MODI) {
+          if (m === attuale || (g.sessioni && g.sessioni[m])) continue;
+          if (Object.keys((g.frasiModo || {})[m] || {}).length || (g.paroleModo || {})[m]) {
+            if (g.frasiModo) g.frasiModo[m] = {};
+            if (g.paroleModo) delete g.paroleModo[m];
+            if (g.completateModo) g.completateModo[m] = 0;
+            g.righeDaAzzerare.push(m);
+          }
+        }
+        g.pulizia1 = true;
+      }
       // cassa di benvenuto anche per chi giocava già
       if (!dati.regaloBenvenuto) { g.casseGratis = (dati.casseGratis || 0) + 1; g.regaloBenvenuto = true; }
       // le automazioni che compravano da sole non ci sono più: restituisco le pagine
@@ -6362,7 +7062,7 @@
     const tasti = Math.min(1e300, tps * (g > 0 ? Math.expm1(crescita) / g : assente));
     const banane = bananeAlSecondo(tasti) * efficienzaNotte();
     const paroleAllaPartenza = G.parole || 0;
-    if (g > 0) G.cuccioli = Math.min(1e200, G.cuccioli * Math.exp(crescita));
+    if (g > 0) G.cuccioli = Math.min(tettoCuccioli(), G.cuccioli * Math.exp(crescita));
     G.tasti += tasti;
     raccogli(banane);
     const ritorno = { assente, banane, tasti, nuove: g > 0 ? numScimmie() - N0 : 0, record: 0, parole: 0 };
@@ -6630,14 +7330,17 @@
     rigaModo(m) {
       let frase = 0, fraseId = "";
       for (const [id, l] of Object.entries((G.frasiModo || {})[m] || {})) if (l > frase) { frase = l; fraseId = id; }
+      // un testo personalizzato va in classifica con le sue parole
+      if (fraseId === "mio" && (G.testiMio || {})[m]) fraseId = "mio:" + G.testiMio[m].slice(0, 160);
+      const sess = m === modoCorrente() ? G : ((G.sessioni || {})[m] || {});
       let record = frase;
-      for (const [k, a] of [...Object.entries(G.archivio), ...Object.entries(G.recordSempre || {})]) {
+      for (const [k, a] of [...Object.entries(sess.archivio || {}), ...Object.entries(G.recordSempre || {})]) {
         const km = k.includes("#") ? k.split("#")[1] : "normale";
         if (km === m) record = Math.max(record, a.record || 0);
       }
-      if ((G.modoOpera || "normale") === m) record = Math.max(record, G.record);
+      if ((sess.modoOpera || "normale") === m) record = Math.max(record, sess.record || 0);
       const parola = ((G.paroleModo || {})[m]) || null;
-      const riga = { frase, fraseId, record, opere: G.opereFatte.length, nick: G.nick || "" };
+      const riga = { frase, fraseId, record, opere: (sess.opereFatte || []).length, nick: G.nick || "" };
       if (!this.senzaParola) {
         riga.parola = parola ? parola.p : ""; riga.parolaL = parola ? parola.l : 0;
         const sc = aspetto();
@@ -6688,6 +7391,12 @@
         if (chiave !== this.ultimaRiga[m]) daScrivere.push({ m, riga, chiave });
       }
       this.pubblicaProfilo();
+      for (const m of G.righeDaAzzerare || []) {
+        if (daScrivere.some(x => x.m === m)) continue;
+        const vuota = { frase: 0, fraseId: "", record: 0, opere: 0, nick: G.nick || "" };
+        if (!this.senzaParola) { vuota.parola = ""; vuota.parolaL = 0; }
+        daScrivere.push({ m, riga: vuota, chiave: JSON.stringify(vuota), azzera: true });
+      }
       if (!daScrivere.length) return;
       const attesa = subito ? 0 : 10000 - (Date.now() - (this.ultimaScrittura || 0));
       if (attesa > 0) {
@@ -6701,6 +7410,7 @@
           const base = this.tipo === "firebase" ? this.fb : this.db;
           await base.collection(this.nomeClassifica(m)).doc(this.id).set({ ...riga, agg: Date.now() });
           this.ultimaRiga[m] = chiave;
+          if (G.righeDaAzzerare) { G.righeDaAzzerare = G.righeDaAzzerare.filter(x => x !== m); salva(); }
         }
       } catch (e) {
         const codice = e && e.code;
@@ -6729,7 +7439,7 @@
       const avviso = this.solaLettura ? t("cl_sola") : "";
       // chi era nella classifica di prima con un nome e non ha ancora giocato con la versione nuova
       const nuove = this.righe[modo] || [];
-      const giaDentro = new Set(nuove.map(r => r.id));
+      const giaDentro = new Set(MODI.flatMap(m => (this.righe[m] || []).map(r => r.id)));
       const vecchie = (this.righeVecchie || [])
         .filter(r => typeof r.nick === "string" && r.nick.trim() && r.id !== this.id && !giaDentro.has(r.id) && (r.modo || "normale") === modo)
         .map(r => ({ ...r, parola: "", parolaL: 0 }));   // le parole di prima erano casuali: non valgono più
@@ -6748,7 +7458,8 @@
         if (r.id === this.id) li.classList.add("io");
         const p = profili[r.id] || {};
         const chiNome = (typeof r.nick === "string" && r.nick.trim()) || p.name || (t("cl_anonimo") + (this.tipo === "firebase" ? " " + String(r.id).slice(0, 4) : ""));
-        const titolo = r.fraseId === "mio" ? t("cl_mio") : (OPERE.some(o => o.id === r.fraseId) ? operaCorrente(r.fraseId).titolo : "");
+        const testoGiocatore = typeof r.fraseId === "string" && r.fraseId.startsWith("mio:") ? r.fraseId.slice(4) : "";
+        const titolo = testoGiocatore ? "«" + testoGiocatore + "»" : r.fraseId === "mio" ? t("cl_mio") : (OPERE.some(o => o.id === r.fraseId) ? operaCorrente(r.fraseId).titolo : "");
         const posEl = document.createElement("span"); posEl.className = "pos";
         posEl.textContent = k === 0 ? "🥇" : k === 1 ? "🥈" : k === 2 ? "🥉" : String(k + 1);
         const io = r.id === this.id, sc = aspetto();
@@ -6763,7 +7474,7 @@
         const sm = document.createElement("small");
         // sotto il nome: la frase completata che dà il numero a destra (su una riga, con i puntini se è lunga)
         sm.className = "frase-cl";
-        sm.textContent = !r.frase ? "" : r.fraseId === "mio" ? t("cl_mio")
+        sm.textContent = !r.frase ? "" : testoGiocatore ? "«" + testoGiocatore + "» ✍️" : r.fraseId === "mio" ? t("cl_mio")
           : OPERE.some(o => o.id === r.fraseId) ? "«" + operaCorrente(r.fraseId).testo + "»" : "";
         chi.append(b, sm);
         // a destra: i caratteri della frase completata più lunga (quello che conta per la classifica)
@@ -7540,7 +8251,8 @@
     };
     const base = [
       [t("gc_rec", { modo: t("modo_" + modo) }), caratteri(r.record || 0)],
-      [t("gc_frase"), r.frase ? (OPERE.some(o => o.id === r.fraseId) ? operaCorrente(r.fraseId).titolo : t("cl_mio")) + " (" + r.frase + ")" : "—"],
+      [t("gc_frase"), r.frase ? (OPERE.some(o => o.id === r.fraseId) ? operaCorrente(r.fraseId).titolo
+        : typeof r.fraseId === "string" && r.fraseId.startsWith("mio:") ? "«" + r.fraseId.slice(4) + "»" : t("cl_mio")) + " (" + r.frase + ")" : "—"],
       [t("gc_parola"), r.parola ? "«" + r.parola + "»" : "—"]
     ];
     riquadri(base);
@@ -8292,12 +9004,35 @@
     }
     apri("veloLingua");
   }
+  // ogni difficoltà ha la sua partita (sessione): banane, scimmie, potenziamenti, frasi, traguardi e pubblicazioni
+  // restano separati. Restano in comune nome, impostazioni, aspetto, casse e collezione.
+  const CAMPI_SESSIONE = ["banane", "liv", "cuccioli", "raccolto", "raccoltoRun", "tasti", "lettere", "tempo", "completate", "completateRun",
+    "operaId", "testoMio", "record", "recordChi", "recordTs", "linguaOpera", "modoOpera", "opereFatte", "archivio", "lunghe", "lungheModo",
+    "fraseMio", "fraseMioModo", "parole", "parolaMax", "pagine", "pagineTot", "pubblicazioni", "talenti", "auto", "traguardi",
+    "diario", "diarioTarget", "ultimaTappa", "pagineComprate"];
+  function cambiaSessione(da, a) {
+    G.sessioni = G.sessioni || {};
+    const vecchia = {};
+    for (const k of CAMPI_SESSIONE) vecchia[k] = G[k];
+    G.sessioni[da] = JSON.parse(JSON.stringify(vecchia));
+    const base = statoIniziale(), nuova = G.sessioni[a];
+    for (const k of CAMPI_SESSIONE) G[k] = nuova && nuova[k] !== undefined ? nuova[k] : base[k];
+    if (!nuova) G.modoOpera = a;
+    delete G.sessioni[a];
+    G.imp.modo = a;
+    G.ts = Date.now();   // la sessione ripresa riparte da dove l'avevi lasciata, senza guadagni nel frattempo
+    return !!nuova;
+  }
   function impostaModo(modo) {
     if (!R.nelMenu || !MODI.includes(modo) || modo === modoCorrente()) return;
-    G.imp.modo = modo;
-    if (R.target && !R.fermo && normalizza(operaCorrente().testo) !== R.target) caricaOpera();
+    salva();
+    const ripresa = cambiaSessione(modoCorrente(), modo);
+    avvia(G);
+    R.nelMenu = true;
+    R.haSalvataggio = ripresa;
     scriviMenuIniziale();
     salva();
+    avviso(t(ripresa ? "sess_ripresa" : "sess_nuova", { modo: ICONE_MODO[modo] + " " + t("modo_" + modo) }));
   }
   function impostaLingua(cod) {
     G.imp.lingua = cod;
@@ -8417,6 +9152,7 @@
     $("bEvChiudi").onclick = () => chiudi("veloEventi");
     $("veloEventi").onclick = e => { if (e.target.id === "veloEventi") chiudi("veloEventi"); };
     $("bPubblica").onclick = pubblica;
+    $("bCompraPagina").onclick = compraPagina;
     $("bNomeOk").onclick = confermaNome;
     $("bNovTour").onclick = () => chiudiNovita(true);
     // pannello sviluppatore: si apre toccando 5 volte la scritta della versione
