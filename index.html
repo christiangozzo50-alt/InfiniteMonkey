@@ -239,6 +239,16 @@
   .pot.premuto { transform: scale(0.98); }
   .sez-pot { display: flex; flex-direction: column; gap: 2px; margin: 16px 2px 9px; font-size: 16.5px; }
   .sez-pot:first-child { margin-top: 2px; }
+  #v-negozio .segmenti button { font-size: 12.5px; padding-left: 1px; padding-right: 1px; white-space: nowrap; letter-spacing: -0.2px; }
+  #v-negozio .quantita[hidden], #v-negozio .suggerimento-tieni[hidden], #riassunto[hidden], #presi[hidden] { display: none; }
+  .riquadro.pubblica { margin-bottom: 6px; }
+  .pub-righe { display: grid; gap: 4px; margin: 4px 0 8px; font-size: 15px; }
+  .pub-righe b { color: var(--banana); }
+  #bPubblica { width: 100%; margin-top: 10px; }
+  #bPubblica:disabled { opacity: .45; }
+  .pot.talento { position: relative; }
+  .pot.talento .auto-sw { margin-left: auto; }
+  .pot.talento .auto-sw[hidden] { display: none; }
   .sez-pot small { color: var(--spento); font-weight: 400; font-size: 13px; }
   .suggerimento-tieni { color: var(--spento); font-size: 13px; margin: -2px 0 10px; }
   .pot {
@@ -505,10 +515,10 @@
     transition: opacity .7s ease, visibility .7s;
   }
   .sipario.via { opacity: 0; visibility: hidden; }
-  .sip-dentro { width: min(92vw, 520px); text-align: center; animation: sip-entra .6s cubic-bezier(.2, .8, .2, 1) both; }
+  .sip-dentro { width: min(100%, 520px); text-align: center; animation: sip-entra .6s cubic-bezier(.2, .8, .2, 1) both; }
   .sip-chi { color: var(--spento); font-size: 14px; font-weight: 700; min-height: 1.4em; margin-bottom: 10px; }
   .sip-foglio {
-    background: var(--carta); color: var(--inchiostro); border-radius: 10px; padding: 26px 18px; text-align: left;
+    background: var(--carta); color: var(--inchiostro); border-radius: 10px; padding: 26px 18px; text-align: center;
     font-family: var(--tasti); font-size: clamp(22px, 7vw, 34px); line-height: 1.2; min-height: 1.2em; white-space: pre-wrap; word-break: break-word;
     box-shadow: 0 8px 0 -3px #d4ccb4, 0 16px 0 -6px #c7bfa6, 0 22px 30px -10px rgba(0, 0, 0, .6);
   }
@@ -702,6 +712,7 @@
       <button data-gruppo="scimmie" aria-pressed="true">🐒 <span data-t="seg_scimmie"></span><span class="punto" id="pScimmie"></span></button>
       <button data-gruppo="velocita" aria-pressed="false">⚡ <span data-t="seg_velocita"></span><span class="punto" id="pVelocita"></span></button>
       <button data-gruppo="altro" aria-pressed="false">🌙 <span data-t="seg_altro"></span><span class="punto" id="pAltro"></span></button>
+      <button data-gruppo="editore" aria-pressed="false">📚 <span data-t="seg_editore"></span></button>
     </div>
     <div class="quantita" role="group">
       <span data-t="compra"></span>
@@ -720,6 +731,21 @@
       <div id="sez-ogg"></div>
     </div>
     <div class="lista-pot" id="lista-altro" hidden></div>
+    <div class="lista-pot" id="lista-editore" hidden>
+      <div class="riquadro pubblica">
+        <h3 data-t="pub_tit"></h3>
+        <p class="sotto-cl" data-t="pub_sotto"></p>
+        <div class="pub-righe">
+          <span>📃 <span data-t="pub_pagine"></span> <b id="pubPagine"></b></span>
+          <span>📚 <span data-t="pub_guadagno"></span> <b id="pubGuadagno"></b></span>
+        </div>
+        <p class="tappe-info" id="pubProssima"></p>
+        <p class="tappe-info" id="pubFermo" hidden data-t="pub_fermo"></p>
+        <button class="pulsante" id="bPubblica">📚 <span data-t="pub_btn"></span></button>
+      </div>
+      <h3 class="sez-pot"><span data-t="tal_tit"></span><small data-t="tal_sotto"></small></h3>
+      <div id="talenti"></div>
+    </div>
     <p class="presi" id="presi"></p>
   </section>
 
@@ -742,12 +768,6 @@
   <section class="schermata" id="v-traguardi">
     <div class="titolo-sez"><h2 data-t="h_traguardi"></h2><span class="gruppo-btn"><button class="riscuoti-tutto" id="bRiscuotiTutto" hidden data-t="riscuoti_tutto"></button></span></div>
     <p class="riassunto" id="tagRiassunto"></p>
-    <div class="riquadro missione">
-      <h3 data-t="pc_tit"></h3>
-      <p class="sotto-cl" data-t="pc_sotto"></p>
-      <p class="tappe-info" id="pcConta"></p>
-      <div class="chips-parole" id="pcParole"></div>
-    </div>
     <div class="griglia-trag" id="grigliaTrag"></div>
   </section>
 
@@ -763,7 +783,6 @@
         <div><small data-t="st_lettere"></small><strong id="sLettere"></strong></div>
         <div><small data-t="st_raccolto"></small><strong id="sRaccolto"></strong></div>
         <div><small data-t="st_frasi"></small><strong id="sFrasi"></strong></div>
-        <div><small data-t="st_parole_trovate"></small><strong id="sTrovate"></strong></div>
         <div><small data-t="st_parola_max"></small><strong id="sParolaMax"></strong></div>
       </div>
     <div class="riquadro riquadro-classifica">
@@ -777,12 +796,6 @@
       <p class="stato-cl" data-cl="stato"></p>
       <ol class="classifica" data-cl="lista"></ol>
       <p class="tua-pos" data-cl="pos"></p>
-    </div>
-    <div class="riquadro">
-      <h3 data-t="tappe_tit"></h3>
-      <p class="sotto-cl" data-t="tappe_sotto"></p>
-      <div class="chips-parole" id="tappe"></div>
-      <p class="tappe-info" id="tappeInfo"></p>
     </div>
   </section>
 </main>
@@ -848,7 +861,7 @@
       <button class="pulsante secondario" id="bChiudiImpostazioni" data-t="chiudi"></button>
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
-    <p class="versione-gioco">Scimmie infinite · versione 16</p>
+    <p class="versione-gioco">Scimmie infinite · versione 18</p>
   </div>
 </div>
 
@@ -1191,7 +1204,56 @@
       cat_banane: "🍌 Banane e lettere",
       cat_tasti: "⌨️ Tasti",
       cat_tempo: "⏳ Tempo",
-      cat_speciali: "✨ Speciali"
+      cat_speciali: "✨ Speciali",
+      seg_editore: "Editore",
+      soglia_ogg: "A {n}: tasti ×1,25",
+      pub_tit: "📚 Pubblicazione",
+      pub_sotto: "Vendi il tuo ufficio a una casa editrice: scimmie, banane e potenziamenti ripartono da zero, ma ricevi Pagine d'oro da spendere in talenti permanenti. Frasi, record, traguardi, parole e classifica restano.",
+      pub_pagine: "Pagine d'oro:",
+      pub_intutto: "{n} in tutto",
+      pub_guadagno: "Pubblicando ora:",
+      pub_prossima: "La prossima pagina arriva a {n} banane raccolte in questa partita.",
+      pub_minimo: "Per pubblicare raccogli almeno {n} banane in questa partita.",
+      pub_btn: "Pubblica",
+      pub_fermo: "Prima passa alla frase successiva.",
+      pub_conf_tit: "Pubblicare?",
+      pub_conf_testo: "Scimmie, banane e potenziamenti ripartono da zero. Ricevi {n} Pagine d'oro. Frasi, record, traguardi, parole e classifica restano.",
+      pub_fatto: "📚 Pubblicato! +{n} Pagine d'oro",
+      tal_tit: "🌳 Talenti",
+      tal_sotto: "Bonus permanenti che restano dopo ogni pubblicazione. Non cambiano mai la fortuna: ogni tasto resta sempre casuale.",
+      ramo_scimmie: "🐒 Assunzioni",
+      ramo_velocita: "⚡ Officina",
+      ramo_banane: "🍌 Contratti",
+      ramo_auto: "🤖 Automazioni",
+      nome_t_squadra: "Squadra iniziale",
+      nome_t_recl: "Reclutatore",
+      nome_t_nido: "Nidiata",
+      nome_t_scuola: "Scuola di dattilografia",
+      nome_t_attrezzi: "Attrezzi di famiglia",
+      nome_t_qualita: "Oggetti di qualità",
+      nome_t_contratto: "Contratto editoriale",
+      nome_t_anticipo: "Anticipo",
+      nome_t_notte: "Turni di notte pagati",
+      nome_a_scimmie: "Assistente alle assunzioni",
+      nome_a_velocita: "Assistente all'officina",
+      nome_a_traguardi: "Segretario",
+      nome_a_frasi: "Archivista",
+      eff_t_squadra: "+10 scimmie all'inizio di ogni partita per livello (ora +{n})",
+      eff_t_recl: "Scimmie ×1,2 per livello (ora ×{x})",
+      eff_t_nido: "+1% scimmie all'ora per livello (ora +{n}%)",
+      eff_t_scuola: "Velocità ×1,2 per livello (ora ×{x})",
+      eff_t_attrezzi: "+10 tasti/s a ogni scimmia per livello (ora +{n})",
+      eff_t_qualita: "Tasti degli oggetti ×1,25 per livello (ora ×{x})",
+      eff_t_contratto: "Banane ×1,25 per livello (ora ×{x})",
+      eff_t_anticipo: "Banane di partenza ×10 per livello (ora {n})",
+      eff_t_notte: "Banane a gioco chiuso ×1,25 per livello (ora ×{x})",
+      eff_a_scimmie: "Compra da solo scimmie e potenziamenti delle scimmie",
+      eff_a_velocita: "Compra da solo oggetti e miglioramenti della velocità",
+      eff_a_traguardi: "Riscuote da solo i traguardi completati",
+      eff_a_frasi: "Passa da solo alla frase successiva quando una è completata",
+      desc_pb: "Pubblicazioni: {n}",
+      desc_tl: "Livelli di talento: {n}",
+      cat_editore: "📚 Editore"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -1378,7 +1440,56 @@
       cat_banane: "🍌 Bananas and letters",
       cat_tasti: "⌨️ Keys",
       cat_tempo: "⏳ Time",
-      cat_speciali: "✨ Special"
+      cat_speciali: "✨ Special",
+      seg_editore: "Publisher",
+      soglia_ogg: "At {n}: keys ×1.25",
+      pub_tit: "📚 Publication",
+      pub_sotto: "Sell your office to a publishing house: monkeys, bananas and upgrades start over, but you get Golden Pages to spend on permanent talents. Phrases, records, goals, words and leaderboard stay.",
+      pub_pagine: "Golden Pages:",
+      pub_intutto: "{n} in total",
+      pub_guadagno: "Publishing now:",
+      pub_prossima: "The next page comes at {n} bananas harvested in this run.",
+      pub_minimo: "To publish, harvest at least {n} bananas in this run.",
+      pub_btn: "Publish",
+      pub_fermo: "First move on to the next phrase.",
+      pub_conf_tit: "Publish?",
+      pub_conf_testo: "Monkeys, bananas and upgrades start over. You get {n} Golden Pages. Phrases, records, goals, words and leaderboard stay.",
+      pub_fatto: "📚 Published! +{n} Golden Pages",
+      tal_tit: "🌳 Talents",
+      tal_sotto: "Permanent bonuses that stay after every publication. They never change luck: every key is always random.",
+      ramo_scimmie: "🐒 Hiring",
+      ramo_velocita: "⚡ Workshop",
+      ramo_banane: "🍌 Contracts",
+      ramo_auto: "🤖 Automation",
+      nome_t_squadra: "Starting crew",
+      nome_t_recl: "Recruiter",
+      nome_t_nido: "Brood",
+      nome_t_scuola: "Typing school",
+      nome_t_attrezzi: "Family tools",
+      nome_t_qualita: "Quality gear",
+      nome_t_contratto: "Publishing contract",
+      nome_t_anticipo: "Advance payment",
+      nome_t_notte: "Paid night shifts",
+      nome_a_scimmie: "Hiring assistant",
+      nome_a_velocita: "Workshop assistant",
+      nome_a_traguardi: "Secretary",
+      nome_a_frasi: "Archivist",
+      eff_t_squadra: "+10 monkeys at the start of every run per level (now +{n})",
+      eff_t_recl: "Monkeys ×1.2 per level (now ×{x})",
+      eff_t_nido: "+1% monkeys per hour per level (now +{n}%)",
+      eff_t_scuola: "Speed ×1.2 per level (now ×{x})",
+      eff_t_attrezzi: "+10 keys/s for every monkey per level (now +{n})",
+      eff_t_qualita: "Item keys ×1.25 per level (now ×{x})",
+      eff_t_contratto: "Bananas ×1.25 per level (now ×{x})",
+      eff_t_anticipo: "Starting bananas ×10 per level (now {n})",
+      eff_t_notte: "Bananas while closed ×1.25 per level (now ×{x})",
+      eff_a_scimmie: "Buys monkeys and monkey upgrades by itself",
+      eff_a_velocita: "Buys speed items and improvements by itself",
+      eff_a_traguardi: "Claims completed goals by itself",
+      eff_a_frasi: "Moves on to the next phrase by itself when one is completed",
+      desc_pb: "Publications: {n}",
+      desc_tl: "Talent levels: {n}",
+      cat_editore: "📚 Publisher"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -1565,7 +1676,56 @@
       cat_banane: "🍌 Plátanos y letras",
       cat_tasti: "⌨️ Teclas",
       cat_tempo: "⏳ Tiempo",
-      cat_speciali: "✨ Especiales"
+      cat_speciali: "✨ Especiales",
+      seg_editore: "Editorial",
+      soglia_ogg: "Con {n}: teclas ×1,25",
+      pub_tit: "📚 Publicación",
+      pub_sotto: "Vende tu oficina a una editorial: monos, plátanos y mejoras empiezan de cero, pero recibes Páginas de oro para gastar en talentos permanentes. Frases, récords, logros, palabras y clasificación se mantienen.",
+      pub_pagine: "Páginas de oro:",
+      pub_intutto: "{n} en total",
+      pub_guadagno: "Publicando ahora:",
+      pub_prossima: "La próxima página llega con {n} plátanos cosechados en esta partida.",
+      pub_minimo: "Para publicar, cosecha al menos {n} plátanos en esta partida.",
+      pub_btn: "Publicar",
+      pub_fermo: "Primero pasa a la siguiente frase.",
+      pub_conf_tit: "¿Publicar?",
+      pub_conf_testo: "Monos, plátanos y mejoras empiezan de cero. Recibes {n} Páginas de oro. Frases, récords, logros, palabras y clasificación se mantienen.",
+      pub_fatto: "📚 ¡Publicado! +{n} Páginas de oro",
+      tal_tit: "🌳 Talentos",
+      tal_sotto: "Bonificaciones permanentes que se mantienen tras cada publicación. Nunca cambian la suerte: cada tecla sigue siendo aleatoria.",
+      ramo_scimmie: "🐒 Contratación",
+      ramo_velocita: "⚡ Taller",
+      ramo_banane: "🍌 Contratos",
+      ramo_auto: "🤖 Automatizaciones",
+      nome_t_squadra: "Equipo inicial",
+      nome_t_recl: "Reclutador",
+      nome_t_nido: "Camada",
+      nome_t_scuola: "Escuela de mecanografía",
+      nome_t_attrezzi: "Herramientas de familia",
+      nome_t_qualita: "Objetos de calidad",
+      nome_t_contratto: "Contrato editorial",
+      nome_t_anticipo: "Anticipo",
+      nome_t_notte: "Turnos de noche pagados",
+      nome_a_scimmie: "Asistente de contratación",
+      nome_a_velocita: "Asistente de taller",
+      nome_a_traguardi: "Secretario",
+      nome_a_frasi: "Archivero",
+      eff_t_squadra: "+10 monos al empezar cada partida por nivel (ahora +{n})",
+      eff_t_recl: "Monos ×1,2 por nivel (ahora ×{x})",
+      eff_t_nido: "+1% de monos por hora por nivel (ahora +{n}%)",
+      eff_t_scuola: "Velocidad ×1,2 por nivel (ahora ×{x})",
+      eff_t_attrezzi: "+10 teclas/s a cada mono por nivel (ahora +{n})",
+      eff_t_qualita: "Teclas de los objetos ×1,25 por nivel (ahora ×{x})",
+      eff_t_contratto: "Plátanos ×1,25 por nivel (ahora ×{x})",
+      eff_t_anticipo: "Plátanos iniciales ×10 por nivel (ahora {n})",
+      eff_t_notte: "Plátanos con el juego cerrado ×1,25 por nivel (ahora ×{x})",
+      eff_a_scimmie: "Compra solo monos y mejoras de monos",
+      eff_a_velocita: "Compra solo objetos y perfeccionamientos de velocidad",
+      eff_a_traguardi: "Cobra solo los logros completados",
+      eff_a_frasi: "Pasa solo a la siguiente frase cuando se completa una",
+      desc_pb: "Publicaciones: {n}",
+      desc_tl: "Niveles de talento: {n}",
+      cat_editore: "📚 Editorial"
     },
 
     // ------------------------------------------------------------- 中文
@@ -1752,7 +1912,56 @@
       cat_banane: "🍌 香蕉和字母",
       cat_tasti: "⌨️ 按键",
       cat_tempo: "⏳ 时间",
-      cat_speciali: "✨ 特别"
+      cat_speciali: "✨ 特别",
+      seg_editore: "出版社",
+      soglia_ogg: "达到 {n} 件：按键 ×1.25",
+      pub_tit: "📚 出版",
+      pub_sotto: "把你的办公室卖给出版社：猴子、香蕉和升级都从零开始，但你会得到金页，用来购买永久天赋。句子、纪录、成就、单词和排行榜都会保留。",
+      pub_pagine: "金页：",
+      pub_intutto: "总共 {n}",
+      pub_guadagno: "现在出版：",
+      pub_prossima: "本局收获 {n} 根香蕉时获得下一页。",
+      pub_minimo: "本局至少收获 {n} 根香蕉才能出版。",
+      pub_btn: "出版",
+      pub_fermo: "请先进入下一句。",
+      pub_conf_tit: "要出版吗？",
+      pub_conf_testo: "猴子、香蕉和升级都从零开始。你将获得 {n} 金页。句子、纪录、成就、单词和排行榜都会保留。",
+      pub_fatto: "📚 出版成功！+{n} 金页",
+      tal_tit: "🌳 天赋",
+      tal_sotto: "永久加成，每次出版后都会保留。它们从不改变运气：每次按键始终是随机的。",
+      ramo_scimmie: "🐒 招募",
+      ramo_velocita: "⚡ 车间",
+      ramo_banane: "🍌 合同",
+      ramo_auto: "🤖 自动化",
+      nome_t_squadra: "初始团队",
+      nome_t_recl: "招募官",
+      nome_t_nido: "一窝幼崽",
+      nome_t_scuola: "打字学校",
+      nome_t_attrezzi: "祖传工具",
+      nome_t_qualita: "优质装备",
+      nome_t_contratto: "出版合同",
+      nome_t_anticipo: "预付款",
+      nome_t_notte: "带薪夜班",
+      nome_a_scimmie: "招聘助理",
+      nome_a_velocita: "车间助理",
+      nome_a_traguardi: "秘书",
+      nome_a_frasi: "档案员",
+      eff_t_squadra: "每级在每局开始时 +10 只猴子（现在 +{n}）",
+      eff_t_recl: "每级猴子 ×1.2（现在 ×{x}）",
+      eff_t_nido: "每级每小时 +1% 猴子（现在 +{n}%）",
+      eff_t_scuola: "每级速度 ×1.2（现在 ×{x}）",
+      eff_t_attrezzi: "每级每只猴子 +10 键/秒（现在 +{n}）",
+      eff_t_qualita: "每级装备按键 ×1.25（现在 ×{x}）",
+      eff_t_contratto: "每级香蕉 ×1.25（现在 ×{x}）",
+      eff_t_anticipo: "每级初始香蕉 ×10（现在 {n}）",
+      eff_t_notte: "每级离线香蕉 ×1.25（现在 ×{x}）",
+      eff_a_scimmie: "自动购买猴子和猴子升级",
+      eff_a_velocita: "自动购买速度装备和改进",
+      eff_a_traguardi: "自动领取完成的成就",
+      eff_a_frasi: "完成一句后自动进入下一句",
+      desc_pb: "出版次数：{n}",
+      desc_tl: "天赋等级：{n}",
+      cat_editore: "📚 出版社"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -1939,7 +2148,56 @@
       cat_banane: "🍌 Bananes et lettres",
       cat_tasti: "⌨️ Touches",
       cat_tempo: "⏳ Temps",
-      cat_speciali: "✨ Spéciaux"
+      cat_speciali: "✨ Spéciaux",
+      seg_editore: "Éditeur",
+      soglia_ogg: "À {n} : touches ×1,25",
+      pub_tit: "📚 Publication",
+      pub_sotto: "Vends ton bureau à une maison d'édition : singes, bananes et améliorations repartent de zéro, mais tu reçois des Pages d'or à dépenser en talents permanents. Phrases, records, succès, mots et classement restent.",
+      pub_pagine: "Pages d'or :",
+      pub_intutto: "{n} au total",
+      pub_guadagno: "En publiant maintenant :",
+      pub_prossima: "La prochaine page arrive à {n} bananes récoltées dans cette partie.",
+      pub_minimo: "Pour publier, récolte au moins {n} bananes dans cette partie.",
+      pub_btn: "Publier",
+      pub_fermo: "Passe d'abord à la phrase suivante.",
+      pub_conf_tit: "Publier ?",
+      pub_conf_testo: "Singes, bananes et améliorations repartent de zéro. Tu reçois {n} Pages d'or. Phrases, records, succès, mots et classement restent.",
+      pub_fatto: "📚 Publié ! +{n} Pages d'or",
+      tal_tit: "🌳 Talents",
+      tal_sotto: "Des bonus permanents qui restent après chaque publication. Ils ne changent jamais la chance : chaque touche reste toujours aléatoire.",
+      ramo_scimmie: "🐒 Recrutement",
+      ramo_velocita: "⚡ Atelier",
+      ramo_banane: "🍌 Contrats",
+      ramo_auto: "🤖 Automatisations",
+      nome_t_squadra: "Équipe de départ",
+      nome_t_recl: "Recruteur",
+      nome_t_nido: "Portée",
+      nome_t_scuola: "École de dactylographie",
+      nome_t_attrezzi: "Outils de famille",
+      nome_t_qualita: "Objets de qualité",
+      nome_t_contratto: "Contrat d'édition",
+      nome_t_anticipo: "Avance",
+      nome_t_notte: "Équipes de nuit payées",
+      nome_a_scimmie: "Assistant recrutement",
+      nome_a_velocita: "Assistant d'atelier",
+      nome_a_traguardi: "Secrétaire",
+      nome_a_frasi: "Archiviste",
+      eff_t_squadra: "+10 singes au début de chaque partie par niveau (maintenant +{n})",
+      eff_t_recl: "Singes ×1,2 par niveau (maintenant ×{x})",
+      eff_t_nido: "+1 % de singes par heure par niveau (maintenant +{n} %)",
+      eff_t_scuola: "Vitesse ×1,2 par niveau (maintenant ×{x})",
+      eff_t_attrezzi: "+10 touches/s pour chaque singe par niveau (maintenant +{n})",
+      eff_t_qualita: "Touches des objets ×1,25 par niveau (maintenant ×{x})",
+      eff_t_contratto: "Bananes ×1,25 par niveau (maintenant ×{x})",
+      eff_t_anticipo: "Bananes de départ ×10 par niveau (maintenant {n})",
+      eff_t_notte: "Bananes jeu fermé ×1,25 par niveau (maintenant ×{x})",
+      eff_a_scimmie: "Achète tout seul les singes et leurs améliorations",
+      eff_a_velocita: "Achète tout seul les objets et perfectionnements de vitesse",
+      eff_a_traguardi: "Récupère tout seul les succès terminés",
+      eff_a_frasi: "Passe tout seul à la phrase suivante quand une est terminée",
+      desc_pb: "Publications : {n}",
+      desc_tl: "Niveaux de talent : {n}",
+      cat_editore: "📚 Éditeur"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -2127,7 +2385,56 @@
       cat_banane: "🍌 Бананы и буквы",
       cat_tasti: "⌨️ Клавиши",
       cat_tempo: "⏳ Время",
-      cat_speciali: "✨ Особые"
+      cat_speciali: "✨ Особые",
+      seg_editore: "Издатель",
+      soglia_ogg: "При {n}: нажатия ×1,25",
+      pub_tit: "📚 Публикация",
+      pub_sotto: "Продай свой офис издательству: обезьяны, бананы и улучшения начнутся с нуля, но ты получишь Золотые страницы для постоянных талантов. Фразы, рекорды, награды, слова и рейтинг сохранятся.",
+      pub_pagine: "Золотые страницы:",
+      pub_intutto: "всего {n}",
+      pub_guadagno: "Если опубликовать сейчас:",
+      pub_prossima: "Следующая страница — при {n} собранных бананах в этой партии.",
+      pub_minimo: "Чтобы опубликовать, собери в этой партии хотя бы {n} бананов.",
+      pub_btn: "Опубликовать",
+      pub_fermo: "Сначала перейди к следующей фразе.",
+      pub_conf_tit: "Опубликовать?",
+      pub_conf_testo: "Обезьяны, бананы и улучшения начнутся с нуля. Ты получишь Золотые страницы: {n}. Фразы, рекорды, награды, слова и рейтинг сохранятся.",
+      pub_fatto: "📚 Опубликовано! +{n} Золотых страниц",
+      tal_tit: "🌳 Таланты",
+      tal_sotto: "Постоянные бонусы, которые сохраняются после каждой публикации. Они никогда не меняют удачу: каждое нажатие всегда случайно.",
+      ramo_scimmie: "🐒 Найм",
+      ramo_velocita: "⚡ Мастерская",
+      ramo_banane: "🍌 Контракты",
+      ramo_auto: "🤖 Автоматизация",
+      nome_t_squadra: "Стартовая команда",
+      nome_t_recl: "Вербовщик",
+      nome_t_nido: "Выводок",
+      nome_t_scuola: "Школа машинописи",
+      nome_t_attrezzi: "Семейные инструменты",
+      nome_t_qualita: "Качественные предметы",
+      nome_t_contratto: "Издательский контракт",
+      nome_t_anticipo: "Аванс",
+      nome_t_notte: "Оплачиваемые ночные смены",
+      nome_a_scimmie: "Помощник по найму",
+      nome_a_velocita: "Помощник в мастерской",
+      nome_a_traguardi: "Секретарь",
+      nome_a_frasi: "Архивариус",
+      eff_t_squadra: "+10 обезьян в начале каждой партии за уровень (сейчас +{n})",
+      eff_t_recl: "Обезьяны ×1,2 за уровень (сейчас ×{x})",
+      eff_t_nido: "+1% обезьян в час за уровень (сейчас +{n}%)",
+      eff_t_scuola: "Скорость ×1,2 за уровень (сейчас ×{x})",
+      eff_t_attrezzi: "+10 нажатий/с каждой обезьяне за уровень (сейчас +{n})",
+      eff_t_qualita: "Нажатия предметов ×1,25 за уровень (сейчас ×{x})",
+      eff_t_contratto: "Бананы ×1,25 за уровень (сейчас ×{x})",
+      eff_t_anticipo: "Стартовые бананы ×10 за уровень (сейчас {n})",
+      eff_t_notte: "Бананы при закрытой игре ×1,25 за уровень (сейчас ×{x})",
+      eff_a_scimmie: "Сам покупает обезьян и их улучшения",
+      eff_a_velocita: "Сам покупает предметы и улучшения скорости",
+      eff_a_traguardi: "Сам забирает выполненные награды",
+      eff_a_frasi: "Сам переходит к следующей фразе, когда одна завершена",
+      desc_pb: "Публикаций: {n}",
+      desc_tl: "Уровней талантов: {n}",
+      cat_editore: "📚 Издатель"
     }
   };
 
@@ -2519,6 +2826,32 @@
   const TELECAMERA = 40;
   const MAX_PASSI_FRAME = 3000;
   const SOGLIE = [25, 50, 100, 200, 400, 800];
+  // =====================================================================
+  //  CASA EDITRICE: Pubblicazione e talenti.
+  //  I talenti sono bonus permanenti e NON toccano mai la fortuna: ogni tasto resta sempre casuale.
+  //  Cambiano solo quante scimmie ci sono, quanto battono veloce, quante banane rendono e cosa si fa da solo.
+  // =====================================================================
+  const TALENTI = [
+    { id: "t_squadra", ramo: "scimmie", icona: "👥", max: 10, base: 2, cresce: 1.5 },
+    { id: "t_recl", ramo: "scimmie", icona: "📣", max: 0, base: 1, cresce: 1.6 },
+    { id: "t_nido", ramo: "scimmie", icona: "🍼", max: 20, base: 3, cresce: 1.4 },
+    { id: "t_scuola", ramo: "velocita", icona: "🎓", max: 0, base: 1, cresce: 1.6 },
+    { id: "t_attrezzi", ramo: "velocita", icona: "🧰", max: 10, base: 2, cresce: 1.5 },
+    { id: "t_qualita", ramo: "velocita", icona: "💎", max: 0, base: 2, cresce: 1.6 },
+    { id: "t_contratto", ramo: "banane", icona: "📝", max: 0, base: 1, cresce: 1.6 },
+    { id: "t_anticipo", ramo: "banane", icona: "💰", max: 15, base: 2, cresce: 1.5 },
+    { id: "t_notte", ramo: "banane", icona: "🌙", max: 10, base: 2, cresce: 1.5 },
+    { id: "a_scimmie", ramo: "auto", icona: "🤖", max: 1, base: 5 },
+    { id: "a_velocita", ramo: "auto", icona: "⚙️", max: 1, base: 8 },
+    { id: "a_traguardi", ramo: "auto", icona: "🗂️", max: 1, base: 4 },
+    { id: "a_frasi", ramo: "auto", icona: "📚", max: 1, base: 6 }
+  ];
+  const RAMI = ["scimmie", "velocita", "banane", "auto"];
+  const livT = id => (G && G.talenti && G.talenti[id]) || 0;
+  const costoTalento = tl => Math.ceil(tl.base * Math.pow(tl.cresce || 1, livT(tl.id)));
+  // Pagine d'oro: crescono con le banane raccolte in questa partita (da 1 miliardo in su)
+  const pagineDa = r => (r < 1e9 ? 0 : Math.floor(5 * Math.pow(Math.log10(r) - 8, 1.5)));
+  const sogliaPagina = n => Math.pow(10, 8 + Math.pow((n + 1) / 5, 2 / 3));
   const CHIAVE_SALVATAGGIO = "scimmie-infinite-v4";
   const $ = id => document.getElementById(id);
 
@@ -2989,7 +3322,12 @@
     id, icona, gruppo: "velocita", sezione: "sez-ogg", tipo: "oggetto", agg, base, rapporto: 1.15,
     // si vede dopo 3 pezzi dell'oggetto precedente, o se possiedi già un oggetto più avanzato
     vis: () => i === 0 || G.liv[OGGETTI[i - 1][0]] >= 3 || OGGETTI.slice(i).some(([id2]) => G.liv[id2] > 0),
-    effetto: () => t("eff_ogg", { testo: descUnico(id), n: fmt(agg) })
+    effetto: () => t("eff_ogg", { testo: descUnico(id), n: fmt(agg * moltOggetto(id) * qualitaOggetti()) }),
+    // come per le scimmie, ma più leggero: a 50, 200 e 800 pezzi i tasti di questo oggetto crescono del 25%
+    soglia: () => {
+      const prossima = SOGLIE_OGGETTI.find(x => x > G.liv[id]);
+      return prossima ? t("soglia_ogg", { n: prossima }) : t("soglia_tutte");
+    }
   }));
   POT.push({
     id: "notte", icona: "🌙", gruppo: "altro", tipo: "livelli", base: 500, rapporto: 4, max: 5,
@@ -3032,7 +3370,7 @@
       CAT_PREFISSO[tr.id.replace(/[0-9e+.]+$/, "")] || "speciali";
   }
   // ---------- traguardi nuovi (con il nome nelle sei lingue) ----------
-  const NOMI_TRAG_NUOVI = {"pc1": {"it": "Prima parola", "en": "First word", "es": "Primera palabra", "zh": "第一个单词", "fr": "Premier mot", "ru": "Первое слово"}, "pc5": {"it": "Balbettio", "en": "Babbling", "es": "Balbuceo", "zh": "咿呀学语", "fr": "Babillage", "ru": "Лепет"}, "pc10": {"it": "Vocabolario", "en": "Vocabulary", "es": "Vocabulario", "zh": "词汇量", "fr": "Vocabulaire", "ru": "Словарный запас"}, "pc25": {"it": "Chiacchierone", "en": "Chatterbox", "es": "Charlatán", "zh": "话匣子", "fr": "Bavard", "ru": "Болтун"}, "pc50": {"it": "Dizionario tascabile", "en": "Pocket dictionary", "es": "Diccionario de bolsillo", "zh": "袖珍词典", "fr": "Dictionnaire de poche", "ru": "Карманный словарь"}, "pc100": {"it": "Enciclopedia", "en": "Encyclopedia", "es": "Enciclopedia", "zh": "百科全书", "fr": "Encyclopédie", "ru": "Энциклопедия"}, "pl3": {"it": "Tre lettere", "en": "Three letters", "es": "Tres letras", "zh": "三个字母", "fr": "Trois lettres", "ru": "Три буквы"}, "pl4": {"it": "Parola vera", "en": "A real word", "es": "Palabra de verdad", "zh": "真正的单词", "fr": "Un vrai mot", "ru": "Настоящее слово"}, "pl5": {"it": "Che fortuna!", "en": "What luck!", "es": "¡Qué suerte!", "zh": "好运气！", "fr": "Quelle chance !", "ru": "Вот повезло!"}, "pl6": {"it": "Poeta per caso", "en": "Accidental poet", "es": "Poeta por casualidad", "zh": "偶然的诗人", "fr": "Poète par hasard", "ru": "Случайный поэт"}, "pl7": {"it": "Colpo di genio", "en": "Stroke of genius", "es": "Golpe de genio", "zh": "灵光一现", "fr": "Coup de génie", "ru": "Озарение"}, "pl8": {"it": "Miracolo", "en": "Miracle", "es": "Milagro", "zh": "奇迹", "fr": "Miracle", "ru": "Чудо"}, "fc10": {"it": "Editore di fiducia", "en": "Trusted publisher", "es": "Editor de confianza", "zh": "可靠的出版商", "fr": "Éditeur de confiance", "ru": "Надёжный издатель"}, "fc25": {"it": "Casa editrice", "en": "Publishing house", "es": "Editorial", "zh": "出版社", "fr": "Maison d'édition", "ru": "Издательство"}, "fc50": {"it": "Best seller", "en": "Bestseller", "es": "Superventas", "zh": "畅销书", "fr": "Best-seller", "ru": "Бестселлер"}, "pf5": {"it": "Una parola dopo l'altra", "en": "One word after another", "es": "Una palabra tras otra", "zh": "一词接一词", "fr": "Un mot après l'autre", "ru": "Слово за словом"}, "pf25": {"it": "Paragrafo", "en": "Paragraph", "es": "Párrafo", "zh": "段落", "fr": "Paragraphe", "ru": "Абзац"}, "pf100": {"it": "Capitolo", "en": "Chapter", "es": "Capítulo", "zh": "章节", "fr": "Chapitre", "ru": "Глава"}, "pf500": {"it": "Romanzo", "en": "Novel", "es": "Novela", "zh": "长篇小说", "fr": "Roman", "ru": "Роман"}, "mfa": {"it": "Primi passi", "en": "First steps", "es": "Primeros pasos", "zh": "第一步", "fr": "Premiers pas", "ru": "Первые шаги"}, "mre": {"it": "Macchina vera", "en": "Real typewriter", "es": "Máquina de verdad", "zh": "真正的打字机", "fr": "Vraie machine", "ru": "Настоящая машинка"}, "tre": {"it": "Tuttofare", "en": "Jack of all trades", "es": "Todoterreno", "zh": "全能选手", "fr": "Touche-à-tout", "ru": "Мастер на все руки"}, "mio": {"it": "Autore", "en": "Author", "es": "Autor", "zh": "作者", "fr": "Auteur", "ru": "Автор"}, "br1000": {"it": "Casco di banane", "en": "Bunch of bananas", "es": "Racimo de plátanos", "zh": "一串香蕉", "fr": "Régime de bananes", "ru": "Гроздь бананов"}, "br1000000": {"it": "Bananeto", "en": "Banana grove", "es": "Platanal", "zh": "香蕉林", "fr": "Bananeraie", "ru": "Банановая роща"}, "br1000000000": {"it": "Repubblica delle banane", "en": "Banana republic", "es": "República bananera", "zh": "香蕉共和国", "fr": "République bananière", "ru": "Банановая республика"}, "br1000000000000": {"it": "Montagna gialla", "en": "Yellow mountain", "es": "Montaña amarilla", "zh": "黄色大山", "fr": "Montagne jaune", "ru": "Жёлтая гора"}, "br1000000000000000": {"it": "Oceano di banane", "en": "Ocean of bananas", "es": "Océano de plátanos", "zh": "香蕉海洋", "fr": "Océan de bananes", "ru": "Океан бананов"}, "br1e+21": {"it": "Galassia gialla", "en": "Yellow galaxy", "es": "Galaxia amarilla", "zh": "黄色星系", "fr": "Galaxie jaune", "ru": "Жёлтая галактика"}, "br1e+27": {"it": "Banana infinita", "en": "Infinite banana", "es": "Plátano infinito", "zh": "无限香蕉", "fr": "Banane infinie", "ru": "Бесконечный банан"}, "lg1000": {"it": "Mille lettere", "en": "A thousand letters", "es": "Mil letras", "zh": "一千个字母", "fr": "Mille lettres", "ru": "Тысяча букв"}, "lg1000000": {"it": "Un milione di lettere", "en": "A million letters", "es": "Un millón de letras", "zh": "一百万个字母", "fr": "Un million de lettres", "ru": "Миллион букв"}, "lg1000000000": {"it": "Un miliardo di lettere", "en": "A billion letters", "es": "Mil millones de letras", "zh": "十亿个字母", "fr": "Un milliard de lettres", "ru": "Миллиард букв"}, "lg1000000000000": {"it": "Biblioteca nazionale", "en": "National library", "es": "Biblioteca nacional", "zh": "国家图书馆", "fr": "Bibliothèque nationale", "ru": "Национальная библиотека"}, "lg1000000000000000000": {"it": "Tutti i libri del mondo", "en": "Every book in the world", "es": "Todos los libros del mundo", "zh": "世上所有的书", "fr": "Tous les livres du monde", "ru": "Все книги мира"}, "og10": {"it": "Cassetta degli attrezzi", "en": "Toolbox", "es": "Caja de herramientas", "zh": "工具箱", "fr": "Boîte à outils", "ru": "Ящик с инструментами"}, "og50": {"it": "Ufficio attrezzato", "en": "Well-equipped office", "es": "Oficina equipada", "zh": "装备齐全的办公室", "fr": "Bureau équipé", "ru": "Оборудованный офис"}, "og200": {"it": "Magazzino", "en": "Warehouse", "es": "Almacén", "zh": "仓库", "fr": "Entrepôt", "ru": "Склад"}, "og500": {"it": "Fabbrica di tastiere", "en": "Keyboard factory", "es": "Fábrica de teclados", "zh": "键盘工厂", "fr": "Usine de claviers", "ru": "Фабрика клавиатур"}, "og1000": {"it": "Impero della scrittura", "en": "Writing empire", "es": "Imperio de la escritura", "zh": "写作帝国", "fr": "Empire de l'écriture", "ru": "Империя письма"}, "ml10": {"it": "Allenamento", "en": "Training", "es": "Entrenamiento", "zh": "训练", "fr": "Entraînement", "ru": "Тренировка"}, "ml25": {"it": "Scimmie in forma", "en": "Monkeys in shape", "es": "Monos en forma", "zh": "身强体壮的猴子", "fr": "Singes en forme", "ru": "Обезьяны в форме"}, "ml50": {"it": "Atleti della tastiera", "en": "Keyboard athletes", "es": "Atletas del teclado", "zh": "键盘运动员", "fr": "Athlètes du clavier", "ru": "Атлеты клавиатуры"}, "ml100": {"it": "Campioni olimpici", "en": "Olympic champions", "es": "Campeones olímpicos", "zh": "奥运冠军", "fr": "Champions olympiques", "ru": "Олимпийские чемпионы"}, "ml200": {"it": "Leggende", "en": "Legends", "es": "Leyendas", "zh": "传奇", "fr": "Légendes", "ru": "Легенды"}, "tm86400": {"it": "Un giorno intero", "en": "A whole day", "es": "Un día entero", "zh": "整整一天", "fr": "Une journée entière", "ru": "Целый день"}, "tm360000": {"it": "Cento ore", "en": "A hundred hours", "es": "Cien horas", "zh": "一百个小时", "fr": "Cent heures", "ru": "Сто часов"}, "asilo30": {"it": "Asilo affollato", "en": "Crowded nursery", "es": "Guardería llena", "zh": "拥挤的托儿所", "fr": "Crèche bondée", "ru": "Переполненные ясли"}};
+  const NOMI_TRAG_NUOVI = {"pc1": {"it": "Prima parola", "en": "First word", "es": "Primera palabra", "zh": "第一个单词", "fr": "Premier mot", "ru": "Первое слово"}, "pc5": {"it": "Balbettio", "en": "Babbling", "es": "Balbuceo", "zh": "咿呀学语", "fr": "Babillage", "ru": "Лепет"}, "pc10": {"it": "Vocabolario", "en": "Vocabulary", "es": "Vocabulario", "zh": "词汇量", "fr": "Vocabulaire", "ru": "Словарный запас"}, "pc25": {"it": "Chiacchierone", "en": "Chatterbox", "es": "Charlatán", "zh": "话匣子", "fr": "Bavard", "ru": "Болтун"}, "pc50": {"it": "Dizionario tascabile", "en": "Pocket dictionary", "es": "Diccionario de bolsillo", "zh": "袖珍词典", "fr": "Dictionnaire de poche", "ru": "Карманный словарь"}, "pc100": {"it": "Enciclopedia", "en": "Encyclopedia", "es": "Enciclopedia", "zh": "百科全书", "fr": "Encyclopédie", "ru": "Энциклопедия"}, "pl3": {"it": "Tre lettere", "en": "Three letters", "es": "Tres letras", "zh": "三个字母", "fr": "Trois lettres", "ru": "Три буквы"}, "pl4": {"it": "Parola vera", "en": "A real word", "es": "Palabra de verdad", "zh": "真正的单词", "fr": "Un vrai mot", "ru": "Настоящее слово"}, "pl5": {"it": "Che fortuna", "en": "What luck", "es": "Qué suerte", "zh": "好运气", "fr": "Quelle chance", "ru": "Вот повезло"}, "pl6": {"it": "Poeta per caso", "en": "Accidental poet", "es": "Poeta por casualidad", "zh": "偶然的诗人", "fr": "Poète par hasard", "ru": "Случайный поэт"}, "pl7": {"it": "Colpo di genio", "en": "Stroke of genius", "es": "Golpe de genio", "zh": "灵光一现", "fr": "Coup de génie", "ru": "Озарение"}, "pl8": {"it": "Miracolo", "en": "Miracle", "es": "Milagro", "zh": "奇迹", "fr": "Miracle", "ru": "Чудо"}, "fc10": {"it": "Editore di fiducia", "en": "Trusted publisher", "es": "Editor de confianza", "zh": "可靠的出版商", "fr": "Éditeur de confiance", "ru": "Надёжный издатель"}, "fc25": {"it": "Casa editrice", "en": "Publishing house", "es": "Editorial", "zh": "出版社", "fr": "Maison d'édition", "ru": "Издательство"}, "fc50": {"it": "Best seller", "en": "Bestseller", "es": "Superventas", "zh": "畅销书", "fr": "Best-seller", "ru": "Бестселлер"}, "pf5": {"it": "Una parola dopo l'altra", "en": "One word after another", "es": "Una palabra tras otra", "zh": "一词接一词", "fr": "Un mot après l'autre", "ru": "Слово за словом"}, "pf25": {"it": "Paragrafo", "en": "Paragraph", "es": "Párrafo", "zh": "段落", "fr": "Paragraphe", "ru": "Абзац"}, "pf100": {"it": "Capitolo", "en": "Chapter", "es": "Capítulo", "zh": "章节", "fr": "Chapitre", "ru": "Глава"}, "pf500": {"it": "Romanzo", "en": "Novel", "es": "Novela", "zh": "长篇小说", "fr": "Roman", "ru": "Роман"}, "mfa": {"it": "Primi passi", "en": "First steps", "es": "Primeros pasos", "zh": "第一步", "fr": "Premiers pas", "ru": "Первые шаги"}, "mre": {"it": "Macchina vera", "en": "Real typewriter", "es": "Máquina de verdad", "zh": "真正的打字机", "fr": "Vraie machine", "ru": "Настоящая машинка"}, "tre": {"it": "Tuttofare", "en": "Jack of all trades", "es": "Todoterreno", "zh": "全能选手", "fr": "Touche-à-tout", "ru": "Мастер на все руки"}, "mio": {"it": "Autore", "en": "Author", "es": "Autor", "zh": "作者", "fr": "Auteur", "ru": "Автор"}, "br1000": {"it": "Casco di banane", "en": "Bunch of bananas", "es": "Racimo de plátanos", "zh": "一串香蕉", "fr": "Régime de bananes", "ru": "Гроздь бананов"}, "br1000000": {"it": "Bananeto", "en": "Banana grove", "es": "Platanal", "zh": "香蕉林", "fr": "Bananeraie", "ru": "Банановая роща"}, "br1000000000": {"it": "Repubblica delle banane", "en": "Banana republic", "es": "República bananera", "zh": "香蕉共和国", "fr": "République bananière", "ru": "Банановая республика"}, "br1000000000000": {"it": "Montagna gialla", "en": "Yellow mountain", "es": "Montaña amarilla", "zh": "黄色大山", "fr": "Montagne jaune", "ru": "Жёлтая гора"}, "br1000000000000000": {"it": "Oceano di banane", "en": "Ocean of bananas", "es": "Océano de plátanos", "zh": "香蕉海洋", "fr": "Océan de bananes", "ru": "Океан бананов"}, "br1e+21": {"it": "Galassia gialla", "en": "Yellow galaxy", "es": "Galaxia amarilla", "zh": "黄色星系", "fr": "Galaxie jaune", "ru": "Жёлтая галактика"}, "br1e+27": {"it": "Banana infinita", "en": "Infinite banana", "es": "Plátano infinito", "zh": "无限香蕉", "fr": "Banane infinie", "ru": "Бесконечный банан"}, "lg1000": {"it": "Mille lettere", "en": "A thousand letters", "es": "Mil letras", "zh": "一千个字母", "fr": "Mille lettres", "ru": "Тысяча букв"}, "lg1000000": {"it": "Un milione di lettere", "en": "A million letters", "es": "Un millón de letras", "zh": "一百万个字母", "fr": "Un million de lettres", "ru": "Миллион букв"}, "lg1000000000": {"it": "Un miliardo di lettere", "en": "A billion letters", "es": "Mil millones de letras", "zh": "十亿个字母", "fr": "Un milliard de lettres", "ru": "Миллиард букв"}, "lg1000000000000": {"it": "Biblioteca nazionale", "en": "National library", "es": "Biblioteca nacional", "zh": "国家图书馆", "fr": "Bibliothèque nationale", "ru": "Национальная библиотека"}, "lg1000000000000000000": {"it": "Tutti i libri del mondo", "en": "Every book in the world", "es": "Todos los libros del mundo", "zh": "世上所有的书", "fr": "Tous les livres du monde", "ru": "Все книги мира"}, "og10": {"it": "Cassetta degli attrezzi", "en": "Toolbox", "es": "Caja de herramientas", "zh": "工具箱", "fr": "Boîte à outils", "ru": "Ящик с инструментами"}, "og50": {"it": "Ufficio attrezzato", "en": "Well-equipped office", "es": "Oficina equipada", "zh": "装备齐全的办公室", "fr": "Bureau équipé", "ru": "Оборудованный офис"}, "og200": {"it": "Magazzino", "en": "Warehouse", "es": "Almacén", "zh": "仓库", "fr": "Entrepôt", "ru": "Склад"}, "og500": {"it": "Fabbrica di tastiere", "en": "Keyboard factory", "es": "Fábrica de teclados", "zh": "键盘工厂", "fr": "Usine de claviers", "ru": "Фабрика клавиатур"}, "og1000": {"it": "Impero della scrittura", "en": "Writing empire", "es": "Imperio de la escritura", "zh": "写作帝国", "fr": "Empire de l'écriture", "ru": "Империя письма"}, "ml10": {"it": "Allenamento", "en": "Training", "es": "Entrenamiento", "zh": "训练", "fr": "Entraînement", "ru": "Тренировка"}, "ml25": {"it": "Scimmie in forma", "en": "Monkeys in shape", "es": "Monos en forma", "zh": "身强体壮的猴子", "fr": "Singes en forme", "ru": "Обезьяны в форме"}, "ml50": {"it": "Atleti della tastiera", "en": "Keyboard athletes", "es": "Atletas del teclado", "zh": "键盘运动员", "fr": "Athlètes du clavier", "ru": "Атлеты клавиатуры"}, "ml100": {"it": "Campioni olimpici", "en": "Olympic champions", "es": "Campeones olímpicos", "zh": "奥运冠军", "fr": "Champions olympiques", "ru": "Олимпийские чемпионы"}, "ml200": {"it": "Leggende", "en": "Legends", "es": "Leyendas", "zh": "传奇", "fr": "Légendes", "ru": "Легенды"}, "tm86400": {"it": "Un giorno intero", "en": "A whole day", "es": "Un día entero", "zh": "整整一天", "fr": "Une journée entière", "ru": "Целый день"}, "tm360000": {"it": "Cento ore", "en": "A hundred hours", "es": "Cien horas", "zh": "一百个小时", "fr": "Cent heures", "ru": "Сто часов"}, "asilo30": {"it": "Asilo affollato", "en": "Crowded nursery", "es": "Guardería llena", "zh": "拥挤的托儿所", "fr": "Crèche bondée", "ru": "Переполненные ясли"}, "pb1": {"it": "Prima edizione", "en": "First edition", "es": "Primera edición", "zh": "第一版", "fr": "Première édition", "ru": "Первое издание"}, "pb5": {"it": "Ristampa", "en": "Reprint", "es": "Reimpresión", "zh": "再版", "fr": "Réimpression", "ru": "Переиздание"}, "pb20": {"it": "Classico senza tempo", "en": "Timeless classic", "es": "Clásico eterno", "zh": "不朽经典", "fr": "Classique intemporel", "ru": "Вечная классика"}, "tl10": {"it": "Talento", "en": "Talent", "es": "Talento", "zh": "天赋", "fr": "Talent", "ru": "Талант"}, "tl50": {"it": "Genio editoriale", "en": "Publishing genius", "es": "Genio editorial", "zh": "出版天才", "fr": "Génie de l'édition", "ru": "Гений издательства"}};
   const quantiOggetti = () => OGGETTI.reduce((n, [id]) => n + (G.liv[id] || 0), 0);
   const livelliMigl = () => MIGLIORAMENTI.reduce((n, [id]) => n + (G.liv[id] || 0), 0);
   const conta = n => fmt(n);
@@ -3040,8 +3378,6 @@
     soglie.forEach((n, i) => TRAGUARDI.push({ id: prefisso + n, cat, ico, desc: () => t(chiaveDesc, { n: conta(n) }), val,
       obiettivo: n, pct: [2, 3, 4, 5, 6, 8, 8][Math.min(i, 6)], min: 200 * Math.pow(4, i) }));
   }
-  nuovoGruppo("pc", "parole", "📖", [1, 5, 10, 25, 50, 100], "desc_pc", () => paroleTrovateTot());
-  nuovoGruppo("pl", "parole", "🔤", [3, 4, 5, 6, 7, 8], "desc_pl", () => G.parolaCasualeMax || 0);
   nuovoGruppo("fc", "frasi", "📚", [10, 25, 50], "desc_fc", () => G.completate || 0);
   nuovoGruppo("pf", "frasi", "🧭", [5, 25, 100, 500], "desc_pf", () => G.parole || 0);
   nuovoGruppo("br", "banane", "🍌", [1e3, 1e6, 1e9, 1e12, 1e15, 1e21, 1e27], "desc_br", () => G.raccolto || 0);
@@ -3057,8 +3393,10 @@
   TRAGUARDI.push({ id: "mio", cat: "frasi", ico: "🖋️", desc: () => t("desc_mio"),
     val: () => MODI.some(m => ((G.frasiModo || {})[m] || {}).mio) || (G.fraseMio || 0) > 0 ? 1 : 0, obiettivo: 1, pct: 10 });
   TRAGUARDI.push({ id: "asilo30", cat: "scimmie", ico: "🍼", desc: () => t("desc_asilo30"), val: () => G.liv.asilo, obiettivo: 30, pct: 15 });
+  nuovoGruppo("pb", "editore", "📚", [1, 5, 20], "desc_pb", () => G.pubblicazioni || 0);
+  nuovoGruppo("tl", "editore", "🌳", [10, 50], "desc_tl", () => Object.values(G.talenti || {}).reduce((a, b) => a + b, 0));
   for (const tr of TRAGUARDI) if (NOMI_TRAG_NUOVI[tr.id]) tr.nome = () => NOMI_TRAG_NUOVI[tr.id][L] || NOMI_TRAG_NUOVI[tr.id].it;
-  const CATEGORIE_TRAG = ["frasi", "record", "parole", "scimmie", "velocita", "potenziamenti", "banane", "tasti", "tempo", "speciali"];
+  const CATEGORIE_TRAG = ["frasi", "record", "parole", "scimmie", "velocita", "potenziamenti", "editore", "banane", "tasti", "tempo", "speciali"];
 
   // =====================================================================
   //  STATO
@@ -3070,7 +3408,7 @@
     for (const p of POT) liv[p.id] = 0;
     return {
       operaId: "eureka", testoMio: "", record: 0, recordChi: 0, recordTs: 0, opereFatte: [],
-      archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, ufficioVuoto: true, paroleInOrdine: true, paroleScimmie: {}, parolaCasualeMax: 0, completateModo: {}, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
+      archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, ufficioVuoto: true, paroleInOrdine: true, paroleScimmie: {}, parolaCasualeMax: 0, completateModo: {}, raccoltoRun: 0, pagine: 0, pagineTot: 0, pubblicazioni: 0, talenti: {}, auto: {}, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
       imp: { musica: 70, effetti: 80, lingua: linguaIniziale(), tema: "giungla", modo: "normale" },
       liv, cuccioli: 1, banane: 150, tasti: 0, tempo: 0, completate: 0,
       diario: [], ts: Date.now()
@@ -3080,23 +3418,30 @@
   // ---------- valori derivati ----------
   const moltStruttura = id => Math.pow(2, SOGLIE.filter(s => G.liv[id] >= s).length);
   const prodotto = gruppo => POT.filter(p => p.tipo === "unico" && p.gruppo === gruppo && G.liv[p.id]).reduce((m, p) => m * p.molt, 1);
-  const scimmieBase = () => SCIMMIE_INIZIALI + STRUTTURE.reduce((s, [id, , dim]) => s + G.liv[id] * dim * moltStruttura(id), 0);
-  const moltScimmie = () => prodotto("scimmie");
+  const scimmieBase = () => SCIMMIE_INIZIALI + 10 * livT("t_squadra") + STRUTTURE.reduce((s, [id, , dim]) => s + G.liv[id] * dim * moltStruttura(id), 0);
+  const moltScimmie = () => prodotto("scimmie") * Math.pow(1.2, livT("t_recl"));
   const numScimmie = () => scimmieBase() * moltScimmie() * G.cuccioli;
-  const numTraguardi = () => Object.keys(G.traguardi).length;
+  const numTraguardi = () => TRAGUARDI.filter(tr => G.traguardi[tr.id]).length;
   const daRiscuotere = () => TRAGUARDI.filter(tr => G.traguardi[tr.id] && !G.traguardi[tr.id].r);
   const moltVelocita = () => MIGLIORAMENTI.reduce((m, [id, , molt]) => m * Math.pow(molt, G.liv[id] || 0), 1);
-  const tastiOggetti = () => OGGETTI.reduce((s, [id, , agg]) => s + (G.liv[id] || 0) * agg, 0);
-  const velocitaScimmia = () => (VELOCITA_BASE + tastiOggetti()) * moltVelocita();
+  const qualitaOggetti = () => Math.pow(1.25, livT("t_qualita"));
+  // tappe degli oggetti: a 50, 200 e 800 pezzi i tasti di quell'oggetto crescono del 25%
+  const SOGLIE_OGGETTI = [50, 200, 800];
+  const moltOggetto = id => Math.pow(1.25, SOGLIE_OGGETTI.filter(x => G.liv[id] >= x).length);
+  const tastiOggetti = () => OGGETTI.reduce((s, [id, , agg]) => s + (G.liv[id] || 0) * agg * moltOggetto(id), 0) * qualitaOggetti();
+  const velocitaScimmia = () => (VELOCITA_BASE + 10 * livT("t_attrezzi") + tastiOggetti()) * moltVelocita() * Math.pow(1.2, livT("t_scuola"));
   const tastiAlSecondo = () => numScimmie() * velocitaScimmia();
-  const crescitaAlSecondo = () => G.liv.asilo / 100 / 3600;
+  const crescitaAlSecondo = () => (G.liv.asilo + livT("t_nido")) / 100 / 3600;
   // le banane crescono meno che proporzionalmente ai tasti: tengono l'economia sotto controllo
   // Ogni lettera giusta battuta da una scimmia vale una banana (due in Realistica, dove azzeccarla è più difficile).
   // In media una lettera su "nTasti" è quella giusta, quindi le banane al secondo sono i tasti al secondo diviso i tasti della tastiera.
   const valoreLettera = () => (modoCorrente() === "realistica" ? 2 : 1);
-  const bananeAlSecondo = (tps = tastiAlSecondo()) => tps / ((R && R.nTasti) || 27) * valoreLettera();
+  const bananeAlSecondo = (tps = tastiAlSecondo()) => tps / ((R && R.nTasti) || 27) * valoreLettera() * Math.pow(1.25, livT("t_contratto"));
   // tutto ciò che le scimmie guadagnano battendo lettere giuste finisce nel "raccolto"
-  function raccogli(banane) { G.banane += banane; G.raccolto += banane; G.lettere += banane / valoreLettera(); }
+  function raccogli(banane) {
+    G.banane += banane; G.raccolto += banane; G.raccoltoRun = (G.raccoltoRun || 0) + banane;
+    G.lettere += banane / valoreLettera() / Math.pow(1.25, livT("t_contratto"));
+  }
   const efficienzaNotte = (l = G.liv.notte) => 0.5 + 0.1 * l;
   const oreOffline = (l = G.liv.assenza) => 12 + 6 * l;
   // nuovo record: 25 banane per ogni lettera del record (es. record di 4 lettere = 100 banane)
@@ -3206,7 +3551,6 @@
     R.target = normalizza(op.testo) || normalizza("Eureka");
     R.alfa = ALFABETI[scrittura(R.target)][modoCorrente()];
     R.confini = confiniParole();
-    R.tappe = parolePerTappe();
     // a ogni cambio di frase la cronaca ricomincia da capo
     if (G.diarioTarget !== undefined && G.diarioTarget !== R.target) { G.diario = []; G.ultimaTappa = null; R.diarioSporco = true; }
     G.diarioTarget = R.target;
@@ -3364,75 +3708,6 @@
     if (!R.caricamento) avviso(t("parola_trovata", { chi: chiScimmia(chi), w: ultima.parola, n: fmt(totale) }));
   }
 
-  // =====================================================================
-  //  MISSIONE SECONDARIA: PAROLE TROVATE PER CASO
-  //  Ogni tanto una scimmia scrive per caso una parola vera. Non conta per la frase e non dà banane:
-  //  le parole nuove finiscono in una collezione e fanno avanzare i traguardi 📖.
-  // =====================================================================
-  const DIZIONARI = {"it": "il lo la le gli un uno una di da in con su per tra fra ma se no si ne ci vi mi ti io tu lui lei noi voi ho ha hai qui ora poi gia mai piu che chi cui non oro re mare sole luna cane gatto casa amore vita cuore mano notte giorno tempo mondo terra cielo acqua fuoco vento fiore albero libro parola scimmia banana tasto lettera foglio penna carta verso rima poeta poesia sogno pace luce ombra fine anno uomo donna bimbo amico porta strada citta paese isola monte fiume lago bosco neve pioggia stella mela pane vino latte sale miele rosa verde rosso blu nero bianco gioco festa musica canto ballo arte storia scuola lavoro tavolo sedia finestra macchina telefono computer infinito teorema tastiera scrittore capolavoro meraviglia felicita fantasia avventura biblioteca", "en": "an at be by do go he hi if in is it me my no of oh ok on or so to up us we am as ox the and for are but not you all any can her was one our out day get has him his how man new now old see two way who boy did its let put say she too use cat dog sun sea sky car bus run fun red big yes yet love book word time life hand home moon star tree fire wind rain snow city game play song king ring blue gold door girl baby milk cake fish bird frog lion monkey banana typing letter paper poem poet rhyme dream peace light world water house happy music dance heart night sweet apple green black white river ocean island forest flower friend school garden window computer keyboard infinite theorem universe adventure wonderful masterpiece", "es": "el la lo los las un una de en con por sin mas que se si no ni ya yo tu mi te le me al del son sol mar paz luz dia mes voz pan sal oro rey ojo mano casa amor vida cielo agua fuego viento flor arbol libro gato perro luna noche tiempo mundo tierra nube rosa verde rojo azul negro blanco fiesta musica canto baile arte mono platano tecla letra papel poema poeta verso amigo puerta calle ciudad pueblo isla monte lago bosque nieve lluvia estrella manzana leche vino queso miel juego escuela trabajo mesa silla ventana coche telefono infinito teorema teclado escritor maravilla aventura biblioteca felicidad", "fr": "le la les un une de des du en et au aux ce se sa son ma mon ta ton tu il on ne pas oui non qui que je me te moi toi lui eux nous vous mer sol ciel eau feu air vent sel ami amie roi rue lit nez main pied tete coeur amour vie mot nuit jour temps monde terre lune soleil chat chien maison livre arbre fleur rose vert rouge bleu noir blanc fete jeu chant danse art singe banane touche lettre papier poeme poete vers reve paix porte ville pays ile mont lac bois neige pluie etoile pomme pain vin lait miel ecole travail table chaise fenetre voiture telephone infini theoreme clavier ecrivain merveille aventure bibliotheque bonheur", "ru": "да нет он она оно мы вы ты не ни но на по за из от до как так что кто где все мир дом кот лес сад мак сыр чай мед лед сон дым нос рот глаз рука нога мама папа брат сестра друг кошка собака солнце луна море небо река гора поле цвет роза день ночь утро вечер время жизнь любовь сердце книга слово буква лист поэт поэма стих мечта свет тень вода огонь ветер дождь снег звезда яблоко хлеб молоко вино игра песня танец школа работа стол стул окно машина телефон компьютер обезьяна банан клавиша клавиатура бесконечность теорема писатель шедевр чудо счастье приключение библиотека", "zh": "ni wo ta de le bu shi you he zai ren da xiao hao ai mi ma ba ge di yi er san si wu liu qi jiu nian yue ri tian shan shui huo feng yu xue hua cao shu niu yang gou mao men kou shou xin jia guo hai jiang chun xia qiu dong pengyou laoshi xuesheng houzi xiangjiao zimu jianpan dazi shiren shige mengxiang heping guang ying shijie shijian taiyang yueliang xingxing pingguo mianbao niunai youxi yinyue tiaowu xuexiao gongzuo zhuozi yizi chuanghu qiche dianhua diannao wuxian dingli zuojia qiji xingfu maoxian tushuguan"};
-  const cacheDiz = {};
-  const chiaveDizionario = () => (scrittura(R.target) === "cir" ? "ru" : (L === "ru" ? "en" : L));
-  function dizionario(chiave = chiaveDizionario()) {
-    if (!cacheDiz[chiave]) {
-      const parole = [...new Set(DIZIONARI[chiave].split(/\s+/).filter(w => w.length >= 2))];
-      const perLung = {};
-      for (const w of parole) (perLung[w.length] = perLung[w.length] || []).push(w);
-      cacheDiz[chiave] = { tot: parole.length, perLung };
-    }
-    return cacheDiz[chiave];
-  }
-  const paroleTrovateTot = () => Object.values(G.paroleScimmie || {}).reduce((n, l) => n + l.length, 0);
-  function poisson(media) {
-    const limite = Math.exp(-media);
-    let k = 0, p = 1;
-    do { k++; p *= Math.random(); } while (p > limite);
-    return k - 1;
-  }
-  function cercaParoleCasuali(tps, dt) {
-    if (R.fermo || tps <= 0 || dt <= 0) return;
-    const chiave = chiaveDizionario(), diz = dizionario(chiave);
-    const N = R.nTasti, facile = modoCorrente() === "facile";
-    const trovate = (G.paroleScimmie = G.paroleScimmie || {})[chiave] = G.paroleScimmie[chiave] || [];
-    const nuove = [];
-    for (const [k, lista] of Object.entries(diz.perLung)) {
-      const lung = +k;
-      // una parola vera deve essere tra due spazi (in Facile gli spazi non ci sono)
-      const attese = tps * dt * lista.length * Math.pow(N, -(facile ? lung : lung + 2));
-      if (attese < 1e-12) continue;
-      const n = attese < 30 ? poisson(attese) : Math.round(attese);
-      if (!n) continue;
-      if (lung > (G.parolaCasualeMax || 0)) G.parolaCasualeMax = lung;
-      for (let i = 0; i < Math.min(n, lista.length * 3); i++) {
-        const w = lista[Math.floor(Math.random() * lista.length)];
-        if (!trovate.includes(w)) { trovate.push(w); nuove.push(w); }
-      }
-    }
-    if (!nuove.length) return;
-    R.parolaNuova = nuove[nuove.length - 1];
-    const adesso = Date.now();
-    if (!R.caricamento && adesso - (R.ultimoAvvisoParola || 0) > 6000) {
-      R.ultimoAvvisoParola = adesso;
-      const lunga = nuove.reduce((a, b) => (b.length > a.length ? b : a));
-      avviso(t("pc_nuova", { w: lunga, chi: chiScimmia(idCasuale(numScimmie())) }));
-    }
-    controllaTraguardi();
-    if (vistaAttiva("traguardi")) disegnaMissione();
-  }
-  function disegnaMissione() {
-    const chiave = chiaveDizionario(), diz = dizionario(chiave);
-    const trovate = ((G.paroleScimmie || {})[chiave] || []).slice().sort((a, b) => b.length - a.length || a.localeCompare(b));
-    $("pcConta").textContent = t("pc_conta", { n: trovate.length, tot: diz.tot });
-    const box = $("pcParole");
-    box.innerHTML = "";
-    for (const w of trovate) {
-      const el = document.createElement("span");
-      el.className = "chip fatta" + (w === R.parolaNuova ? " nuova" : "");
-      el.textContent = w;
-      box.appendChild(el);
-    }
-    R.parolaNuova = null;
-  }
-
   function serieMassimaSuTasti(K) {
     const P_GIUSTO = 1 / R.nTasti;
     const tentativi = K * (1 - P_GIUSTO);
@@ -3529,7 +3804,6 @@
     const N = numScimmie(), v = velocitaScimmia();
     G.tasti += N * v * dt;
     raccogli(bananeAlSecondo(N * v) * dt);
-    cercaParoleCasuali(N * v, dt);
     sincronizzaTelecamera();
     muoviTelecamera(v * dt);
     if (R.fermo) return;
@@ -3566,12 +3840,160 @@
     }
     if (nuovi && !R.caricamento) Suono.traguardo();
   }
-  // scheda del negozio: Scimmie, Velocità o Altro
+  // scheda del negozio: Scimmie, Velocità, Altro o Editore
   function mostraGruppo(g) {
     R.gruppo = g;
     document.querySelectorAll(".segmenti button[data-gruppo]").forEach(x => x.setAttribute("aria-pressed", x.dataset.gruppo === g));
-    for (const k of ["scimmie", "velocita", "altro"]) $("lista-" + k).hidden = k !== g;
-    disegnaNegozio();
+    for (const k of ["scimmie", "velocita", "altro", "editore"]) $("lista-" + k).hidden = k !== g;
+    // nella scheda Editore non servono quantità e suggerimenti del negozio
+    const editore = g === "editore";
+    document.querySelector("#v-negozio .quantita").hidden = editore;
+    $("riassunto").hidden = editore;
+    document.querySelector("#v-negozio .suggerimento-tieni").hidden = editore;
+    $("presi").hidden = editore;
+    if (editore) disegnaEditore(); else disegnaNegozio();
+  }
+
+  // ---------- Pubblicazione: si riparte da zero in cambio di Pagine d'oro ----------
+  function pubblica() {
+    const n = pagineDa(G.raccoltoRun || 0);
+    if (n < 1 || R.fermo) return;
+    chiedi(t("pub_conf_tit"), t("pub_conf_testo", { n: fmt(n) }), () => {
+      G.pagine = (G.pagine || 0) + n;
+      G.pagineTot = (G.pagineTot || 0) + n;
+      G.pubblicazioni = (G.pubblicazioni || 0) + 1;
+      for (const p of POT) G.liv[p.id] = 0;
+      G.cuccioli = 1;
+      G.banane = 150 * Math.pow(10, livT("t_anticipo"));
+      G.raccoltoRun = 0;
+      G.ts = Date.now();
+      const nelMenu = R.nelMenu;
+      avvia(G);
+      R.nelMenu = nelMenu;
+      salva();
+      controllaTraguardi();
+      Suono.fine();
+      avviso(t("pub_fatto", { n: fmt(n) }), "oro");
+      mostraVista("negozio");
+      mostraGruppo("editore");
+      Online.pubblicaRiga();
+    });
+  }
+  function compraTalento(tl) {
+    if (tl.max && livT(tl.id) >= tl.max) return;
+    const c = costoTalento(tl);
+    if ((G.pagine || 0) < c) { Suono.nego(); return; }
+    G.pagine -= c;
+    G.talenti = G.talenti || {};
+    G.talenti[tl.id] = livT(tl.id) + 1;
+    if (tl.ramo === "auto") (G.auto = G.auto || {})[tl.id] = true;
+    Suono.compra();
+    controllaTraguardi();
+    salva();
+    disegnaEditore();
+  }
+  function effettoTalento(tl) {
+    const l = livT(tl.id);
+    const x = (b) => decimale(Math.round(Math.pow(b, l) * 100) / 100);
+    switch (tl.id) {
+      case "t_squadra": return t("eff_t_squadra", { n: 10 * l });
+      case "t_recl": return t("eff_t_recl", { x: x(1.2) });
+      case "t_nido": return t("eff_t_nido", { n: l });
+      case "t_scuola": return t("eff_t_scuola", { x: x(1.2) });
+      case "t_attrezzi": return t("eff_t_attrezzi", { n: 10 * l });
+      case "t_qualita": return t("eff_t_qualita", { x: x(1.25) });
+      case "t_contratto": return t("eff_t_contratto", { x: x(1.25) });
+      case "t_anticipo": return t("eff_t_anticipo", { n: fmt(150 * Math.pow(10, l)) });
+      case "t_notte": return t("eff_t_notte", { x: x(1.25) });
+      default: return t("eff_" + tl.id);
+    }
+  }
+  function costruisciEditore() {
+    const box = $("talenti");
+    for (const ramo of RAMI) {
+      const h = document.createElement("h3");
+      h.className = "sez-pot";
+      h.dataset.t = "ramo_" + ramo;
+      box.appendChild(h);
+      for (const tl of TALENTI.filter(x => x.ramo === ramo)) {
+        const b = document.createElement("button");
+        b.className = "pot talento";
+        b.innerHTML =
+          `<span class="ico">${tl.icona}</span>` +
+          `<span class="corpo"><span class="nome"><span class="n"></span><span class="possesso"></span></span><span class="effetto"></span></span>` +
+          `<span class="prezzo"><span class="q"></span><span class="c"></span></span>`;
+        b.onclick = () => compraTalento(tl);
+        if (tl.ramo === "auto") {
+          // interruttore per accendere o spegnere l'automazione già comprata
+          const sw = document.createElement("span");
+          sw.className = "interruttore auto-sw";
+          sw.setAttribute("role", "switch");
+          sw.onclick = e => {
+            if (e) e.stopPropagation();
+            G.auto = G.auto || {};
+            G.auto[tl.id] = !G.auto[tl.id];
+            salva();
+            disegnaEditore();
+          };
+          b.appendChild(sw);
+        }
+        tl.el = b;
+        box.appendChild(b);
+      }
+    }
+  }
+  function disegnaEditore() {
+    const n = pagineDa(G.raccoltoRun || 0);
+    $("pubPagine").textContent = fmt(G.pagine || 0) + (G.pagineTot ? " (" + t("pub_intutto", { n: fmt(G.pagineTot) }) + ")" : "");
+    $("pubGuadagno").textContent = "+" + fmt(n) + " 📃";
+    $("pubProssima").textContent = n < 1 ? t("pub_minimo", { n: fmt(1e9 * Math.pow(10, Math.pow(1 / 5, 2 / 3))) }) :
+      t("pub_prossima", { n: fmt(sogliaPagina(n)) });
+    $("bPubblica").disabled = n < 1 || R.fermo;
+    $("pubFermo").hidden = !R.fermo;
+    for (const tl of TALENTI) {
+      const l = livT(tl.id), alMax = tl.max && l >= tl.max, c = costoTalento(tl);
+      tl.el.querySelector(".n").textContent = t("nome_" + tl.id);
+      tl.el.querySelector(".possesso").textContent = tl.ramo === "auto" ? (l ? "✓" : "") : t("liv", { l: l + (tl.max ? "/" + tl.max : "") });
+      tl.el.querySelector(".effetto").textContent = effettoTalento(tl);
+      tl.el.querySelector(".q").textContent = "";
+      tl.el.querySelector(".c").textContent = alMax ? (tl.ramo === "auto" ? "" : t("completo")) : "📃 " + fmt(c);
+      tl.el.classList.toggle("caro", !alMax && (G.pagine || 0) < c);
+      tl.el.classList.toggle("completo", !!alMax);
+      const sw = tl.el.querySelector(".auto-sw");
+      if (sw) {
+        sw.hidden = !l;
+        sw.setAttribute("aria-pressed", !!(G.auto || {})[tl.id]);
+        tl.el.querySelector(".prezzo").hidden = !!l;
+      }
+    }
+  }
+
+  // ---------- automazioni (sbloccate con i talenti) ----------
+  function compraDaSolo(filtro) {
+    let comprati = 0;
+    for (let giri = 0; giri < 40; giri++) {
+      let scelta = null, prezzo = Infinity;
+      for (const p of POT) {
+        if (!filtro(p) || !visibile(p)) continue;
+        if (p.max !== undefined && G.liv[p.id] >= p.max) continue;
+        const c = costoPer(p, 1);
+        if (c < prezzo) { prezzo = c; scelta = p; }
+      }
+      if (!scelta || prezzo > G.banane) break;
+      G.banane -= prezzo;
+      G.liv[scelta.id] += 1;
+      comprati++;
+    }
+    return comprati;
+  }
+  function automazioni() {
+    const auto = G.auto || {};
+    let comprati = 0;
+    if (livT("a_scimmie") && auto.a_scimmie) comprati += compraDaSolo(p => p.gruppo === "scimmie");
+    if (livT("a_velocita") && auto.a_velocita) comprati += compraDaSolo(p => p.gruppo === "velocita");
+    if (livT("a_traguardi") && auto.a_traguardi) for (const tr of daRiscuotere()) riscuoti(tr);
+    if (livT("a_frasi") && auto.a_frasi && R.fermo && aperto("veloFine")) { chiudi("veloFine"); iniziaOpera(R.prossima); }
+    if (comprati) controllaTraguardi();
   }
   function riscuoti(tr) {
     const stato = G.traguardi[tr.id];
@@ -3850,7 +4272,6 @@
     $("sLettere").textContent = fmt(G.lettere);
     $("sRaccolto").textContent = fmt(G.raccolto);
     $("sFrasi").textContent = fmt(G.completate || 0);
-    $("sTrovate").textContent = fmt(paroleTrovateTot());
     $("sParolaMax").textContent = G.parolaMax ? "«" + G.parolaMax.p + "»" : "—";
   }
   function aggiungiDiario(voce) {
@@ -3859,47 +4280,6 @@
     G.diario.length = Math.min(G.diario.length, 60);
     R.diarioSporco = true;
   }
-  // ---------- tappe della frase: le parole già scritte di fila dalla scimmia in testa ----------
-  function parolePerTappe() {
-    const tappe = [];
-    if (modoCorrente() === "facile") {
-      let pos = 0;
-      for (const w of normalizza(operaCorrente().testo, "normale").split(" ")) {
-        tappe.push({ parola: w, inizio: pos, fine: pos + w.length });
-        pos += w.length;
-      }
-    } else {
-      let inizio = 0;
-      for (let j = 0; j <= R.target.length; j++) {
-        if (j === R.target.length || R.target[j] === " ") {
-          if (j > inizio) tappe.push({ parola: R.target.slice(inizio, j), inizio, fine: j });
-          inizio = j + 1;
-        }
-      }
-    }
-    return tappe;
-  }
-  function disegnaCronaca() {
-    const box = $("tappe");
-    const tappe = R.tappe || [];
-    box.innerHTML = "";
-    let fatte = 0;
-    for (const tp of tappe) {
-      const el = document.createElement("span");
-      const lung = tp.fine - tp.inizio;
-      if (G.record >= tp.fine) { el.className = "chip fatta"; fatte++; }
-      else if (G.record > tp.inizio) {
-        el.className = "chip corrente";
-        el.style.setProperty("--avanz", Math.round(100 * (G.record - tp.inizio) / lung) + "%");
-      } else el.className = "chip";
-      el.textContent = tp.parola;
-      box.appendChild(el);
-    }
-    const ultima = G.ultimaTappa;
-    $("tappeInfo").textContent = t("tappe_conta", { a: fatte, b: tappe.length }) +
-      (ultima ? " · " + t("tappe_ultima", { w: ultima.w, chi: chiScimmia(ultima.chi), quando: fmtFa(ultima.ts) }) : " · " + t("tappe_nessuna"));
-  }
-
   // ---------- biblioteca ----------
   function disegnaBiblioteca() {
     const box = $("listaOpere");
@@ -3968,6 +4348,7 @@
       // le parole ora contano solo nell'ordine della frase: azzero quelle trovate prima
       if (!dati.paroleInOrdine) { g.parole = 0; g.parolaMax = null; g.paroleModo = {}; g.diario = (g.diario || []).filter(v => v.tipo !== "parola"); }
       g.paroleInOrdine = true;
+      if (dati.raccoltoRun === undefined) g.raccoltoRun = g.raccolto || 0;
       if (!dati.completateModo) {
         g.completateModo = {};
         for (const m of MODI) g.completateModo[m] = Object.keys((g.frasiModo || {})[m] || {}).length;
@@ -4022,7 +4403,7 @@
     const tps = tastiAlSecondo();
     const N0 = numScimmie();
     const tasti = tps * (g > 0 ? Math.expm1(g * assente) / g : assente);
-    const banane = bananeAlSecondo(tasti) * efficienzaNotte();
+    const banane = bananeAlSecondo(tasti) * efficienzaNotte() * Math.pow(1.25, livT("t_notte"));
     if (g > 0) G.cuccioli *= Math.exp(g * assente);
     G.tasti += tasti;
     raccogli(banane);
@@ -4420,7 +4801,7 @@
     document.querySelectorAll(".menu button").forEach(b => {
       if (b.dataset.vista === nome) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
     });
-    if (nome === "traguardi") { disegnaTraguardi(); disegnaMissione(); }
+    if (nome === "traguardi") disegnaTraguardi();
     if (nome === "diario") Online.disegna();
     window.scrollTo(0, 0);
     disegnaTutto(true);
@@ -4909,6 +5290,7 @@
     $("volEffetti").onchange = () => { salva(); Suono.clic(); };
     $("bImpLingua").onclick = apriLingue;
     $("bInfoBanane").onclick = () => apri("veloInfo");
+    $("bPubblica").onclick = pubblica;
     $("bNomeOk").onclick = confermaNome;
     $("bNomeAnnulla").onclick = () => { dopoNome = null; chiudi("veloNome"); };
     $("bImpNome").onclick = () => chiediNome(null, true);
@@ -4985,10 +5367,7 @@
     if (vistaAttiva("opera")) disegnaOpera();
     if (vistaAttiva("negozio")) disegnaNegozio();
     if (vistaAttiva("scimmie")) disegnaScimmie();
-    if (vistaAttiva("diario")) {
-      disegnaStatistiche();
-      if (R.diarioSporco || forza || R.tappeRecord !== G.record) { disegnaCronaca(); R.diarioSporco = false; R.tappeRecord = G.record; }
-    }
+    if (vistaAttiva("diario")) disegnaStatistiche();
   }
 
   function avvia(stato) {
@@ -5019,6 +5398,7 @@
   }
 
   costruisciNegozio();
+  costruisciEditore();
   costruisciTraguardi();
   collegaComandi();
   const salvato = carica();
@@ -5055,6 +5435,7 @@
 
     if (ora - ultimoDisegno > 90) { disegnaTutto(); ultimoDisegno = ora; }
     if (ora - ultimoLento > 1000) {
+      automazioni();
       controllaTraguardi(); disegnaBadge();
       if (vistaAttiva("traguardi")) disegnaTraguardi();
       if (R.nelMenu) scriviMenuIniziale();
