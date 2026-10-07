@@ -13,6 +13,13 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <!-- configurazione della classifica online (facoltativa): vedi il file classifica-config.js -->
 <script src="classifica-config.js"></script>
+<script>
+  // colori del tema scelto dal giocatore, salvati l'ultima volta: l'apertura usa subito quelli
+  try {
+    const colori = JSON.parse(localStorage.getItem("scimmie-colori") || "null");
+    if (colori) for (const k in colori) document.documentElement.style.setProperty(k, colori[k]);
+  } catch (e) {}
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Scimmie Infinite</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -477,25 +484,26 @@
   .tut-azioni { display: flex; gap: 8px; justify-content: flex-end; }
   .tut-azioni [hidden] { display: none; }
 
-  /* apertura */
+  /* apertura: sullo sfondo del tema scelto, un foglio dove le scimmie provano a scrivere il titolo */
   .sipario {
-    position: fixed; inset: 0; z-index: 100; display: grid; place-items: center;
-    background: radial-gradient(90% 60% at 50% 40%, #1c3d2c 0%, #0f2119 75%), #0f2119;
+    position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 24px; cursor: pointer;
+    background: radial-gradient(90% 60% at 50% 40%, var(--menu-grad) 0%, var(--notte) 75%), var(--notte);
     transition: opacity .7s ease, visibility .7s;
   }
   .sipario.via { opacity: 0; visibility: hidden; }
-  .sip-dentro { text-align: center; animation: sip-entra .7s cubic-bezier(.2, .8, .2, 1) both; }
-  .sip-logo { font-size: 76px; line-height: 1; display: inline-block; animation: sip-dondola 1.4s ease-in-out infinite; }
-  .sip-nome { font-family: var(--pixel); color: #ffd23f; font-size: 26px; font-weight: 700; margin-top: 16px; letter-spacing: .5px; }
-  .sip-cursore { display: inline-block; width: .55em; height: .95em; background: #ffd23f; margin-left: 5px; vertical-align: -0.1em; animation: sip-lampeggia 1s steps(1) infinite; }
-  .sip-tasti { display: flex; gap: 8px; justify-content: center; margin-top: 22px; }
-  .sip-tasti i { width: 10px; height: 10px; border-radius: 3px; background: #f1f0e6; opacity: .25; animation: sip-tasto 1.2s ease-in-out infinite; }
-  .sip-tasti i:nth-child(2) { animation-delay: .2s; }
-  .sip-tasti i:nth-child(3) { animation-delay: .4s; }
-  @keyframes sip-entra { from { opacity: 0; transform: scale(.92); } to { opacity: 1; transform: none; } }
-  @keyframes sip-dondola { 0%, 100% { transform: rotate(-7deg) translateY(0); } 50% { transform: rotate(7deg) translateY(-6px); } }
+  .sip-dentro { width: min(92vw, 520px); text-align: center; animation: sip-entra .6s cubic-bezier(.2, .8, .2, 1) both; }
+  .sip-chi { color: var(--spento); font-size: 14px; font-weight: 700; min-height: 1.4em; margin-bottom: 10px; }
+  .sip-foglio {
+    background: var(--carta); color: var(--inchiostro); border-radius: 10px; padding: 26px 18px; text-align: left;
+    font-family: var(--tasti); font-size: clamp(22px, 7vw, 34px); line-height: 1.2; min-height: 1.2em; white-space: pre-wrap; word-break: break-word;
+    box-shadow: 0 8px 0 -3px #d4ccb4, 0 16px 0 -6px #c7bfa6, 0 22px 30px -10px rgba(0, 0, 0, .6);
+  }
+  #sipTesto.giusto { background: linear-gradient(transparent 58%, rgba(255, 210, 63, .7) 58%) no-repeat 0 0 / 0% 100%; animation: sip-evidenzia .5s ease-out forwards; }
+  .sip-sbagliata { color: #c0392b; display: inline-block; transform: rotate(-8deg) translateY(-1px); }
+  .sip-cursore { display: inline-block; width: 2px; height: 1em; background: #c0392b; margin-left: 2px; vertical-align: -0.12em; animation: sip-lampeggia 1s steps(1) infinite; }
+  @keyframes sip-entra { from { opacity: 0; transform: translateY(14px) scale(.96); } to { opacity: 1; transform: none; } }
   @keyframes sip-lampeggia { 50% { opacity: 0; } }
-  @keyframes sip-tasto { 0%, 100% { opacity: .25; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-5px); } }
+  @keyframes sip-evidenzia { to { background-size: 100% 100%; } }
   /* il menu iniziale entra un pezzo alla volta */
   .menu-iniziale.entra .mi-dentro > * { animation: mi-sali .65s cubic-bezier(.2, .8, .2, 1) both; }
   .menu-iniziale.entra .mi-dentro > :nth-child(1) { animation: mi-pop .8s cubic-bezier(.2, 1.4, .4, 1) both; }
@@ -507,7 +515,7 @@
   @keyframes mi-sali { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
   @keyframes mi-pop { from { opacity: 0; transform: scale(.6) rotate(-4deg); } to { opacity: 1; transform: none; } }
   @media (prefers-reduced-motion: reduce) {
-    .sip-logo, .sip-cursore, .sip-tasti i, .sip-dentro, .menu-iniziale.entra .mi-dentro > * { animation: none !important; }
+    .sip-cursore, .sip-dentro, .menu-iniziale.entra .mi-dentro > * { animation: none !important; }
   }
 
   /* temi */
@@ -568,9 +576,8 @@
 <!-- =============== APERTURA: la scimmietta che batte a macchina, poi il menu =============== -->
 <div class="sipario" id="sipario" aria-hidden="true">
   <div class="sip-dentro">
-    <div class="sip-logo">🐒</div>
-    <div class="sip-nome">Scimmie infinite<span class="sip-cursore"></span></div>
-    <div class="sip-tasti"><i></i><i></i><i></i></div>
+    <div class="sip-chi" id="sipChi">🐒</div>
+    <div class="sip-foglio"><span id="sipTesto"></span><span class="sip-cursore"></span></div>
   </div>
 </div>
 
@@ -819,7 +826,7 @@
       <button class="pulsante secondario" id="bChiudiImpostazioni" data-t="chiudi"></button>
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
-    <p class="versione-gioco">Scimmie infinite · versione 14</p>
+    <p class="versione-gioco">Scimmie infinite · versione 15</p>
   </div>
 </div>
 
@@ -3760,7 +3767,9 @@
   function applicaTema() {
     const tm = TEMI.find(x => x.id === G.imp.tema) || TEMI[0];
     const stile = document.documentElement.style;
-    for (const [k, v] of Object.entries(coloriTema(tm))) stile.setProperty(k, v);
+    const colori = coloriTema(tm);
+    for (const [k, v] of Object.entries(colori)) stile.setProperty(k, v);
+    try { localStorage.setItem("scimmie-colori", JSON.stringify(colori)); } catch (e) {}
     document.documentElement.style.colorScheme = temaChiaro(tm) ? "light" : "dark";
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute("content", tm.sfondo);
@@ -4067,6 +4076,62 @@
       else dopoTutorial();
     });
   }
+  // ---------- apertura: alcune scimmie provano a scrivere il titolo, poi una ci riesce ----------
+  function aperturaAnimata(fine) {
+    const titolo = t("gioco");
+    const lettere = [...titolo];
+    const el = $("sipTesto"), chiEl = $("sipChi");
+    // tasti sbagliati presi dalla stessa "tastiera" del titolo
+    const tastiera = /[\u4e00-\u9fff]/.test(titolo) ? "猴香蕉字打机键盘纸书" :
+      scrittura(titolo) === "cir" ? "абвгдежзийклмнопрстуфхцчшщыэюя" : "abcdefghijklmnopqrstuvwxyz";
+    const passi = [];
+    let id = 2 + Math.floor(Math.random() * 30);
+    for (const quota of [0.15, 0.4, 0.7]) {
+      const giuste = Math.max(1, Math.round(lettere.length * quota));
+      let sbagliata;
+      do { sbagliata = tastiera[Math.floor(Math.random() * tastiera.length)]; } while (sbagliata.toLowerCase() === (lettere[giuste] || "").toLowerCase());
+      passi.push({ chi: id, giuste, sbagliata });
+      id = id * (4 + Math.floor(Math.random() * 6)) + Math.floor(Math.random() * 90);
+    }
+    passi.push({ chi: id, giuste: lettere.length, sbagliata: null });
+    const timer = [];
+    const dopo = (ms, f) => timer.push(setTimeout(f, ms));
+    let finito = false;
+    const chiudiApertura = () => { if (!finito) { finito = true; timer.forEach(clearTimeout); fine(); } };
+    // un tocco salta l'animazione: il titolo compare subito giusto
+    $("sipario").onclick = () => {
+      if (finito) return;
+      timer.forEach(clearTimeout);
+      el.textContent = titolo;
+      el.classList.add("giusto");
+      chiEl.textContent = "⭐ " + chiScimmia(id);
+      setTimeout(chiudiApertura, 350);
+    };
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) { $("sipario").onclick(); return; }
+    const VEL = 40, VEL_FINALE = 34;
+    let tempo = 300;
+    passi.forEach((p, n) => {
+      const ultimo = n === passi.length - 1;
+      dopo(tempo, () => { chiEl.textContent = (ultimo ? "⭐ " : "🐒 ") + chiScimmia(p.chi); el.textContent = ""; });
+      const v = ultimo ? VEL_FINALE : VEL;
+      for (let k = 1; k <= p.giuste; k++) dopo(tempo + k * v, () => { el.textContent = lettere.slice(0, k).join(""); });
+      tempo += p.giuste * v;
+      if (!ultimo) {
+        // un tasto sbagliato: la scimmia ricomincia da capo
+        dopo(tempo + v, () => {
+          const s = document.createElement("span");
+          s.className = "sip-sbagliata";
+          s.textContent = p.sbagliata;
+          el.appendChild(s);
+        });
+        tempo += v + 420;
+      } else {
+        dopo(tempo + 80, () => el.classList.add("giusto"));
+        dopo(tempo + 900, chiudiApertura);
+      }
+    });
+  }
+
   // ---------- scelta del nome per la classifica ----------
   let dopoNome = null;
   function chiediNome(poi) {
@@ -4582,11 +4647,11 @@
   mostraMenuIniziale();
   $("menuIniziale").classList.remove("entra");
   Online.collega();
-  setTimeout(() => {
+  aperturaAnimata(() => {
     $("sipario").classList.add("via");
     $("menuIniziale").classList.add("entra");
     setTimeout(() => $("sipario").remove(), 800);
-  }, Math.max(350, 1100 - performance.now()));
+  });
   if (puoInstallare()) {
     $("bInstalla").hidden = false;
     if (!installaGiaVisto()) setTimeout(apriInstalla, 600);
