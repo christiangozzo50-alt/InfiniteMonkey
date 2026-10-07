@@ -224,7 +224,28 @@
   .pa-testo { font-family: var(--tasti); font-size: 19px; line-height: 1.45; margin: 0 0 14px; white-space: pre-wrap; word-break: break-word; max-height: 40vh; overflow-y: auto; }
   .pa-firma { font-family: var(--tasti); font-size: 14px; color: #6b6455; text-align: right; margin: 0; }
   /* eventi in ufficio */
-  .barra-evento { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 8px; }
+  .barra-evento { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 8px; position: relative; padding-right: 46px; }
+  .bottone-amici { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; font-size: 19px; }
+  .bottone-amici .pallino { top: -4px; right: -4px; }
+  .sfida { background: var(--foglia-2); border-radius: 14px; padding: 10px 12px; margin-bottom: 8px; }
+  .sfida.finita { opacity: .7; }
+  .sfida.esito-vinta { opacity: 1; box-shadow: inset 0 0 0 2px var(--banana); }
+  .sfida-testa { font-weight: 800; font-size: 15px; }
+  .sfida-frase { font-family: var(--tasti); font-size: 13px; color: var(--spento); margin: 2px 0 4px; }
+  .sfida-stato { font-size: 13px; }
+  .sfida-barre { display: grid; gap: 3px; margin-top: 6px; }
+  .sfida-barre i { display: block; height: 6px; border-radius: 3px; background: var(--banana); min-width: 2px; }
+  .sfida-barre i.loro { background: #c084fc; }
+  .sfida-azioni { display: flex; gap: 8px; margin-top: 8px; }
+  .sfida-azioni .pulsante { flex: 1; }
+  .amico { display: grid; grid-template-columns: 36px 1fr auto 30px; gap: 10px; align-items: center; padding: 8px 4px; border-bottom: 1px solid var(--bordo); }
+  .amico-nome { font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .togli-amico { width: 28px; height: 28px; font-size: 12px; font-style: normal; }
+  .livelli-sfida { display: grid; gap: 8px; margin: 6px 0 12px; }
+  .livello-sfida { text-align: left; background: var(--foglia-2); border: 1px solid var(--bordo); border-radius: 14px; padding: 12px 14px; color: var(--testo); }
+  .livello-sfida b { display: block; font-size: 16px; }
+  .livello-sfida small { color: var(--spento); font-size: 13px; }
+  #bGcAmico[hidden] { display: none; }
   .barra-evento[hidden], .cesto[hidden] { display: none; }
   .evento-chip {
     background: var(--foglia-2); color: var(--spento); font-weight: 700; font-size: 13px; border-radius: 999px;
@@ -885,6 +906,7 @@
   <div class="colonna barra-evento" id="barraEvento" hidden>
     <span class="evento-chip" id="eventoChip"></span>
     <button class="info-i" id="bEvInfo" aria-label="info">i</button>
+    <button class="tondo piccolo bottone-amici" id="bAmici" data-t-aria="am_tit">👥<span class="pallino" id="badgeAmici"></span></button>
   </div>
 </header>
 <div class="effetti" id="effetti" aria-hidden="true"></div>
@@ -1106,7 +1128,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 39</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 40</p>
   </div>
 </div>
 
@@ -1186,7 +1208,10 @@
     <div class="gc-testa"><span class="avatar-pg grande" id="gcAvatar"></span><div><h2 id="gcNome"></h2><p class="tappe-info" id="gcSotto"></p></div></div>
     <div class="stat" id="gcStat"></div>
     <p class="tappe-info" id="gcNota"></p>
-    <div class="azioni"><button class="pulsante secondario" id="bGcChiudi" data-t="chiudi"></button></div>
+    <div class="azioni">
+      <button class="pulsante" id="bGcAmico"></button>
+      <button class="pulsante secondario" id="bGcChiudi" data-t="chiudi"></button>
+    </div>
   </div>
 </div>
 
@@ -1247,6 +1272,29 @@
       <button class="pulsante secondario" id="bAdminChiudi" data-t="chiudi"></button>
       <button class="pulsante pericolo" id="bAdminEsci">Esci dalla modalità sviluppatore</button>
     </div>
+  </div>
+</div>
+
+<!-- =============== AMICI E SFIDE =============== -->
+<div class="velo basso sopra" id="veloAmici">
+  <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="titAmici">
+    <div class="maniglia"></div>
+    <h2 id="titAmici" data-t="am_tit"></h2>
+    <p class="tappe-info" id="amOffline" data-t="am_offline" hidden></p>
+    <h3 class="gruppo-temi" data-t="am_sfide"></h3>
+    <div id="amSfide"></div>
+    <h3 class="gruppo-temi" data-t="am_amici"></h3>
+    <div id="amLista"></div>
+    <div class="azioni"><button class="pulsante secondario" id="bAmChiudi" data-t="chiudi"></button></div>
+  </div>
+</div>
+<div class="velo basso sopra" id="veloSceltaSfida">
+  <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="sfTitolo">
+    <div class="maniglia"></div>
+    <h2 id="sfTitolo"></h2>
+    <p class="sotto" data-t="sf_scegli_sotto"></p>
+    <div class="livelli-sfida" id="sfLivelli"></div>
+    <div class="azioni"><button class="pulsante secondario" id="bSfChiudi" data-t="annulla"></button></div>
   </div>
 </div>
 
@@ -1838,7 +1886,45 @@
       merc_tit: "🏪 Mercato delle pagine",
       merc_sotto: "Hai troppe banane? Scambiale con Pagine d'oro. Ogni pagina costa 50 volte la precedente e non dà Fama.",
       merc_btn: "Compra 1 📃 · {n} 🍌",
-      info_satura: "📉 Mercato saturo: quando superi i 10 miliardi di banane al secondo, ogni lettera giusta rende un po' meno. Così il gioco resta bilanciato anche dopo giorni."
+      info_satura: "📉 Mercato saturo: quando superi i 10 miliardi di banane al secondo, ogni lettera giusta rende un po' meno. Così il gioco resta bilanciato anche dopo giorni.",
+      am_tit: "👥 Amici e sfide",
+      am_sfide: "⚔️ Sfide",
+      am_amici: "👥 I tuoi amici",
+      am_vuoto: "Non hai ancora amici. Tocca un giocatore in classifica e premi «Aggiungi agli amici».",
+      am_nessuna: "Nessuna sfida per ora: sfida un amico qui sotto!",
+      am_sfida_btn: "⚔️ Sfida",
+      am_rimuovi: "Rimuovi dagli amici",
+      am_offline: "Le sfide funzionano solo quando il gioco è collegato alla classifica online.",
+      gc_aggiungi: "➕ Aggiungi agli amici",
+      gc_amico: "✓ È tuo amico",
+      am_aggiunto: "👥 {nick} è tra i tuoi amici!",
+      sf_scegli_tit: "⚔️ Sfida {nick}",
+      sf_scegli_sotto: "Verrà scelta a caso una frase della difficoltà che scegli. Le scimmie di tutti e due ci lavorano insieme alla frase di sempre: chi la completa per primo vince e si prende il premio. Avete 3 giorni.",
+      sf_liv_facile: "Facile",
+      sf_liv_media: "Media",
+      sf_liv_difficile: "Difficile",
+      sf_liv_epica: "Epica",
+      sf_liv_info: "Frasi da {min} a {max} caratteri · premio: {ore} di banane + {p} 📃",
+      sf_inviata: "⚔️ Sfida inviata a {nick}!",
+      sf_ricevuta: "⚔️ {nick} ti ha sfidato!",
+      sf_accetta: "Accetta",
+      sf_rifiuta: "Rifiuta",
+      sf_via: "⚔️ Sfida accettata: via!",
+      sf_stato_attesa: "In attesa che {nick} accetti…",
+      sf_stato_ricevuta: "{nick} ti ha sfidato",
+      sf_stato_corsa: "Tu {a}/{l} · {nick} {b}/{l}",
+      sf_premio: "premio: {ore} di banane + {p} 📃",
+      sf_scade: "mancano {t}",
+      sf_vinta: "🏆 Vinta! +{n} 🍌 +{p} 📃",
+      sf_persa: "😿 Persa: {nick} l'ha finita prima",
+      sf_rifiutata: "Rifiutata",
+      sf_scaduta: "Scaduta",
+      sf_patta: "Pareggio: nessuno l'ha finita in tempo",
+      sf_accettata_avviso: "⚔️ {nick} ha accettato la sfida! Via!",
+      sf_vinto_avviso: "🏆 Hai battuto {nick}! +{n} 🍌 +{p} 📃",
+      sf_perso_avviso: "😿 {nick} ha completato la frase della sfida prima di te",
+      sf_vinta_tit: "Sfida vinta!",
+      sf_persa_tit: "Sfida persa"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -2252,7 +2338,45 @@
       merc_tit: "🏪 Page market",
       merc_sotto: "Too many bananas? Trade them for Golden Pages. Each page costs 50 times the previous one and gives no Fame.",
       merc_btn: "Buy 1 📃 · {n} 🍌",
-      info_satura: "📉 Saturated market: once you pass 10 billion bananas per second, each correct letter is worth a little less. This keeps the game balanced even after days."
+      info_satura: "📉 Saturated market: once you pass 10 billion bananas per second, each correct letter is worth a little less. This keeps the game balanced even after days.",
+      am_tit: "👥 Friends and challenges",
+      am_sfide: "⚔️ Challenges",
+      am_amici: "👥 Your friends",
+      am_vuoto: "No friends yet. Tap a player on the leaderboard and press “Add friend”.",
+      am_nessuna: "No challenges yet: challenge a friend below!",
+      am_sfida_btn: "⚔️ Challenge",
+      am_rimuovi: "Remove friend",
+      am_offline: "Challenges only work when the game is connected to the online leaderboard.",
+      gc_aggiungi: "➕ Add friend",
+      gc_amico: "✓ Friends",
+      am_aggiunto: "👥 {nick} is now your friend!",
+      sf_scegli_tit: "⚔️ Challenge {nick}",
+      sf_scegli_sotto: "A random phrase of the chosen difficulty will be picked. Both players' monkeys work on it alongside their usual phrase: whoever completes it first wins the prize. You have 3 days.",
+      sf_liv_facile: "Easy",
+      sf_liv_media: "Medium",
+      sf_liv_difficile: "Hard",
+      sf_liv_epica: "Epic",
+      sf_liv_info: "Phrases of {min} to {max} characters · prize: {ore} of bananas + {p} 📃",
+      sf_inviata: "⚔️ Challenge sent to {nick}!",
+      sf_ricevuta: "⚔️ {nick} challenged you!",
+      sf_accetta: "Accept",
+      sf_rifiuta: "Decline",
+      sf_via: "⚔️ Challenge accepted: go!",
+      sf_stato_attesa: "Waiting for {nick} to accept…",
+      sf_stato_ricevuta: "{nick} challenged you",
+      sf_stato_corsa: "You {a}/{l} · {nick} {b}/{l}",
+      sf_premio: "prize: {ore} of bananas + {p} 📃",
+      sf_scade: "{t} left",
+      sf_vinta: "🏆 Won! +{n} 🍌 +{p} 📃",
+      sf_persa: "😿 Lost: {nick} finished first",
+      sf_rifiutata: "Declined",
+      sf_scaduta: "Expired",
+      sf_patta: "Draw: nobody finished in time",
+      sf_accettata_avviso: "⚔️ {nick} accepted the challenge! Go!",
+      sf_vinto_avviso: "🏆 You beat {nick}! +{n} 🍌 +{p} 📃",
+      sf_perso_avviso: "😿 {nick} completed the challenge phrase before you",
+      sf_vinta_tit: "Challenge won!",
+      sf_persa_tit: "Challenge lost"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -2666,7 +2790,45 @@
       merc_tit: "🏪 Mercado de páginas",
       merc_sotto: "¿Demasiados plátanos? Cámbialos por Páginas de oro. Cada página cuesta 50 veces la anterior y no da Fama.",
       merc_btn: "Comprar 1 📃 · {n} 🍌",
-      info_satura: "📉 Mercado saturado: cuando superas los 10.000 millones de plátanos por segundo, cada letra correcta rinde un poco menos. Así el juego sigue equilibrado incluso después de días."
+      info_satura: "📉 Mercado saturado: cuando superas los 10.000 millones de plátanos por segundo, cada letra correcta rinde un poco menos. Así el juego sigue equilibrado incluso después de días.",
+      am_tit: "👥 Amigos y desafíos",
+      am_sfide: "⚔️ Desafíos",
+      am_amici: "👥 Tus amigos",
+      am_vuoto: "Todavía no tienes amigos. Toca a un jugador en la clasificación y pulsa «Añadir a amigos».",
+      am_nessuna: "Ningún desafío por ahora: ¡desafía a un amigo aquí abajo!",
+      am_sfida_btn: "⚔️ Desafiar",
+      am_rimuovi: "Quitar de amigos",
+      am_offline: "Los desafíos solo funcionan cuando el juego está conectado a la clasificación online.",
+      gc_aggiungi: "➕ Añadir a amigos",
+      gc_amico: "✓ Es tu amigo",
+      am_aggiunto: "👥 ¡{nick} está entre tus amigos!",
+      sf_scegli_tit: "⚔️ Desafiar a {nick}",
+      sf_scegli_sotto: "Se elegirá al azar una frase de la dificultad que escojas. Los monos de los dos trabajan en ella junto a la frase de siempre: quien la complete primero gana el premio. Tenéis 3 días.",
+      sf_liv_facile: "Fácil",
+      sf_liv_media: "Media",
+      sf_liv_difficile: "Difícil",
+      sf_liv_epica: "Épica",
+      sf_liv_info: "Frases de {min} a {max} caracteres · premio: {ore} de plátanos + {p} 📃",
+      sf_inviata: "⚔️ ¡Desafío enviado a {nick}!",
+      sf_ricevuta: "⚔️ ¡{nick} te ha desafiado!",
+      sf_accetta: "Aceptar",
+      sf_rifiuta: "Rechazar",
+      sf_via: "⚔️ Desafío aceptado: ¡adelante!",
+      sf_stato_attesa: "Esperando a que {nick} acepte…",
+      sf_stato_ricevuta: "{nick} te ha desafiado",
+      sf_stato_corsa: "Tú {a}/{l} · {nick} {b}/{l}",
+      sf_premio: "premio: {ore} de plátanos + {p} 📃",
+      sf_scade: "quedan {t}",
+      sf_vinta: "🏆 ¡Ganado! +{n} 🍌 +{p} 📃",
+      sf_persa: "😿 Perdido: {nick} terminó antes",
+      sf_rifiutata: "Rechazado",
+      sf_scaduta: "Caducado",
+      sf_patta: "Empate: nadie terminó a tiempo",
+      sf_accettata_avviso: "⚔️ ¡{nick} ha aceptado el desafío! ¡Adelante!",
+      sf_vinto_avviso: "🏆 ¡Has vencido a {nick}! +{n} 🍌 +{p} 📃",
+      sf_perso_avviso: "😿 {nick} completó la frase del desafío antes que tú",
+      sf_vinta_tit: "¡Desafío ganado!",
+      sf_persa_tit: "Desafío perdido"
     },
 
     // ------------------------------------------------------------- 中文
@@ -3080,7 +3242,45 @@
       merc_tit: "🏪 金页市场",
       merc_sotto: "香蕉太多了？换成金页吧。每页价格是上一页的 50 倍，并且不增加名气。",
       merc_btn: "购买 1 📃 · {n} 🍌",
-      info_satura: "📉 市场饱和：当每秒香蕉超过 100 亿时，每个打对的字母收益会少一点。这样即使玩了好几天，游戏也能保持平衡。"
+      info_satura: "📉 市场饱和：当每秒香蕉超过 100 亿时，每个打对的字母收益会少一点。这样即使玩了好几天，游戏也能保持平衡。",
+      am_tit: "👥 好友与挑战",
+      am_sfide: "⚔️ 挑战",
+      am_amici: "👥 你的好友",
+      am_vuoto: "还没有好友。在排行榜上点一位玩家，然后点“加为好友”。",
+      am_nessuna: "暂时没有挑战：在下面挑战一位好友吧！",
+      am_sfida_btn: "⚔️ 挑战",
+      am_rimuovi: "删除好友",
+      am_offline: "只有游戏连接到在线排行榜时，挑战才能进行。",
+      gc_aggiungi: "➕ 加为好友",
+      gc_amico: "✓ 已是好友",
+      am_aggiunto: "👥 {nick} 已成为你的好友！",
+      sf_scegli_tit: "⚔️ 挑战 {nick}",
+      sf_scegli_sotto: "会随机选出一句所选难度的句子。双方的猴子会在打平常句子的同时打它：先完成的人获胜并拿走奖励。你们有 3 天时间。",
+      sf_liv_facile: "简单",
+      sf_liv_media: "中等",
+      sf_liv_difficile: "困难",
+      sf_liv_epica: "史诗",
+      sf_liv_info: "{min} 到 {max} 个字符的句子 · 奖励：{ore}的香蕉 + {p} 📃",
+      sf_inviata: "⚔️ 已向 {nick} 发出挑战！",
+      sf_ricevuta: "⚔️ {nick} 向你发起了挑战！",
+      sf_accetta: "接受",
+      sf_rifiuta: "拒绝",
+      sf_via: "⚔️ 已接受挑战：开始！",
+      sf_stato_attesa: "等待 {nick} 接受…",
+      sf_stato_ricevuta: "{nick} 向你发起了挑战",
+      sf_stato_corsa: "你 {a}/{l} · {nick} {b}/{l}",
+      sf_premio: "奖励：{ore}的香蕉 + {p} 📃",
+      sf_scade: "还剩 {t}",
+      sf_vinta: "🏆 胜利！+{n} 🍌 +{p} 📃",
+      sf_persa: "😿 失败：{nick} 先完成了",
+      sf_rifiutata: "已拒绝",
+      sf_scaduta: "已过期",
+      sf_patta: "平局：没有人按时完成",
+      sf_accettata_avviso: "⚔️ {nick} 接受了挑战！开始！",
+      sf_vinto_avviso: "🏆 你打败了 {nick}！+{n} 🍌 +{p} 📃",
+      sf_perso_avviso: "😿 {nick} 比你先完成了挑战句子",
+      sf_vinta_tit: "挑战胜利！",
+      sf_persa_tit: "挑战失败"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -3494,7 +3694,45 @@
       merc_tit: "🏪 Marché des pages",
       merc_sotto: "Trop de bananes ? Échange-les contre des Pages d'or. Chaque page coûte 50 fois la précédente et ne donne pas de Renommée.",
       merc_btn: "Acheter 1 📃 · {n} 🍌",
-      info_satura: "📉 Marché saturé : au-delà de 10 milliards de bananes par seconde, chaque lettre juste rapporte un peu moins. Le jeu reste ainsi équilibré même après plusieurs jours."
+      info_satura: "📉 Marché saturé : au-delà de 10 milliards de bananes par seconde, chaque lettre juste rapporte un peu moins. Le jeu reste ainsi équilibré même après plusieurs jours.",
+      am_tit: "👥 Amis et défis",
+      am_sfide: "⚔️ Défis",
+      am_amici: "👥 Tes amis",
+      am_vuoto: "Pas encore d'amis. Touche un joueur dans le classement et appuie sur « Ajouter aux amis ».",
+      am_nessuna: "Aucun défi pour l'instant : défie un ami ci-dessous !",
+      am_sfida_btn: "⚔️ Défier",
+      am_rimuovi: "Retirer des amis",
+      am_offline: "Les défis ne fonctionnent que lorsque le jeu est connecté au classement en ligne.",
+      gc_aggiungi: "➕ Ajouter aux amis",
+      gc_amico: "✓ C'est ton ami",
+      am_aggiunto: "👥 {nick} fait partie de tes amis !",
+      sf_scegli_tit: "⚔️ Défier {nick}",
+      sf_scegli_sotto: "Une phrase de la difficulté choisie sera tirée au hasard. Les singes de vous deux y travaillent en plus de la phrase habituelle : le premier qui la termine gagne la prime. Vous avez 3 jours.",
+      sf_liv_facile: "Facile",
+      sf_liv_media: "Moyen",
+      sf_liv_difficile: "Difficile",
+      sf_liv_epica: "Épique",
+      sf_liv_info: "Phrases de {min} à {max} caractères · prime : {ore} de bananes + {p} 📃",
+      sf_inviata: "⚔️ Défi envoyé à {nick} !",
+      sf_ricevuta: "⚔️ {nick} t'a défié !",
+      sf_accetta: "Accepter",
+      sf_rifiuta: "Refuser",
+      sf_via: "⚔️ Défi accepté : c'est parti !",
+      sf_stato_attesa: "En attente de la réponse de {nick}…",
+      sf_stato_ricevuta: "{nick} t'a défié",
+      sf_stato_corsa: "Toi {a}/{l} · {nick} {b}/{l}",
+      sf_premio: "prime : {ore} de bananes + {p} 📃",
+      sf_scade: "encore {t}",
+      sf_vinta: "🏆 Gagné ! +{n} 🍌 +{p} 📃",
+      sf_persa: "😿 Perdu : {nick} a fini avant",
+      sf_rifiutata: "Refusé",
+      sf_scaduta: "Expiré",
+      sf_patta: "Égalité : personne n'a fini à temps",
+      sf_accettata_avviso: "⚔️ {nick} a accepté le défi ! C'est parti !",
+      sf_vinto_avviso: "🏆 Tu as battu {nick} ! +{n} 🍌 +{p} 📃",
+      sf_perso_avviso: "😿 {nick} a terminé la phrase du défi avant toi",
+      sf_vinta_tit: "Défi gagné !",
+      sf_persa_tit: "Défi perdu"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -3909,7 +4147,45 @@
       merc_tit: "🏪 Рынок страниц",
       merc_sotto: "Слишком много бананов? Обменяй их на Золотые страницы. Каждая страница в 50 раз дороже предыдущей и не даёт Славы.",
       merc_btn: "Купить 1 📃 · {n} 🍌",
-      info_satura: "📉 Насыщенный рынок: больше 10 миллиардов бананов в секунду — и каждая верная буква приносит чуть меньше. Так игра остаётся сбалансированной даже через несколько дней."
+      info_satura: "📉 Насыщенный рынок: больше 10 миллиардов бананов в секунду — и каждая верная буква приносит чуть меньше. Так игра остаётся сбалансированной даже через несколько дней.",
+      am_tit: "👥 Друзья и вызовы",
+      am_sfide: "⚔️ Вызовы",
+      am_amici: "👥 Твои друзья",
+      am_vuoto: "Пока нет друзей. Нажми на игрока в рейтинге и выбери «Добавить в друзья».",
+      am_nessuna: "Пока нет вызовов: брось вызов другу ниже!",
+      am_sfida_btn: "⚔️ Вызов",
+      am_rimuovi: "Удалить из друзей",
+      am_offline: "Вызовы работают, только когда игра подключена к онлайн-рейтингу.",
+      gc_aggiungi: "➕ Добавить в друзья",
+      gc_amico: "✓ Уже друг",
+      am_aggiunto: "👥 {nick} теперь твой друг!",
+      sf_scegli_tit: "⚔️ Вызов игроку {nick}",
+      sf_scegli_sotto: "Будет выбрана случайная фраза выбранной сложности. Обезьяны обоих игроков печатают её вместе с обычной фразой: кто первым завершит, тот и забирает приз. У вас 3 дня.",
+      sf_liv_facile: "Лёгкий",
+      sf_liv_media: "Средний",
+      sf_liv_difficile: "Трудный",
+      sf_liv_epica: "Эпический",
+      sf_liv_info: "Фразы от {min} до {max} символов · приз: бананы за {ore} + {p} 📃",
+      sf_inviata: "⚔️ Вызов отправлен игроку {nick}!",
+      sf_ricevuta: "⚔️ {nick} бросает тебе вызов!",
+      sf_accetta: "Принять",
+      sf_rifiuta: "Отказаться",
+      sf_via: "⚔️ Вызов принят: вперёд!",
+      sf_stato_attesa: "Ждём, когда {nick} примет вызов…",
+      sf_stato_ricevuta: "{nick} бросает тебе вызов",
+      sf_stato_corsa: "Ты {a}/{l} · {nick} {b}/{l}",
+      sf_premio: "приз: бананы за {ore} + {p} 📃",
+      sf_scade: "осталось {t}",
+      sf_vinta: "🏆 Победа! +{n} 🍌 +{p} 📃",
+      sf_persa: "😿 Поражение: {nick} закончил первым",
+      sf_rifiutata: "Отклонён",
+      sf_scaduta: "Истёк",
+      sf_patta: "Ничья: никто не успел",
+      sf_accettata_avviso: "⚔️ {nick} принял вызов! Вперёд!",
+      sf_vinto_avviso: "🏆 Ты победил игрока {nick}! +{n} 🍌 +{p} 📃",
+      sf_perso_avviso: "😿 {nick} завершил фразу вызова раньше тебя",
+      sf_vinta_tit: "Вызов выигран!",
+      sf_persa_tit: "Вызов проигран"
     }
   };
 
@@ -5909,7 +6185,7 @@
       archivio: {}, traguardi: {}, qta: "1", nick: "", tutorialFatto: false, ufficioVuoto: true, paroleInOrdine: true, paroleScimmie: {}, parolaCasualeMax: 0, completateModo: {}, raccoltoRun: 0, pagine: 0, pagineTot: 0, pubblicazioni: 0, talenti: {}, auto: {}, pagineAut: {},
       collezione: ["a_scimmia", "a_nonvedo", "a_banana", "c_bianco", "c_banana", "c_menta", "e_nessuno"],
       aspetto: { avatar: "a_scimmia", colore: "c_bianco", effetto: "e_nessuno" },
-      casseGratis: 1, regaloBenvenuto: true, completateRun: 0, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
+      casseGratis: 1, regaloBenvenuto: true, completateRun: 0, amici: [], sfideMie: {}, frasiModo: { facile: {}, normale: {}, realistica: {} }, paroleModo: {}, raccolto: 0, lettere: 0, fraseMio: 0, fraseMioModo: "normale", lunghe: {}, lungheModo: {}, linguaOpera: "", modoOpera: "normale",
       imp: { musica: 70, effetti: 80, lingua: linguaIniziale(), tema: "giungla", modo: "normale" },
       liv, cuccioli: 1, banane: 150, tasti: 0, tempo: 0, completate: 0,
       diario: [], ts: Date.now()
@@ -6335,6 +6611,7 @@
     const N = numScimmie(), v = velocitaScimmia();
     G.tasti += N * v * dt;
     raccogli(bananeAlSecondo(N * v) * dt);
+    if (sfideAttive().length) avanzaSfide(N * v * dt);
     sincronizzaTelecamera();
     muoviTelecamera(v * dt);
     if (R.fermo) return;
@@ -7072,6 +7349,7 @@
       nuovoRecord(migliore, idCasuale(numScimmie()), Date.now() - Math.random() * assente * 1000);
     }
     ritorno.parole = (G.parole || 0) - paroleAllaPartenza;
+    if (sfideAttive().length) avanzaSfide(tasti);
     if (!R.fermo) R.ritorno = ritorno;
   }
   function scriviRitorno() {
@@ -7279,6 +7557,7 @@
         }
         this.pronto = true;
         this.ascolta(db);
+        Sfide.avvia();
         this.salvaOnline();
         this.pubblicaRiga();
       } catch (e) { this.nonDisponibile(); }
@@ -7297,6 +7576,7 @@
         this.pronto = true;
         document.body.classList.remove("senza-classifica");
         this.ascolta(this.fb);
+        Sfide.avvia();
         this.pubblicaRiga();
       } catch (e) { this.nonDisponibile(); }
     },
@@ -8257,6 +8537,11 @@
     ];
     riquadri(base);
     $("gcNota").textContent = t("gc_carico");
+    const amico = $("bGcAmico");
+    amico.hidden = io || !r.id;
+    amico.disabled = sonoAmici(r.id);
+    amico.textContent = sonoAmici(r.id) ? t("gc_amico") : t("gc_aggiungi");
+    amico.onclick = () => { aggiungiAmico(r.id, nome); amico.disabled = true; amico.textContent = t("gc_amico"); };
     apri("veloGiocatore");
     const p = io ? Online.datiProfilo() : await Online.leggiProfilo(r.id);
     if (!p) { $("gcNota").textContent = t("gc_nodati"); return; }
@@ -8269,6 +8554,264 @@
       [t("gc_tempo"), fmtTempo(p.tempo || 0)]
     ]));
     $("gcNota").textContent = p.agg && !io ? t("gc_agg", { quando: fmtFa(p.agg) }) : "";
+  }
+
+  // =====================================================================
+  //  AMICI E SFIDE
+  //  Una sfida usa una frase predefinita a caso della difficoltà scelta. Le scimmie di tutti e due
+  //  ci lavorano insieme alla frase di sempre (gli stessi tasti casuali valgono per entrambe):
+  //  vince chi la completa per primo e si prende il premio. La fortuna non cambia mai.
+  // =====================================================================
+  const LIVELLI_SFIDA = {
+    facile: { ico: "🌱", min: 6, max: 10, ore: 0.5, pagine: 1 },
+    media: { ico: "⌨️", min: 11, max: 16, ore: 2, pagine: 3 },
+    difficile: { ico: "🎩", min: 17, max: 24, ore: 8, pagine: 8 },
+    epica: { ico: "🔥", min: 25, max: 40, ore: 24, pagine: 20 }
+  };
+  const DURATA_SFIDA = 3 * 86400000;
+  const durataBreve = ore => (ore < 1 ? Math.round(ore * 60) + " min" : ore + " h");   // 3 giorni per accettare e altri 3 per finirla
+  const testoSfida = s => normalizza((OPERE.find(o => o.id === s.fraseId) || { testo: "" }).testo, "normale");
+  const titoloSfida = s => (OPERE.some(o => o.id === s.fraseId) ? operaCorrente(s.fraseId).titolo : s.fraseId);
+  const avversario = s => (s.da === Online.id ? { id: s.a, nick: s.aNick } : { id: s.da, nick: s.daNick });
+  // record massimo su K tasti per un testo di L caratteri con n tasti (stesso calcolo della frase principale)
+  function serieMassima(K, n, L) {
+    const P = 1 / n, tentativi = K * (1 - P);
+    if (tentativi <= 0) return 0;
+    const u = Math.random() || 1e-12;
+    const x = -Math.expm1(Math.log(u) / tentativi);
+    if (x <= 0) return L;
+    return Math.min(L, Math.max(0, Math.floor(Math.log(x) / Math.log(P))));
+  }
+  function frasePerSfida(livello) {
+    const lv = LIVELLI_SFIDA[livello];
+    const adatte = OPERE.filter(o => {
+      const tx = normalizza(o.testo, "normale");
+      return scrittura(tx) === "lat" && tx.length >= lv.min && tx.length <= lv.max;
+    });
+    return adatte[Math.floor(Math.random() * adatte.length)] || OPERE[0];
+  }
+  const sfideAttive = () => Object.values(G.sfideMie || {}).filter(s => s.acc && !s.esito && !s.fatto);
+  // le scimmie lavorano anche alle frasi delle sfide accettate
+  function avanzaSfide(tasti) {
+    let cambiato = false;
+    for (const s of sfideAttive()) {
+      const L = testoSfida(s).length;
+      const migliore = serieMassima(tasti, 27, L);
+      if (migliore > (s.rec || 0)) { s.rec = migliore; cambiato = true; }
+      if (s.rec >= L) { s.fatto = Date.now(); cambiato = true; }
+    }
+    if (cambiato) { aggiornaSfide(); Sfide.pubblica(); }
+  }
+  function aggiornaSfide() {
+    const ora = Date.now();
+    let cambiato = false;
+    for (const s of Object.values(G.sfideMie || {})) {
+      if (s.esito) continue;
+      const altro = Sfide.esitiAltri[s.sid] || {}, opp = avversario(s);
+      if (altro.rif) { s.esito = "rifiutata"; cambiato = true; continue; }
+      // chi ha lanciato la sfida inizia a contare quando l'altro accetta
+      if (s.da === Online.id && altro.acc && !s.acc) { s.acc = ora; cambiato = true; avviso(t("sf_accettata_avviso", { nick: opp.nick }), "oro"); }
+      if (!s.acc && ora - s.creata > DURATA_SFIDA) { s.esito = "scaduta"; cambiato = true; continue; }
+      if (altro.fatto && (!s.fatto || altro.fatto < s.fatto)) {
+        s.esito = "persa"; cambiato = true;
+        avviso(t("sf_perso_avviso", { nick: opp.nick }));
+        notifica("⚔️ " + t("sf_persa_tit"), t("sf_perso_avviso", { nick: opp.nick }));
+        continue;
+      }
+      if (s.fatto && (!altro.fatto || s.fatto <= altro.fatto)) {
+        s.esito = "vinta"; cambiato = true;
+        if (!s.premiato) {
+          const lv = LIVELLI_SFIDA[s.livello] || LIVELLI_SFIDA.facile;
+          s.premio = Math.max(1000, lv.ore * 3600 * bananeAlSecondo());
+          G.banane += s.premio;
+          G.pagine = (G.pagine || 0) + lv.pagine;
+          s.premiato = true;
+          Suono.traguardo();
+          avviso(t("sf_vinto_avviso", { nick: opp.nick, n: fmt(s.premio), p: lv.pagine }), "oro");
+          notifica("🏆 " + t("sf_vinta_tit"), t("sf_vinto_avviso", { nick: opp.nick, n: fmt(s.premio), p: lv.pagine }));
+        }
+        continue;
+      }
+      if (s.acc && ora - s.acc > DURATA_SFIDA) { s.esito = "patta"; cambiato = true; }
+    }
+    if (cambiato) { salva(); Sfide.pubblica(true); Sfide.aggiornaAscolti(); }
+    scriviBadgeAmici();
+    if (aperto("veloAmici")) disegnaAmici();
+  }
+  // la parte online: ognuno scrive solo il proprio documento "sfide/<id>", tutti possono leggerlo
+  const Sfide = {
+    esitiAltri: {}, ascolti: {}, avviato: false, ultimoDoc: "", ultimaScrittura: 0, attesa: null,
+    base() { return Online.tipo === "firebase" ? Online.fb : Online.db; },
+    disponibile() { return Online.pronto && !!Online.id && !Online.solaLettura && !!this.base(); },
+    avvia() {
+      if (this.avviato || !this.disponibile()) return;
+      this.avviato = true;
+      // sfide ricevute: i documenti di chi mi ha sfidato hanno il mio id tra i destinatari
+      try {
+        this.base().collection("sfide").where("destinatari", "array-contains", Online.id).onSnapshot(snap => {
+          for (const d of snap.docs) this.leggi(d.id, d.data());
+          aggiornaSfide();
+        }, () => {});
+      } catch (e) {}
+      this.aggiornaAscolti();
+      this.pubblica(true);
+    },
+    // per le sfide che ho lanciato seguo il documento dell'avversario
+    aggiornaAscolti() {
+      if (!this.avviato) return;
+      for (const s of Object.values(G.sfideMie || {})) {
+        if (s.da !== Online.id || s.esito || this.ascolti[s.a]) continue;
+        try {
+          this.ascolti[s.a] = this.base().collection("sfide").doc(s.a).onSnapshot(snap => {
+            if (snap.exists) { this.leggi(s.a, snap.data()); aggiornaSfide(); }
+          }, () => {});
+        } catch (e) {}
+      }
+    },
+    leggi(uid, dati) {
+      G.sfideMie = G.sfideMie || {};
+      for (const [sid, sf] of Object.entries(dati.sfide || {})) {
+        if (sf.a !== Online.id || G.sfideMie[sid]) continue;
+        if (Date.now() - (sf.creata || 0) > 2 * DURATA_SFIDA) continue;
+        G.sfideMie[sid] = { sid, da: uid, a: sf.a, daNick: sf.daNick || "?", aNick: sf.aNick || G.nick, fraseId: sf.fraseId, livello: sf.livello, creata: sf.creata };
+        avviso(t("sf_ricevuta", { nick: sf.daNick || "?" }), "oro");
+        notifica("⚔️ " + t("sf_ricevuta", { nick: sf.daNick || "?" }), titoloSfida(G.sfideMie[sid]));
+      }
+      for (const [sid, es] of Object.entries(dati.esiti || {})) if ((G.sfideMie || {})[sid]) this.esitiAltri[sid] = es;
+    },
+    async pubblica(subito = false) {
+      if (!this.disponibile()) return;
+      const ora = Date.now();
+      const tutte = Object.values(G.sfideMie || {}).filter(s => ora - s.creata < 3 * DURATA_SFIDA).sort((a, b) => b.creata - a.creata).slice(0, 20);
+      const doc = { nick: G.nick || "", destinatari: [], sfide: {}, esiti: {} };
+      for (const s of tutte) {
+        if (s.da === Online.id) {
+          doc.sfide[s.sid] = { a: s.a, aNick: s.aNick || "", daNick: G.nick || "", fraseId: s.fraseId, livello: s.livello, creata: s.creata };
+          if (!doc.destinatari.includes(s.a)) doc.destinatari.push(s.a);
+        }
+        doc.esiti[s.sid] = { acc: s.acc || 0, rif: s.rif || 0, fatto: s.fatto || 0, rec: s.rec || 0 };
+      }
+      const chiave = JSON.stringify(doc);
+      if (chiave === this.ultimoDoc) return;
+      const attesa = subito ? 0 : 5000 - (ora - this.ultimaScrittura);
+      if (attesa > 0) { if (!this.attesa) this.attesa = setTimeout(() => { this.attesa = null; this.pubblica(); }, attesa); return; }
+      this.ultimaScrittura = ora;
+      try { await this.base().collection("sfide").doc(Online.id).set({ ...doc, agg: ora }); this.ultimoDoc = chiave; } catch (e) {}
+    }
+  };
+
+  // ---------- amici ----------
+  const sonoAmici = id => (G.amici || []).some(a => a.id === id);
+  function aggiungiAmico(id, nick) {
+    if (!id || id === Online.id || sonoAmici(id)) return;
+    G.amici = [...(G.amici || []), { id, nick: nick || "?" }];
+    salva();
+    avviso(t("am_aggiunto", { nick: nick || "?" }), "oro");
+  }
+  function rimuoviAmico(id) {
+    G.amici = (G.amici || []).filter(a => a.id !== id);
+    salva();
+    disegnaAmici();
+  }
+  // aspetto di un amico preso dalle classifiche (se c'è)
+  function rigaDi(id) {
+    for (const m of MODI) { const r = (Online.righe[m] || []).find(x => x.id === id); if (r) return r; }
+    return null;
+  }
+  function scriviBadgeAmici() {
+    const daRispondere = Object.values(G.sfideMie || {}).filter(s => s.a === Online.id && !s.acc && !s.esito).length;
+    $("badgeAmici").textContent = daRispondere || "";
+    $("badgeAmici").classList.toggle("vis", daRispondere > 0);
+  }
+  function apriAmici() { disegnaAmici(); apri("veloAmici"); }
+  function disegnaAmici() {
+    const ora = Date.now();
+    $("amOffline").hidden = Sfide.disponibile();
+    // sfide: prima quelle da accettare, poi quelle in corso, poi le ultime finite
+    const box = $("amSfide");
+    box.innerHTML = "";
+    const ordine = s => (s.esito ? 3 : !s.acc && s.a === Online.id ? 0 : s.acc ? 1 : 2);
+    const lista = Object.values(G.sfideMie || {}).sort((a, b) => ordine(a) - ordine(b) || b.creata - a.creata).slice(0, 12);
+    if (!lista.length) box.innerHTML = `<p class="tappe-info">${t("am_nessuna")}</p>`;
+    for (const s of lista) {
+      const opp = avversario(s), lv = LIVELLI_SFIDA[s.livello] || LIVELLI_SFIDA.facile, L = testoSfida(s).length;
+      const d = document.createElement("div");
+      d.className = "sfida" + (s.esito ? " finita esito-" + s.esito : "");
+      const testa = document.createElement("div"); testa.className = "sfida-testa";
+      testa.textContent = `${lv.ico} ${t("sf_liv_" + s.livello)} · ${opp.nick}`;
+      const frase = document.createElement("div"); frase.className = "sfida-frase"; frase.textContent = "«" + titoloSfida(s) + "» · " + caratteri(L);
+      const stato = document.createElement("div"); stato.className = "sfida-stato";
+      const altro = Sfide.esitiAltri[s.sid] || {};
+      if (s.esito === "vinta") stato.textContent = t("sf_vinta", { n: fmt(s.premio || 0), p: lv.pagine });
+      else if (s.esito) stato.textContent = t("sf_" + s.esito, { nick: opp.nick });
+      else if (!s.acc && s.a === Online.id) stato.textContent = t("sf_stato_ricevuta", { nick: opp.nick }) + " · " + t("sf_premio", { ore: durataBreve(lv.ore), p: lv.pagine });
+      else if (!s.acc) stato.textContent = t("sf_stato_attesa", { nick: opp.nick });
+      else {
+        stato.textContent = t("sf_stato_corsa", { a: s.rec || 0, b: altro.rec || 0, l: L, nick: opp.nick }) + " · " + t("sf_scade", { t: fmtTempo(Math.max(0, (s.acc + DURATA_SFIDA - ora) / 1000)) });
+        const barre = document.createElement("div"); barre.className = "sfida-barre";
+        barre.innerHTML = `<i style="width:${Math.round(100 * (s.rec || 0) / L)}%"></i><i class="loro" style="width:${Math.round(100 * (altro.rec || 0) / L)}%"></i>`;
+        stato.appendChild(barre);
+      }
+      d.append(testa, frase, stato);
+      if (!s.acc && !s.esito && s.a === Online.id) {
+        const az = document.createElement("div"); az.className = "sfida-azioni";
+        const si = document.createElement("button"); si.className = "pulsante piccolo"; si.textContent = t("sf_accetta");
+        si.onclick = () => {
+          s.acc = Date.now();
+          if (!sonoAmici(s.da)) G.amici = [...(G.amici || []), { id: s.da, nick: s.daNick || "?" }];
+          salva(); Sfide.pubblica(true); avviso(t("sf_via"), "oro"); disegnaAmici(); scriviBadgeAmici();
+        };
+        const no = document.createElement("button"); no.className = "pulsante secondario piccolo"; no.textContent = t("sf_rifiuta");
+        no.onclick = () => { s.rif = Date.now(); s.esito = "rifiutata"; salva(); Sfide.pubblica(true); disegnaAmici(); scriviBadgeAmici(); };
+        az.append(si, no);
+        d.appendChild(az);
+      }
+      box.appendChild(d);
+    }
+    // amici
+    const am = $("amLista");
+    am.innerHTML = "";
+    if (!(G.amici || []).length) am.innerHTML = `<p class="tappe-info">${t("am_vuoto")}</p>`;
+    for (const a of G.amici || []) {
+      const r = rigaDi(a.id) || {};
+      const riga = document.createElement("div"); riga.className = "amico";
+      const av = document.createElement("span"); av.className = "avatar-pg"; mostraAvatar(av, r.avatar);
+      const nome = document.createElement("span"); nome.className = "amico-nome"; mostraNome(nome, (r.nick || a.nick || "?"), r.colore, r.effetto);
+      const sf = document.createElement("button"); sf.className = "pulsante piccolo"; sf.textContent = t("am_sfida_btn");
+      sf.disabled = !Sfide.disponibile() || Object.values(G.sfideMie || {}).some(s => !s.esito && avversario(s).id === a.id);
+      sf.onclick = () => apriSceltaSfida(a);
+      const via = document.createElement("button"); via.className = "info-i togli-amico"; via.textContent = "✕"; via.setAttribute("aria-label", t("am_rimuovi"));
+      via.onclick = () => rimuoviAmico(a.id);
+      riga.append(av, nome, sf, via);
+      am.appendChild(riga);
+    }
+  }
+  function apriSceltaSfida(amico) {
+    $("sfTitolo").textContent = t("sf_scegli_tit", { nick: amico.nick });
+    const box = $("sfLivelli");
+    box.innerHTML = "";
+    for (const [id, lv] of Object.entries(LIVELLI_SFIDA)) {
+      const b = document.createElement("button");
+      b.className = "livello-sfida";
+      b.innerHTML = `<b></b><small></small>`;
+      b.querySelector("b").textContent = `${lv.ico} ${t("sf_liv_" + id)}`;
+      b.querySelector("small").textContent = t("sf_liv_info", { min: lv.min, max: lv.max, ore: durataBreve(lv.ore), p: lv.pagine });
+      b.onclick = () => lanciaSfida(amico, id);
+      box.appendChild(b);
+    }
+    apri("veloSceltaSfida");
+  }
+  function lanciaSfida(amico, livello) {
+    const o = frasePerSfida(livello);
+    const sid = String(Online.id).slice(0, 6) + Date.now().toString(36);
+    G.sfideMie = G.sfideMie || {};
+    G.sfideMie[sid] = { sid, da: Online.id, a: amico.id, daNick: G.nick || "", aNick: amico.nick, fraseId: o.id, livello, creata: Date.now() };
+    salva();
+    Sfide.pubblica(true);
+    Sfide.aggiornaAscolti();
+    chiudi("veloSceltaSfida");
+    avviso(t("sf_inviata", { nick: amico.nick }), "oro");
+    disegnaAmici();
   }
 
   // ---------- collezione di pagine autografe ----------
@@ -9149,6 +9692,10 @@
     $("veloPagina").onclick = e => { if (e.target.id === "veloPagina") chiudi("veloPagina"); };
     $("cesto").onclick = raccogliCesto;
     $("bEvInfo").onclick = apriInfoEventi;
+    $("bAmici").onclick = apriAmici;
+    $("bAmChiudi").onclick = () => chiudi("veloAmici");
+    $("veloAmici").onclick = e => { if (e.target.id === "veloAmici") chiudi("veloAmici"); };
+    $("bSfChiudi").onclick = () => chiudi("veloSceltaSfida");
     $("bEvChiudi").onclick = () => chiudi("veloEventi");
     $("veloEventi").onclick = e => { if (e.target.id === "veloEventi") chiudi("veloEventi"); };
     $("bPubblica").onclick = pubblica;
@@ -9323,6 +9870,7 @@
     if (ora - ultimoLento > 1000) {
       automazioni();
       gestisciEventi();
+      if (G.sfideMie && Object.keys(G.sfideMie).length && (R.giroSfide = (R.giroSfide || 0) + 1) % 10 === 0) aggiornaSfide();
       controllaTraguardi(); disegnaBadge();
       if (vistaAttiva("traguardi")) disegnaTraguardi();
       if (R.nelMenu) scriviMenuIniziale();
