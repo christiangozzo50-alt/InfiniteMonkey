@@ -457,16 +457,26 @@
   .bottone-ruota .pallino-r { position: absolute; top: -3px; right: -3px; width: 12px; height: 12px; border-radius: 50%; background: var(--nastro); border: 2px solid var(--foglia-1); display: none; }
   .bottone-ruota.pronta { border-color: var(--banana); animation: bonus-pulsa 2.4s ease-in-out infinite; }
   .bottone-ruota.pronta .pallino-r { display: block; }
-  .ruota-finestra { text-align: center; }
-  .ruota-box { position: relative; width: min(290px, 74vw); aspect-ratio: 1; margin: 8px auto 6px; }
+  .ruota-finestra { text-align: center; max-height: calc(100dvh - 40px); overflow-y: auto; padding-top: 16px; }
+  .ruota-finestra h2 { margin-top: 0 !important; }
+  .ruota-box { position: relative; width: min(270px, 70vw, 42dvh); aspect-ratio: 1; margin: 8px auto 6px; }
   .ruota-box svg { width: 100%; height: 100%; display: block; transition: transform 4.6s cubic-bezier(.1, .7, .12, 1); filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .45)); }
   .ruota-freccia { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; z-index: 2;
     border-left: 14px solid transparent; border-right: 14px solid transparent; border-top: 26px solid #ff4d6d; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .55)); }
   .ruota-esito { min-height: 44px; font-weight: 800; font-size: 16px; line-height: 1.35; margin: 4px 0 8px; }
   .ruota-esito.vinto { color: var(--banana); }
-  .ruota-info { margin-top: 10px; text-align: left; }
-  .ruota-info summary { cursor: pointer; color: var(--spento); font-size: 13px; font-weight: 700; }
-  .ruota-premi { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; font-size: 12.5px; color: var(--spento); margin-top: 6px; }
+  .ruota-prob { display: block; width: 100%; margin: 4px 0 6px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--banana);
+    background: rgba(255, 210, 63, .12); color: var(--banana); font: inherit; font-weight: 800; font-size: 14px; cursor: pointer; }
+  .ruota-prob[aria-expanded="true"] { background: rgba(255, 210, 63, .22); }
+  .ruota-legg { margin: 0 0 4px; font-size: 13px; font-weight: 800; color: #ffd23f; text-shadow: 0 0 8px rgba(255, 210, 63, .45); }
+  .ruota-premi .rp-raro { color: #f0abfc; }
+  .ruota-premi .rp-leggendario { color: #ffd23f; font-weight: 800; }
+  .ruota-premi .rp-nonComune { color: #c4b5fd; }
+
+  .ruota-premi { display: grid; grid-template-columns: 1fr auto; gap: 5px 12px; font-size: 13px; color: var(--testo); margin: 0 0 8px; padding: 10px 12px;
+    text-align: left; border-radius: 12px; background: var(--foglia-2); border: 1px solid var(--bordo); }
+  .ruota-premi[hidden] { display: none; }
+  .ruota-premi b { text-align: right; font-variant-numeric: tabular-nums; }
   .bottone-amici { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; font-size: 19px; }
   .bottone-amici .pallino { top: -4px; right: -4px; }
   .sfida { background: var(--foglia-2); border-radius: 14px; padding: 10px 12px; margin-bottom: 8px; }
@@ -1540,7 +1550,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 58</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 61</p>
   </div>
 </div>
 
@@ -1963,11 +1973,12 @@
 <div class="velo centro sopra" id="veloRuota">
   <div class="finestra ruota-finestra" role="dialog" aria-modal="true" aria-labelledby="titRuota">
     <h2 id="titRuota" data-t="ruota_tit"></h2>
-    <p class="sotto" data-t="ruota_sotto"></p>
     <div class="ruota-box"><div class="ruota-freccia"></div><div id="ruotaDisco"></div></div>
+    <p class="ruota-legg" id="ruotaLegg"></p>
+    <button class="ruota-prob" id="bRuotaProb" aria-expanded="false"></button>
+    <div class="ruota-premi" id="ruotaPremi" hidden></div>
     <p class="ruota-esito" id="ruotaEsito"></p>
     <div class="azioni"><button class="pulsante" id="bGira"></button><button class="pulsante secondario" id="bRuotaChiudi" data-t="chiudi"></button></div>
-    <details class="ruota-info"><summary data-t="ruota_premi"></summary><div class="ruota-premi" id="ruotaPremi"></div></details>
   </div>
 </div>
 <div class="velo centro sopra" id="veloConferma">
@@ -2851,20 +2862,20 @@
       tour10_1: "📚 Da qui vedi i livelli: ognuno ha almeno 2 lettere in più del precedente. Le frasi libere si sbloccano quando superi un livello lungo quanto loro.",
       tour10_2: "💱 Gli Scambi ora sono qui, negli Amici: quando un amico ti invita la finestra si apre da sola.",
       ruota_tit: "Ruota della fortuna",
-      ruota_sotto: "Una volta al giorno gira la ruota: ogni spicchio ha la stessa probabilità.",
+      ruota_sotto: "Una volta al giorno gira la ruota. I premi cambiano ogni giorno: più un premio è raro, più il suo spicchio è piccolo.",
       ruota_gira: "Gira!",
       ruota_domani: "Torna tra {t}",
       ruota_gia: "Oggi l'hai già girata: torna domani!",
-      ruota_premi: "Cosa puoi vincere",
+      ruota_premi: "Premi di oggi e probabilità",
       ruota_et_min: "{n} min",
       ruota_et_ore: "{n} h",
       ruota_et_cassa: "Cassa",
-      ruota_et_argento: "Argento",
+      ruota_et_argento: "Cassa argento",
       ruota_et_ogg: "Oggetto",
       ruota_d_banane: "Banane: {t} di raccolto",
       ruota_d_pagine: "{n} Pagine d'oro",
       ruota_d_scimmie: "+{n}% scimmie per sempre",
-      ruota_d_ogg: "Un avatar, un colore o una scritta a caso",
+      ruota_d_ogg: "Un oggetto comune o raro a caso",
       ruota_v_banane: "Hai vinto {n} banane!",
       ruota_v_bonus: "Hai vinto {ico} {nome}: è nello zaino!",
       ruota_v_cassa: "Hai vinto una {nome} gratis: aprila nel Negozio!",
@@ -2878,11 +2889,32 @@
       prom_mini: "il premio grande dei minigiochi",
       prom_pot: "{n} potenziamenti da comprare",
       prom_intro: "Ti aspettano:",
-      nov11_1: "🎡 Ruota della fortuna: una volta al giorno la giri e vinci banane, scimmie, potenziamenti, casse, pagine d'oro o un oggetto",
+      nov11_1: "🎡 Ruota della fortuna: una volta al giorno la giri; i premi cambiano ogni giorno, i più rari hanno lo spicchio più piccolo e c'è sempre un oggetto leggendario molto raro",
       nov11_2: "📜 Le frasi dei livelli sono sempre intere: un'opera breve tutta intera o frasi complete, mai tagliate a metà",
       nov11_3: "🔔 Promemoria: ogni mezz'ora ti ricordo potenziamenti da comprare, premi da prendere e la ruota pronta (con le notifiche attive arrivano anche col gioco in sottofondo)",
       nov11_4: "🎲 Gli eventi in ufficio tornano ogni 4-8 minuti",
-      tour11_1: "🎡 Questa è la Ruota della fortuna: girala una volta al giorno. Quando è pronta il pulsante si illumina."
+      tour11_1: "🎡 Questa è la Ruota della fortuna: girala una volta al giorno. Quando è pronta il pulsante si illumina.",
+      ruota_oggi_legg: "🌟 Oggi in palio: {nome} (leggendario, {p}%)",
+      ruota_d_epico: "Un oggetto epico a caso",
+      ruota_d_legg: "Leggendario del giorno: {nome}",
+      ruota_v_legg: "JACKPOT! Hai vinto l'oggetto leggendario {nome}!",
+      nov12_1: "🎡 La ruota cambia premi ogni giorno: i premi rari hanno lo spicchio più piccolo e ogni giorno c'è un oggetto leggendario in palio (2%)",
+      tour12_1: "🎡 Apri la ruota per vedere i premi di oggi e l'oggetto leggendario in palio: più un premio è raro, più il suo spicchio è piccolo.",
+      ruota_prob_vedi: "Vedi le probabilità dei premi",
+      ruota_prob_nascondi: "Nascondi le probabilità",
+      ruota_ora: "{n} ora",
+      ruota_ore: "{n} ore",
+      ruota_et_ban_t: "Raccolto {t}",
+      ruota_et_vel: "Veloc. ×{x}",
+      ruota_et_sc: "Scimmie ×{x}",
+      ruota_et_ban: "Banane ×{x}",
+      ruota_et_salto: "Salto {n}h",
+      ruota_et_pag: "{n} pagine",
+      ruota_et_cuc: "Scimmie +{n}%",
+      ruota_et_legno: "Cassa legno",
+      ruota_et_epico: "Ogg. epico",
+      ruota_breve_min: "{n}m",
+      ruota_breve_ore: "{n}h"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -3740,20 +3772,20 @@
       tour10_1: "📚 Here you see the levels: each has at least 2 more letters than the last. Free phrases unlock when you clear a level as long as they are.",
       tour10_2: "💱 Trades are now here, in Friends: when a friend invites you the window opens by itself.",
       ruota_tit: "Wheel of fortune",
-      ruota_sotto: "Spin the wheel once a day: every slice has the same chance.",
+      ruota_sotto: "Spin the wheel once a day. Prizes change every day: the rarer a prize, the smaller its slice.",
       ruota_gira: "Spin!",
       ruota_domani: "Come back in {t}",
       ruota_gia: "You've already spun today: come back tomorrow!",
-      ruota_premi: "What you can win",
+      ruota_premi: "Today's prizes and chances",
       ruota_et_min: "{n} min",
       ruota_et_ore: "{n} h",
       ruota_et_cassa: "Crate",
-      ruota_et_argento: "Silver",
+      ruota_et_argento: "Silver crate",
       ruota_et_ogg: "Item",
       ruota_d_banane: "Bananas: {t} of harvest",
       ruota_d_pagine: "{n} Golden Pages",
       ruota_d_scimmie: "+{n}% monkeys forever",
-      ruota_d_ogg: "A random avatar, colour or animated name",
+      ruota_d_ogg: "A random common or rare item",
       ruota_v_banane: "You won {n} bananas!",
       ruota_v_bonus: "You won {ico} {nome}: it's in your backpack!",
       ruota_v_cassa: "You won a free {nome}: open it in the Shop!",
@@ -3767,11 +3799,32 @@
       prom_mini: "the mini-games big prize",
       prom_pot: "{n} upgrades to buy",
       prom_intro: "Waiting for you:",
-      nov11_1: "🎡 Wheel of fortune: once a day you spin it and win bananas, monkeys, boosts, crates, Golden Pages or an item",
+      nov11_1: "🎡 Wheel of fortune: spin it once a day; prizes change daily, rarer prizes have smaller slices and there's always a very rare legendary item",
       nov11_2: "📜 Level phrases are always complete: a whole short work or full sentences, never cut in half",
       nov11_3: "🔔 Reminders: every half hour I remind you of upgrades to buy, prizes to collect and the wheel when it's ready (with notifications on they also arrive with the game in the background)",
       nov11_4: "🎲 Office events are back to every 4-8 minutes",
-      tour11_1: "🎡 This is the Wheel of fortune: spin it once a day. When it's ready the button lights up."
+      tour11_1: "🎡 This is the Wheel of fortune: spin it once a day. When it's ready the button lights up.",
+      ruota_oggi_legg: "🌟 Up for grabs today: {nome} (legendary, {p}%)",
+      ruota_d_epico: "A random epic item",
+      ruota_d_legg: "Legendary of the day: {nome}",
+      ruota_v_legg: "JACKPOT! You won the legendary {nome}!",
+      nov12_1: "🎡 The wheel changes prizes every day: rare prizes have smaller slices and every day there's a legendary item up for grabs (2%)",
+      tour12_1: "🎡 Open the wheel to see today's prizes and the legendary item up for grabs: the rarer a prize, the smaller its slice.",
+      ruota_prob_vedi: "See the prize chances",
+      ruota_prob_nascondi: "Hide the chances",
+      ruota_ora: "{n} hour",
+      ruota_ore: "{n} hours",
+      ruota_et_ban_t: "Harvest {t}",
+      ruota_et_vel: "Speed ×{x}",
+      ruota_et_sc: "Monkeys ×{x}",
+      ruota_et_ban: "Bananas ×{x}",
+      ruota_et_salto: "Skip {n}h",
+      ruota_et_pag: "{n} pages",
+      ruota_et_cuc: "Monkeys +{n}%",
+      ruota_et_legno: "Wood crate",
+      ruota_et_epico: "Epic item",
+      ruota_breve_min: "{n}m",
+      ruota_breve_ore: "{n}h"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -4629,20 +4682,20 @@
       tour10_1: "📚 Aquí ves los niveles: cada uno tiene al menos 2 letras más que el anterior. Las frases libres se desbloquean al superar un nivel igual de largo.",
       tour10_2: "💱 Los Intercambios ahora están aquí, en Amigos: cuando un amigo te invita, la ventana se abre sola.",
       ruota_tit: "Rueda de la fortuna",
-      ruota_sotto: "Gira la rueda una vez al día: cada porción tiene la misma probabilidad.",
+      ruota_sotto: "Gira la rueda una vez al día. Los premios cambian cada día: cuanto más raro es un premio, más pequeña es su porción.",
       ruota_gira: "¡Girar!",
       ruota_domani: "Vuelve en {t}",
       ruota_gia: "Hoy ya la has girado: ¡vuelve mañana!",
-      ruota_premi: "Qué puedes ganar",
+      ruota_premi: "Premios de hoy y probabilidades",
       ruota_et_min: "{n} min",
       ruota_et_ore: "{n} h",
       ruota_et_cassa: "Caja",
-      ruota_et_argento: "Plata",
+      ruota_et_argento: "Caja plata",
       ruota_et_ogg: "Objeto",
       ruota_d_banane: "Plátanos: {t} de cosecha",
       ruota_d_pagine: "{n} Páginas de oro",
       ruota_d_scimmie: "+{n}% monos para siempre",
-      ruota_d_ogg: "Un avatar, color o letra animada al azar",
+      ruota_d_ogg: "Un objeto común o raro al azar",
       ruota_v_banane: "¡Has ganado {n} plátanos!",
       ruota_v_bonus: "¡Has ganado {ico} {nome}: está en la mochila!",
       ruota_v_cassa: "¡Has ganado una {nome} gratis: ábrela en la Tienda!",
@@ -4656,11 +4709,32 @@
       prom_mini: "el premio grande de los minijuegos",
       prom_pot: "{n} mejoras por comprar",
       prom_intro: "Te esperan:",
-      nov11_1: "🎡 Rueda de la fortuna: una vez al día la giras y ganas plátanos, monos, bonus, cajas, Páginas de oro o un objeto",
+      nov11_1: "🎡 Rueda de la fortuna: la giras una vez al día; los premios cambian cada día, los más raros tienen la porción más pequeña y siempre hay un objeto legendario muy raro",
       nov11_2: "📜 Las frases de los niveles siempre están completas: una obra breve entera o frases completas, nunca cortadas por la mitad",
       nov11_3: "🔔 Recordatorios: cada media hora te recuerdo mejoras por comprar, premios por recoger y la rueda lista (con las notificaciones activas llegan también con el juego en segundo plano)",
       nov11_4: "🎲 Los eventos de la oficina vuelven a ser cada 4-8 minutos",
-      tour11_1: "🎡 Esta es la Rueda de la fortuna: gírala una vez al día. Cuando está lista, el botón se ilumina."
+      tour11_1: "🎡 Esta es la Rueda de la fortuna: gírala una vez al día. Cuando está lista, el botón se ilumina.",
+      ruota_oggi_legg: "🌟 Hoy en juego: {nome} (legendario, {p}%)",
+      ruota_d_epico: "Un objeto épico al azar",
+      ruota_d_legg: "Legendario del día: {nome}",
+      ruota_v_legg: "¡JACKPOT! ¡Has ganado el objeto legendario {nome}!",
+      nov12_1: "🎡 La rueda cambia de premios cada día: los raros tienen la porción más pequeña y cada día hay un objeto legendario en juego (2%)",
+      tour12_1: "🎡 Abre la rueda para ver los premios de hoy y el objeto legendario en juego: cuanto más raro, más pequeña la porción.",
+      ruota_prob_vedi: "Ver las probabilidades",
+      ruota_prob_nascondi: "Ocultar probabilidades",
+      ruota_ora: "{n} hora",
+      ruota_ore: "{n} horas",
+      ruota_et_ban_t: "Cosecha {t}",
+      ruota_et_vel: "Veloc. ×{x}",
+      ruota_et_sc: "Monos ×{x}",
+      ruota_et_ban: "Plát. ×{x}",
+      ruota_et_salto: "Salto {n}h",
+      ruota_et_pag: "{n} pág.",
+      ruota_et_cuc: "Monos +{n}%",
+      ruota_et_legno: "Caja madera",
+      ruota_et_epico: "Obj. épico",
+      ruota_breve_min: "{n}m",
+      ruota_breve_ore: "{n}h"
     },
 
     // ------------------------------------------------------------- 中文
@@ -5518,11 +5592,11 @@
       tour10_1: "📚 在这里查看关卡：每关至少比上一关多 2 个字母。通过同样长度的关卡后，自由句子就会解锁。",
       tour10_2: "💱 交易现在在这里的“好友”中：好友邀请你时窗口会自动打开。",
       ruota_tit: "幸运转盘",
-      ruota_sotto: "每天转一次：每个扇区的概率都一样。",
+      ruota_sotto: "每天转一次。奖品每天都会变：奖品越稀有，扇区越小。",
       ruota_gira: "转！",
       ruota_domani: "{t} 后再来",
       ruota_gia: "今天已经转过了：明天再来！",
-      ruota_premi: "可以赢得什么",
+      ruota_premi: "今日奖品和概率",
       ruota_et_min: "{n} 分钟",
       ruota_et_ore: "{n} 小时",
       ruota_et_cassa: "箱子",
@@ -5531,7 +5605,7 @@
       ruota_d_banane: "香蕉：{t} 的收成",
       ruota_d_pagine: "{n} 张金页",
       ruota_d_scimmie: "猴子永久 +{n}%",
-      ruota_d_ogg: "随机头像、颜色或动态字",
+      ruota_d_ogg: "随机普通或稀有物品",
       ruota_v_banane: "你赢得了 {n} 根香蕉！",
       ruota_v_bonus: "你赢得了 {ico} {nome}：已放进背包！",
       ruota_v_cassa: "你赢得了免费的{nome}：去商店打开！",
@@ -5545,11 +5619,32 @@
       prom_mini: "小游戏大奖",
       prom_pot: "{n} 个升级可以购买",
       prom_intro: "等着你的有：",
-      nov11_1: "🎡 幸运转盘：每天转一次，赢香蕉、猴子、加成、箱子、金页或物品",
+      nov11_1: "🎡 幸运转盘：每天转一次；奖品每天变化，越稀有扇区越小，并且总有一个非常稀有的传说物品",
       nov11_2: "📜 关卡句子总是完整的：完整的短作品或完整的句子，绝不截断",
       nov11_3: "🔔 提醒：每半小时提醒你可买的升级、可领的奖品和就绪的转盘（开启通知后，游戏在后台时也会收到）",
       nov11_4: "🎲 办公室事件恢复为每 4-8 分钟一次",
-      tour11_1: "🎡 这是幸运转盘：每天转一次。准备好时按钮会发光。"
+      tour11_1: "🎡 这是幸运转盘：每天转一次。准备好时按钮会发光。",
+      ruota_oggi_legg: "🌟 今日大奖：{nome}（传说，{p}%）",
+      ruota_d_epico: "随机史诗物品",
+      ruota_d_legg: "今日传说：{nome}",
+      ruota_v_legg: "大奖！你赢得了传说物品 {nome}！",
+      nov12_1: "🎡 转盘每天更换奖品：稀有奖品扇区更小，每天都有一个传说物品（2%）",
+      tour12_1: "🎡 打开转盘看看今天的奖品和传说物品：越稀有，扇区越小。",
+      ruota_prob_vedi: "查看奖品概率",
+      ruota_prob_nascondi: "隐藏概率",
+      ruota_ora: "{n} 小时",
+      ruota_ore: "{n} 小时",
+      ruota_et_ban_t: "收成 {t}",
+      ruota_et_vel: "速度 ×{x}",
+      ruota_et_sc: "猴子 ×{x}",
+      ruota_et_ban: "香蕉 ×{x}",
+      ruota_et_salto: "跳跃 {n}h",
+      ruota_et_pag: "{n} 金页",
+      ruota_et_cuc: "猴子 +{n}%",
+      ruota_et_legno: "木箱",
+      ruota_et_epico: "史诗物品",
+      ruota_breve_min: "{n}分",
+      ruota_breve_ore: "{n}时"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -6407,20 +6502,20 @@
       tour10_1: "📚 Ici tu vois les niveaux : chacun a au moins 2 lettres de plus que le précédent. Les phrases libres se débloquent quand tu passes un niveau aussi long qu'elles.",
       tour10_2: "💱 Les Échanges sont maintenant ici, dans Amis : quand un ami t'invite, la fenêtre s'ouvre toute seule.",
       ruota_tit: "Roue de la fortune",
-      ruota_sotto: "Fais tourner la roue une fois par jour : chaque part a la même chance.",
+      ruota_sotto: "Fais tourner la roue une fois par jour. Les prix changent chaque jour : plus un prix est rare, plus sa part est petite.",
       ruota_gira: "Tourner !",
       ruota_domani: "Reviens dans {t}",
       ruota_gia: "Tu l'as déjà tournée aujourd'hui : reviens demain !",
-      ruota_premi: "Ce que tu peux gagner",
+      ruota_premi: "Prix du jour et chances",
       ruota_et_min: "{n} min",
       ruota_et_ore: "{n} h",
       ruota_et_cassa: "Coffre",
-      ruota_et_argento: "Argent",
+      ruota_et_argento: "Coffre argent",
       ruota_et_ogg: "Objet",
       ruota_d_banane: "Bananes : {t} de récolte",
       ruota_d_pagine: "{n} Pages d'or",
       ruota_d_scimmie: "+{n} % de singes pour toujours",
-      ruota_d_ogg: "Un avatar, une couleur ou un nom animé au hasard",
+      ruota_d_ogg: "Un objet commun ou rare au hasard",
       ruota_v_banane: "Tu as gagné {n} bananes !",
       ruota_v_bonus: "Tu as gagné {ico} {nome} : il est dans ton sac !",
       ruota_v_cassa: "Tu as gagné un {nome} gratuit : ouvre-le dans la Boutique !",
@@ -6434,11 +6529,32 @@
       prom_mini: "le gros prix des mini-jeux",
       prom_pot: "{n} améliorations à acheter",
       prom_intro: "T'attendent :",
-      nov11_1: "🎡 Roue de la fortune : une fois par jour tu la fais tourner et gagnes des bananes, des singes, des bonus, des coffres, des Pages d'or ou un objet",
+      nov11_1: "🎡 Roue de la fortune : une fois par jour ; les prix changent chaque jour, les plus rares ont la plus petite part et il y a toujours un objet légendaire très rare",
       nov11_2: "📜 Les phrases des niveaux sont toujours complètes : une œuvre courte entière ou des phrases complètes, jamais coupées",
       nov11_3: "🔔 Rappels : toutes les demi-heures je te rappelle les améliorations à acheter, les prix à récupérer et la roue prête (avec les notifications, ils arrivent aussi quand le jeu est en arrière-plan)",
       nov11_4: "🎲 Les événements du bureau reviennent toutes les 4-8 minutes",
-      tour11_1: "🎡 Voici la Roue de la fortune : fais-la tourner une fois par jour. Quand elle est prête, le bouton s'allume."
+      tour11_1: "🎡 Voici la Roue de la fortune : fais-la tourner une fois par jour. Quand elle est prête, le bouton s'allume.",
+      ruota_oggi_legg: "🌟 En jeu aujourd'hui : {nome} (légendaire, {p} %)",
+      ruota_d_epico: "Un objet épique au hasard",
+      ruota_d_legg: "Légendaire du jour : {nome}",
+      ruota_v_legg: "JACKPOT ! Tu as gagné l'objet légendaire {nome} !",
+      nov12_1: "🎡 La roue change de prix chaque jour : les prix rares ont une plus petite part et chaque jour un objet légendaire est en jeu (2 %)",
+      tour12_1: "🎡 Ouvre la roue pour voir les prix du jour et l'objet légendaire en jeu : plus un prix est rare, plus sa part est petite.",
+      ruota_prob_vedi: "Voir les chances des prix",
+      ruota_prob_nascondi: "Masquer les chances",
+      ruota_ora: "{n} heure",
+      ruota_ore: "{n} heures",
+      ruota_et_ban_t: "Récolte {t}",
+      ruota_et_vel: "Vitesse ×{x}",
+      ruota_et_sc: "Singes ×{x}",
+      ruota_et_ban: "Bananes ×{x}",
+      ruota_et_salto: "Saut {n}h",
+      ruota_et_pag: "{n} pages",
+      ruota_et_cuc: "Singes +{n}%",
+      ruota_et_legno: "Coffre bois",
+      ruota_et_epico: "Objet épique",
+      ruota_breve_min: "{n}m",
+      ruota_breve_ore: "{n}h"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -7297,20 +7413,20 @@
       tour10_1: "📚 Здесь уровни: в каждом минимум на 2 буквы больше, чем в предыдущем. Свободные фразы открываются, когда проходишь уровень такой же длины.",
       tour10_2: "💱 Обмены теперь здесь, в «Друзьях»: когда друг приглашает тебя, окно открывается само.",
       ruota_tit: "Колесо фортуны",
-      ruota_sotto: "Крути колесо раз в день: у каждого сектора одинаковый шанс.",
+      ruota_sotto: "Крути колесо раз в день. Призы меняются каждый день: чем реже приз, тем меньше его сектор.",
       ruota_gira: "Крутить!",
       ruota_domani: "Возвращайся через {t}",
       ruota_gia: "Сегодня ты уже крутил: возвращайся завтра!",
-      ruota_premi: "Что можно выиграть",
+      ruota_premi: "Призы дня и шансы",
       ruota_et_min: "{n} мин",
       ruota_et_ore: "{n} ч",
       ruota_et_cassa: "Сундук",
-      ruota_et_argento: "Серебро",
+      ruota_et_argento: "Сер. сундук",
       ruota_et_ogg: "Предмет",
       ruota_d_banane: "Бананы: урожай за {t}",
       ruota_d_pagine: "{n} Золотых страниц",
       ruota_d_scimmie: "+{n}% обезьян навсегда",
-      ruota_d_ogg: "Случайный аватар, цвет или анимированное имя",
+      ruota_d_ogg: "Случайный обычный или редкий предмет",
       ruota_v_banane: "Ты выиграл {n} бананов!",
       ruota_v_bonus: "Ты выиграл {ico} {nome}: он в рюкзаке!",
       ruota_v_cassa: "Ты выиграл бесплатный {nome}: открой его в магазине!",
@@ -7324,11 +7440,32 @@
       prom_mini: "большой приз мини-игр",
       prom_pot: "улучшений можно купить: {n}",
       prom_intro: "Тебя ждут:",
-      nov11_1: "🎡 Колесо фортуны: раз в день крутишь и выигрываешь бананы, обезьян, бонусы, сундуки, Золотые страницы или предмет",
+      nov11_1: "🎡 Колесо фортуны: раз в день; призы меняются ежедневно, у редких сектор меньше, и всегда есть очень редкий легендарный предмет",
       nov11_2: "📜 Фразы уровней всегда целые: короткое произведение полностью или законченные предложения, без обрывов",
       nov11_3: "🔔 Напоминания: каждые полчаса — об улучшениях, призах и готовом колесе (с включёнными уведомлениями приходят и когда игра в фоне)",
       nov11_4: "🎲 События в офисе снова каждые 4-8 минут",
-      tour11_1: "🎡 Это Колесо фортуны: крути его раз в день. Когда оно готово, кнопка светится."
+      tour11_1: "🎡 Это Колесо фортуны: крути его раз в день. Когда оно готово, кнопка светится.",
+      ruota_oggi_legg: "🌟 Сегодня разыгрывается: {nome} (легендарный, {p}%)",
+      ruota_d_epico: "Случайный эпический предмет",
+      ruota_d_legg: "Легендарный предмет дня: {nome}",
+      ruota_v_legg: "ДЖЕКПОТ! Ты выиграл легендарный предмет {nome}!",
+      nov12_1: "🎡 Призы колеса меняются каждый день: у редких сектор меньше, и каждый день разыгрывается легендарный предмет (2%)",
+      tour12_1: "🎡 Открой колесо, чтобы увидеть призы дня и легендарный предмет: чем реже приз, тем меньше сектор.",
+      ruota_prob_vedi: "Шансы призов",
+      ruota_prob_nascondi: "Скрыть шансы",
+      ruota_ora: "{n} час",
+      ruota_ore: "{n} часа",
+      ruota_et_ban_t: "Урожай {t}",
+      ruota_et_vel: "Скор. ×{x}",
+      ruota_et_sc: "Обез. ×{x}",
+      ruota_et_ban: "Бананы ×{x}",
+      ruota_et_salto: "Скачок {n}ч",
+      ruota_et_pag: "{n} стр.",
+      ruota_et_cuc: "Обез. +{n}%",
+      ruota_et_legno: "Дер. сундук",
+      ruota_et_epico: "Эпич. предм.",
+      ruota_breve_min: "{n}м",
+      ruota_breve_ore: "{n}ч"
     }
   };
 
@@ -13931,46 +14068,128 @@
   const ruotaPronta = () => !!G && G.ruotaGiorno !== oggi();
   const secondiADomani = () => { const d = new Date(); return Math.max(1, (new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1) - d) / 1000); };
   const bananeRuota = sec => Math.max(sec / 6, produzioneBase() * sec);
-  function oggettoRuota() {
-    // un oggetto a caso: 60% comune, 30% raro, 10% epico (quelli che non hai valgono tre volte tanto)
-    const tiro = Math.random() * 100, rar = tiro < 60 ? 0 : tiro < 90 ? 1 : 2;
-    const lista = ESTETICI.filter(x => x.r === rar && !x.g);
+  // generatore di numeri casuali con un seme: con la stessa data tutti i giocatori hanno la stessa ruota
+  function casoDelGiorno(testo) {
+    let h = 2166136261;
+    for (const ch of testo) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); }
+    return () => {
+      h = (h + 0x6D2B79F5) | 0;
+      let x = Math.imul(h ^ (h >>> 15), 1 | h);
+      x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x;
+      return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  // un oggetto a caso tra queste rarità (quelli che non hai valgono tre volte tanto)
+  function oggettoRuota(rarita) {
+    const lista = ESTETICI.filter(x => rarita.includes(x.r) && !x.g);
     let tl = Math.random() * lista.reduce((a, x) => a + (possiede(x.id) ? 1 : 3), 0), scelta = lista[0];
     for (const x of lista) { tl -= possiede(x.id) ? 1 : 3; if (tl < 0) { scelta = x; break; } }
     aggiungiOggetto(scelta.id);
     return scelta;
   }
   const bonusRuota = id => { G.zaino = { ...(G.zaino || {}), [id]: ((G.zaino || {})[id] || 0) + 1 }; return t("ruota_v_bonus", { ico: BONUS[id].ico, nome: nomeBonus(id) }); };
-  const RUOTA = [
-    { ico: "🍌", et: () => t("ruota_et_min", { n: 30 }), desc: () => t("ruota_d_banane", { t: fmtBreve(1800) }), dai: () => { const n = bananeRuota(1800); G.banane += n; return t("ruota_v_banane", { n: fmtB(n) }); } },
-    { ico: "⚡", et: () => "×" + BONUS.vel5.molt, desc: () => BONUS.vel5.ico + " " + nomeBonus("vel5"), dai: () => bonusRuota("vel5") },
-    { ico: "📦", et: () => t("ruota_et_cassa"), desc: () => t("cassa_legno"), dai: () => { cambiaCasseGratis("legno", 1); return t("ruota_v_cassa", { nome: t("cassa_legno") }); } },
-    { ico: "🐒", et: () => "×" + BONUS.sc2.molt, desc: () => BONUS.sc2.ico + " " + nomeBonus("sc2"), dai: () => bonusRuota("sc2") },
-    { ico: "🍌", et: () => t("ruota_et_ore", { n: 2 }), desc: () => t("ruota_d_banane", { t: fmtBreve(7200) }), dai: () => { const n = bananeRuota(7200); G.banane += n; return t("ruota_v_banane", { n: fmtB(n) }); } },
-    { ico: "📃", et: () => "+25", desc: () => t("ruota_d_pagine", { n: 25 }), dai: () => { G.pagine = (G.pagine || 0) + 25; return t("ruota_v_pagine", { n: 25 }); } },
-    { ico: "🍼", et: () => "+10%", desc: () => t("ruota_d_scimmie", { n: 10 }), dai: () => { G.cuccioli = Math.min(1e200, (G.cuccioli || 1) * 1.1); return t("ruota_v_scimmie", { n: 10 }); } },
-    { ico: "⏩", et: () => t("ruota_et_ore", { n: 1 }), desc: () => BONUS.salto1.ico + " " + nomeBonus("salto1"), dai: () => bonusRuota("salto1") },
-    { ico: "✨", et: () => t("ruota_et_ogg"), desc: () => t("ruota_d_ogg"), dai: () => { const o = oggettoRuota(); return t("ruota_v_ogg", { nome: nomeOggetto(o.id), rar: t("rar_" + o.r) }); } },
-    { ico: "🍌", et: () => t("ruota_et_min", { n: 30 }), desc: () => t("ruota_d_banane", { t: fmtBreve(1800) }), dai: () => { const n = bananeRuota(1800); G.banane += n; return t("ruota_v_banane", { n: fmtB(n) }); } },
-    { ico: "🦍", et: () => "×" + BONUS.sc5.molt, desc: () => BONUS.sc5.ico + " " + nomeBonus("sc5"), dai: () => bonusRuota("sc5") },
-    { ico: "🎁", et: () => t("ruota_et_argento"), desc: () => t("cassa_argento"), dai: () => { cambiaCasseGratis("argento", 1); return t("ruota_v_cassa", { nome: t("cassa_argento") }); } }
-  ];
-  const COLORI_RUOTA = ["#ffd23f", "#4ade80", "#38bdf8", "#f472b6", "#a78bfa", "#fb923c"];
+  const vinciBanane = sec => { const n = bananeRuota(sec); G.banane += n; return t("ruota_v_banane", { n: fmtB(n) }); };
+  const vinciPagine = n => { G.pagine = (G.pagine || 0) + n; return t("ruota_v_pagine", { n }); };
+  const vinciScimmie = n => { G.cuccioli = Math.min(1e200, (G.cuccioli || 1) * (1 + n / 100)); return t("ruota_v_scimmie", { n }); };
+  const vinciCassa = id => { cambiaCasseGratis(id, 1); return t("ruota_v_cassa", { nome: t("cassa_" + id) }); };
+  // durata del raccolto in parole ("30 min", "2 ore")
+  const tempoRuota = sec => sec < 3600 ? t("ruota_et_min", { n: sec / 60 }) : t(sec === 3600 ? "ruota_ora" : "ruota_ore", { n: sec / 3600 });
+  const tempoCorto = sec => sec < 3600 ? t("ruota_breve_min", { n: sec / 60 }) : t("ruota_breve_ore", { n: sec / 3600 });
+  const premioBanane = (k, sec) => ({ k, ico: "🍌", et: () => t("ruota_et_ban_t", { t: tempoCorto(sec) }), desc: () => t("ruota_d_banane", { t: tempoRuota(sec) }), dai: () => vinciBanane(sec) });
+  const ET_BONUS = { vel5: "ruota_et_vel", sc2: "ruota_et_sc", sc5: "ruota_et_sc", ban3: "ruota_et_ban" };
+  const premioBonus = (k, ico) => ({ k, ico, et: () => BONUS[k].ore ? t("ruota_et_salto", { n: BONUS[k].ore }) : t(ET_BONUS[k], { x: BONUS[k].molt }),
+    desc: () => nomeBonus(k) + (BONUS[k].ore ? "" : " · " + fmtBreve(BONUS[k].min * 60)), dai: () => bonusRuota(k) });
+  const premioPagine = n => ({ k: "pag" + n, ico: "📃", et: () => t("ruota_et_pag", { n }), desc: () => t("ruota_d_pagine", { n }), dai: () => vinciPagine(n) });
+  const premioScimmie = n => ({ k: "cuc" + n, ico: "🍼", et: () => t("ruota_et_cuc", { n }), desc: () => t("ruota_d_scimmie", { n }), dai: () => vinciScimmie(n) });
+  // i premi possibili, divisi per rarità: più un premio è raro, più il suo spicchio è piccolo
+  const PREMI_RUOTA = {
+    comune: [
+      premioBanane("ban30", 1800), premioBanane("ban1h", 3600),
+      premioBonus("vel5", "⚡"), premioBonus("sc2", "🐒"), premioBonus("ban3", "💰"), premioPagine(10),
+      { k: "legno", ico: "📦", et: () => t("ruota_et_legno"), desc: () => t("cassa_legno"), dai: () => vinciCassa("legno") }
+    ],
+    nonComune: [
+      premioBanane("ban2h", 7200), premioBanane("ban4h", 14400),
+      premioBonus("salto1", "⏩"), premioScimmie(5), premioPagine(25),
+      { k: "ogg", ico: "✨", et: () => t("ruota_et_ogg"), desc: () => t("ruota_d_ogg"), dai: () => { const o = oggettoRuota([0, 1]); return t("ruota_v_ogg", { nome: nomeOggetto(o.id), rar: t("rar_" + o.r) }); } }
+    ],
+    raro: [
+      premioBonus("sc5", "🦍"), premioBonus("salto3", "⏩"), premioPagine(60),
+      { k: "argento", ico: "🎁", et: () => t("ruota_et_argento"), desc: () => t("cassa_argento"), dai: () => vinciCassa("argento") },
+      { k: "epico", ico: "💠", et: () => t("ruota_et_epico"), desc: () => t("ruota_d_epico"), dai: () => { const o = oggettoRuota([2]); return t("ruota_v_ogg", { nome: nomeOggetto(o.id), rar: t("rar_" + o.r) }); } }
+    ]
+  };
+  // quanti spicchi per rarità e la probabilità di ognuno (in tutto 100%)
+  const FASCE_RUOTA = [["comune", 5, 12], ["nonComune", 4, 7], ["raro", 2, 5]];
+  const PESO_LEGGENDARIO = 2;
+  // i premi di oggi: cambiano ogni giorno (uguali per tutti), con un oggetto leggendario molto raro
+  function premiDelGiorno() {
+    const giorno = oggi();
+    if (R.ruotaPremi && R.ruotaPremi.giorno === giorno) return R.ruotaPremi.fette;
+    const caso = casoDelGiorno("ruota-" + giorno);
+    const mescola = lista => { const v = lista.slice(); for (let i = v.length - 1; i > 0; i--) { const j = Math.floor(caso() * (i + 1)); [v[i], v[j]] = [v[j], v[i]]; } return v; };
+    const fette = [];
+    for (const [fascia, quanti, peso] of FASCE_RUOTA) for (const p of mescola(PREMI_RUOTA[fascia]).slice(0, quanti)) fette.push({ ...p, fascia, peso });
+    const leggendari = ESTETICI.filter(x => x.r === 3 && !x.g);
+    const og = leggendari[Math.floor(caso() * leggendari.length)];
+    fette.push({ k: "legg", fascia: "leggendario", peso: PESO_LEGGENDARIO, ogg: og.id, ico: og.t === "a" ? og.v : "🌟", et: () => t("rar_3"),
+      desc: () => t("ruota_d_legg", { nome: nomeOggetto(og.id) }),
+      dai: () => { aggiungiOggetto(og.id); return t("ruota_v_legg", { nome: nomeOggetto(og.id) }); } });
+    // in ordine sparso, ma il leggendario mai vicino a un altro premio raro
+    let giro = mescola(fette);
+    for (let k = 0; k < 20; k++) {
+      const i = giro.findIndex(f => f.fascia === "leggendario"), n = giro.length;
+      if (giro[(i + 1) % n].fascia !== "raro" && giro[(i + n - 1) % n].fascia !== "raro") break;
+      giro = mescola(fette);
+    }
+    R.ruotaPremi = { giorno, fette: giro };
+    return giro;
+  }
+  // dove sta ogni spicchio (in gradi, partendo dall'alto in senso orario)
+  function spicchiRuota(fette) {
+    const tot = fette.reduce((a, f) => a + f.peso, 0);
+    let da = 0;
+    return fette.map(f => { const ampio = 360 * f.peso / tot, x = { da, a: da + ampio, centro: da + ampio / 2, ampio }; da += ampio; return x; });
+  }
+  const COLORI_FASCIA = { comune: ["#ffd23f", "#4ade80", "#38bdf8", "#fb923c", "#f472b6"], nonComune: ["#a78bfa", "#8b5cf6"], raro: ["#e879f9", "#d946ef"] };
   function disegnaRuota() {
-    const n = RUOTA.length, r = 100, c = 110, gradi = 360 / n;
+    const fette = premiDelGiorno(), sp = spicchiRuota(fette), r = 100, c = 110;
     const punto = a => [c + r * Math.sin(a * Math.PI / 180), c - r * Math.cos(a * Math.PI / 180)].map(v => v.toFixed(2)).join(",");
-    let svg = `<svg viewBox="0 0 220 220" id="ruotaSvg" style="transform: rotate(${R.ruotaGiro || 0}deg)">`;
-    svg += `<circle cx="${c}" cy="${c}" r="${r + 5}" fill="#1b2a20" stroke="#ffd23f" stroke-width="4"/>`;
-    RUOTA.forEach((p, i) => {
-      svg += `<path d="M${c},${c} L${punto((i - 0.5) * gradi)} A${r},${r} 0 0 1 ${punto((i + 0.5) * gradi)} Z" fill="${COLORI_RUOTA[i % COLORI_RUOTA.length]}" stroke="#1b2a20" stroke-width="2"/>`;
-      // icona verso il bordo, scritta lungo il raggio (così non tocca gli spicchi vicini)
-      svg += `<g transform="rotate(${i * gradi} ${c} ${c})"><text x="${c}" y="${c - r * 0.8}" text-anchor="middle" dominant-baseline="central" font-size="18">${p.ico}</text>` +
-        `<text transform="translate(${c} ${(c - r * 0.45).toFixed(1)}) rotate(-90)" text-anchor="middle" dominant-baseline="central" font-size="9.5" font-weight="800" fill="#1b2a20">${p.et()}</text></g>`;
+    const conta = {};
+    let svg = `<svg viewBox="0 0 220 220" id="ruotaSvg" style="transform: rotate(${R.ruotaGiro || 0}deg)">` +
+      `<defs><linearGradient id="oroRuota" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff6c9"/><stop offset=".5" stop-color="#ffd23f"/><stop offset="1" stop-color="#ff9f1c"/></linearGradient></defs>` +
+      `<circle cx="${c}" cy="${c}" r="${r + 5}" fill="#1b2a20" stroke="#ffd23f" stroke-width="4"/>`;
+    fette.forEach((f, i) => {
+      const g = sp[i];
+      const tinte = COLORI_FASCIA[f.fascia];
+      const colore = f.fascia === "leggendario" ? "url(#oroRuota)" : tinte[(conta[f.fascia] = (conta[f.fascia] || 0) + 1) % tinte.length];
+      svg += `<path d="M${c},${c} L${punto(g.da)} A${r},${r} 0 ${g.ampio > 180 ? 1 : 0} 1 ${punto(g.a)} Z" fill="${colore}" stroke="${f.fascia === "leggendario" ? "#ff9f1c" : "#1b2a20"}" stroke-width="2"/>`;
+      // icona verso il bordo (più piccola negli spicchi stretti), scritta lungo il raggio solo dove c'è spazio
+      const ico = Math.max(8, Math.min(18, g.ampio * 0.75));
+      svg += `<g transform="rotate(${g.centro.toFixed(2)} ${c} ${c})"><text x="${c}" y="${c - r * (g.ampio < 12 ? 0.86 : 0.8)}" text-anchor="middle" dominant-baseline="central" font-size="${ico.toFixed(1)}">${f.ico}</text>` +
+        (g.ampio >= 12 && f.et() ? (() => {
+          const et = f.et(), lungo = [...et].length, spazio = r * 0.46;
+          const fs = Math.max(6, Math.min(9.5, spazio / (lungo * 0.6), (2 * Math.PI * r * 0.3 * g.ampio / 360) * 0.85));
+          return `<text transform="translate(${c} ${(c - r * 0.45).toFixed(1)}) rotate(-90)" text-anchor="middle" dominant-baseline="central" font-size="${fs.toFixed(1)}" font-weight="800" fill="#1b2a20">${et}</text>`;
+        })() : "") + `</g>`;
     });
     svg += `<circle cx="${c}" cy="${c}" r="17" fill="#1b2a20" stroke="#ffd23f" stroke-width="3"/><text x="${c}" y="${c + 1}" text-anchor="middle" dominant-baseline="central" font-size="17">🐒</text></svg>`;
     $("ruotaDisco").innerHTML = svg;
-    $("ruotaPremi").innerHTML = "";
-    RUOTA.forEach(p => { const sp = document.createElement("span"); sp.textContent = p.ico + " " + p.desc(); $("ruotaPremi").appendChild(sp); });
+    // l'elenco dei premi di oggi con la loro probabilità, dal più facile al più raro
+    const box = $("ruotaPremi");
+    box.innerHTML = "";
+    for (const f of fette.slice().sort((x, y) => y.peso - x.peso)) {
+      const nome = document.createElement("span"), p = document.createElement("b");
+      nome.className = p.className = "rp-" + f.fascia;
+      nome.textContent = f.ico + " " + f.desc();
+      p.textContent = decimale(f.peso) + "%";
+      box.append(nome, p);
+    }
+    const aperta = !box.hidden;
+    $("bRuotaProb").textContent = "📊 " + t(aperta ? "ruota_prob_nascondi" : "ruota_prob_vedi");
+    $("bRuotaProb").setAttribute("aria-expanded", aperta);
+    const leg = fette.find(f => f.fascia === "leggendario");
+    $("ruotaLegg").textContent = t("ruota_oggi_legg", { nome: nomeOggetto(leg.ogg), p: decimale(leg.peso) });
   }
   function scriviRuota() {
     const pronta = ruotaPronta();
@@ -13987,27 +14206,33 @@
   }
   function giraRuota() {
     if (!ruotaPronta() || R.ruotaGira) return;
-    const n = RUOTA.length, i = Math.floor(Math.random() * n);
+    const fette = premiDelGiorno(), sp = spicchiRuota(fette);
+    // estrazione secondo la probabilità di ogni spicchio
+    let tiro = Math.random() * fette.reduce((a, f) => a + f.peso, 0), i = 0;
+    while (i < fette.length - 1 && (tiro -= fette[i].peso) >= 0) i++;
+    const f = fette[i];
     // il premio si dà subito (così non si perde se chiudi il gioco mentre gira), poi la ruota lo mostra
-    const testo = RUOTA[i].dai();
+    const testo = f.dai();
     G.ruotaGiorno = oggi();
     G.ruoteGirate = (G.ruoteGirate || 0) + 1;
+    if (f.fascia === "leggendario") G.ruotaJackpot = (G.ruotaJackpot || 0) + 1;
     salva();
     R.ruotaGira = true;
     $("ruotaEsito").textContent = "";
     $("ruotaEsito").classList.remove("vinto");
     const prima = R.ruotaGiro || 0;
-    const fermo = (360 - i * 360 / n) % 360 + (Math.random() - 0.5) * (360 / n) * 0.6;
+    const fermo = (360 - sp[i].centro) % 360 + (Math.random() - 0.5) * sp[i].ampio * 0.6;
     R.ruotaGiro = prima - (((prima % 360) + 360) % 360) + 360 * 6 + fermo;
     scriviRuota();
     Suono.clic();
     requestAnimationFrame(() => { const sv = $("ruotaSvg"); if (sv) sv.style.transform = "rotate(" + R.ruotaGiro + "deg)"; });
     setTimeout(() => {
       R.ruotaGira = false;
-      $("ruotaEsito").textContent = "🎉 " + testo;
+      $("ruotaEsito").textContent = (f.fascia === "leggendario" ? "🌟 " : "🎉 ") + testo;
       $("ruotaEsito").classList.add("vinto");
       Suono.traguardo();
       avviso("🎡 " + testo, "oro");
+      if (f.fascia === "leggendario" && typeof effettiEvento === "function") { try { effettiEvento("festa", true); } catch (e) {} }
       scriviRuota();
       disegnaTutto(true);
       Online.pubblicaProfilo(true);
@@ -14907,8 +15132,10 @@
       const molt = etichettaMolt(R.evento);
       chip.textContent = `${R.evento.ico} ${t("ev_nome_" + R.evento.id)}` + (molt ? ` · ${molt}` : "") + ` · ${mmss(resto)}`;
     } else {
+      // quanto manca al prossimo evento (minuti e secondi)
+      const manca = Math.ceil(((R.prossimoEvento || ora) - ora) / 1000);
       chip.className = "evento-chip";
-      chip.textContent = "🎲 " + t("ev_sorpresa");
+      chip.textContent = "⏳ " + (manca > 0 ? t("ev_prossimo", { t: mmss(manca) }) : t("ev_breve"));
     }
   }
   function apriInfoEventi() {
@@ -15759,6 +15986,9 @@
     ] },
     { v: 58, voci: 4, chiave: "nov11_", passi: [
       { sel: "#bRuota", testo: "tour11_1", vista: "opera" }
+    ] },
+    { v: 59, voci: 1, chiave: "nov12_", passi: [
+      { sel: "#bRuota", testo: "tour12_1", vista: "opera" }
     ] }
   ];
   const VERSIONE_NOVITA = GRUPPI_NOVITA[GRUPPI_NOVITA.length - 1].v;
@@ -15989,6 +16219,7 @@
     $("bRuota").onclick = apriRuota;
     $("bGira").onclick = giraRuota;
     $("bRuotaChiudi").onclick = () => chiudi("veloRuota");
+    $("bRuotaProb").onclick = () => { $("ruotaPremi").hidden = !$("ruotaPremi").hidden; disegnaRuota(); };
     $("veloRuota").onclick = e => { if (e.target.id === "veloRuota") chiudi("veloRuota"); };
     $("bAmChiudi").onclick = () => chiudi("veloAmici");
     $("veloAmici").onclick = e => { if (e.target.id === "veloAmici") chiudi("veloAmici"); };
