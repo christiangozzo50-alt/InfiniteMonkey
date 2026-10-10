@@ -265,7 +265,8 @@
   .mg-input { width: 100%; box-sizing: border-box; font: inherit; font-size: 20px; padding: 10px 12px; border-radius: 12px; border: 2px solid var(--bordo);
     background: var(--notte); color: var(--testo); text-align: center; }
   .mg-input.errore { border-color: #ff6b6b; }
-  .mg-griglia { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; width: 100%; }
+  .mg-griglia { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; width: 100%; }
+  .mg-griglia .mg-carta .avatar-pg { width: 78%; height: 78%; font-size: 18px; }
   .mg-carta { aspect-ratio: 1; border-radius: 10px; border: 1px solid var(--bordo); background: linear-gradient(135deg, var(--foglia-2), var(--foglia-1));
     display: grid; place-items: center; font-size: 22px; cursor: pointer; transition: transform .15s; padding: 0; color: var(--testo); }
   .mg-carta .avatar-pg { display: none; }
@@ -931,6 +932,43 @@
   .velo.sopra { z-index: 50; }
   #veloGiocatore, #veloSceltaSfida { z-index: 60; }
   #veloPremioMese { z-index: 65; }
+  #veloTrasferito { z-index: 95; }
+  #veloScambi { z-index: 58; }
+  #veloConferma { z-index: 70; }
+  .scambi-carta { background: linear-gradient(120deg, rgba(255, 210, 63, .16), rgba(74, 222, 128, .12)); margin-top: 12px; }
+  .sc-schede { margin: 0 0 10px; }
+  .sc-badge { display: none; margin-left: 6px; min-width: 18px; padding: 0 5px; border-radius: 999px; background: #ff5e5e; color: #fff; font-size: 11px; line-height: 18px; }
+  .sc-badge.vis { display: inline-block; }
+  #scCorpo { max-height: 60vh; overflow-y: auto; margin: 0 -4px; padding: 0 4px; }
+  #scCorpo h4 { margin: 12px 0 6px; font-size: 14px; color: var(--banana); }
+  #scCorpo .sotto { margin: 0 0 8px; }
+  .sc-griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+  .sc-ogg { background: var(--foglia-2); border: 1px solid var(--bordo); border-radius: 12px; padding: 8px 6px; display: grid; place-items: center; gap: 4px;
+    color: var(--testo); font: inherit; font-size: 13px; font-weight: 800; text-align: center; min-height: 64px; cursor: pointer; }
+  .sc-ogg[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--banana); background: var(--accento-tenue); }
+  .sc-ogg small { font-size: 11px; font-weight: 800; }
+  .sc-ogg .avatar-pg { width: 34px; height: 34px; }
+  .sc-ogg.regalo { font-size: 13px; }
+  .sc-pannello { margin: 12px 0 4px; padding: 12px; border-radius: 14px; background: var(--foglia-1); border: 1px solid var(--bordo); display: grid; gap: 8px; text-align: center; }
+  .sc-pannello b { font-size: 15px; }
+  .sc-amici { display: flex; flex-wrap: wrap; gap: 6px; }
+  .sc-amici button { border-radius: 999px; padding: 6px 12px; border: 1px solid var(--bordo); background: var(--foglia-2); color: var(--testo); font: inherit; font-weight: 800; font-size: 13px; }
+  .sc-amici button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--banana); }
+  .sc-prop { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; padding: 10px; border-radius: 12px; background: var(--foglia-2);
+    border: 1px solid var(--bordo); margin-bottom: 8px; }
+  .sc-prop .sc-cosa { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font-size: 13px; }
+  .sc-prop .sc-cosa .avatar-pg { width: 28px; height: 28px; }
+  .sc-prop small { display: block; color: var(--spento); font-size: 12px; margin-top: 3px; }
+  .sc-prop .amico-azioni { display: flex; flex-direction: column; gap: 6px; }
+  #veloAggiorna { z-index: 99; }
+  .ag-finestra { text-align: center; }
+  .ag-ico { font-size: 54px; line-height: 1.1; display: inline-block; animation: ag-gira 2.4s linear infinite; }
+  @keyframes ag-gira { to { transform: rotate(360deg); } }
+  .ag-barra { height: 8px; border-radius: 999px; background: var(--foglia-2); overflow: hidden; margin: 6px 0 4px; position: relative; }
+  .ag-barra i { position: absolute; top: 0; bottom: 0; width: 35%; border-radius: inherit; background: var(--banana); animation: ag-corre 1.4s ease-in-out infinite; }
+  @keyframes ag-corre { from { left: -35%; } to { left: 100%; } }
+  #veloTrasferito .ico-grande { font-size: 54px; text-align: center; line-height: 1.1; }
+  .sugg-nome { margin: -2px auto 10px; display: block; }
 
   /* impostazioni */
   .impostazione.con-cursore { border-bottom: 0; padding-bottom: 2px; }
@@ -1335,6 +1373,7 @@
   <section class="schermata" id="v-bottega">
     <div class="titolo-sez"><h2 data-t="h_bottega"></h2><span class="saldo-pagine" id="bgPagine"></span></div>
     <div class="casse" id="casse"></div>
+    <button class="sala-giochi scambi-carta" id="bScambi"><span class="sg-ico">💱</span><span class="sg-testo"><b data-t="sc_tit"></b><small id="scStato"></small></span><span class="sg-freccia">›</span></button>
     <div class="titolo-sez zaino-tit"><h2 data-t="zaino_tit"></h2></div>
     <p class="sotto-zaino" data-t="zaino_sotto"></p>
     <div class="zaino" id="zaino"></div>
@@ -1440,7 +1479,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 54</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 55</p>
   </div>
 </div>
 
@@ -1658,6 +1697,46 @@
   </div>
 </div>
 
+<!-- =============== SCAMBI E VENDITE =============== -->
+<div class="velo basso sopra" id="veloScambi">
+  <div class="foglio-basso" role="dialog" aria-modal="true" aria-labelledby="titScambi">
+    <div class="maniglia"></div>
+    <h2 id="titScambi" data-t="sc_tit"></h2>
+    <div class="segmenti sc-schede" role="group">
+      <button data-sc="vendi" aria-pressed="true" data-t="sc_vendi"></button>
+      <button data-sc="scambia" aria-pressed="false" data-t="sc_scambia"></button>
+      <button data-sc="proposte" aria-pressed="false"><span data-t="sc_proposte"></span><b class="sc-badge" id="scBadge"></b></button>
+    </div>
+    <div id="scCorpo"></div>
+    <div class="azioni"><button class="pulsante secondario" id="bScChiudi" data-t="chiudi"></button></div>
+  </div>
+</div>
+
+<!-- =============== AGGIORNAMENTO IN ARRIVO =============== -->
+<div class="velo centro" id="veloAggiorna">
+  <div class="finestra ag-finestra" role="dialog" aria-modal="true" aria-labelledby="agTitolo">
+    <div class="ag-ico">🔄</div>
+    <h2 id="agTitolo"></h2>
+    <p id="agTesto"></p>
+    <div class="ag-barra"><i></i></div>
+    <p class="stato-cl" id="agStato"></p>
+    <div class="azioni"><button class="pulsante" id="bAgRicarica" hidden data-t="ag_ricarica"></button></div>
+  </div>
+</div>
+
+<!-- =============== ACCOUNT TRASFERITO =============== -->
+<div class="velo centro" id="veloTrasferito">
+  <div class="finestra" role="dialog" aria-modal="true" aria-labelledby="titTrasferito">
+    <div class="ico-grande">📦</div>
+    <h2 id="titTrasferito" data-t="tf_tit"></h2>
+    <p id="testoTrasferito"></p>
+    <div class="azioni">
+      <button class="pulsante" id="bTfImporta" data-t="tf_importa"></button>
+      <button class="pulsante secondario" id="bTfNuova" data-t="tf_nuova"></button>
+    </div>
+  </div>
+</div>
+
 <!-- =============== SCELTA DEL NOME =============== -->
 <div class="velo centro sopra" id="veloNome">
   <div class="finestra" role="dialog" aria-modal="true" aria-labelledby="titNome">
@@ -1665,6 +1744,7 @@
     <p data-t="nome_sotto"></p>
     <input class="campo-nome" id="campoNome" maxlength="20" autocomplete="nickname" autocapitalize="off" spellcheck="false" data-t-ph="nome_ph">
     <p class="stato-cl" id="statoNome"></p>
+    <button class="pulsante secondario piccolo sugg-nome" id="bNomeSugg" hidden></button>
     <div class="azioni">
       <button class="pulsante" id="bNomeOk" data-t="nome_ok"></button>
       <button class="pulsante secondario" id="bNomeAnnulla" hidden data-t="annulla"></button>
@@ -1716,7 +1796,7 @@
       <button data-trasf="importa" aria-pressed="false">📥 <span data-t="imp_importa"></span></button>
     </div>
     <p class="sotto" id="sottoTrasf"></p>
-    <textarea id="codiceTrasf" class="codice-trasf" rows="6" spellcheck="false" autocomplete="off" autocapitalize="off"></textarea>
+    <textarea id="codiceTrasf" class="codice-trasf" rows="6" spellcheck="false" autocomplete="off" autocapitalize="off" autocorrect="off"></textarea>
     <p class="stato-cl" id="statoTrasf"></p>
     <div class="azioni">
       <button class="pulsante" id="bTrasfAzione"></button>
@@ -2475,10 +2555,10 @@
       pub_resta: "⭐ Record e frasi completate\n🏆 Traguardi e classifica\n📃 Pagine d'oro e talenti\n🍼 Cuccioli, collezione e zaino",
       pub_perche: "Perché conviene: ogni Pagina d'oro guadagnata aumenta la Fama (+3% di velocità per sempre) e con le pagine compri i Talenti qui sotto. Più banane raccogli prima di rinascere, più pagine ricevi.",
       mg_tit: "🎮 Sala giochi",
-      mg_sotto: "Tre minigiochi per divertirti mentre le scimmie scrivono. Ogni gioco dà un premio ogni 30 minuti (fino a 15 minuti di produzione, a volte anche un bonus per lo zaino); nel frattempo puoi giocare per battere il tuo record.",
-      mg_pronti: "🎁 Premi pronti: {n}",
-      mg_attesa: "Prossimo premio tra {t}",
-      mg_pronto: "🎁 Premio pronto",
+      mg_sotto: "Tre minigiochi a livelli. Ogni partita fa guadagnare banane in base ai punti, senza limiti; in più ogni gioco dà un premio grande ogni 30 minuti (fino a 15 minuti di produzione, a volte anche un bonus per lo zaino).",
+      mg_pronti: "🎁 Premi grandi pronti: {n}",
+      mg_attesa: "Prossimo premio grande tra {t}",
+      mg_pronto: "🎁 Premio grande pronto",
       mg_best: "record {n}",
       mg_gioca: "Gioca",
       mg_via: "▶ Inizia",
@@ -2486,16 +2566,16 @@
       mg_punti: "Punti: {n}",
       mg_nuovo_record: "Nuovo record!",
       mg_record: "Il tuo record: {n}",
-      mg_senza_premio: "Partita per il record: il prossimo premio arriva tra {t}",
+      mg_senza_premio: "Il prossimo premio grande arriva tra {t}",
       mg_bravo: "Bravissimo!",
       mg_fine: "Tempo scaduto!",
       mg_scrivi: "Scrivi qui…",
       mg_n_banane: "Banane al volo",
       mg_d_banane: "Tocca le banane che cadono e supera i livelli: ognuno dura 20 secondi, ha un obiettivo ed è più difficile del precedente.",
       mg_n_battitura: "Gara di battitura",
-      mg_d_battitura: "Scrivi più parole che puoi in 30 secondi: ogni lettera giusta vale un punto. Fai vedere alle scimmie come si fa!",
+      mg_d_battitura: "Scrivi le parole più in fretta che puoi e supera i livelli: 20 secondi per livello, un obiettivo di lettere che sale e parole sempre più lunghe.",
       mg_n_memoria: "Memoria delle scimmie",
-      mg_d_memoria: "Trova le 8 coppie di scimmie uguali entro 60 secondi: 10 punti a coppia, più i secondi che avanzano.",
+      mg_d_memoria: "Trova le coppie di scimmie uguali e supera i livelli: ogni livello ha più carte e meno secondi per coppia.",
       nov5_1: "🎮 Nuova Sala giochi (nella schermata Opera): tre minigiochi con un premio ogni 30 minuti",
       nov5_2: "🎒 Le casse danno spesso bonus da tenere nello zaino: scimmie ×2, velocità ×5, salti nel tempo… li usi quando vuoi",
       nov5_3: "💎 Casse più care e oggetti rari più rari, nuovi colori per il nome; se trovi un doppione lo vedi e ricevi Pagine d'oro",
@@ -2524,12 +2604,12 @@
       mg_g_banane_1: "👆 Tocca le banane prima che tocchino terra: +1 (le dorate ✨ +5)",
       mg_g_banane_2: "🎯 Ogni livello dura 20 secondi e ha un obiettivo: raggiungilo per passare al successivo. I secondi avanzati diventano punti.",
       mg_g_banane_3: "🔥 Prendine tante di fila per i punti doppi e tripli. Non toccare le marce 🤢 e le noci di cocco 🥥!",
-      mg_g_battitura_1: "👀 In alto c'è una parola: scrivila nella casella",
-      mg_g_battitura_2: "✅ Quando è giusta, arriva da sola la parola dopo: ogni lettera vale 1 punto",
-      mg_g_battitura_3: "⏱️ Hai 30 secondi: più parole scrivi, più punti fai",
-      mg_g_memoria_1: "👆 Gira due carte alla volta",
-      mg_g_memoria_2: "🐒 Se le scimmie sono uguali restano scoperte: +10",
-      mg_g_memoria_3: "⏱️ Trova le 8 coppie in 60 secondi: i secondi avanzati diventano punti",
+      mg_g_battitura_1: "👀 In alto c'è una parola: scrivila nella casella (accenti e maiuscole non contano)",
+      mg_g_battitura_2: "🎯 Ogni livello dura 20 secondi e ha un obiettivo di lettere: raggiungilo per passare al successivo, con parole più lunghe",
+      mg_g_battitura_3: "✅ Ogni lettera giusta vale 1 punto; i secondi avanzati diventano punti",
+      mg_g_memoria_1: "👆 Gira due carte alla volta: se le scimmie sono uguali restano scoperte (+10)",
+      mg_g_memoria_2: "🎯 Trova tutte le coppie prima che finisca il tempo per passare al livello dopo",
+      mg_g_memoria_3: "📈 Ogni livello ha più carte e meno secondi per coppia; i secondi avanzati diventano punti",
       tg_immortale: "Immortale",
       tg_primo: "Numero uno",
       tgd_primo: "Arriva primo in una classifica a fine mese",
@@ -2540,7 +2620,82 @@
       nov7_1: "🎉 Gli eventi hanno di nuovo i loro effetti sullo schermo (coriandoli, note, buio, il direttore che passa, pioggia di banane…), ora in pixel art",
       nov7_2: "📦 Nuovi prezzi delle casse: legno 300, argento 700, oro 1500, diamante 2500 Pagine d'oro; i doppioni rimborsano di più",
       nov7_3: "🎨 Nei Colori ci sono solo tinte unite, tutte diverse; i colori sfumati sono diventati Scritte animate, ognuna con un movimento suo",
-      tour7_1: "📦 Le casse hanno prezzi nuovi, e in Personalizza → Nome trovi i colori separati dalle scritte animate."
+      tour7_1: "📦 Le casse hanno prezzi nuovi, e in Personalizza → Nome trovi i colori separati dalle scritte animate.",
+      mg_grande: "Premio grande: +{n} 🍌",
+      mg_bt_lv: "Parole da {a} a {b} lettere · obiettivo {n} lettere",
+      mg_mem_lv: "{c} coppie in {s} secondi",
+      tf_tit: "Partita trasferita",
+      tf_testo: "La partita di {nick} è stata trasferita su un altro dispositivo (o nell'app). Qui l'account è disattivato: non compare più in classifica, così non ci sono doppioni. Per giocare qui, importa la partita dall'altro dispositivo.",
+      tf_importa: "📥 Importa una partita",
+      tf_nuova: "🆕 Ricomincia da zero qui",
+      tf_nuova_testo: "Su questo dispositivo inizierà una partita nuova, con un account nuovo. La partita trasferita resta dov'è.",
+      nome_usa: "Usa «{nome}»",
+      ag_tit: "Aggiornamento alla versione {v}",
+      ag_testo_web: "È uscita una versione nuova del gioco! La sto scaricando: appena è online per tutti, il gioco si riapre da solo. La tua partita è salvata.",
+      ag_testo_app: "È uscita una versione nuova del gioco! Per averla chiudi il gioco e riaprilo (o tocca Ricarica). La tua partita è salvata.",
+      ag_attesa: "Il sito si sta ancora aggiornando… riprovo tra poco (tentativo {n})",
+      ag_pronto: "Pronta! Riapro il gioco…",
+      ag_ricarica: "🔄 Ricarica",
+      sc_tit: "💱 Scambi e vendite",
+      sc_carta: "Vendi gli oggetti che non usi o scambiali con gli amici",
+      sc_ricevute_n: "📨 Proposte di scambio ricevute: {n}",
+      sc_vendi: "💰 Vendi",
+      sc_scambia: "🔁 Scambia",
+      sc_proposte: "📨 Proposte",
+      sc_vendi_sotto: "Vendi un oggetto che non usi: ricevi banane, oppure cuccioli di scimmia (fanno crescere per sempre le scimmie di questa difficoltà, anche dopo la Rinascita). Gli oggetti di partenza non si vendono.",
+      sc_vuoto: "Non hai ancora oggetti da vendere o scambiare: li trovi nelle casse!",
+      sc_per_banane: "Vendi per 🍌 {n}",
+      sc_per_scimmie: "Vendi per 🍼 +{p}% cuccioli",
+      sc_cuccioli: "cuccioli",
+      sc_vendi_tit: "Vendere «{nome}»?",
+      sc_vendi_conf: "L'oggetto sparisce dalla tua collezione. Ricevi: {premio}.",
+      sc_venduto: "Venduto! {premio}",
+      sc_scambia_sotto: "Proponi a un amico di scambiare un tuo oggetto con uno dei suoi, o fagli un regalo. L'oggetto resta da parte finché l'amico non risponde (se rifiuta, torna a te).",
+      sc_scegli_amico: "1. Scegli un amico",
+      sc_nessun_amico: "Per scambiare serve un amico: aggiungilo toccando un giocatore in classifica.",
+      sc_dai: "2. Cosa dai",
+      sc_chiedi: "3. Cosa chiedi a {nick}",
+      sc_regalo: "🎁 Niente: è un regalo",
+      sc_carico: "Carico la collezione di {nick}…",
+      sc_coll_vuota: "{nick} non ha ancora oggetti da scambiare: puoi fargli un regalo.",
+      sc_scegli_dai: "Scegli cosa dare",
+      sc_riassunto: "Dai «{dai}» e chiedi «{chiedi}»",
+      sc_riassunto_regalo: "Regali «{dai}» a {nick}",
+      sc_proponi: "Proponi",
+      sc_proposto: "Proposta inviata a {nick}!",
+      sc_max: "Puoi avere al massimo {n} proposte in attesa.",
+      sc_ricevute: "Ricevute",
+      sc_inviate: "Inviate",
+      sc_storia: "Ultimi scambi",
+      sc_nessuna: "Nessuna per ora.",
+      sc_da: "Da {nick}:",
+      sc_a: "A {nick}:",
+      sc_attesa: "In attesa di {nick}…",
+      sc_hai_gia: "Ce l'hai già: diventa +{n} 📃",
+      sc_non_hai: "Non hai più «{nome}»: non puoi accettare.",
+      sc_ritira: "Ritira",
+      sc_fatto_avviso: "🔁 Scambio fatto con {nick}!",
+      sc_rifiutato_avviso: "{nick} ha rifiutato lo scambio: «{nome}» è tornato nella tua collezione",
+      sc_ricevuta_avviso: "🔁 {nick} ti propone uno scambio!",
+      sc_offline: "Gli scambi tra giocatori funzionano quando sei collegato alla classifica online.",
+      sc_rich_riga: "ti propone uno scambio",
+      sc_vedi: "Vedi",
+      sc_stato_fatto: "✅ Fatto",
+      sc_stato_rifiutata: "❌ Rifiutato",
+      sc_stato_annullata: "↩️ Ritirato",
+      sc_stato_ritirata: "↩️ Ritirato",
+      sc_stato_scaduta: "⌛ Scaduto",
+      sc_stato_chiusa: "↩️ Chiuso",
+      nov8_1: "💱 Scambi e vendite (nel Negozio): vendi gli oggetti per banane o cuccioli di scimmia, scambiali con gli amici o regalali",
+      nov8_2: "🎮 Livelli anche in Gara di battitura e Memoria; ogni partita ai minigiochi fa guadagnare banane, senza limiti (più il premio grande ogni 30 minuti)",
+      nov8_3: "📦 Se trasferisci la partita (per esempio dal sito all'app sulla Home) l'account di partenza si disattiva: niente più doppioni in classifica, e il tuo nome resta tuo",
+      nov8_4: "🔄 Quando esce un aggiornamento compare una schermata di attesa, e il gioco passa da solo alla versione nuova appena è online per tutti",
+      nov8_5: "🛠️ Corretti: il codice di trasferimento funziona anche se diventa «scimmie1» minuscolo, e la richiesta del nome all'avvio non si blocca più",
+      tour8_1: "💱 Qui vendi gli oggetti che non usi (per banane o cuccioli) e li scambi con gli amici. Puoi proporre uno scambio anche dalla lista amici con 🔁.",
+      tour8_2: "🎮 Ora tutti i minigiochi sono a livelli, e ogni partita fa guadagnare banane.",
+      sc_ricevi: "📥 Ricevi:",
+      sc_dai_tu: "📤 Dai:",
+      sc_regalo_breve: "regalo"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -3181,10 +3336,10 @@
       pub_resta: "⭐ Records and completed phrases\n🏆 Achievements and leaderboard\n📃 Golden Pages and talents\n🍼 Babies, collection and backpack",
       pub_perche: "Why it's worth it: every Golden Page you earn adds Fame (+3% speed forever), and pages buy the Talents below. The more bananas you collect before rebirth, the more pages you get.",
       mg_tit: "🎮 Game room",
-      mg_sotto: "Three mini-games to have fun while the monkeys type. Each game gives a prize every 30 minutes (up to 15 minutes of production, sometimes a backpack boost too); in between you can play to beat your record.",
-      mg_pronti: "🎁 Prizes ready: {n}",
-      mg_attesa: "Next prize in {t}",
-      mg_pronto: "🎁 Prize ready",
+      mg_sotto: "Three mini-games with levels. Every game earns bananas based on your score, with no limit; on top of that each game gives a big prize every 30 minutes (up to 15 minutes of production, sometimes a backpack boost too).",
+      mg_pronti: "🎁 Big prizes ready: {n}",
+      mg_attesa: "Next big prize in {t}",
+      mg_pronto: "🎁 Big prize ready",
       mg_best: "record {n}",
       mg_gioca: "Play",
       mg_via: "▶ Start",
@@ -3192,16 +3347,16 @@
       mg_punti: "Score: {n}",
       mg_nuovo_record: "New record!",
       mg_record: "Your record: {n}",
-      mg_senza_premio: "Played for the record: the next prize comes in {t}",
+      mg_senza_premio: "The next big prize comes in {t}",
       mg_bravo: "Brilliant!",
       mg_fine: "Time's up!",
       mg_scrivi: "Type here…",
       mg_n_banane: "Banana catch",
       mg_d_banane: "Tap the falling bananas and clear the levels: each lasts 20 seconds, has a target and is harder than the one before.",
       mg_n_battitura: "Typing race",
-      mg_d_battitura: "Type as many words as you can in 30 seconds: every correct letter is a point. Show the monkeys how it's done!",
+      mg_d_battitura: "Type the words as fast as you can and clear the levels: 20 seconds per level, a rising letter target and ever longer words.",
       mg_n_memoria: "Monkey memory",
-      mg_d_memoria: "Find the 8 pairs of matching monkeys within 60 seconds: 10 points per pair, plus the seconds left over.",
+      mg_d_memoria: "Find the matching monkey pairs and clear the levels: each level has more cards and fewer seconds per pair.",
       nov5_1: "🎮 New Game room (on the Work screen): three mini-games with a prize every 30 minutes",
       nov5_2: "🎒 Crates often give boosts to keep in your backpack: monkeys ×2, speed ×5, time skips… use them whenever you like",
       nov5_3: "💎 Pricier crates and rarer rare items, new name colours; duplicates are shown and give you Golden Pages",
@@ -3230,12 +3385,12 @@
       mg_g_banane_1: "👆 Tap the bananas before they hit the ground: +1 (golden ones ✨ +5)",
       mg_g_banane_2: "🎯 Each level lasts 20 seconds and has a target: reach it to move on. Seconds left over become points.",
       mg_g_banane_3: "🔥 Catch many in a row for double and triple points. Don't touch rotten ones 🤢 or coconuts 🥥!",
-      mg_g_battitura_1: "👀 There's a word at the top: type it in the box",
-      mg_g_battitura_2: "✅ When it's right, the next word appears by itself: each letter is worth 1 point",
-      mg_g_battitura_3: "⏱️ You have 30 seconds: the more words you type, the more points you get",
-      mg_g_memoria_1: "👆 Flip two cards at a time",
-      mg_g_memoria_2: "🐒 If the monkeys match, they stay face up: +10",
-      mg_g_memoria_3: "⏱️ Find the 8 pairs in 60 seconds: seconds left over become points",
+      mg_g_battitura_1: "👀 There's a word at the top: type it in the box (accents and capitals don't matter)",
+      mg_g_battitura_2: "🎯 Each level lasts 20 seconds and has a letter target: reach it to move on, with longer words",
+      mg_g_battitura_3: "✅ Every correct letter is 1 point; seconds left over become points",
+      mg_g_memoria_1: "👆 Flip two cards at a time: if the monkeys match they stay face up (+10)",
+      mg_g_memoria_2: "🎯 Find all the pairs before time runs out to reach the next level",
+      mg_g_memoria_3: "📈 Each level has more cards and fewer seconds per pair; seconds left over become points",
       tg_immortale: "Immortal",
       tg_primo: "Number one",
       tgd_primo: "Finish a month 1st on a leaderboard",
@@ -3246,7 +3401,82 @@
       nov7_1: "🎉 Events have their on-screen effects back (confetti, notes, darkness, the boss walking by, banana rain…), now in pixel art",
       nov7_2: "📦 New crate prices: wood 300, silver 700, gold 1500, diamond 2500 Golden Pages; duplicates refund more",
       nov7_3: "🎨 Colours are now plain colours, all different; the gradient ones became Animated names, each with its own motion",
-      tour7_1: "📦 Crates have new prices, and in Customise → Name colours are now separate from animated names."
+      tour7_1: "📦 Crates have new prices, and in Customise → Name colours are now separate from animated names.",
+      mg_grande: "Big prize: +{n} 🍌",
+      mg_bt_lv: "Words of {a} to {b} letters · target {n} letters",
+      mg_mem_lv: "{c} pairs in {s} seconds",
+      tf_tit: "Game transferred",
+      tf_testo: "{nick}'s game was transferred to another device (or the app). This account is deactivated here: it no longer appears on the leaderboard, so there are no duplicates. To play here, import the game from the other device.",
+      tf_importa: "📥 Import a game",
+      tf_nuova: "🆕 Start over here",
+      tf_nuova_testo: "A new game with a new account will start on this device. The transferred game stays where it is.",
+      nome_usa: "Use “{nome}”",
+      ag_tit: "Updating to version {v}",
+      ag_testo_web: "A new version of the game is out! I'm downloading it: as soon as it's online for everyone, the game reopens by itself. Your game is saved.",
+      ag_testo_app: "A new version of the game is out! To get it, close the game and open it again (or tap Reload). Your game is saved.",
+      ag_attesa: "The site is still updating… trying again shortly (attempt {n})",
+      ag_pronto: "Ready! Reopening the game…",
+      ag_ricarica: "🔄 Reload",
+      sc_tit: "💱 Trades and sales",
+      sc_carta: "Sell the items you don't use or trade them with friends",
+      sc_ricevute_n: "📨 Trade offers received: {n}",
+      sc_vendi: "💰 Sell",
+      sc_scambia: "🔁 Trade",
+      sc_proposte: "📨 Offers",
+      sc_vendi_sotto: "Sell an item you don't use: get bananas, or baby monkeys (they grow your monkeys in this difficulty for good, even after Rebirth). Starting items can't be sold.",
+      sc_vuoto: "You don't have any items to sell or trade yet: you'll find them in crates!",
+      sc_per_banane: "Sell for 🍌 {n}",
+      sc_per_scimmie: "Sell for 🍼 +{p}% baby monkeys",
+      sc_cuccioli: "baby monkeys",
+      sc_vendi_tit: "Sell “{nome}”?",
+      sc_vendi_conf: "The item leaves your collection. You get: {premio}.",
+      sc_venduto: "Sold! {premio}",
+      sc_scambia_sotto: "Offer a friend one of your items for one of theirs, or give them a gift. Your item is set aside until they answer (if they refuse, it comes back).",
+      sc_scegli_amico: "1. Pick a friend",
+      sc_nessun_amico: "To trade you need a friend: add one by tapping a player on the leaderboard.",
+      sc_dai: "2. What you give",
+      sc_chiedi: "3. What you ask {nick} for",
+      sc_regalo: "🎁 Nothing: it's a gift",
+      sc_carico: "Loading {nick}'s collection…",
+      sc_coll_vuota: "{nick} has no items to trade yet: you can give them a gift.",
+      sc_scegli_dai: "Choose what to give",
+      sc_riassunto: "You give “{dai}” and ask for “{chiedi}”",
+      sc_riassunto_regalo: "You give “{dai}” to {nick} as a gift",
+      sc_proponi: "Send offer",
+      sc_proposto: "Offer sent to {nick}!",
+      sc_max: "You can have at most {n} pending offers.",
+      sc_ricevute: "Received",
+      sc_inviate: "Sent",
+      sc_storia: "Recent trades",
+      sc_nessuna: "None for now.",
+      sc_da: "From {nick}:",
+      sc_a: "To {nick}:",
+      sc_attesa: "Waiting for {nick}…",
+      sc_hai_gia: "You already have it: it becomes +{n} 📃",
+      sc_non_hai: "You no longer have “{nome}”: you can't accept.",
+      sc_ritira: "Withdraw",
+      sc_fatto_avviso: "🔁 Trade done with {nick}!",
+      sc_rifiutato_avviso: "{nick} declined the trade: “{nome}” is back in your collection",
+      sc_ricevuta_avviso: "🔁 {nick} offers you a trade!",
+      sc_offline: "Trades between players work when you're connected to the online leaderboard.",
+      sc_rich_riga: "offers you a trade",
+      sc_vedi: "View",
+      sc_stato_fatto: "✅ Done",
+      sc_stato_rifiutata: "❌ Declined",
+      sc_stato_annullata: "↩️ Withdrawn",
+      sc_stato_ritirata: "↩️ Withdrawn",
+      sc_stato_scaduta: "⌛ Expired",
+      sc_stato_chiusa: "↩️ Closed",
+      nov8_1: "💱 Trades and sales (in the Shop): sell items for bananas or baby monkeys, trade them with friends or give them as gifts",
+      nov8_2: "🎮 Levels in Typing race and Memory too; every mini-game earns bananas, with no limit (plus the big prize every 30 minutes)",
+      nov8_3: "📦 If you transfer your game (for example from the website to the Home-screen app) the old account is deactivated: no more duplicates on the leaderboard, and your name stays yours",
+      nov8_4: "🔄 When an update comes out, a waiting screen appears and the game switches to the new version by itself as soon as it's online for everyone",
+      nov8_5: "🛠️ Fixed: the transfer code works even if it turns into lowercase “scimmie1”, and the name prompt at start no longer gets stuck",
+      tour8_1: "💱 Here you sell items you don't use (for bananas or baby monkeys) and trade them with friends. You can also offer a trade from the friends list with 🔁.",
+      tour8_2: "🎮 All mini-games now have levels, and every game earns bananas.",
+      sc_ricevi: "📥 You get:",
+      sc_dai_tu: "📤 You give:",
+      sc_regalo_breve: "gift"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -3887,10 +4117,10 @@
       pub_resta: "⭐ Récords y frases completadas\n🏆 Logros y clasificación\n📃 Páginas de oro y talentos\n🍼 Crías, colección y mochila",
       pub_perche: "Por qué conviene: cada Página de oro que ganas aumenta la Fama (+3% de velocidad para siempre) y con las páginas compras los Talentos de abajo. Cuantos más plátanos recojas antes de renacer, más páginas recibes.",
       mg_tit: "🎮 Sala de juegos",
-      mg_sotto: "Tres minijuegos para divertirte mientras los monos escriben. Cada juego da un premio cada 30 minutos (hasta 15 minutos de producción, a veces también un bonus para la mochila); mientras tanto puedes jugar para batir tu récord.",
-      mg_pronti: "🎁 Premios listos: {n}",
-      mg_attesa: "Próximo premio en {t}",
-      mg_pronto: "🎁 Premio listo",
+      mg_sotto: "Tres minijuegos con niveles. Cada partida da plátanos según los puntos, sin límite; además cada juego da un premio grande cada 30 minutos (hasta 15 minutos de producción, a veces también un bonus para la mochila).",
+      mg_pronti: "🎁 Premios grandes listos: {n}",
+      mg_attesa: "Próximo premio grande en {t}",
+      mg_pronto: "🎁 Premio grande listo",
       mg_best: "récord {n}",
       mg_gioca: "Jugar",
       mg_via: "▶ Empezar",
@@ -3898,16 +4128,16 @@
       mg_punti: "Puntos: {n}",
       mg_nuovo_record: "¡Nuevo récord!",
       mg_record: "Tu récord: {n}",
-      mg_senza_premio: "Partida por el récord: el próximo premio llega en {t}",
+      mg_senza_premio: "El próximo premio grande llega en {t}",
       mg_bravo: "¡Genial!",
       mg_fine: "¡Se acabó el tiempo!",
       mg_scrivi: "Escribe aquí…",
       mg_n_banane: "Plátanos al vuelo",
       mg_d_banane: "Toca los plátanos que caen y supera los niveles: cada uno dura 20 segundos, tiene un objetivo y es más difícil que el anterior.",
       mg_n_battitura: "Carrera de mecanografía",
-      mg_d_battitura: "Escribe todas las palabras que puedas en 30 segundos: cada letra correcta vale un punto. ¡Enséñales a los monos cómo se hace!",
+      mg_d_battitura: "Escribe las palabras lo más rápido posible y supera los niveles: 20 segundos por nivel, un objetivo de letras que sube y palabras cada vez más largas.",
       mg_n_memoria: "Memoria de monos",
-      mg_d_memoria: "Encuentra las 8 parejas de monos iguales en 60 segundos: 10 puntos por pareja, más los segundos que sobren.",
+      mg_d_memoria: "Encuentra las parejas de monos iguales y supera los niveles: cada nivel tiene más cartas y menos segundos por pareja.",
       nov5_1: "🎮 Nueva Sala de juegos (en la pantalla Obra): tres minijuegos con un premio cada 30 minutos",
       nov5_2: "🎒 Las cajas dan a menudo bonus para la mochila: monos ×2, velocidad ×5, saltos en el tiempo… úsalos cuando quieras",
       nov5_3: "💎 Cajas más caras y objetos raros más raros, nuevos colores para el nombre; los duplicados se muestran y dan Páginas de oro",
@@ -3936,12 +4166,12 @@
       mg_g_banane_1: "👆 Toca los plátanos antes de que lleguen al suelo: +1 (los dorados ✨ +5)",
       mg_g_banane_2: "🎯 Cada nivel dura 20 segundos y tiene un objetivo: alcánzalo para pasar al siguiente. Los segundos que sobren son puntos.",
       mg_g_banane_3: "🔥 Atrapa muchos seguidos para puntos dobles y triples. ¡No toques los podridos 🤢 ni los cocos 🥥!",
-      mg_g_battitura_1: "👀 Arriba hay una palabra: escríbela en la casilla",
-      mg_g_battitura_2: "✅ Cuando está bien, aparece sola la siguiente: cada letra vale 1 punto",
-      mg_g_battitura_3: "⏱️ Tienes 30 segundos: cuantas más palabras, más puntos",
-      mg_g_memoria_1: "👆 Gira dos cartas a la vez",
-      mg_g_memoria_2: "🐒 Si los monos son iguales, se quedan descubiertos: +10",
-      mg_g_memoria_3: "⏱️ Encuentra las 8 parejas en 60 segundos: los segundos que sobren son puntos",
+      mg_g_battitura_1: "👀 Arriba hay una palabra: escríbela en la casilla (tildes y mayúsculas no cuentan)",
+      mg_g_battitura_2: "🎯 Cada nivel dura 20 segundos y tiene un objetivo de letras: alcánzalo para pasar al siguiente, con palabras más largas",
+      mg_g_battitura_3: "✅ Cada letra correcta vale 1 punto; los segundos que sobren son puntos",
+      mg_g_memoria_1: "👆 Gira dos cartas a la vez: si los monos son iguales se quedan descubiertos (+10)",
+      mg_g_memoria_2: "🎯 Encuentra todas las parejas antes de que se acabe el tiempo para pasar de nivel",
+      mg_g_memoria_3: "📈 Cada nivel tiene más cartas y menos segundos por pareja; los segundos que sobren son puntos",
       tg_immortale: "Inmortal",
       tg_primo: "Número uno",
       tgd_primo: "Termina un mes 1.º en una clasificación",
@@ -3952,7 +4182,82 @@
       nov7_1: "🎉 Los eventos vuelven a tener sus efectos en pantalla (confeti, notas, oscuridad, el director que pasa, lluvia de plátanos…), ahora en pixel art",
       nov7_2: "📦 Nuevos precios de las cajas: madera 300, plata 700, oro 1500, diamante 2500 Páginas de oro; los duplicados devuelven más",
       nov7_3: "🎨 En Colores solo hay colores lisos, todos distintos; los degradados son ahora Letras animadas, cada una con su movimiento",
-      tour7_1: "📦 Las cajas tienen precios nuevos, y en Personalizar → Nombre los colores están separados de las letras animadas."
+      tour7_1: "📦 Las cajas tienen precios nuevos, y en Personalizar → Nombre los colores están separados de las letras animadas.",
+      mg_grande: "Premio grande: +{n} 🍌",
+      mg_bt_lv: "Palabras de {a} a {b} letras · objetivo {n} letras",
+      mg_mem_lv: "{c} parejas en {s} segundos",
+      tf_tit: "Partida transferida",
+      tf_testo: "La partida de {nick} se transfirió a otro dispositivo (o a la app). Aquí la cuenta está desactivada: ya no aparece en la clasificación, así no hay duplicados. Para jugar aquí, importa la partida desde el otro dispositivo.",
+      tf_importa: "📥 Importar una partida",
+      tf_nuova: "🆕 Empezar de cero aquí",
+      tf_nuova_testo: "En este dispositivo empezará una partida nueva, con una cuenta nueva. La partida transferida se queda donde está.",
+      nome_usa: "Usar «{nome}»",
+      ag_tit: "Actualización a la versión {v}",
+      ag_testo_web: "¡Ha salido una versión nueva del juego! La estoy descargando: en cuanto esté en línea para todos, el juego se abre solo. Tu partida está guardada.",
+      ag_testo_app: "¡Ha salido una versión nueva del juego! Para tenerla, cierra el juego y vuelve a abrirlo (o toca Recargar). Tu partida está guardada.",
+      ag_attesa: "El sitio aún se está actualizando… lo intento de nuevo enseguida (intento {n})",
+      ag_pronto: "¡Lista! Abriendo el juego…",
+      ag_ricarica: "🔄 Recargar",
+      sc_tit: "💱 Intercambios y ventas",
+      sc_carta: "Vende los objetos que no usas o cámbialos con amigos",
+      sc_ricevute_n: "📨 Propuestas de intercambio recibidas: {n}",
+      sc_vendi: "💰 Vender",
+      sc_scambia: "🔁 Cambiar",
+      sc_proposte: "📨 Propuestas",
+      sc_vendi_sotto: "Vende un objeto que no usas: recibes plátanos o crías de mono (hacen crecer para siempre los monos de esta dificultad, incluso tras el Renacer). Los objetos iniciales no se venden.",
+      sc_vuoto: "Aún no tienes objetos para vender o cambiar: ¡los encuentras en las cajas!",
+      sc_per_banane: "Vender por 🍌 {n}",
+      sc_per_scimmie: "Vender por 🍼 +{p}% crías",
+      sc_cuccioli: "crías",
+      sc_vendi_tit: "¿Vender «{nome}»?",
+      sc_vendi_conf: "El objeto sale de tu colección. Recibes: {premio}.",
+      sc_venduto: "¡Vendido! {premio}",
+      sc_scambia_sotto: "Propón a un amigo cambiar un objeto tuyo por uno suyo, o hazle un regalo. Tu objeto queda reservado hasta que responda (si lo rechaza, vuelve a ti).",
+      sc_scegli_amico: "1. Elige un amigo",
+      sc_nessun_amico: "Para cambiar necesitas un amigo: añádelo tocando a un jugador en la clasificación.",
+      sc_dai: "2. Qué das",
+      sc_chiedi: "3. Qué pides a {nick}",
+      sc_regalo: "🎁 Nada: es un regalo",
+      sc_carico: "Cargando la colección de {nick}…",
+      sc_coll_vuota: "{nick} aún no tiene objetos para cambiar: puedes hacerle un regalo.",
+      sc_scegli_dai: "Elige qué dar",
+      sc_riassunto: "Das «{dai}» y pides «{chiedi}»",
+      sc_riassunto_regalo: "Regalas «{dai}» a {nick}",
+      sc_proponi: "Proponer",
+      sc_proposto: "¡Propuesta enviada a {nick}!",
+      sc_max: "Puedes tener como máximo {n} propuestas pendientes.",
+      sc_ricevute: "Recibidas",
+      sc_inviate: "Enviadas",
+      sc_storia: "Últimos intercambios",
+      sc_nessuna: "Ninguna por ahora.",
+      sc_da: "De {nick}:",
+      sc_a: "A {nick}:",
+      sc_attesa: "Esperando a {nick}…",
+      sc_hai_gia: "Ya lo tienes: se convierte en +{n} 📃",
+      sc_non_hai: "Ya no tienes «{nome}»: no puedes aceptar.",
+      sc_ritira: "Retirar",
+      sc_fatto_avviso: "🔁 ¡Intercambio hecho con {nick}!",
+      sc_rifiutato_avviso: "{nick} rechazó el intercambio: «{nome}» volvió a tu colección",
+      sc_ricevuta_avviso: "🔁 ¡{nick} te propone un intercambio!",
+      sc_offline: "Los intercambios funcionan cuando estás conectado a la clasificación en línea.",
+      sc_rich_riga: "te propone un intercambio",
+      sc_vedi: "Ver",
+      sc_stato_fatto: "✅ Hecho",
+      sc_stato_rifiutata: "❌ Rechazado",
+      sc_stato_annullata: "↩️ Retirado",
+      sc_stato_ritirata: "↩️ Retirado",
+      sc_stato_scaduta: "⌛ Caducado",
+      sc_stato_chiusa: "↩️ Cerrado",
+      nov8_1: "💱 Intercambios y ventas (en la Tienda): vende objetos por plátanos o crías de mono, cámbialos con amigos o regálalos",
+      nov8_2: "🎮 Niveles también en Mecanografía y Memoria; cada partida a los minijuegos da plátanos, sin límite (más el premio grande cada 30 minutos)",
+      nov8_3: "📦 Si transfieres la partida (por ejemplo del sitio a la app de Inicio) la cuenta de origen se desactiva: no más duplicados en la clasificación, y tu nombre sigue siendo tuyo",
+      nov8_4: "🔄 Cuando sale una actualización aparece una pantalla de espera y el juego pasa solo a la versión nueva en cuanto está en línea para todos",
+      nov8_5: "🛠️ Corregido: el código de transferencia funciona aunque quede en minúsculas «scimmie1», y la petición del nombre al entrar ya no se bloquea",
+      tour8_1: "💱 Aquí vendes los objetos que no usas (por plátanos o crías) y los cambias con amigos. También puedes proponer un intercambio desde la lista de amigos con 🔁.",
+      tour8_2: "🎮 Ahora todos los minijuegos tienen niveles, y cada partida da plátanos.",
+      sc_ricevi: "📥 Recibes:",
+      sc_dai_tu: "📤 Das:",
+      sc_regalo_breve: "regalo"
     },
 
     // ------------------------------------------------------------- 中文
@@ -4593,10 +4898,10 @@
       pub_resta: "⭐ 纪录和已完成的句子\n🏆 成就和排行榜\n📃 金页和天赋\n🍼 幼崽、收藏和背包",
       pub_perche: "为什么值得：每获得一张金页都会增加名气（速度永久 +3%），金页还能购买下面的天赋。重生前收集的香蕉越多，得到的金页越多。",
       mg_tit: "🎮 游戏室",
-      mg_sotto: "三个小游戏，在猴子打字时陪你玩。每个游戏每 30 分钟给一次奖励（最多 15 分钟的产量，有时还有背包加成）；其余时间可以挑战自己的纪录。",
-      mg_pronti: "🎁 可领奖励：{n}",
-      mg_attesa: "下次奖励还需 {t}",
-      mg_pronto: "🎁 奖励已就绪",
+      mg_sotto: "三个分关卡的小游戏。每局都会按分数获得香蕉，没有次数限制；此外每个游戏每 30 分钟还有一次大奖（最多 15 分钟的产量，有时还有背包加成）。",
+      mg_pronti: "🎁 可领大奖：{n}",
+      mg_attesa: "下次大奖还需 {t}",
+      mg_pronto: "🎁 大奖已就绪",
       mg_best: "纪录 {n}",
       mg_gioca: "开始",
       mg_via: "▶ 开始",
@@ -4604,16 +4909,16 @@
       mg_punti: "得分：{n}",
       mg_nuovo_record: "新纪录！",
       mg_record: "你的纪录：{n}",
-      mg_senza_premio: "这局只计纪录：下次奖励还需 {t}",
+      mg_senza_premio: "下次大奖还需 {t}",
       mg_bravo: "太棒了！",
       mg_fine: "时间到！",
       mg_scrivi: "在这里输入…",
       mg_n_banane: "接香蕉",
       mg_d_banane: "点击掉落的香蕉，一关一关闯下去：每关 20 秒、有一个目标，而且比上一关更难。",
       mg_n_battitura: "打字比赛",
-      mg_d_battitura: "30 秒内尽可能多地输入单词：每个正确字母 1 分。给猴子们做个示范！",
+      mg_d_battitura: "尽快输入单词，一关一关闯：每关 20 秒，字母目标越来越高，单词越来越长。",
       mg_n_memoria: "猴子记忆",
-      mg_d_memoria: "在 60 秒内找出 8 对相同的猴子：每对 10 分，剩余秒数也算分。",
+      mg_d_memoria: "找出相同的猴子并闯关：每关牌更多、每对的时间更少。",
       nov5_1: "🎮 全新游戏室（在作品页面）：三个小游戏，每 30 分钟一次奖励",
       nov5_2: "🎒 箱子经常开出可放进背包的加成：猴子 ×2、速度 ×5、时间跳跃……随时使用",
       nov5_3: "💎 箱子更贵、稀有物品更稀有，新增名字颜色；抽到重复物品会显示出来并给你金页",
@@ -4642,12 +4947,12 @@
       mg_g_banane_1: "👆 在香蕉落地前点击：+1（金香蕉 ✨ +5）",
       mg_g_banane_2: "🎯 每关 20 秒，有一个目标：达成就进入下一关。剩下的秒数会变成分数。",
       mg_g_banane_3: "🔥 连续接住能得双倍、三倍分。别碰烂香蕉 🤢 和椰子 🥥！",
-      mg_g_battitura_1: "👀 上方有一个单词：把它输入到框里",
-      mg_g_battitura_2: "✅ 输对后会自动换下一个：每个字母 1 分",
-      mg_g_battitura_3: "⏱️ 你有 30 秒：打的单词越多，分数越高",
-      mg_g_memoria_1: "👆 每次翻开两张牌",
-      mg_g_memoria_2: "🐒 如果猴子相同，就会保持翻开：+10",
-      mg_g_memoria_3: "⏱️ 在 60 秒内找出 8 对：剩下的秒数会变成分数",
+      mg_g_battitura_1: "👀 上方有一个单词：把它输入到框里（重音和大小写不影响）",
+      mg_g_battitura_2: "🎯 每关 20 秒，有一个字母目标：达成后进入下一关，单词会更长",
+      mg_g_battitura_3: "✅ 每个正确字母 1 分；剩余秒数也会变成分数",
+      mg_g_memoria_1: "👆 每次翻两张：如果猴子相同就会保持翻开（+10）",
+      mg_g_memoria_2: "🎯 在时间用完前找出所有配对，才能进入下一关",
+      mg_g_memoria_3: "📈 每关牌更多、每对时间更少；剩余秒数会变成分数",
       tg_immortale: "不朽",
       tg_primo: "第一名",
       tgd_primo: "在月底排行榜上获得第一名",
@@ -4658,7 +4963,82 @@
       nov7_1: "🎉 活动重新有了屏幕特效（彩纸、音符、停电、路过的老板、香蕉雨……），现在是像素风",
       nov7_2: "📦 箱子新价格：木箱 300、银箱 700、金箱 1500、钻石箱 2500 金页；重复物品返还更多",
       nov7_3: "🎨 颜色里只有纯色，而且各不相同；渐变色变成了动态字，每种动法都不一样",
-      tour7_1: "📦 箱子价格更新了；在 个性化 → 名字 中，颜色和动态字分开了。"
+      tour7_1: "📦 箱子价格更新了；在 个性化 → 名字 中，颜色和动态字分开了。",
+      mg_grande: "大奖：+{n} 🍌",
+      mg_bt_lv: "{a} 到 {b} 个字母的单词 · 目标 {n} 个字母",
+      mg_mem_lv: "{s} 秒内找出 {c} 对",
+      tf_tit: "存档已转移",
+      tf_testo: "{nick} 的存档已转移到另一台设备（或应用）上。此账号在这里已停用：不会再出现在排行榜上，避免重复。想在这里玩，请从另一台设备导入存档。",
+      tf_importa: "📥 导入存档",
+      tf_nuova: "🆕 在这里重新开始",
+      tf_nuova_testo: "这台设备上将用新账号开始新游戏。已转移的存档不受影响。",
+      nome_usa: "使用「{nome}」",
+      ag_tit: "正在更新到第 {v} 版",
+      ag_testo_web: "游戏出新版本了！正在下载：等它对所有人上线后，游戏会自动重新打开。你的存档已保存。",
+      ag_testo_app: "游戏出新版本了！关闭游戏再重新打开即可更新（或点「重新加载」）。你的存档已保存。",
+      ag_attesa: "网站还在更新……稍后重试（第 {n} 次）",
+      ag_pronto: "好了！正在重新打开游戏……",
+      ag_ricarica: "🔄 重新加载",
+      sc_tit: "💱 交换与出售",
+      sc_carta: "出售不用的物品，或和好友交换",
+      sc_ricevute_n: "📨 收到的交换提议：{n}",
+      sc_vendi: "💰 出售",
+      sc_scambia: "🔁 交换",
+      sc_proposte: "📨 提议",
+      sc_vendi_sotto: "出售不用的物品：换香蕉，或换小猴子（会永久增加本难度的猴子，重生后也保留）。初始物品不能出售。",
+      sc_vuoto: "你还没有可出售或交换的物品：去开箱子吧！",
+      sc_per_banane: "换 🍌 {n}",
+      sc_per_scimmie: "换 🍼 +{p}% 小猴子",
+      sc_cuccioli: "小猴子",
+      sc_vendi_tit: "出售「{nome}」？",
+      sc_vendi_conf: "该物品将从收藏中移除。你会得到：{premio}。",
+      sc_venduto: "已出售！{premio}",
+      sc_scambia_sotto: "向好友提议用你的一件物品换他的一件，或者送他礼物。在好友回复前你的物品会被暂存（被拒绝就会退回）。",
+      sc_scegli_amico: "1. 选择好友",
+      sc_nessun_amico: "交换需要好友：在排行榜上点玩家即可添加。",
+      sc_dai: "2. 你给出",
+      sc_chiedi: "3. 你向 {nick} 要",
+      sc_regalo: "🎁 不要：这是礼物",
+      sc_carico: "正在加载 {nick} 的收藏……",
+      sc_coll_vuota: "{nick} 还没有可交换的物品：你可以送礼物。",
+      sc_scegli_dai: "选择要给出的物品",
+      sc_riassunto: "你给出「{dai}」，换「{chiedi}」",
+      sc_riassunto_regalo: "把「{dai}」送给 {nick}",
+      sc_proponi: "发送提议",
+      sc_proposto: "已向 {nick} 发送提议！",
+      sc_max: "最多只能有 {n} 个待处理的提议。",
+      sc_ricevute: "收到的",
+      sc_inviate: "发出的",
+      sc_storia: "最近的交换",
+      sc_nessuna: "暂时没有。",
+      sc_da: "来自 {nick}：",
+      sc_a: "给 {nick}：",
+      sc_attesa: "等待 {nick} 回复……",
+      sc_hai_gia: "你已拥有：会变成 +{n} 📃",
+      sc_non_hai: "你已经没有「{nome}」了：无法接受。",
+      sc_ritira: "撤回",
+      sc_fatto_avviso: "🔁 与 {nick} 交换成功！",
+      sc_rifiutato_avviso: "{nick} 拒绝了交换：「{nome}」已回到你的收藏",
+      sc_ricevuta_avviso: "🔁 {nick} 向你提议交换！",
+      sc_offline: "玩家之间的交换需要连接在线排行榜。",
+      sc_rich_riga: "向你提议交换",
+      sc_vedi: "查看",
+      sc_stato_fatto: "✅ 已完成",
+      sc_stato_rifiutata: "❌ 已拒绝",
+      sc_stato_annullata: "↩️ 已撤回",
+      sc_stato_ritirata: "↩️ 已撤回",
+      sc_stato_scaduta: "⌛ 已过期",
+      sc_stato_chiusa: "↩️ 已关闭",
+      nov8_1: "💱 交换与出售（在商店）：把物品换成香蕉或小猴子，和好友交换或赠送",
+      nov8_2: "🎮 打字比赛和记忆游戏也有关卡了；每局小游戏都能拿香蕉，没有次数限制（另外每 30 分钟还有大奖）",
+      nov8_3: "📦 转移存档（比如从网页到主屏幕应用）后，原账号会停用：排行榜不再重复，名字仍归你",
+      nov8_4: "🔄 有更新时会出现等待画面，新版本对所有人上线后游戏会自动切换过去",
+      nov8_5: "🛠️ 修复：转移代码即使变成小写「scimmie1」也能用；进入时要求填名字不会再卡住",
+      tour8_1: "💱 在这里出售不用的物品（换香蕉或小猴子），并和好友交换。也可以在好友列表里点 🔁 发起交换。",
+      tour8_2: "🎮 现在所有小游戏都有关卡，每局都能拿香蕉。",
+      sc_ricevi: "📥 你得到：",
+      sc_dai_tu: "📤 你给出：",
+      sc_regalo_breve: "礼物"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -5299,10 +5679,10 @@
       pub_resta: "⭐ Records et phrases terminées\n🏆 Succès et classement\n📃 Pages d'or et talents\n🍼 Bébés, collection et sac",
       pub_perche: "Pourquoi ça vaut le coup : chaque Page d'or gagnée augmente la Renommée (+3 % de vitesse pour toujours) et les pages achètent les Talents ci-dessous. Plus tu récoltes de bananes avant de renaître, plus tu reçois de pages.",
       mg_tit: "🎮 Salle de jeux",
-      mg_sotto: "Trois mini-jeux pour t'amuser pendant que les singes tapent. Chaque jeu donne un prix toutes les 30 minutes (jusqu'à 15 minutes de production, parfois un bonus pour le sac) ; entre-temps tu peux jouer pour battre ton record.",
-      mg_pronti: "🎁 Prix prêts : {n}",
-      mg_attesa: "Prochain prix dans {t}",
-      mg_pronto: "🎁 Prix prêt",
+      mg_sotto: "Trois mini-jeux à niveaux. Chaque partie rapporte des bananes selon les points, sans limite ; en plus, chaque jeu donne un gros prix toutes les 30 minutes (jusqu'à 15 minutes de production, parfois un bonus pour le sac).",
+      mg_pronti: "🎁 Gros prix prêts : {n}",
+      mg_attesa: "Prochain gros prix dans {t}",
+      mg_pronto: "🎁 Gros prix prêt",
       mg_best: "record {n}",
       mg_gioca: "Jouer",
       mg_via: "▶ Commencer",
@@ -5310,16 +5690,16 @@
       mg_punti: "Points : {n}",
       mg_nuovo_record: "Nouveau record !",
       mg_record: "Ton record : {n}",
-      mg_senza_premio: "Partie pour le record : le prochain prix arrive dans {t}",
+      mg_senza_premio: "Le prochain gros prix arrive dans {t}",
       mg_bravo: "Bravo !",
       mg_fine: "Temps écoulé !",
       mg_scrivi: "Écris ici…",
       mg_n_banane: "Bananes au vol",
       mg_d_banane: "Touche les bananes qui tombent et réussis les niveaux : chacun dure 20 secondes, a un objectif et est plus dur que le précédent.",
       mg_n_battitura: "Course de frappe",
-      mg_d_battitura: "Tape le plus de mots possible en 30 secondes : chaque bonne lettre vaut un point. Montre aux singes comment on fait !",
+      mg_d_battitura: "Tape les mots le plus vite possible et réussis les niveaux : 20 secondes par niveau, un objectif de lettres qui monte et des mots de plus en plus longs.",
       mg_n_memoria: "Mémoire des singes",
-      mg_d_memoria: "Trouve les 8 paires de singes identiques en 60 secondes : 10 points par paire, plus les secondes restantes.",
+      mg_d_memoria: "Trouve les paires de singes identiques et réussis les niveaux : chaque niveau a plus de cartes et moins de secondes par paire.",
       nov5_1: "🎮 Nouvelle Salle de jeux (écran Œuvre) : trois mini-jeux avec un prix toutes les 30 minutes",
       nov5_2: "🎒 Les coffres donnent souvent des bonus à garder dans le sac : singes ×2, vitesse ×5, sauts dans le temps… à utiliser quand tu veux",
       nov5_3: "💎 Coffres plus chers, objets rares plus rares, nouvelles couleurs de nom ; les doublons s'affichent et donnent des Pages d'or",
@@ -5348,12 +5728,12 @@
       mg_g_banane_1: "👆 Touche les bananes avant qu'elles touchent le sol : +1 (les dorées ✨ +5)",
       mg_g_banane_2: "🎯 Chaque niveau dure 20 secondes et a un objectif : atteins-le pour passer au suivant. Les secondes restantes deviennent des points.",
       mg_g_banane_3: "🔥 Attrapes-en beaucoup d'affilée pour des points doubles et triples. Ne touche pas les pourries 🤢 ni les noix de coco 🥥 !",
-      mg_g_battitura_1: "👀 En haut, il y a un mot : tape-le dans la case",
-      mg_g_battitura_2: "✅ Quand c'est juste, le mot suivant arrive tout seul : chaque lettre vaut 1 point",
-      mg_g_battitura_3: "⏱️ Tu as 30 secondes : plus tu tapes de mots, plus tu marques",
-      mg_g_memoria_1: "👆 Retourne deux cartes à la fois",
-      mg_g_memoria_2: "🐒 Si les singes sont pareils, ils restent visibles : +10",
-      mg_g_memoria_3: "⏱️ Trouve les 8 paires en 60 secondes : les secondes restantes deviennent des points",
+      mg_g_battitura_1: "👀 En haut, il y a un mot : tape-le dans la case (accents et majuscules ne comptent pas)",
+      mg_g_battitura_2: "🎯 Chaque niveau dure 20 secondes et a un objectif de lettres : atteins-le pour passer au suivant, avec des mots plus longs",
+      mg_g_battitura_3: "✅ Chaque bonne lettre vaut 1 point ; les secondes restantes deviennent des points",
+      mg_g_memoria_1: "👆 Retourne deux cartes à la fois : si les singes sont pareils, ils restent visibles (+10)",
+      mg_g_memoria_2: "🎯 Trouve toutes les paires avant la fin du temps pour passer au niveau suivant",
+      mg_g_memoria_3: "📈 Chaque niveau a plus de cartes et moins de secondes par paire ; les secondes restantes deviennent des points",
       tg_immortale: "Immortel",
       tg_primo: "Numéro un",
       tgd_primo: "Termine un mois 1er d'un classement",
@@ -5364,7 +5744,82 @@
       nov7_1: "🎉 Les événements retrouvent leurs effets à l'écran (confettis, notes, obscurité, le directeur qui passe, pluie de bananes…), désormais en pixel art",
       nov7_2: "📦 Nouveaux prix des coffres : bois 300, argent 700, or 1500, diamant 2500 Pages d'or ; les doublons remboursent plus",
       nov7_3: "🎨 Les Couleurs sont maintenant unies et toutes différentes ; les dégradés sont devenus des Noms animés, chacun avec son mouvement",
-      tour7_1: "📦 Les coffres ont de nouveaux prix, et dans Personnaliser → Nom les couleurs sont séparées des noms animés."
+      tour7_1: "📦 Les coffres ont de nouveaux prix, et dans Personnaliser → Nom les couleurs sont séparées des noms animés.",
+      mg_grande: "Gros prix : +{n} 🍌",
+      mg_bt_lv: "Mots de {a} à {b} lettres · objectif {n} lettres",
+      mg_mem_lv: "{c} paires en {s} secondes",
+      tf_tit: "Partie transférée",
+      tf_testo: "La partie de {nick} a été transférée sur un autre appareil (ou dans l'appli). Ici, le compte est désactivé : il n'apparaît plus au classement, donc pas de doublon. Pour jouer ici, importe la partie depuis l'autre appareil.",
+      tf_importa: "📥 Importer une partie",
+      tf_nuova: "🆕 Recommencer ici",
+      tf_nuova_testo: "Une nouvelle partie avec un nouveau compte commencera sur cet appareil. La partie transférée reste où elle est.",
+      nome_usa: "Utiliser « {nome} »",
+      ag_tit: "Mise à jour vers la version {v}",
+      ag_testo_web: "Une nouvelle version du jeu est sortie ! Je la télécharge : dès qu'elle est en ligne pour tout le monde, le jeu se rouvre tout seul. Ta partie est sauvegardée.",
+      ag_testo_app: "Une nouvelle version du jeu est sortie ! Pour l'avoir, ferme le jeu et rouvre-le (ou touche Recharger). Ta partie est sauvegardée.",
+      ag_attesa: "Le site se met encore à jour… je réessaie bientôt (essai {n})",
+      ag_pronto: "Prête ! Je rouvre le jeu…",
+      ag_ricarica: "🔄 Recharger",
+      sc_tit: "💱 Échanges et ventes",
+      sc_carta: "Vends les objets que tu n'utilises pas ou échange-les avec tes amis",
+      sc_ricevute_n: "📨 Propositions d'échange reçues : {n}",
+      sc_vendi: "💰 Vendre",
+      sc_scambia: "🔁 Échanger",
+      sc_proposte: "📨 Propositions",
+      sc_vendi_sotto: "Vends un objet que tu n'utilises pas : reçois des bananes, ou des bébés singes (ils font grandir pour toujours tes singes de cette difficulté, même après la Renaissance). Les objets de départ ne se vendent pas.",
+      sc_vuoto: "Tu n'as pas encore d'objets à vendre ou échanger : tu les trouves dans les coffres !",
+      sc_per_banane: "Vendre pour 🍌 {n}",
+      sc_per_scimmie: "Vendre pour 🍼 +{p}% bébés singes",
+      sc_cuccioli: "bébés singes",
+      sc_vendi_tit: "Vendre « {nome} » ?",
+      sc_vendi_conf: "L'objet quitte ta collection. Tu reçois : {premio}.",
+      sc_venduto: "Vendu ! {premio}",
+      sc_scambia_sotto: "Propose à un ami d'échanger un de tes objets contre un des siens, ou fais-lui un cadeau. Ton objet est mis de côté jusqu'à sa réponse (s'il refuse, il te revient).",
+      sc_scegli_amico: "1. Choisis un ami",
+      sc_nessun_amico: "Pour échanger, il te faut un ami : ajoute-le en touchant un joueur du classement.",
+      sc_dai: "2. Ce que tu donnes",
+      sc_chiedi: "3. Ce que tu demandes à {nick}",
+      sc_regalo: "🎁 Rien : c'est un cadeau",
+      sc_carico: "Chargement de la collection de {nick}…",
+      sc_coll_vuota: "{nick} n'a pas encore d'objets à échanger : tu peux lui faire un cadeau.",
+      sc_scegli_dai: "Choisis quoi donner",
+      sc_riassunto: "Tu donnes « {dai} » et demandes « {chiedi} »",
+      sc_riassunto_regalo: "Tu offres « {dai} » à {nick}",
+      sc_proponi: "Proposer",
+      sc_proposto: "Proposition envoyée à {nick} !",
+      sc_max: "Tu peux avoir au maximum {n} propositions en attente.",
+      sc_ricevute: "Reçues",
+      sc_inviate: "Envoyées",
+      sc_storia: "Derniers échanges",
+      sc_nessuna: "Aucune pour l'instant.",
+      sc_da: "De {nick} :",
+      sc_a: "À {nick} :",
+      sc_attesa: "En attente de {nick}…",
+      sc_hai_gia: "Tu l'as déjà : il devient +{n} 📃",
+      sc_non_hai: "Tu n'as plus « {nome} » : impossible d'accepter.",
+      sc_ritira: "Retirer",
+      sc_fatto_avviso: "🔁 Échange fait avec {nick} !",
+      sc_rifiutato_avviso: "{nick} a refusé l'échange : « {nome} » est revenu dans ta collection",
+      sc_ricevuta_avviso: "🔁 {nick} te propose un échange !",
+      sc_offline: "Les échanges entre joueurs fonctionnent quand tu es connecté au classement en ligne.",
+      sc_rich_riga: "te propose un échange",
+      sc_vedi: "Voir",
+      sc_stato_fatto: "✅ Fait",
+      sc_stato_rifiutata: "❌ Refusé",
+      sc_stato_annullata: "↩️ Retiré",
+      sc_stato_ritirata: "↩️ Retiré",
+      sc_stato_scaduta: "⌛ Expiré",
+      sc_stato_chiusa: "↩️ Fermé",
+      nov8_1: "💱 Échanges et ventes (dans la Boutique) : vends tes objets pour des bananes ou des bébés singes, échange-les avec tes amis ou offre-les",
+      nov8_2: "🎮 Des niveaux aussi dans Course de frappe et Mémoire ; chaque partie de mini-jeu rapporte des bananes, sans limite (plus le gros prix toutes les 30 minutes)",
+      nov8_3: "📦 Si tu transfères ta partie (par exemple du site à l'appli sur l'écran d'accueil), l'ancien compte se désactive : plus de doublon au classement, et ton nom reste à toi",
+      nov8_4: "🔄 Quand une mise à jour sort, un écran d'attente apparaît et le jeu passe tout seul à la nouvelle version dès qu'elle est en ligne pour tout le monde",
+      nov8_5: "🛠️ Corrigé : le code de transfert marche même s'il devient « scimmie1 » en minuscules, et la demande du nom au démarrage ne bloque plus",
+      tour8_1: "💱 Ici tu vends les objets que tu n'utilises pas (pour des bananes ou des bébés singes) et tu les échanges avec tes amis. Tu peux aussi proposer un échange depuis la liste d'amis avec 🔁.",
+      tour8_2: "🎮 Tous les mini-jeux ont maintenant des niveaux, et chaque partie rapporte des bananes.",
+      sc_ricevi: "📥 Tu reçois :",
+      sc_dai_tu: "📤 Tu donnes :",
+      sc_regalo_breve: "cadeau"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -6006,10 +6461,10 @@
       pub_resta: "⭐ Рекорды и готовые фразы\n🏆 Награды и рейтинг\n📃 Золотые страницы и таланты\n🍼 Детёныши, коллекция и рюкзак",
       pub_perche: "Зачем это нужно: каждая заработанная Золотая страница добавляет Славу (+3% скорости навсегда), а за страницы покупаются Таланты ниже. Чем больше бананов соберёшь до перерождения, тем больше страниц получишь.",
       mg_tit: "🎮 Игровая",
-      mg_sotto: "Три мини-игры, чтобы развлечься, пока обезьяны печатают. Каждая игра даёт награду раз в 30 минут (до 15 минут производства, иногда бонус в рюкзак); в остальное время можно бить свой рекорд.",
-      mg_pronti: "🎁 Готово наград: {n}",
-      mg_attesa: "Следующая награда через {t}",
-      mg_pronto: "🎁 Награда готова",
+      mg_sotto: "Три мини-игры с уровнями. Каждая партия приносит бананы по очкам, без ограничений; а ещё каждая игра раз в 30 минут даёт большой приз (до 15 минут производства, иногда бонус в рюкзак).",
+      mg_pronti: "🎁 Больших призов готово: {n}",
+      mg_attesa: "Следующий большой приз через {t}",
+      mg_pronto: "🎁 Большой приз готов",
       mg_best: "рекорд {n}",
       mg_gioca: "Играть",
       mg_via: "▶ Начать",
@@ -6017,16 +6472,16 @@
       mg_punti: "Очки: {n}",
       mg_nuovo_record: "Новый рекорд!",
       mg_record: "Твой рекорд: {n}",
-      mg_senza_premio: "Игра на рекорд: следующая награда через {t}",
+      mg_senza_premio: "Следующий большой приз через {t}",
       mg_bravo: "Великолепно!",
       mg_fine: "Время вышло!",
       mg_scrivi: "Пиши здесь…",
       mg_n_banane: "Лови бананы",
       mg_d_banane: "Нажимай на падающие бананы и проходи уровни: каждый длится 20 секунд, у каждого своя цель, и он сложнее предыдущего.",
       mg_n_battitura: "Гонка печати",
-      mg_d_battitura: "Напечатай как можно больше слов за 30 секунд: каждая верная буква — очко. Покажи обезьянам, как надо!",
+      mg_d_battitura: "Печатай слова как можно быстрее и проходи уровни: 20 секунд на уровень, цель по буквам растёт, слова всё длиннее.",
       mg_n_memoria: "Обезьянья память",
-      mg_d_memoria: "Найди 8 пар одинаковых обезьян за 60 секунд: 10 очков за пару плюс оставшиеся секунды.",
+      mg_d_memoria: "Находи пары одинаковых обезьян и проходи уровни: на каждом уровне больше карт и меньше секунд на пару.",
       nov5_1: "🎮 Новая Игровая (на экране «Текст»): три мини-игры с наградой каждые 30 минут",
       nov5_2: "🎒 В сундуках часто бывают бонусы для рюкзака: обезьяны ×2, скорость ×5, скачки во времени… используй когда захочешь",
       nov5_3: "💎 Сундуки дороже, редкие предметы ещё реже, новые цвета имени; дубликаты показываются и дают Золотые страницы",
@@ -6055,12 +6510,12 @@
       mg_g_banane_1: "👆 Нажимай на бананы, пока они не упали: +1 (золотые ✨ +5)",
       mg_g_banane_2: "🎯 Каждый уровень длится 20 секунд, и у него есть цель: достигни её, чтобы перейти дальше. Оставшиеся секунды — это очки.",
       mg_g_banane_3: "🔥 Лови много подряд — очки удваиваются и утраиваются. Не трогай гнилые 🤢 и кокосы 🥥!",
-      mg_g_battitura_1: "👀 Вверху слово: напечатай его в поле",
-      mg_g_battitura_2: "✅ Когда верно, следующее слово появляется само: каждая буква — 1 очко",
-      mg_g_battitura_3: "⏱️ У тебя 30 секунд: чем больше слов, тем больше очков",
-      mg_g_memoria_1: "👆 Переворачивай по две карты",
-      mg_g_memoria_2: "🐒 Если обезьяны одинаковые, они остаются открытыми: +10",
-      mg_g_memoria_3: "⏱️ Найди 8 пар за 60 секунд: оставшиеся секунды — это очки",
+      mg_g_battitura_1: "👀 Вверху слово: напечатай его в поле (регистр не важен)",
+      mg_g_battitura_2: "🎯 Уровень длится 20 секунд, у него цель по буквам: достигни её, чтобы перейти дальше, к словам подлиннее",
+      mg_g_battitura_3: "✅ Каждая верная буква — 1 очко; оставшиеся секунды — тоже очки",
+      mg_g_memoria_1: "👆 Открывай по две карты: одинаковые обезьяны остаются открытыми (+10)",
+      mg_g_memoria_2: "🎯 Найди все пары, пока не кончилось время, чтобы перейти на следующий уровень",
+      mg_g_memoria_3: "📈 На каждом уровне больше карт и меньше секунд на пару; оставшиеся секунды — это очки",
       tg_immortale: "Бессмертный",
       tg_primo: "Номер один",
       tgd_primo: "Закончи месяц первым в рейтинге",
@@ -6071,7 +6526,82 @@
       nov7_1: "🎉 У событий вернулись эффекты на экране (конфетти, ноты, темнота, проходящий директор, банановый дождь…), теперь в пиксель-арте",
       nov7_2: "📦 Новые цены сундуков: деревянный 300, серебряный 700, золотой 1500, алмазный 2500 Золотых страниц; за дубликаты возвращается больше",
       nov7_3: "🎨 В «Цветах» теперь только однотонные цвета, все разные; градиентные стали анимированными надписями, у каждой своё движение",
-      tour7_1: "📦 У сундуков новые цены, а в «Оформление → Имя» цвета теперь отдельно от анимированных надписей."
+      tour7_1: "📦 У сундуков новые цены, а в «Оформление → Имя» цвета теперь отдельно от анимированных надписей.",
+      mg_grande: "Большой приз: +{n} 🍌",
+      mg_bt_lv: "Слова из {a}–{b} букв · цель {n} букв",
+      mg_mem_lv: "{c} пар за {s} секунд",
+      tf_tit: "Игра перенесена",
+      tf_testo: "Игра {nick} перенесена на другое устройство (или в приложение). Здесь аккаунт отключён: он больше не появляется в рейтинге, чтобы не было дубликатов. Чтобы играть здесь, импортируй игру с другого устройства.",
+      tf_importa: "📥 Импортировать игру",
+      tf_nuova: "🆕 Начать заново здесь",
+      tf_nuova_testo: "На этом устройстве начнётся новая игра с новым аккаунтом. Перенесённая игра останется там, где она есть.",
+      nome_usa: "Взять «{nome}»",
+      ag_tit: "Обновление до версии {v}",
+      ag_testo_web: "Вышла новая версия игры! Загружаю её: как только она будет доступна всем, игра откроется сама. Твоя игра сохранена.",
+      ag_testo_app: "Вышла новая версия игры! Чтобы её получить, закрой игру и открой снова (или нажми «Перезагрузить»). Твоя игра сохранена.",
+      ag_attesa: "Сайт ещё обновляется… скоро попробую снова (попытка {n})",
+      ag_pronto: "Готово! Открываю игру…",
+      ag_ricarica: "🔄 Перезагрузить",
+      sc_tit: "💱 Обмен и продажа",
+      sc_carta: "Продавай ненужные предметы или меняйся с друзьями",
+      sc_ricevute_n: "📨 Получено предложений обмена: {n}",
+      sc_vendi: "💰 Продать",
+      sc_scambia: "🔁 Обмен",
+      sc_proposte: "📨 Предложения",
+      sc_vendi_sotto: "Продай ненужный предмет: получишь бананы или обезьяньих детёнышей (они навсегда увеличивают число обезьян на этой сложности, даже после перерождения). Стартовые предметы не продаются.",
+      sc_vuoto: "Пока нет предметов для продажи или обмена: их можно найти в сундуках!",
+      sc_per_banane: "Продать за 🍌 {n}",
+      sc_per_scimmie: "Продать за 🍼 +{p}% детёнышей",
+      sc_cuccioli: "детёнышей",
+      sc_vendi_tit: "Продать «{nome}»?",
+      sc_vendi_conf: "Предмет исчезнет из коллекции. Ты получишь: {premio}.",
+      sc_venduto: "Продано! {premio}",
+      sc_scambia_sotto: "Предложи другу обменять твой предмет на его, или сделай подарок. Предмет откладывается, пока друг не ответит (если откажет — вернётся).",
+      sc_scegli_amico: "1. Выбери друга",
+      sc_nessun_amico: "Для обмена нужен друг: добавь его, нажав на игрока в рейтинге.",
+      sc_dai: "2. Что отдаёшь",
+      sc_chiedi: "3. Что просишь у {nick}",
+      sc_regalo: "🎁 Ничего: это подарок",
+      sc_carico: "Загружаю коллекцию {nick}…",
+      sc_coll_vuota: "У {nick} пока нет предметов для обмена: можно сделать подарок.",
+      sc_scegli_dai: "Выбери, что отдать",
+      sc_riassunto: "Отдаёшь «{dai}», просишь «{chiedi}»",
+      sc_riassunto_regalo: "Даришь «{dai}» игроку {nick}",
+      sc_proponi: "Предложить",
+      sc_proposto: "Предложение отправлено {nick}!",
+      sc_max: "Можно иметь не больше {n} предложений в ожидании.",
+      sc_ricevute: "Полученные",
+      sc_inviate: "Отправленные",
+      sc_storia: "Последние обмены",
+      sc_nessuna: "Пока нет.",
+      sc_da: "От {nick}:",
+      sc_a: "Для {nick}:",
+      sc_attesa: "Ждём ответа {nick}…",
+      sc_hai_gia: "Уже есть: станет +{n} 📃",
+      sc_non_hai: "У тебя больше нет «{nome}»: принять нельзя.",
+      sc_ritira: "Отозвать",
+      sc_fatto_avviso: "🔁 Обмен с {nick} состоялся!",
+      sc_rifiutato_avviso: "{nick} отказался от обмена: «{nome}» вернулся в коллекцию",
+      sc_ricevuta_avviso: "🔁 {nick} предлагает тебе обмен!",
+      sc_offline: "Обмен между игроками работает при подключении к онлайн-рейтингу.",
+      sc_rich_riga: "предлагает обмен",
+      sc_vedi: "Открыть",
+      sc_stato_fatto: "✅ Готово",
+      sc_stato_rifiutata: "❌ Отклонено",
+      sc_stato_annullata: "↩️ Отозвано",
+      sc_stato_ritirata: "↩️ Отозвано",
+      sc_stato_scaduta: "⌛ Истекло",
+      sc_stato_chiusa: "↩️ Закрыто",
+      nov8_1: "💱 Обмен и продажа (в Магазине): продавай предметы за бананы или детёнышей, меняйся с друзьями или дари",
+      nov8_2: "🎮 Уровни теперь и в «Гонке печати», и в «Памяти»; каждая мини-игра приносит бананы без ограничений (плюс большой приз раз в 30 минут)",
+      nov8_3: "📦 Если переносишь игру (например, с сайта в приложение на главном экране), старый аккаунт отключается: больше никаких дубликатов в рейтинге, а имя остаётся твоим",
+      nov8_4: "🔄 Когда выходит обновление, появляется экран ожидания, и игра сама переходит на новую версию, как только она доступна всем",
+      nov8_5: "🛠️ Исправлено: код переноса работает, даже если стал строчным «scimmie1», а запрос имени при входе больше не зависает",
+      tour8_1: "💱 Здесь продаются ненужные предметы (за бананы или детёнышей) и происходит обмен с друзьями. Предложить обмен можно и из списка друзей кнопкой 🔁.",
+      tour8_2: "🎮 Теперь у всех мини-игр есть уровни, и каждая партия приносит бананы.",
+      sc_ricevi: "📥 Получаешь:",
+      sc_dai_tu: "📤 Отдаёшь:",
+      sc_regalo_breve: "подарок"
     }
   };
 
@@ -9663,10 +10193,45 @@
       );
       for (const m of MODI) {
         base.collection(this.nomeClassifica(m)).orderBy("frase", "desc").limit(100).onSnapshot(
-          snap => { this.righe[m] = snap.docs.map(d => ({ id: d.id, ...d.data() })); this.disegna(); },
+          snap => { this.righe[m] = snap.docs.map(d => ({ id: d.id, ...d.data() })); this.aggiornaEx(); this.disegna(); },
           () => { this.disegna(); }
         );
       }
+    },
+
+    // account trasferiti: id vecchio → riga del nuovo. Vale il trasferimento più recente (si può anche tornare indietro)
+    exMappa: {},
+    aggiornaEx() {
+      const tutte = MODI.flatMap(m => this.righe[m] || []);
+      const trasfDi = {};
+      for (const r of tutte) trasfDi[r.id] = Math.max(trasfDi[r.id] || 0, r.trasf || 0);
+      const mappa = {};
+      for (const r of tutte) for (const x of (Array.isArray(r.ex) ? r.ex : [])) {
+        if (typeof x !== "string" || x === r.id) continue;
+        if ((trasfDi[x] || 0) > (r.trasf || 0)) continue;   // quell'account è stato ripreso dopo
+        mappa[x] = r;
+      }
+      this.exMappa = mappa;
+      // il mio account è stato trasferito su un altro dispositivo: qui si disattiva
+      if (this.id && mappa[this.id] && !this.disattivato) this.disattiva(mappa[this.id]);
+      // amici che hanno trasferito l'account: li seguo su quello nuovo
+      let cambiati = false;
+      for (const a of G.amici || []) {
+        const r = mappa[a.id];
+        if (r && r.id !== Online.id) { a.id = r.id; a.nick = r.nick || a.nick; cambiati = true; }
+      }
+      if (cambiati) {
+        const visti = new Set();
+        G.amici = G.amici.filter(a => !visti.has(a.id) && visti.add(a.id));
+        salva();
+      }
+    },
+    disattiva(nuovo) {
+      this.disattivato = true;
+      this.solaLettura = true;
+      G.trasferitoA = { id: nuovo.id, nick: nuovo.nick || "", ts: Date.now() };
+      salva();
+      mostraTrasferito();
     },
 
     async collega() {
@@ -9692,6 +10257,7 @@
         this.pronto = true;
         this.ascolta(db);
         Sfide.avvia();
+        Aggiornamento.avvia();
         this.salvaOnline();
         this.pubblicaRiga();
       } catch (e) { this.nonDisponibile(); }
@@ -9711,6 +10277,7 @@
         document.body.classList.remove("senza-classifica");
         this.ascolta(this.fb);
         Sfide.avvia();
+        Aggiornamento.avvia();
         this.pubblicaRiga();
       } catch (e) { this.nonDisponibile(); }
     },
@@ -9733,7 +10300,7 @@
       else if (R.ritorno) { scriviRitorno(); apri("veloRitorno"); }
     },
     async salvaOnline() {
-      if (!this.pronto || !this.id || this.salvando || this.tipo === "firebase") return;   // sul sito si salva nel browser
+      if (!this.pronto || !this.id || this.salvando || this.tipo === "firebase" || this.disattivato) return;   // sul sito si salva nel browser
       const testo = JSON.stringify(G);
       if (testo === this.ultimoSalvato) return;
       this.salvando = true;
@@ -9761,6 +10328,7 @@
         riga.avatar = sc.avatar; riga.colore = sc.colore; riga.effetto = sc.effetto;
         if (!this.senzaTarga && G.targhetta) riga.targ = G.targhetta;
       }
+      if (!this.senzaEx && (G.exIds || []).length) { riga.ex = G.exIds.slice(-5); riga.trasf = G.trasf || 0; }
       return riga;
     },
     // statistiche generali del giocatore (si leggono toccando la sua riga in classifica)
@@ -9774,6 +10342,7 @@
         pubblicazioni: G.pubblicazioni || 0, raccolto: Math.round(G.raccolto || 0), scimmie: Math.round(numScimmie()),
         frase: migliore.frase, fraseId: migliore.fraseId, parola: parola ? parola.p : "",
         modoPartita: modoCorrente(), completateModo: { ...(G.completateModo || {}) }, targ: G.targhetta || "",
+        coll: (G.collezione || []).filter(id => { const o = estetico(id); return o && !o.g; }).slice(0, 150),
         rec: Object.fromEntries(MODI.map((m, i) => [m, frasi[i].record])) };
     },
     // il profilo si aggiorna al massimo ogni 5 minuti (o subito se cambi aspetto)
@@ -9850,6 +10419,13 @@
         }
       } catch (e) {
         const codice = e && e.code;
+        if (codice === "permission-denied" && !this.senzaEx && daScrivere.some(x => x.riga.ex)) {
+          // regole di Firebase senza il trasferimento: riprovo senza
+          this.senzaEx = true;
+          this.scrivendoRiga = false;
+          this.ultimaScrittura = 0;
+          return this.pubblicaRiga();
+        }
         if (codice === "permission-denied" && !this.senzaTarga && daScrivere.some(x => x.riga.targ)) {
           // regole di Firebase senza la targhetta: riprovo senza
           this.senzaTarga = true;
@@ -9881,10 +10457,11 @@
       if (!this.disponibile) { stato.textContent = t("cl_offline"); lista.innerHTML = ""; return; }
       const avviso = this.solaLettura ? t("cl_sola") : "";
       // chi era nella classifica di prima con un nome e non ha ancora giocato con la versione nuova
-      const nuove = this.righe[modo] || [];
+      const nascoste = this.exMappa || {};
+      const nuove = (this.righe[modo] || []).filter(r => !nascoste[r.id]);
       const giaDentro = new Set(MODI.flatMap(m => (this.righe[m] || []).map(r => r.id)));
       const vecchie = (this.righeVecchie || [])
-        .filter(r => typeof r.nick === "string" && r.nick.trim() && r.id !== this.id && !giaDentro.has(r.id) && (r.modo || "normale") === modo)
+        .filter(r => typeof r.nick === "string" && r.nick.trim() && r.id !== this.id && !giaDentro.has(r.id) && !nascoste[r.id] && (r.modo || "normale") === modo)
         .map(r => ({ ...r, parola: "", parolaL: 0 }));   // le parole di prima erano casuali: non valgono più
       scriviPremioClassifica();
       const righe = ordinaClassifica(nuove.concat(vecchie));
@@ -10080,7 +10657,7 @@
   //  PERSONALIZZAZIONE E NEGOZIO: avatar, colori del nome, scritte animate (solo estetica)
   // =====================================================================
   const ESTETICI = [{"id": "a_scimmia", "t": "a", "v": "🐒", "r": 0, "g": true}, {"id": "a_nonvedo", "t": "a", "v": "🙈", "r": 0, "g": true}, {"id": "a_banana", "t": "a", "v": "🍌", "r": 0, "g": true}, {"id": "a_nonsento", "t": "a", "v": "🙉", "r": 0, "g": false}, {"id": "a_nonparlo", "t": "a", "v": "🙊", "r": 0, "g": false}, {"id": "a_muso", "t": "a", "v": "🐵", "r": 0, "g": false}, {"id": "a_gorilla", "t": "a", "v": "🦍", "r": 0, "g": false}, {"id": "a_orango", "t": "a", "v": "🦧", "r": 0, "g": false}, {"id": "a_palma", "t": "a", "v": "🌴", "r": 0, "g": false}, {"id": "a_pergamena", "t": "a", "v": "📜", "r": 1, "g": false}, {"id": "a_penna", "t": "a", "v": "✍️", "r": 1, "g": false}, {"id": "a_tastiera", "t": "a", "v": "⌨️", "r": 1, "g": false}, {"id": "a_cilindro", "t": "a", "v": "🎩", "r": 1, "g": false}, {"id": "a_occhiali", "t": "a", "v": "🕶️", "r": 1, "g": false}, {"id": "a_cuffie", "t": "a", "v": "🎧", "r": 1, "g": false}, {"id": "a_ananas", "t": "a", "v": "🍍", "r": 1, "g": false}, {"id": "a_corona", "t": "a", "v": "👑", "r": 2, "g": false}, {"id": "a_robot", "t": "a", "v": "🤖", "r": 2, "g": false}, {"id": "a_alieno", "t": "a", "v": "👽", "r": 2, "g": false}, {"id": "a_unicorno", "t": "a", "v": "🦄", "r": 2, "g": false}, {"id": "a_drago", "t": "a", "v": "🐉", "r": 2, "g": false}, {"id": "a_mago", "t": "a", "v": "🧙", "r": 2, "g": false}, {"id": "a_galassia", "t": "a", "v": "🌌", "r": 3, "g": false}, {"id": "a_diamante", "t": "a", "v": "💎", "r": 3, "g": false}, {"id": "a_fuoco", "t": "a", "v": "🔥", "r": 3, "g": false}, {"id": "a_arcobaleno", "t": "a", "v": "🌈", "r": 3, "g": false}, {"id": "c_bianco", "t": "c", "v": "", "r": 0, "g": true}, {"id": "c_banana", "t": "c", "v": "#ffd23f", "r": 0, "g": true}, {"id": "c_menta", "t": "c", "v": "#b5f5c9", "r": 0, "g": true}, {"id": "c_cielo", "t": "c", "v": "#5cc8ff", "r": 0, "g": false}, {"id": "c_rosa", "t": "c", "v": "#ff9ec4", "r": 0, "g": false}, {"id": "c_arancio", "t": "c", "v": "#ff8a1f", "r": 0, "g": false}, {"id": "c_lavanda", "t": "c", "v": "#d8b4fe", "r": 1, "g": false}, {"id": "c_corallo", "t": "c", "v": "#ff6f61", "r": 1, "g": false}, {"id": "c_oro", "t": "c", "v": "#c9a227", "r": 1, "g": false}, {"id": "c_smeraldo", "t": "c", "v": "#22c55e", "r": 1, "g": false}, {"id": "c_tramonto", "t": "e", "v": "", "r": 2, "g": false}, {"id": "c_oceano", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_nessuno", "t": "e", "v": "", "r": 0, "g": true}, {"id": "e_bagliore", "t": "e", "v": "", "r": 1, "g": false}, {"id": "e_brillio", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_neon", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_arcobaleno", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_fuoco", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_galassia", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_orofuso", "t": "e", "v": "", "r": 3, "g": false}, {"id": "a_infinita", "t": "a", "v": "♾️", "r": 4, "g": false}, {"id": "a_bardo", "t": "a", "v": "🎭", "r": 4, "g": false}, {"id": "c_aurora", "t": "e", "v": "", "r": 4, "g": false}, {"id": "e_infinito", "t": "e", "v": "", "r": 4, "g": false}, {"id": "a_cappuccino", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_mandrillo", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_neve", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_poeta", "t": "a", "v": "🖋️", "r": 1, "g": false}, {"id": "a_dj", "t": "a", "v": "🎧", "r": 1, "g": false}, {"id": "a_esploratore", "t": "a", "v": "🌴", "r": 1, "g": false}, {"id": "a_re_nero", "t": "a", "v": "👑", "r": 2, "g": false}, {"id": "a_cyborg", "t": "a", "v": "🤖", "r": 2, "g": false}, {"id": "c_lime", "t": "c", "v": "#a3e635", "r": 0, "g": false}, {"id": "c_cremisi", "t": "c", "v": "#d61f3a", "r": 1, "g": false}, {"id": "c_glaciale", "t": "e", "v": "", "r": 2, "g": false}, {"id": "a_scimmia_oro", "t": "a", "v": "🥇", "r": 5, "g": false}, {"id": "a_primo", "t": "a", "v": "✒️", "r": 5, "g": false}, {"id": "c_platino", "t": "e", "v": "", "r": 5, "g": false}, {"id": "e_leggenda", "t": "e", "v": "", "r": 5, "g": false}, {"id": "c_turchese", "t": "c", "v": "#2dd4bf", "r": 0, "g": false}, {"id": "c_pesca", "t": "c", "v": "#ffc8a2", "r": 0, "g": false}, {"id": "c_ghiaccio", "t": "c", "v": "#d6f3ff", "r": 0, "g": false}, {"id": "c_ciliegia", "t": "c", "v": "#c2185b", "r": 1, "g": false}, {"id": "c_ambra", "t": "c", "v": "#b45f1c", "r": 1, "g": false}, {"id": "c_viola", "t": "c", "v": "#8b5cf6", "r": 1, "g": false}, {"id": "c_azzurro", "t": "c", "v": "#4f7dff", "r": 1, "g": false}, {"id": "c_fiamma", "t": "e", "v": "", "r": 2, "g": false}, {"id": "c_vaporwave", "t": "e", "v": "", "r": 2, "g": false}, {"id": "c_foresta", "t": "e", "v": "", "r": 2, "g": false}, {"id": "c_crepuscolo", "t": "e", "v": "", "r": 3, "g": false}, {"id": "c_prisma", "t": "e", "v": "", "r": 3, "g": false}, {"id": "c_lava", "t": "e", "v": "", "r": 3, "g": false}, {"id": "c_nebulosa", "t": "e", "v": "", "r": 4, "g": false}];
-  const NOMI_ESTETICI = {"c_bianco": {"it": "Bianco", "en": "White", "es": "Blanco", "zh": "白色", "fr": "Blanc", "ru": "Белый"}, "c_banana": {"it": "Banana", "en": "Banana", "es": "Plátano", "zh": "香蕉黄", "fr": "Banane", "ru": "Банановый"}, "c_menta": {"it": "Menta", "en": "Mint", "es": "Menta", "zh": "薄荷绿", "fr": "Menthe", "ru": "Мятный"}, "c_cielo": {"it": "Cielo", "en": "Sky", "es": "Cielo", "zh": "天蓝", "fr": "Ciel", "ru": "Небесный"}, "c_rosa": {"it": "Rosa", "en": "Pink", "es": "Rosa", "zh": "粉红", "fr": "Rose", "ru": "Розовый"}, "c_arancio": {"it": "Arancio", "en": "Orange", "es": "Naranja", "zh": "橙色", "fr": "Orange", "ru": "Оранжевый"}, "c_lavanda": {"it": "Lavanda", "en": "Lavender", "es": "Lavanda", "zh": "薰衣草紫", "fr": "Lavande", "ru": "Лавандовый"}, "c_corallo": {"it": "Corallo", "en": "Coral", "es": "Coral", "zh": "珊瑚红", "fr": "Corail", "ru": "Коралловый"}, "c_oro": {"it": "Oro", "en": "Gold", "es": "Oro", "zh": "金色", "fr": "Or", "ru": "Золотой"}, "c_smeraldo": {"it": "Smeraldo", "en": "Emerald", "es": "Esmeralda", "zh": "翡翠绿", "fr": "Émeraude", "ru": "Изумрудный"}, "c_tramonto": {"it": "Tramonto", "en": "Sunset", "es": "Atardecer", "zh": "日落", "fr": "Coucher de soleil", "ru": "Закат"}, "c_oceano": {"it": "Oceano", "en": "Ocean", "es": "Océano", "zh": "海洋", "fr": "Océan", "ru": "Океан"}, "e_nessuno": {"it": "Nessuna", "en": "None", "es": "Ninguno", "zh": "无", "fr": "Aucun", "ru": "Нет"}, "e_bagliore": {"it": "Bagliore", "en": "Glow", "es": "Brillo", "zh": "光晕", "fr": "Lueur", "ru": "Сияние"}, "e_brillio": {"it": "Scintillio", "en": "Shimmer", "es": "Destello", "zh": "闪光", "fr": "Scintillement", "ru": "Мерцание"}, "e_neon": {"it": "Neon", "en": "Neon", "es": "Neón", "zh": "霓虹", "fr": "Néon", "ru": "Неон"}, "e_arcobaleno": {"it": "Arcobaleno", "en": "Rainbow", "es": "Arcoíris", "zh": "彩虹", "fr": "Arc-en-ciel", "ru": "Радуга"}, "e_fuoco": {"it": "Fuoco", "en": "Fire", "es": "Fuego", "zh": "火焰", "fr": "Feu", "ru": "Огонь"}, "e_galassia": {"it": "Galassia", "en": "Galaxy", "es": "Galaxia", "zh": "星系", "fr": "Galaxie", "ru": "Галактика"}, "e_orofuso": {"it": "Oro fuso", "en": "Molten gold", "es": "Oro fundido", "zh": "熔金", "fr": "Or fondu", "ru": "Расплавленное золото"}, "c_aurora": {"it": "Aurora", "en": "Aurora", "es": "Aurora", "zh": "极光", "fr": "Aurore", "ru": "Сияние зари"}, "e_infinito": {"it": "Infinito", "en": "Infinite", "es": "Infinito", "zh": "无限", "fr": "Infini", "ru": "Бесконечность"}, "a_infinita": {"it": "La Scimmia Infinita", "en": "The Infinite Monkey", "es": "El Mono Infinito", "zh": "无限猴子", "fr": "Le Singe Infini", "ru": "Бесконечная Обезьяна"}, "a_bardo": {"it": "Il Bardo", "en": "The Bard", "es": "El Bardo", "zh": "吟游诗人", "fr": "Le Barde", "ru": "Бард"}, "c_lime": {"it": "Lime", "en": "Lime", "es": "Lima", "zh": "青柠", "fr": "Citron vert", "ru": "Лайм"}, "c_cremisi": {"it": "Cremisi", "en": "Crimson", "es": "Carmesí", "zh": "深红", "fr": "Cramoisi", "ru": "Багровый"}, "c_glaciale": {"it": "Glaciale", "en": "Glacier", "es": "Glacial", "zh": "冰川", "fr": "Glacier", "ru": "Ледяной"}, "c_platino": {"it": "Platino", "en": "Platinum", "es": "Platino", "zh": "铂金", "fr": "Platine", "ru": "Платина"}, "e_leggenda": {"it": "Leggenda", "en": "Legend", "es": "Leyenda", "zh": "传奇", "fr": "Légende", "ru": "Легенда"}, "a_scimmia_oro": {"it": "La Scimmia d'oro", "en": "The Golden Monkey", "es": "El Mono de oro", "zh": "黄金猴子", "fr": "Le Singe d'or", "ru": "Золотая обезьяна"}, "a_primo": {"it": "Il Primo Scrittore", "en": "The First Writer", "es": "El Primer Escritor", "zh": "第一位作家", "fr": "Le Premier Écrivain", "ru": "Первый писатель"}, "c_turchese": {"it": "Turchese", "en": "Turquoise", "es": "Turquesa", "zh": "绿松石", "fr": "Turquoise", "ru": "Бирюзовый"}, "c_pesca": {"it": "Pesca", "en": "Peach", "es": "Melocotón", "zh": "蜜桃", "fr": "Pêche", "ru": "Персиковый"}, "c_ghiaccio": {"it": "Ghiaccio", "en": "Ice", "es": "Hielo", "zh": "冰蓝", "fr": "Glace", "ru": "Голубой лёд"}, "c_ciliegia": {"it": "Ciliegia", "en": "Cherry", "es": "Cereza", "zh": "樱桃红", "fr": "Cerise", "ru": "Вишнёвый"}, "c_ambra": {"it": "Ambra", "en": "Amber", "es": "Ámbar", "zh": "琥珀", "fr": "Ambre", "ru": "Янтарный"}, "c_viola": {"it": "Viola", "en": "Violet", "es": "Violeta", "zh": "紫罗兰", "fr": "Violet", "ru": "Фиолетовый"}, "c_azzurro": {"it": "Azzurro", "en": "Azure", "es": "Azur", "zh": "天青", "fr": "Azur", "ru": "Лазурный"}, "c_fiamma": {"it": "Battito", "en": "Heartbeat", "es": "Latido", "zh": "心跳", "fr": "Battement", "ru": "Сердцебиение"}, "c_vaporwave": {"it": "Vaporwave", "en": "Vaporwave", "es": "Vaporwave", "zh": "蒸汽波", "fr": "Vaporwave", "ru": "Вейпорвейв"}, "c_foresta": {"it": "Foresta", "en": "Forest", "es": "Bosque", "zh": "森林", "fr": "Forêt", "ru": "Лес"}, "c_crepuscolo": {"it": "Crepuscolo", "en": "Twilight", "es": "Crepúsculo", "zh": "暮光", "fr": "Crépuscule", "ru": "Сумерки"}, "c_prisma": {"it": "Prisma", "en": "Prism", "es": "Prisma", "zh": "棱镜", "fr": "Prisme", "ru": "Призма"}, "c_lava": {"it": "Lava", "en": "Lava", "es": "Lava", "zh": "熔岩", "fr": "Lave", "ru": "Лава"}, "c_nebulosa": {"it": "Nebulosa", "en": "Nebula", "es": "Nebulosa", "zh": "星云", "fr": "Nébuleuse", "ru": "Туманность"}};
+  const NOMI_ESTETICI = {"c_bianco": {"it": "Bianco", "en": "White", "es": "Blanco", "zh": "白色", "fr": "Blanc", "ru": "Белый"}, "c_banana": {"it": "Banana", "en": "Banana", "es": "Plátano", "zh": "香蕉黄", "fr": "Banane", "ru": "Банановый"}, "c_menta": {"it": "Menta", "en": "Mint", "es": "Menta", "zh": "薄荷绿", "fr": "Menthe", "ru": "Мятный"}, "c_cielo": {"it": "Cielo", "en": "Sky", "es": "Cielo", "zh": "天蓝", "fr": "Ciel", "ru": "Небесный"}, "c_rosa": {"it": "Rosa", "en": "Pink", "es": "Rosa", "zh": "粉红", "fr": "Rose", "ru": "Розовый"}, "c_arancio": {"it": "Arancio", "en": "Orange", "es": "Naranja", "zh": "橙色", "fr": "Orange", "ru": "Оранжевый"}, "c_lavanda": {"it": "Lavanda", "en": "Lavender", "es": "Lavanda", "zh": "薰衣草紫", "fr": "Lavande", "ru": "Лавандовый"}, "c_corallo": {"it": "Corallo", "en": "Coral", "es": "Coral", "zh": "珊瑚红", "fr": "Corail", "ru": "Коралловый"}, "c_oro": {"it": "Oro", "en": "Gold", "es": "Oro", "zh": "金色", "fr": "Or", "ru": "Золотой"}, "c_smeraldo": {"it": "Smeraldo", "en": "Emerald", "es": "Esmeralda", "zh": "翡翠绿", "fr": "Émeraude", "ru": "Изумрудный"}, "c_tramonto": {"it": "Tramonto", "en": "Sunset", "es": "Atardecer", "zh": "日落", "fr": "Coucher de soleil", "ru": "Закат"}, "c_oceano": {"it": "Oceano", "en": "Ocean", "es": "Océano", "zh": "海洋", "fr": "Océan", "ru": "Океан"}, "e_nessuno": {"it": "Nessuna", "en": "None", "es": "Ninguno", "zh": "无", "fr": "Aucun", "ru": "Нет"}, "e_bagliore": {"it": "Bagliore", "en": "Glow", "es": "Brillo", "zh": "光晕", "fr": "Lueur", "ru": "Сияние"}, "e_brillio": {"it": "Scintillio", "en": "Shimmer", "es": "Destello", "zh": "闪光", "fr": "Scintillement", "ru": "Мерцание"}, "e_neon": {"it": "Neon", "en": "Neon", "es": "Neón", "zh": "霓虹", "fr": "Néon", "ru": "Неон"}, "e_arcobaleno": {"it": "Arcobaleno", "en": "Rainbow", "es": "Arcoíris", "zh": "彩虹", "fr": "Arc-en-ciel", "ru": "Радуга"}, "e_fuoco": {"it": "Fuoco", "en": "Fire", "es": "Fuego", "zh": "火焰", "fr": "Feu", "ru": "Огонь"}, "e_galassia": {"it": "Galassia", "en": "Galaxy", "es": "Galaxia", "zh": "星系", "fr": "Galaxie", "ru": "Галактика"}, "e_orofuso": {"it": "Oro fuso", "en": "Molten gold", "es": "Oro fundido", "zh": "熔金", "fr": "Or fondu", "ru": "Расплавленное золото"}, "c_aurora": {"it": "Aurora", "en": "Aurora", "es": "Aurora", "zh": "极光", "fr": "Aurore", "ru": "Сияние зари"}, "e_infinito": {"it": "Infinito", "en": "Infinite", "es": "Infinito", "zh": "无限", "fr": "Infini", "ru": "Бесконечность"}, "a_infinita": {"it": "La Scimmia Infinita", "en": "The Infinite Monkey", "es": "El Mono Infinito", "zh": "无限猴子", "fr": "Le Singe Infini", "ru": "Бесконечная Обезьяна"}, "a_bardo": {"it": "Il Bardo", "en": "The Bard", "es": "El Bardo", "zh": "吟游诗人", "fr": "Le Barde", "ru": "Бард"}, "c_lime": {"it": "Lime", "en": "Lime", "es": "Lima", "zh": "青柠", "fr": "Citron vert", "ru": "Лайм"}, "c_cremisi": {"it": "Cremisi", "en": "Crimson", "es": "Carmesí", "zh": "深红", "fr": "Cramoisi", "ru": "Багровый"}, "c_glaciale": {"it": "Glaciale", "en": "Glacier", "es": "Glacial", "zh": "冰川", "fr": "Glacier", "ru": "Ледяной"}, "c_platino": {"it": "Platino", "en": "Platinum", "es": "Platino", "zh": "铂金", "fr": "Platine", "ru": "Платина"}, "e_leggenda": {"it": "Leggenda", "en": "Legend", "es": "Leyenda", "zh": "传奇", "fr": "Légende", "ru": "Легенда"}, "a_scimmia_oro": {"it": "La Scimmia d'oro", "en": "The Golden Monkey", "es": "El Mono de oro", "zh": "黄金猴子", "fr": "Le Singe d'or", "ru": "Золотая обезьяна"}, "a_primo": {"it": "Il Primo Scrittore", "en": "The First Writer", "es": "El Primer Escritor", "zh": "第一位作家", "fr": "Le Premier Écrivain", "ru": "Первый писатель"}, "c_turchese": {"it": "Turchese", "en": "Turquoise", "es": "Turquesa", "zh": "绿松石", "fr": "Turquoise", "ru": "Бирюзовый"}, "c_pesca": {"it": "Pesca", "en": "Peach", "es": "Melocotón", "zh": "蜜桃", "fr": "Pêche", "ru": "Персиковый"}, "c_ghiaccio": {"it": "Ghiaccio", "en": "Ice", "es": "Hielo", "zh": "冰蓝", "fr": "Glace", "ru": "Голубой лёд"}, "c_ciliegia": {"it": "Ciliegia", "en": "Cherry", "es": "Cereza", "zh": "樱桃红", "fr": "Cerise", "ru": "Вишнёвый"}, "c_ambra": {"it": "Ambra", "en": "Amber", "es": "Ámbar", "zh": "琥珀", "fr": "Ambre", "ru": "Янтарный"}, "c_viola": {"it": "Viola", "en": "Violet", "es": "Violeta", "zh": "紫罗兰", "fr": "Violet", "ru": "Фиолетовый"}, "c_azzurro": {"it": "Azzurro", "en": "Azure", "es": "Azur", "zh": "天青", "fr": "Azur", "ru": "Лазурный"}, "c_fiamma": {"it": "Battito", "en": "Heartbeat", "es": "Latido", "zh": "心跳", "fr": "Battement", "ru": "Сердцебиение"}, "c_vaporwave": {"it": "Vaporwave", "en": "Vaporwave", "es": "Vaporwave", "zh": "蒸汽波", "fr": "Vaporwave", "ru": "Вейпорвейв"}, "c_foresta": {"it": "Foresta", "en": "Forest", "es": "Bosque", "zh": "森林", "fr": "Forêt", "ru": "Лес"}, "c_crepuscolo": {"it": "Crepuscolo", "en": "Twilight", "es": "Crepúsculo", "zh": "暮光", "fr": "Crépuscule", "ru": "Сумерки"}, "c_prisma": {"it": "Prisma", "en": "Prism", "es": "Prisma", "zh": "棱镜", "fr": "Prisme", "ru": "Призма"}, "c_lava": {"it": "Lava", "en": "Lava", "es": "Lava", "zh": "熔岩", "fr": "Lave", "ru": "Лава"}, "c_nebulosa": {"it": "Nebulosa", "en": "Nebula", "es": "Nebulosa", "zh": "星云", "fr": "Nébuleuse", "ru": "Туманность"}, "a_scimmia": {"it": "Scimmia", "en": "Monkey", "es": "Mono", "zh": "猴子", "fr": "Singe", "ru": "Обезьяна"}, "a_nonvedo": {"it": "Non vedo", "en": "See no evil", "es": "No veo", "zh": "不看", "fr": "Je ne vois rien", "ru": "Не вижу"}, "a_banana": {"it": "Banana", "en": "Banana", "es": "Plátano", "zh": "香蕉", "fr": "Banane", "ru": "Банан"}, "a_nonsento": {"it": "Non sento", "en": "Hear no evil", "es": "No oigo", "zh": "不听", "fr": "Je n'entends rien", "ru": "Не слышу"}, "a_nonparlo": {"it": "Non parlo", "en": "Speak no evil", "es": "No hablo", "zh": "不说", "fr": "Je ne dis rien", "ru": "Не говорю"}, "a_muso": {"it": "Musetto", "en": "Little face", "es": "Carita", "zh": "小脸", "fr": "Frimousse", "ru": "Мордочка"}, "a_gorilla": {"it": "Gorilla", "en": "Gorilla", "es": "Gorila", "zh": "大猩猩", "fr": "Gorille", "ru": "Горилла"}, "a_orango": {"it": "Orango", "en": "Orangutan", "es": "Orangután", "zh": "红毛猩猩", "fr": "Orang-outan", "ru": "Орангутан"}, "a_palma": {"it": "Palma", "en": "Palm tree", "es": "Palmera", "zh": "棕榈树", "fr": "Palmier", "ru": "Пальма"}, "a_pergamena": {"it": "Pergamena", "en": "Scroll", "es": "Pergamino", "zh": "卷轴", "fr": "Parchemin", "ru": "Свиток"}, "a_penna": {"it": "Penna", "en": "Pen", "es": "Pluma", "zh": "钢笔", "fr": "Plume", "ru": "Перо"}, "a_tastiera": {"it": "Tastiera", "en": "Keyboard", "es": "Teclado", "zh": "键盘", "fr": "Clavier", "ru": "Клавиатура"}, "a_cilindro": {"it": "Cilindro", "en": "Top hat", "es": "Chistera", "zh": "礼帽", "fr": "Haut-de-forme", "ru": "Цилиндр"}, "a_occhiali": {"it": "Occhiali da sole", "en": "Sunglasses", "es": "Gafas de sol", "zh": "墨镜", "fr": "Lunettes de soleil", "ru": "Солнечные очки"}, "a_cuffie": {"it": "Cuffie", "en": "Headphones", "es": "Auriculares", "zh": "耳机", "fr": "Casque", "ru": "Наушники"}, "a_ananas": {"it": "Ananas", "en": "Pineapple", "es": "Piña", "zh": "菠萝", "fr": "Ananas", "ru": "Ананас"}, "a_corona": {"it": "Corona", "en": "Crown", "es": "Corona", "zh": "王冠", "fr": "Couronne", "ru": "Корона"}, "a_robot": {"it": "Robot", "en": "Robot", "es": "Robot", "zh": "机器人", "fr": "Robot", "ru": "Робот"}, "a_alieno": {"it": "Alieno", "en": "Alien", "es": "Alienígena", "zh": "外星人", "fr": "Extraterrestre", "ru": "Пришелец"}, "a_unicorno": {"it": "Unicorno", "en": "Unicorn", "es": "Unicornio", "zh": "独角兽", "fr": "Licorne", "ru": "Единорог"}, "a_drago": {"it": "Drago", "en": "Dragon", "es": "Dragón", "zh": "龙", "fr": "Dragon", "ru": "Дракон"}, "a_mago": {"it": "Mago", "en": "Wizard", "es": "Mago", "zh": "巫师", "fr": "Magicien", "ru": "Волшебник"}, "a_galassia": {"it": "Scimmia galattica", "en": "Galactic monkey", "es": "Mono galáctico", "zh": "银河猴", "fr": "Singe galactique", "ru": "Галактическая обезьяна"}, "a_diamante": {"it": "Diamante", "en": "Diamond", "es": "Diamante", "zh": "钻石", "fr": "Diamant", "ru": "Алмаз"}, "a_fuoco": {"it": "Scimmia di fuoco", "en": "Fire monkey", "es": "Mono de fuego", "zh": "火焰猴", "fr": "Singe de feu", "ru": "Огненная обезьяна"}, "a_arcobaleno": {"it": "Scimmia arcobaleno", "en": "Rainbow monkey", "es": "Mono arcoíris", "zh": "彩虹猴", "fr": "Singe arc-en-ciel", "ru": "Радужная обезьяна"}, "a_cappuccino": {"it": "Cappuccino", "en": "Capuchin", "es": "Capuchino", "zh": "卷尾猴", "fr": "Capucin", "ru": "Капуцин"}, "a_mandrillo": {"it": "Mandrillo", "en": "Mandrill", "es": "Mandril", "zh": "山魈", "fr": "Mandrill", "ru": "Мандрил"}, "a_neve": {"it": "Scimmia delle nevi", "en": "Snow monkey", "es": "Mono de las nieves", "zh": "雪猴", "fr": "Singe des neiges", "ru": "Снежная обезьяна"}, "a_poeta": {"it": "Poeta", "en": "Poet", "es": "Poeta", "zh": "诗人", "fr": "Poète", "ru": "Поэт"}, "a_dj": {"it": "DJ", "en": "DJ", "es": "DJ", "zh": "DJ", "fr": "DJ", "ru": "Диджей"}, "a_esploratore": {"it": "Esploratore", "en": "Explorer", "es": "Explorador", "zh": "探险家", "fr": "Explorateur", "ru": "Исследователь"}, "a_re_nero": {"it": "Re nero", "en": "Black king", "es": "Rey negro", "zh": "黑王", "fr": "Roi noir", "ru": "Чёрный король"}, "a_cyborg": {"it": "Cyborg", "en": "Cyborg", "es": "Cíborg", "zh": "赛博格", "fr": "Cyborg", "ru": "Киборг"}};
   // probabilità per rarità: comune, raro, epico, leggendario, mitico
   // bonus: probabilità (%) che esca un bonus per lo zaino invece di un oggetto; zaino: pesi dei bonus
   const CASSE = [
@@ -10704,6 +11281,7 @@
   // ---------- negozio: casse con le Pagine d'oro ----------
   function disegnaBottega() {
     $("bgPagine").textContent = "📃 " + fmt(G.pagine || 0);
+    scriviStatoScambi();
     const box = $("casse");
     if (!box.children.length) {
       for (const c of CASSE) {
@@ -10905,14 +11483,16 @@
   const ATTESA_MINI = 30 * 60000;
   const MINIGIOCHI = [
     { id: "banane", ico: "🍌", durata: 20, buono: 90 },
-    { id: "battitura", ico: "⌨️", durata: 30, buono: 90 },
-    { id: "memoria", ico: "🧠", durata: 60, buono: 80 }
+    { id: "battitura", ico: "⌨️", durata: 20, buono: 150 },
+    { id: "memoria", ico: "🧠", durata: 18, buono: 120 }
   ];
   const statoMini = id => ((G.mini || {})[id]) || { pronto: 0, best: 0 };
   const miniPronto = id => Date.now() >= (statoMini(id).pronto || 0);
   const premiPronti = () => MINIGIOCHI.filter(m => miniPronto(m.id)).length;
-  // premio: 10 minuti di produzione con un punteggio "buono", fino a 15 con uno ottimo
-  const premioMini = (mg, punti) => { const quota = Math.min(1.5, punti / mg.buono); return { banane: Math.max(50, produzioneBase() * 600 * quota), quota }; };
+  // ogni partita: fino a 2 minuti di produzione con un punteggio "buono" (fino a 4 con uno ottimo), senza limiti.
+  // In più, ogni 30 minuti per gioco, il premio grande: fino a 15 minuti di produzione e a volte un bonus per lo zaino
+  const premioMini = (mg, punti) => { const quota = Math.min(2, punti / mg.buono); return { banane: Math.max(20, produzioneBase() * 120 * quota), quota }; };
+  const premioGrande = (mg, punti) => { const quota = Math.min(1.5, punti / mg.buono); return { banane: Math.max(50, produzioneBase() * 600 * quota), quota }; };
   function scriviSalaGiochi() {
     const n = premiPronti();
     $("bSalaGiochi").classList.toggle("pronto", n > 0);
@@ -10950,7 +11530,7 @@
     $("mgArea").innerHTML = "";
     $("mgArea").hidden = false;
     cartelloMini("");
-    $("mgLivello").hidden = mg.id !== "banane";
+    $("mgLivello").hidden = false;
     scriviTimerMini(mg.durata, mg.durata);
     const guida = $("mgGuida");
     guida.innerHTML = "";
@@ -11054,10 +11634,17 @@
     const righe = ["🎯 " + t("mg_punti", { n: fmt(punti) }), record ? "🏅 " + t("mg_nuovo_record") : "🏅 " + t("mg_record", { n: fmt(prima.best || 0) })];
     if (st.livello) righe.splice(1, 0, "🏁 " + t("mg_arrivato", { n: st.livello }));
     cartelloMini("");
-    if (conPremio) {
+    // le banane della partita: ogni volta, senza limiti
+    if (punti > 0) {
       const p = premioMini(mg, punti);
       G.banane += p.banane;
       righe.push("🍌 +" + fmt(p.banane));
+      Suono.moneta();
+    }
+    if (conPremio) {
+      const p = premioGrande(mg, punti);
+      G.banane += p.banane;
+      righe.push("🎁 " + t("mg_grande", { n: fmt(p.banane) }));
       // con un bel punteggio, a volte anche un bonus per lo zaino
       if (p.quota >= 1 && Math.random() < 0.35) {
         const b = Math.random() < 0.5 ? "vel5" : "sc2";
@@ -11074,6 +11661,27 @@
     salva();
     scriviSalaGiochi();
     disegnaTutto(true);
+  }
+
+  // livelli dei minigiochi: riga con livello e obiettivo, e passaggio al livello dopo (pausa con i cartelli)
+  function scriviLivelloMini(liv, fatti, obiettivo, extra) {
+    $("mgLivN").textContent = t("mg_liv", { n: liv });
+    $("mgObBarra").style.width = Math.min(100, 100 * fatti / Math.max(1, obiettivo)) + "%";
+    $("mgObTesto").textContent = "🎯 " + Math.min(fatti, obiettivo) + "/" + obiettivo + (extra || "");
+  }
+  function superaLivello(st, testoDopo) {
+    const resto = Math.max(0, Math.ceil((st.fine - performance.now()) / 1000));
+    st.punti += resto;
+    Suono.traguardo();
+    st.pausa = 2.8;
+    st.livelloDopo = st.livello + 1;
+    if (st.inPausa) st.inPausa();
+    cartelloMini("✅ " + t("mg_liv_ok", { n: st.livello }) + (resto ? "\n⏱️ +" + resto : ""), "ok");
+    const dopo = st.livelloDopo;
+    setTimeout(() => {
+      if (R.mg !== st || !st.attivo) return;
+      cartelloMini(t("mg_liv", { n: dopo }) + "\n" + testoDopo(dopo));
+    }, 1300);
   }
 
   // --- 1. Banane al volo: livelli da 20 secondi, ognuno con un obiettivo e sempre più difficile ---
@@ -11280,19 +11888,25 @@
       if (!testo || scrittura(testo) !== scr) continue;
       for (const p of testo.split(/[^\p{L}’']+/u)) {
         const w = p.replace(/^[’']+|[’']+$/g, "");
-        if (w.length >= 4 && w.length <= 9 && !/[’']/.test(w)) set.add(w.toLowerCase());
+        if (w.length >= 3 && w.length <= 14 && !/[’']/.test(w)) set.add(w.toLowerCase());
       }
     }
     const lista = [...set];
     return lista.length >= 30 ? lista : lista.concat((PAROLE_RISERVA[lingua] || PAROLE_RISERVA.en).split(" "));
   }
+  // --- 2. Gara di battitura a livelli: 20 secondi per livello, obiettivo di lettere che sale, parole sempre più lunghe ---
+  const LIV_BATT = 20;
+  const livBatt = n => ({ obiettivo: 20 + 10 * n, min: Math.min(8, 2 + n), max: Math.min(14, 5 + n) });
   function giocoBattitura(area, st) {
     const parole = paroleMini();
     area.innerHTML = `<div class="mg-parola"></div><input class="mg-input" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next">`;
     const el = area.querySelector(".mg-parola"), inp = area.querySelector(".mg-input");
     inp.placeholder = t("mg_scrivi");
     inp.disabled = true;
-    let attuale = "";
+    let attuale = "", puntiLiv = 0, cfg = livBatt(1);
+    st.totale = LIV_BATT;
+    st.livello = 1;
+    const scriviLivello = () => scriviLivelloMini(st.livello, puntiLiv, cfg.obiettivo, "  ·  🔤 " + cfg.min + "–" + cfg.max);
     const scrivi = () => {
       const v = semplice(inp.value), giusta = semplice(attuale);
       let k = 0;
@@ -11302,12 +11916,45 @@
       el.append(m, document.createTextNode(attuale.slice(k)));
       inp.classList.toggle("errore", v.length > k);
     };
-    const nuova = () => { attuale = parole[Math.floor(Math.random() * parole.length)]; inp.value = ""; el.classList.remove("fatta"); scrivi(); };
+    // una parola della lunghezza giusta per il livello (se ce ne sono poche, una qualsiasi)
+    const scegli = () => {
+      const ok = parole.filter(w => { const l = [...w].length; return l >= cfg.min && l <= cfg.max; });
+      const da = ok.length >= 5 ? ok : parole;
+      let w = da[Math.floor(Math.random() * da.length)];
+      if (w === attuale && da.length > 1) w = da[Math.floor(Math.random() * da.length)];
+      return w;
+    };
+    const nuova = () => { attuale = scegli(); inp.value = ""; el.classList.remove("fatta"); scrivi(); };
     inp.addEventListener("input", () => {
-      if (R.mg !== st || !st.attivo) return;
+      if (R.mg !== st || !st.attivo || st.pausa > 0) return;
       scrivi();
-      if (semplice(inp.value) === semplice(attuale)) { st.punti += [...attuale].length; Suono.moneta(); nuova(); }
+      if (semplice(inp.value) === semplice(attuale)) {
+        const n = [...attuale].length;
+        st.punti += n; puntiLiv += n;
+        Suono.moneta();
+        scriviLivello();
+        if (puntiLiv >= cfg.obiettivo) {
+          inp.value = "";
+          superaLivello(st, liv => { const c = livBatt(liv); return t("mg_bt_lv", { a: c.min, b: c.max, n: c.obiettivo }); });
+        } else nuova();
+      }
     });
+    st.inPausa = () => { inp.readOnly = true; };
+    st.passo = ora => {
+      if (st.livelloDopo && !(st.pausa > 0)) {
+        st.livello = st.livelloDopo;
+        st.livelloDopo = 0;
+        cfg = livBatt(st.livello);
+        puntiLiv = 0;
+        st.totale = LIV_BATT;
+        st.fine = ora + LIV_BATT * 1000;
+        cartelloMini("");
+        scriviLivello();
+        nuova();
+        inp.readOnly = false;
+        try { inp.focus(); } catch (e) {}
+      }
+    };
     st.allAvvio = () => { inp.disabled = false; inp.readOnly = false; inp.value = ""; scrivi(); try { inp.focus(); } catch (e) {} };
     st.allaFine = () => { inp.disabled = true; inp.blur(); };
     // dimostrazione: una parola corta si scrive da sola, lettera per lettera, e diventa verde con i suoi punti
@@ -11329,8 +11976,9 @@
     }, 260);
     st.fermaDemo = () => { clearInterval(timerDemo); };
     // la tastiera del telefono si apre subito al tocco su «Inizia» (dopo non si potrebbe): si scrive dal «Via!»
-    st.prepara = () => { nuova(); inp.disabled = false; inp.readOnly = true; try { inp.focus(); } catch (e) {} };
+    st.prepara = () => { puntiLiv = 0; st.livello = 1; cfg = livBatt(1); scriviLivello(); nuova(); inp.disabled = false; inp.readOnly = true; try { inp.focus(); } catch (e) {} };
     attuale = demo; scrivi();
+    scriviLivello();
   }
 
   // --- 3. Memoria delle scimmie: trova le coppie ---
@@ -11343,7 +11991,16 @@
     b.append(dorso, av);
     return b;
   }
+  // --- 3. Memoria a livelli: ogni livello ha più coppie e meno secondi per coppia ---
+  const livMem = n => {
+    const coppie = Math.min(18, 2 + n);
+    return { coppie, tempo: Math.round(coppie * Math.max(3, 6.5 - 0.5 * n)), col: coppie <= 6 ? 4 : coppie <= 10 ? 5 : 6 };
+  };
   function giocoMemoria(area, st) {
+    let cfg = livMem(1), trovate = 0;
+    st.livello = 1;
+    st.totale = cfg.tempo;
+    const scriviLivello = () => scriviLivelloMini(st.livello, trovate, cfg.coppie, "  ·  🃏 " + cfg.coppie * 2);
     // dimostrazione: 4 carte; due diverse si girano e tornano coperte, poi due coppie giuste restano scoperte
     const tutti = ESTETICI.filter(x => x.t === "a").map(x => x.id);
     const [da, db] = tutti.slice().sort(() => Math.random() - 0.5);
@@ -11362,29 +12019,51 @@
       if (m[2] === "p") { prese.add(m[0]); prese.add(m[1]); dc[m[0]].classList.replace("girata", "presa"); dc[m[1]].classList.replace("girata", "presa"); }
     }, 700);
     st.fermaDemo = () => { clearInterval(timerDemo); };
-    st.prepara = () => { area.innerHTML = ""; grigliaMemoria(area, st); };
+    const griglia = () => {
+      area.innerHTML = "";
+      trovate = 0;
+      grigliaMemoria(area, st, cfg, () => {
+        trovate++;
+        st.punti += 10;
+        scriviLivello();
+        if (trovate >= cfg.coppie) superaLivello(st, liv => { const c = livMem(liv); return t("mg_mem_lv", { c: c.coppie, s: c.tempo }); });
+      });
+      scriviLivello();
+    };
+    st.prepara = () => { st.livello = 1; cfg = livMem(1); st.totale = cfg.tempo; griglia(); };
+    st.passo = ora => {
+      if (st.livelloDopo && !(st.pausa > 0)) {
+        st.livello = st.livelloDopo;
+        st.livelloDopo = 0;
+        cfg = livMem(st.livello);
+        st.totale = cfg.tempo;
+        st.fine = ora + cfg.tempo * 1000;
+        cartelloMini("");
+        griglia();
+      }
+    };
+    scriviLivello();
   }
-  function grigliaMemoria(area, st) {
-    const avatar = ESTETICI.filter(x => x.t === "a").map(x => x.id).sort(() => Math.random() - 0.5).slice(0, 8);
+  function grigliaMemoria(area, st, cfg, trovata) {
+    const avatar = ESTETICI.filter(x => x.t === "a").map(x => x.id).sort(() => Math.random() - 0.5).slice(0, cfg.coppie);
     const carte = [...avatar, ...avatar].sort(() => Math.random() - 0.5);
     const gr = document.createElement("div");
     gr.className = "mg-griglia";
+    gr.style.gridTemplateColumns = "repeat(" + cfg.col + ", 1fr)";
     area.appendChild(gr);
-    let prima = null, blocco = false, coppie = 0;
+    let prima = null, blocco = false;
     carte.forEach(id => {
       const b = cartaMemoria(id);
       b.onclick = () => {
-        if (R.mg !== st || !st.attivo || blocco || b.classList.contains("girata") || b.classList.contains("presa")) return;
+        if (R.mg !== st || !st.attivo || st.pausa > 0 || blocco || b.classList.contains("girata") || b.classList.contains("presa")) return;
         b.classList.add("girata");
         Suono.clic();
         if (!prima) { prima = b; return; }
         if (prima.dataset.id === id) {
           prima.classList.replace("girata", "presa"); b.classList.replace("girata", "presa");
-          prima = null; coppie++;
-          st.punti = coppie * 10;
+          prima = null;
           Suono.moneta();
-          // tutte le coppie: i secondi che avanzano diventano punti
-          if (coppie === avatar.length) { st.punti += Math.max(0, Math.ceil((st.fine - performance.now()) / 1000)); fineMini(); }
+          trovata();
         } else {
           blocco = true;
           const a = prima; prima = null;
@@ -11849,6 +12528,7 @@
       } catch (e) {}
       this.aggiornaAscolti();
       this.pubblica(true);
+      Scambi.avvia();
       controllaNome();
       Tirature.aggiorna(true);
       setTimeout(() => Mensile.controlla(), 8000);
@@ -11927,6 +12607,382 @@
     }
   };
 
+  // =====================================================================
+  //  SCAMBI E VENDITE: gli oggetti trovati nelle casse si vendono (banane o cuccioli) o si scambiano con gli amici
+  // =====================================================================
+  const VENDI_MINUTI = [10, 30, 90, 240, 720, 2880];   // banane: minuti di produzione, per rarità
+  const VENDI_CUCCIOLI = [2, 5, 12, 30, 75, 200];       // cuccioli: percentuale in più, per rarità
+  const SCADENZA_SCAMBIO = 3 * 86400000;
+  const MAX_PROPOSTE = 10;
+  const prezzoVendita = o => Math.max(100, produzioneBase() * 60 * VENDI_MINUTI[o.r]);
+  const vendibili = () => ESTETICI.filter(o => !o.g && possiede(o.id));
+  // un oggetto lascia la collezione: se lo stavi usando torni a quello di partenza
+  function togliOggetto(id) {
+    G.collezione = (G.collezione || []).filter(x => x !== id);
+    const a = aspetto();
+    if (a.avatar === id || a.colore === id || a.effetto === id) {
+      G.aspetto = { ...a, avatar: a.avatar === id ? "a_scimmia" : a.avatar, colore: a.colore === id ? "c_bianco" : a.colore, effetto: a.effetto === id ? "e_nessuno" : a.effetto };
+      Online.pubblicaRiga(true);
+    }
+  }
+  // un oggetto entra nella collezione (se c'è già, diventa Pagine d'oro come i doppioni delle casse)
+  function aggiungiOggetto(id, copia) {
+    const o = estetico(id);
+    if (!o) return 0;
+    if (possiede(id)) { const p = RIMBORSO_DOPPIONE[o.r] || 0; G.pagine = (G.pagine || 0) + p; return p; }
+    G.collezione = [...(G.collezione || []), id];
+    if (copia) G.copie = { ...(G.copie || {}), [id]: copia };
+    return 0;
+  }
+  const nomeOggetto = id => { const o = estetico(id); return o ? (nomeEstetico(id) || t("tipo1_" + o.t)) : "?"; };
+  // il disegno di un oggetto: avatar, o il nome scritto con quel colore / quella scritta
+  function disegnoOggetto(id, conNome) {
+    const o = estetico(id);
+    const fr = document.createDocumentFragment();
+    if (!o) return fr;
+    if (o.t === "a") {
+      const av = document.createElement("span"); av.className = "avatar-pg"; mostraAvatar(av, o.id); fr.appendChild(av);
+      if (conNome && nomeEstetico(o.id)) { const n = document.createElement("span"); n.textContent = nomeEstetico(o.id); fr.appendChild(n); }
+    } else {
+      const sp = document.createElement("span");
+      mostraNome(sp, nomeEstetico(o.id), o.t === "c" ? o.id : "c_cielo", o.t === "e" ? o.id : "e_nessuno");
+      fr.appendChild(sp);
+    }
+    return fr;
+  }
+  function cartaOggetto(id, premuta, azione, extra) {
+    const o = estetico(id);
+    const b = document.createElement("button");
+    b.className = "sc-ogg";
+    b.setAttribute("aria-pressed", !!premuta);
+    b.appendChild(disegnoOggetto(id, true));
+    const sm = document.createElement("small");
+    sm.className = "rarc-" + o.r;
+    sm.textContent = t("rar_" + o.r) + (o.r === 5 && (G.copie || {})[id] ? " #" + G.copie[id] : "") + (extra ? " · " + extra : "");
+    b.appendChild(sm);
+    b.onclick = azione;
+    return b;
+  }
+
+  const Scambi = {
+    avviato: false, ascolti: {}, ultimoDoc: "", ultimaScrittura: 0, attesa: null, nonDisponibile: false,
+    avvia() {
+      if (this.avviato || !Sfide.disponibile()) return;
+      this.avviato = true;
+      try {
+        Sfide.base().collection("scambi").where("destinatari", "array-contains", Online.id).onSnapshot(snap => {
+          const visti = new Set();
+          for (const d of snap.docs) this.leggiProposte(d.id, d.data() || {}, visti);
+          // proposte ritirate da chi le aveva fatte
+          for (const p of Object.values(G.scambiRicevuti || {})) if (p.stato === "attesa" && !visti.has(p.sid)) p.stato = "ritirata";
+          this.dopo();
+        }, () => {});
+      } catch (e) {}
+      this.aggiornaAscolti();
+      this.controlla();
+      this.pubblica(true);
+    },
+    // seguo i documenti degli amici a cui ho proposto uno scambio, per leggere le loro risposte
+    aggiornaAscolti() {
+      if (!this.avviato) return;
+      for (const p of Object.values(G.scambiMiei || {})) {
+        if ((p.stato !== "attesa" && p.stato !== "annullata") || this.ascolti[p.a]) continue;
+        try {
+          this.ascolti[p.a] = Sfide.base().collection("scambi").doc(p.a).onSnapshot(snap => {
+            if (snap.exists) this.leggiRisposte(p.a, snap.data() || {});
+          }, () => {});
+        } catch (e) {}
+      }
+    },
+    leggiProposte(uid, dati, visti) {
+      G.scambiRicevuti = G.scambiRicevuti || {};
+      for (const [sid, p] of Object.entries(dati.proposte || {})) {
+        if (!p || p.a !== Online.id) continue;
+        visti.add(sid);
+        if (G.scambiRicevuti[sid] || Date.now() - (p.ts || 0) > SCADENZA_SCAMBIO) continue;
+        if (!estetico(p.dai) || (p.chiedi && !estetico(p.chiedi))) continue;
+        const nick = dati.nick || p.nick || "?";
+        G.scambiRicevuti[sid] = { sid, da: uid, daNick: nick, dai: p.dai, chiedi: p.chiedi || "", copia: p.copia || 0, ts: p.ts || Date.now(), stato: "attesa" };
+        avviso(t("sc_ricevuta_avviso", { nick }), "oro");
+        notifica("🔁 " + t("sc_tit"), t("sc_ricevuta_avviso", { nick }));
+      }
+    },
+    leggiRisposte(uid, dati) {
+      let cambiato = false;
+      for (const p of Object.values(G.scambiMiei || {})) {
+        if (p.a !== uid || (p.stato !== "attesa" && p.stato !== "annullata")) continue;
+        const r = (dati.risposte || {})[p.sid];
+        if (!r) continue;
+        if (r.esito === "ok") {
+          // scambio fatto: il mio oggetto era già partito; ricevo quello chiesto
+          if (p.stato === "annullata") togliOggetto(p.dai);   // l'avevo ritirato, ma l'amico aveva già accettato
+          if (p.chiedi) aggiungiOggetto(p.chiedi, r.copia);
+          p.stato = "fatto";
+          avviso(t("sc_fatto_avviso", { nick: p.aNick || "?" }), "oro");
+          Suono.traguardo();
+        } else if (p.stato === "attesa") {
+          aggiungiOggetto(p.dai, p.copia);
+          p.stato = "rifiutata";
+          avviso(t("sc_rifiutato_avviso", { nick: p.aNick || "?", nome: nomeOggetto(p.dai) }));
+        } else p.stato = "chiusa";
+        p.fine = Date.now();
+        cambiato = true;
+      }
+      if (cambiato) { salva(); this.pubblica(true); this.dopo(); Online.pubblicaProfilo(true); }
+    },
+    // proposte troppo vecchie: le mie tornano indietro, quelle ricevute scadono
+    controlla() {
+      const ora = Date.now();
+      let cambiato = false;
+      for (const p of Object.values(G.scambiMiei || {})) {
+        if (p.stato === "attesa" && ora - p.ts > SCADENZA_SCAMBIO) { aggiungiOggetto(p.dai, p.copia); p.stato = "scaduta"; p.fine = ora; cambiato = true; }
+        if (p.stato === "annullata" && ora - (p.fine || p.ts) > SCADENZA_SCAMBIO) { p.stato = "chiusa"; cambiato = true; }
+      }
+      for (const p of Object.values(G.scambiRicevuti || {})) if (p.stato === "attesa" && ora - p.ts > SCADENZA_SCAMBIO) { p.stato = "scaduta"; cambiato = true; }
+      // la storia tiene solo le ultime settimane
+      for (const k of ["scambiMiei", "scambiRicevuti"]) for (const [sid, p] of Object.entries(G[k] || {})) if (p.stato !== "attesa" && p.stato !== "annullata" && ora - (p.fine || p.ts) > 14 * 86400000) { delete G[k][sid]; cambiato = true; }
+      if (cambiato) { salva(); this.pubblica(true); this.dopo(); }
+    },
+    dopo() {
+      scriviBadgeAmici();
+      scriviStatoScambi();
+      if (aperto("veloScambi")) disegnaScambi();
+      if (aperto("veloAmici")) disegnaAmici();
+    },
+    async pubblica(subito = false) {
+      if (!Sfide.disponibile()) return;
+      const ora = Date.now();
+      const doc = { nick: G.nick || "", destinatari: [], proposte: {}, risposte: {} };
+      for (const p of Object.values(G.scambiMiei || {})) {
+        if (p.stato !== "attesa") continue;
+        doc.proposte[p.sid] = { a: p.a, dai: p.dai, chiedi: p.chiedi || "", copia: p.copia || 0, ts: p.ts, nick: G.nick || "" };
+        if (!doc.destinatari.includes(p.a)) doc.destinatari.push(p.a);
+      }
+      for (const [sid, r] of Object.entries(G.risposteScambi || {}).filter(([, r]) => ora - r.ts < 7 * 86400000).slice(-50)) doc.risposte[sid] = r;
+      doc.destinatari = doc.destinatari.slice(0, 40);
+      const chiave = JSON.stringify(doc);
+      if (chiave === this.ultimoDoc) return;
+      const attesa = subito ? 0 : 5000 - (ora - this.ultimaScrittura);
+      if (attesa > 0) { if (!this.attesa) this.attesa = setTimeout(() => { this.attesa = null; this.pubblica(); }, attesa); return; }
+      this.ultimaScrittura = ora;
+      try { await Sfide.base().collection("scambi").doc(Online.id).set({ ...doc, agg: ora }); this.ultimoDoc = chiave; this.nonDisponibile = false; }
+      catch (e) { if (e && (e.code === "permission-denied" || e.code === "not_granted")) this.nonDisponibile = true; }
+    }
+  };
+  const proposteRicevute = () => Object.values(G.scambiRicevuti || {}).filter(p => p.stato === "attesa");
+  const proposteMie = () => Object.values(G.scambiMiei || {}).filter(p => p.stato === "attesa");
+  function scriviStatoScambi() {
+    const n = proposteRicevute().length;
+    if (!$("scStato")) return;
+    $("scStato").textContent = n ? t("sc_ricevute_n", { n }) : t("sc_carta");
+    $("bScambi").classList.toggle("pronto", n > 0);
+    $("scBadge").textContent = n || "";
+    $("scBadge").classList.toggle("vis", n > 0);
+  }
+
+  // --- vendere ---
+  function vendiOggetto(id, cosa) {
+    const o = estetico(id);
+    if (!o || o.g || !possiede(id)) return;
+    const banane = prezzoVendita(o), pct = VENDI_CUCCIOLI[o.r];
+    const premio = cosa === "banane" ? "🍌 +" + fmt(banane) : "🍼 +" + pct + "% " + t("sc_cuccioli");
+    chiedi(t("sc_vendi_tit", { nome: nomeOggetto(id) }), t("sc_vendi_conf", { premio }), () => {
+      if (!possiede(id)) return;
+      togliOggetto(id);
+      if (cosa === "banane") G.banane += banane;
+      else G.cuccioli = Math.min(1e200, (G.cuccioli || 1) * (1 + pct / 100));
+      R.sc.sel = null;
+      Suono.moneta();
+      avviso(t("sc_venduto", { premio }), "oro");
+      salva();
+      Online.pubblicaProfilo(true);
+      disegnaScambi();
+      disegnaTutto(true);
+    });
+  }
+  // --- proporre, accettare, rifiutare, ritirare ---
+  function proponiScambio(amico, dai, chiedi) {
+    if (!possiede(dai) || !Sfide.disponibile()) return;
+    if (proposteMie().length >= MAX_PROPOSTE) { avviso(t("sc_max", { n: MAX_PROPOSTE })); return; }
+    const sid = String(Online.id).slice(0, 6) + Date.now().toString(36);
+    const copia = (G.copie || {})[dai] || 0;
+    togliOggetto(dai);
+    G.scambiMiei = { ...(G.scambiMiei || {}), [sid]: { sid, a: amico.id, aNick: amico.nick || "?", dai, chiedi: chiedi || "", copia, ts: Date.now(), stato: "attesa" } };
+    salva();
+    Scambi.pubblica(true);
+    Scambi.aggiornaAscolti();
+    Online.pubblicaProfilo(true);
+    avviso(t("sc_proposto", { nick: amico.nick || "?" }), "oro");
+    R.sc = { scheda: "proposte" };
+    disegnaScambi();
+  }
+  function accettaScambio(sid) {
+    const p = (G.scambiRicevuti || {})[sid];
+    if (!p || p.stato !== "attesa") return;
+    if (p.chiedi && !possiede(p.chiedi)) { avviso(t("sc_non_hai", { nome: nomeOggetto(p.chiedi) })); return; }
+    let copiaMia = 0;
+    if (p.chiedi) { copiaMia = (G.copie || {})[p.chiedi] || 0; togliOggetto(p.chiedi); }
+    const pagine = aggiungiOggetto(p.dai, p.copia);
+    p.stato = "fatto";
+    p.fine = Date.now();
+    G.risposteScambi = { ...(G.risposteScambi || {}), [sid]: { esito: "ok", ts: Date.now(), copia: copiaMia } };
+    salva();
+    Scambi.pubblica(true);
+    Online.pubblicaProfilo(true);
+    Suono.traguardo();
+    avviso(t("sc_fatto_avviso", { nick: p.daNick }) + (pagine ? " (+" + pagine + " 📃)" : ""), "oro");
+    Scambi.dopo();
+  }
+  function rifiutaScambio(sid) {
+    const p = (G.scambiRicevuti || {})[sid];
+    if (!p || p.stato !== "attesa") return;
+    p.stato = "rifiutata";
+    p.fine = Date.now();
+    G.risposteScambi = { ...(G.risposteScambi || {}), [sid]: { esito: "no", ts: Date.now() } };
+    salva();
+    Scambi.pubblica(true);
+    Scambi.dopo();
+  }
+  function ritiraScambio(sid) {
+    const p = (G.scambiMiei || {})[sid];
+    if (!p || p.stato !== "attesa") return;
+    aggiungiOggetto(p.dai, p.copia);
+    p.stato = "annullata";
+    p.fine = Date.now();
+    salva();
+    Scambi.pubblica(true);
+    Online.pubblicaProfilo(true);
+    Scambi.dopo();
+  }
+
+  // --- la finestra ---
+  function apriScambi(scheda, amico) {
+    R.sc = { scheda: scheda || "vendi", amico: amico || null };
+    if (amico) caricaCollAmico(amico);
+    disegnaScambi();
+    apri("veloScambi");
+  }
+  function caricaCollAmico(amico) {
+    R.sc.collAmico = null;
+    Online.leggiProfilo(amico.id).then(p => {
+      if (!R.sc || !R.sc.amico || R.sc.amico.id !== amico.id) return;
+      R.sc.collAmico = ((p && Array.isArray(p.coll)) ? p.coll : []).filter(id => { const o = estetico(id); return o && !o.g; });
+      disegnaScambi();
+    });
+  }
+  function disegnaScambi() {
+    const sc = R.sc || (R.sc = { scheda: "vendi" });
+    document.querySelectorAll("[data-sc]").forEach(b => b.setAttribute("aria-pressed", b.dataset.sc === sc.scheda));
+    scriviStatoScambi();
+    const box = $("scCorpo");
+    box.innerHTML = "";
+    const testo = (tag, chiave, par) => { const el = document.createElement(tag); el.textContent = t(chiave, par); if (tag === "p") el.className = "sotto"; box.appendChild(el); return el; };
+    if (sc.scheda === "vendi") {
+      testo("p", "sc_vendi_sotto");
+      const lista = vendibili();
+      if (!lista.length) { testo("p", "sc_vuoto"); return; }
+      const gr = document.createElement("div"); gr.className = "sc-griglia";
+      for (const o of lista.sort((a, b) => b.r - a.r)) gr.appendChild(cartaOggetto(o.id, sc.sel === o.id, () => { sc.sel = sc.sel === o.id ? null : o.id; disegnaScambi(); }));
+      if (sc.sel && possiede(sc.sel)) {
+        const o = estetico(sc.sel);
+        const pan = document.createElement("div"); pan.className = "sc-pannello";
+        const tit = document.createElement("b"); tit.textContent = t("sc_vendi_tit", { nome: nomeOggetto(o.id) }); pan.appendChild(tit);
+        const b1 = document.createElement("button"); b1.className = "pulsante"; b1.textContent = t("sc_per_banane", { n: fmt(prezzoVendita(o)) }); b1.onclick = () => vendiOggetto(o.id, "banane");
+        const b2 = document.createElement("button"); b2.className = "pulsante secondario"; b2.textContent = t("sc_per_scimmie", { p: VENDI_CUCCIOLI[o.r] }); b2.onclick = () => vendiOggetto(o.id, "scimmie");
+        pan.append(b1, b2);
+        box.appendChild(pan);
+      }
+      box.appendChild(gr);
+      return;
+    }
+    if (sc.scheda === "scambia") {
+      if (!Sfide.disponibile() || Scambi.nonDisponibile) { testo("p", "sc_offline"); return; }
+      testo("p", "sc_scambia_sotto");
+      testo("h4", "sc_scegli_amico");
+      if (!(G.amici || []).length) { testo("p", "sc_nessun_amico"); return; }
+      const am = document.createElement("div"); am.className = "sc-amici";
+      for (const a of G.amici) {
+        const b = document.createElement("button");
+        b.textContent = a.nick || "?";
+        b.setAttribute("aria-pressed", !!sc.amico && sc.amico.id === a.id);
+        b.onclick = () => { sc.amico = a; sc.dai = null; sc.chiedi = ""; caricaCollAmico(a); disegnaScambi(); };
+        am.appendChild(b);
+      }
+      box.appendChild(am);
+      if (!sc.amico) return;
+      testo("h4", "sc_dai");
+      const miei = vendibili();
+      if (!miei.length) { testo("p", "sc_vuoto"); return; }
+      const g1 = document.createElement("div"); g1.className = "sc-griglia";
+      for (const o of miei.sort((a, b) => b.r - a.r)) g1.appendChild(cartaOggetto(o.id, sc.dai === o.id, () => { sc.dai = o.id; disegnaScambi(); }));
+      box.appendChild(g1);
+      testo("h4", "sc_chiedi", { nick: sc.amico.nick || "?" });
+      const g2 = document.createElement("div"); g2.className = "sc-griglia";
+      const reg = document.createElement("button"); reg.className = "sc-ogg regalo"; reg.textContent = t("sc_regalo");
+      reg.setAttribute("aria-pressed", !sc.chiedi); reg.onclick = () => { sc.chiedi = ""; disegnaScambi(); };
+      g2.appendChild(reg);
+      if (sc.collAmico === null) testo("p", "sc_carico", { nick: sc.amico.nick || "?" });
+      else for (const id of sc.collAmico.slice().sort((a, b) => estetico(b).r - estetico(a).r)) g2.appendChild(cartaOggetto(id, sc.chiedi === id, () => { sc.chiedi = id; disegnaScambi(); }, possiede(id) ? "✓" : ""));
+      box.appendChild(g2);
+      if (sc.collAmico && !sc.collAmico.length) testo("p", "sc_coll_vuota", { nick: sc.amico.nick || "?" });
+      const pan = document.createElement("div"); pan.className = "sc-pannello";
+      const ries = document.createElement("b");
+      ries.textContent = sc.dai ? t(sc.chiedi ? "sc_riassunto" : "sc_riassunto_regalo", { dai: nomeOggetto(sc.dai), chiedi: sc.chiedi ? nomeOggetto(sc.chiedi) : "", nick: sc.amico.nick || "?" }) : t("sc_scegli_dai");
+      const bp = document.createElement("button"); bp.className = "pulsante"; bp.textContent = t("sc_proponi"); bp.disabled = !sc.dai;
+      bp.onclick = () => proponiScambio(sc.amico, sc.dai, sc.chiedi);
+      pan.append(ries, bp);
+      box.appendChild(pan);
+      return;
+    }
+    // proposte: ricevute, inviate e ultimi scambi
+    const riga = (p, mia) => {
+      const d = document.createElement("div"); d.className = "sc-prop";
+      const cosa = document.createElement("div");
+      const c1 = document.createElement("div"); c1.className = "sc-cosa";
+      const chi = mia ? (p.aNick || "?") : (p.daNick || "?");
+      const pre = document.createElement("span");
+      // dal punto di vista di chi guarda: cosa ricevo e cosa do
+      const ricevo = mia ? p.chiedi : p.dai, do_ = mia ? p.dai : p.chiedi;
+      pre.textContent = (mia ? t("sc_a", { nick: chi }) : t("sc_da", { nick: chi })) + (p.chiedi ? "" : " 🎁 " + t("sc_regalo_breve"));
+      pre.style.fontWeight = "800";
+      cosa.appendChild(pre);
+      const voce = (chiave, id) => {
+        const r = document.createElement("div"); r.className = "sc-cosa";
+        const et = document.createElement("span"); et.textContent = t(chiave);
+        r.append(et, disegnoOggetto(id, true));
+        cosa.appendChild(r);
+      };
+      if (ricevo) voce("sc_ricevi", ricevo);
+      if (do_) voce("sc_dai_tu", do_);
+      const sm = document.createElement("small");
+      sm.textContent = p.stato === "attesa" ? (mia ? t("sc_attesa", { nick: chi }) : (possiede(p.dai) ? t("sc_hai_gia", { n: RIMBORSO_DOPPIONE[estetico(p.dai).r] }) : fmtData(p.ts))) : t("sc_stato_" + p.stato);
+      cosa.appendChild(sm);
+      d.appendChild(cosa);
+      const az = document.createElement("span"); az.className = "amico-azioni";
+      if (p.stato === "attesa") {
+        if (mia) { const b = document.createElement("button"); b.className = "pulsante secondario piccolo"; b.textContent = t("sc_ritira"); b.onclick = () => ritiraScambio(p.sid); az.appendChild(b); }
+        else {
+          const b1 = document.createElement("button"); b1.className = "pulsante piccolo"; b1.textContent = t("sf_accetta"); b1.onclick = () => accettaScambio(p.sid);
+          b1.disabled = !!p.chiedi && !possiede(p.chiedi);
+          const b2 = document.createElement("button"); b2.className = "pulsante secondario piccolo"; b2.textContent = t("sf_rifiuta"); b2.onclick = () => rifiutaScambio(p.sid);
+          az.append(b1, b2);
+        }
+      }
+      d.appendChild(az);
+      return d;
+    };
+    const ric = proposteRicevute(), mie = proposteMie();
+    testo("h4", "sc_ricevute");
+    if (!ric.length) testo("p", "sc_nessuna");
+    for (const p of ric.sort((a, b) => b.ts - a.ts)) box.appendChild(riga(p, false));
+    testo("h4", "sc_inviate");
+    if (!mie.length) testo("p", "sc_nessuna");
+    for (const p of mie.sort((a, b) => b.ts - a.ts)) box.appendChild(riga(p, true));
+    const storia = [...Object.values(G.scambiMiei || {}).map(p => [p, true]), ...Object.values(G.scambiRicevuti || {}).map(p => [p, false])]
+      .filter(([p]) => p.stato !== "attesa").sort((a, b) => (b[0].fine || b[0].ts) - (a[0].fine || a[0].ts)).slice(0, 10);
+    if (storia.length) { testo("h4", "sc_storia"); for (const [p, mia] of storia) box.appendChild(riga(p, mia)); }
+  }
+
   // ---------- amici: richieste, accetta, rifiuta ----------
   const sonoAmici = id => (G.amici || []).some(a => a.id === id);
   function chiediAmicizia(id, nick) {
@@ -11972,7 +13028,7 @@
   }
   function scriviBadgeAmici() {
     const sfideNuove = Object.values(G.sfideMie || {}).filter(s => s.a === Online.id && !s.acc && !s.esito).length;
-    const n = sfideNuove + Object.keys(G.richiesteRicevute || {}).length;
+    const n = sfideNuove + Object.keys(G.richiesteRicevute || {}).length + proposteRicevute().length;
     $("badgeAmici").textContent = n || "";
     $("badgeAmici").classList.toggle("vis", n > 0);
   }
@@ -12025,6 +13081,11 @@
           salva(); Sfide.pubblica(true); avviso(t("sf_via"), "oro"); disegnaAmici(); scriviBadgeAmici();
         }],
         [t("sf_rifiuta"), "pulsante secondario piccolo", () => { s.rif = Date.now(); s.esito = "rifiutata"; s.visto = true; salva(); Sfide.pubblica(true); disegnaAmici(); scriviBadgeAmici(); }]
+      ]));
+    }
+    for (const p of proposteRicevute()) {
+      rich.appendChild(rigaAmico(p.da, p.daNick, "🔁 " + t("sc_rich_riga"), [
+        [t("sc_vedi"), "pulsante piccolo", () => apriScambi("proposte")]
       ]));
     }
     if (!rich.children.length) rich.innerHTML = `<p class="tappe-info">${t("am_nessuna_rich")}</p>`;
@@ -12080,6 +13141,7 @@
       const testo = (k < 3 ? ["🥇", "🥈", "🥉"][k] + " " : (k + 1) + "° · ") + t("am_forza", { f: frase, r: record });
       am.appendChild(rigaAmico(a.id, a.nick, testo, [
         [t("am_sfida_btn"), "pulsante piccolo", () => apriSceltaSfida(a), !Sfide.disponibile() || occupato],
+        ["🔁", "pulsante secondario piccolo", () => apriScambi("scambia", a), !Sfide.disponibile()],
         ["✕", "info-i togli-amico", () => rimuoviAmico(a.id)]
       ], () => apriGiocatore(riga, modo), (Online.profiliAmici[a.id] || {}).p));
     });
@@ -12604,6 +13666,77 @@
       completata: true, chi: pg.chi, modo: pg.modo });
   }
 
+  const tipoOnline = () => (Online.tipo === "firebase" ? "firebase" : "claude");
+  // ---------- aggiornamenti ----------
+  // la versione è quella scritta in fondo alle Impostazioni ("versione 55"): un solo numero da cambiare a ogni aggiornamento
+  const VERSIONE_GIOCO = parseInt((($("versioneGioco").textContent || "").match(/(\d+)/) || [0, 0])[1], 10) || 0;
+  const Aggiornamento = {
+    avviato: false, inCorso: false,
+    // chi gioca con la versione più recente lo scrive online; chi ha una versione vecchia lo legge e aspetta quella nuova
+    avvia() {
+      if (this.avviato || !Online.pronto || !VERSIONE_GIOCO) return;
+      const base = Online.tipo === "firebase" ? Online.fb : Online.db;
+      if (!base) return;
+      this.avviato = true;
+      try {
+        const ref = base.collection("sistema").doc("versione");
+        ref.onSnapshot(snap => {
+          const v = snap.exists ? Number((snap.data() || {}).v) || 0 : 0;
+          if (v > VERSIONE_GIOCO) this.mostra(v);
+          else if (v < VERSIONE_GIOCO && !Online.solaLettura) Promise.resolve(ref.set({ v: VERSIONE_GIOCO, ts: Date.now() })).catch(() => {});
+        }, () => {});
+      } catch (e) {}
+    },
+    mostra(v) {
+      if (this.inCorso) return;
+      this.inCorso = true;
+      salva();
+      Online.salvaOnline();
+      for (const vel of document.querySelectorAll(".velo.aperto")) if (vel.id !== "veloAggiorna") vel.classList.remove("aperto");
+      $("agTitolo").textContent = t("ag_tit", { v });
+      $("agTesto").textContent = t(suSitoWeb() ? "ag_testo_web" : "ag_testo_app");
+      $("agStato").textContent = "";
+      $("bAgRicarica").hidden = suSitoWeb();
+      apri("veloAggiorna");
+      if (suSitoWeb()) this.attendi(v);
+    },
+    // sul sito: controllo che la versione nuova sia davvero online (GitHub a volte ci mette qualche minuto), poi riapro il gioco
+    async attendi(v) {
+      for (let tentativo = 1; ; tentativo++) {
+        try {
+          const r = await fetch("./index.html", { cache: "reload" });
+          const m = (await r.text()).match(/versione (\d+)<\/p>/);
+          if (m && +m[1] >= v) {
+            $("agStato").textContent = t("ag_pronto");
+            try { await fetch("./", { cache: "reload" }); } catch (e) {}
+            try { const reg = navigator.serviceWorker && await navigator.serviceWorker.getRegistration(); if (reg) await reg.update(); } catch (e) {}
+            salva();
+            setTimeout(() => location.reload(), 1200);
+            return;
+          }
+        } catch (e) {}
+        $("agStato").textContent = t("ag_attesa", { n: tentativo });
+        await new Promise(ok => setTimeout(ok, 15000));
+      }
+    }
+  };
+  // questo account è stato trasferito altrove: si gioca solo dall'altra parte (qui si può importare o ricominciare)
+  function mostraTrasferito() {
+    const a = G.trasferitoA || {};
+    $("testoTrasferito").textContent = t("tf_testo", { nick: a.nick || G.nick || "?" });
+    $("bTfNuova").hidden = Online.tipo !== "firebase";
+    for (const v of document.querySelectorAll(".velo.aperto")) if (v.id !== "veloTrasferito" && v.id !== "veloTrasferisci" && v.id !== "veloConferma") v.classList.remove("aperto");
+    apri("veloTrasferito");
+  }
+  async function ricominciaQui() {
+    try { localStorage.removeItem(CHIAVE_SALVATAGGIO); } catch (e) {}
+    // sul sito un account nuovo (un nuovo giocatore anonimo), così il vecchio resta disattivato
+    if (Online.tipo === "firebase") { try { await firebase.auth().signOut(); } catch (e) {} }
+    location.reload();
+  }
+  // un controllo online che non risponde non deve bloccare il gioco: dopo qualche secondo si va avanti
+  const conLimite = (promessa, ms = 5000) => Promise.race([promessa, new Promise((_, no) => setTimeout(() => no(new Error("tempo")), ms))]);
+
   // ---------- scelta del nome per la classifica ----------
   let dopoNome = null;
   // facoltativo = cambio di nome dalle impostazioni (si può annullare); altrimenti è obbligatorio
@@ -12612,6 +13745,8 @@
     $("bNomeAnnulla").hidden = !facoltativo;
     $("campoNome").value = facoltativo ? (G.nick || "") : "";
     $("statoNome").textContent = "";
+    $("bNomeSugg").hidden = true;
+    $("bNomeOk").disabled = false;
     apri("veloNome");
     setTimeout(() => { try { $("campoNome").focus(); } catch (e) {} }, 300);
   }
@@ -12622,9 +13757,14 @@
     const base = Sfide.base().collection("nomi");
     try {
       const ref = base.doc(chiaveNome(nome));
-      const snap = await ref.get();
-      if (snap.exists && snap.data().uid !== Online.id) return false;
-      await ref.set({ uid: Online.id, nick: nome, ts: Date.now() });
+      const snap = await conLimite(ref.get());
+      const dati = snap.exists ? snap.data() || {} : null;
+      // un nome registrato da un mio account di prima (partita trasferita) è ancora mio
+      const mioDiPrima = dati && (G.exIds || []).includes(dati.uid);
+      if (dati && dati.uid !== Online.id && !mioDiPrima) return false;
+      const nuovo = { uid: Online.id, nick: nome, ts: Date.now() };
+      if (mioDiPrima) nuovo.ex = dati.uid;
+      await conLimite(ref.set(nuovo));
       if (vecchio && chiaveNome(vecchio) !== chiaveNome(nome)) { try { await base.doc(chiaveNome(vecchio)).delete(); } catch (e) {} }
       return true;
     } catch (e) { return null; }
@@ -12639,13 +13779,28 @@
     const nome = $("campoNome").value.replace(/\s+/g, " ").trim().slice(0, 20);
     if ([...nome].length < 2) { $("statoNome").textContent = t("nome_corto"); return; }
     // nomi già usati da altri giocatori nelle classifiche
+    // (non contano le righe dei miei account di prima e quelle di account trasferiti)
+    const miei = new Set([Online.id, ...(G.exIds || [])]);
     const altri = [].concat(...Object.values(Online.righe || {}), Online.righeVecchie || [])
-      .filter(r => r.id !== Online.id && typeof r.nick === "string")
+      .filter(r => !miei.has(r.id) && !(Online.exMappa || {})[r.id] && typeof r.nick === "string")
       .map(r => r.nick.trim().toLowerCase());
-    if (altri.includes(nome.toLowerCase())) { $("statoNome").textContent = t("nome_preso"); return; }
+    const preso = () => {
+      $("statoNome").textContent = t("nome_preso");
+      // un suggerimento pronto: il nome con un numero
+      let sugg = "";
+      for (let k = 0; k < 20 && !sugg; k++) { const x = (nome.slice(0, 17) + (k < 9 ? k + 2 : Math.floor(10 + Math.random() * 89))); if (!altri.includes(x.toLowerCase())) sugg = x; }
+      const b = $("bNomeSugg");
+      b.hidden = !sugg;
+      b.textContent = t("nome_usa", { nome: sugg });
+      b.onclick = () => { $("campoNome").value = sugg; b.hidden = true; confermaNome(); };
+    };
+    if (altri.includes(nome.toLowerCase())) { preso(); return; }
+    $("bNomeSugg").hidden = true;
     $("statoNome").textContent = t("nome_controllo");
+    $("bNomeOk").disabled = true;
     const libero = await prenotaNome(nome, G.nick);
-    if (libero === false) { $("statoNome").textContent = t("nome_preso"); return; }
+    $("bNomeOk").disabled = false;
+    if (libero === false) { preso(); return; }
     G.nomeDaCambiare = false;
     G.nick = nome;
     salva();
@@ -12692,20 +13847,25 @@
   }
   async function codicePartita() {
     // senza compressione: così il codice si legge su qualsiasi telefono e browser
-    const json = JSON.stringify({ ...G, diario: (G.diario || []).slice(0, 15), ts: Date.now() });
+    const json = JSON.stringify({ ...G, diario: (G.diario || []).slice(0, 15), ts: Date.now(), __da: Online.id || "", __tipo: tipoOnline() });
     return "SCIMMIE1:" + inBase64(new TextEncoder().encode(json));
   }
   async function leggiCodicePartita(testo) {
     // accetta il codice anche se incollato insieme ad altro testo (per esempio da WhatsApp o dalle Note)
     const pulito = (testo || "").replace(/\s+/g, "");
-    const trovato = pulito.match(/SCIMMIE[Z1]:[A-Za-z0-9+\/=]+/);
-    if (!trovato) throw new Error("codice non valido");
-    const codice = trovato[0];
-    if (codice.startsWith("SCIMMIEZ:")) {
-      const flusso = new Blob([daBase64(codice.slice(9))]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+    // il prefisso va bene anche minuscolo (alcune tastiere e app lo cambiano): «scimmie1:» = «SCIMMIE1:»
+    const trovato = pulito.match(/SCIMMIE[Z1]:[A-Za-z0-9+\/=]+/i);
+    if (!trovato) {
+      // senza prefisso: provo a leggere tutto il testo come codice
+      try { const g = JSON.parse(new TextDecoder().decode(daBase64(pulito.replace(/[^A-Za-z0-9+\/=]/g, "")))); if (g && typeof g === "object") return g; } catch (e) {}
+      throw new Error("codice non valido");
+    }
+    const codice = trovato[0], tipo = codice.slice(0, 9).toUpperCase(), corpo = codice.slice(9);
+    if (tipo === "SCIMMIEZ:") {
+      const flusso = new Blob([daBase64(corpo)]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
       return JSON.parse(await new Response(flusso).text());
     }
-    if (codice.startsWith("SCIMMIE1:")) return JSON.parse(new TextDecoder().decode(daBase64(codice.slice(9))));
+    if (tipo === "SCIMMIE1:") return JSON.parse(new TextDecoder().decode(daBase64(corpo)));
     throw new Error("codice non valido");
   }
   async function apriEsporta() {
@@ -12750,6 +13910,13 @@
     if (!g) { $("statoTrasf").textContent = t("tr_errore"); return; }
     chiudi("veloTrasferisci");
     chiedi(t("tr_conferma_tit"), t("tr_conferma_testo"), () => {
+      // l'account da cui arriva la partita (sullo stesso tipo di classifica) si disattiva: niente doppioni in classifica
+      const da = dati.__da, tipo = dati.__tipo;
+      delete g.__da; delete g.__tipo; delete g.trasferitoA;
+      if (da && da !== Online.id && tipo === tipoOnline()) {
+        g.exIds = [...new Set([...(g.exIds || []), da])].filter(x => x !== Online.id).slice(-5);
+        g.trasf = Date.now();
+      } else if (g.exIds) g.exIds = g.exIds.filter(x => x !== Online.id);
       const nelMenu = R.nelMenu;
       avvia(g);
       R.nelMenu = nelMenu;
@@ -12757,6 +13924,13 @@
       salva();
       if (nelMenu) scriviMenuIniziale();
       avviso(t("tr_ok"));
+      // classifica, profilo e nome passano subito a questo dispositivo (e se era disattivato, si riattiva)
+      if (Online.disattivato) { Online.disattivato = false; Online.solaLettura = false; chiudi("veloTrasferito"); }
+      Online.ultimaRiga = {};
+      Online.pubblicaRiga(true);
+      Online.pubblicaProfilo(true);
+      G.nomeDaCambiare = false;
+      controllaNome();
     });
   }
 
@@ -12998,6 +14172,10 @@
     ] },
     { v: 54, voci: 3, chiave: "nov7_", passi: [
       { sel: '.menu button[data-vista="bottega"]', testo: "tour7_1" }
+    ] },
+    { v: 55, voci: 5, chiave: "nov8_", passi: [
+      { sel: "#bScambi", testo: "tour8_1", vista: "bottega" },
+      { sel: "#bSalaGiochi", testo: "tour8_2", vista: "opera" }
     ] }
   ];
   const VERSIONE_NOVITA = GRUPPI_NOVITA[GRUPPI_NOVITA.length - 1].v;
@@ -13260,6 +14438,13 @@
     document.querySelectorAll("[data-trasf]").forEach(b => b.onclick = () => (b.dataset.trasf === "esporta" ? apriEsporta() : apriImporta()));
     $("bTrasfAzione").onclick = azioneTrasferimento;
     $("bTrasfChiudi").onclick = () => chiudi("veloTrasferisci");
+    $("bScambi").onclick = () => apriScambi(proposteRicevute().length ? "proposte" : "vendi");
+    $("bScChiudi").onclick = () => chiudi("veloScambi");
+    $("veloScambi").onclick = e => { if (e.target.id === "veloScambi") chiudi("veloScambi"); };
+    document.querySelectorAll("[data-sc]").forEach(b => b.onclick = () => { R.sc = { ...(R.sc || {}), scheda: b.dataset.sc, sel: null }; disegnaScambi(); });
+    $("bAgRicarica").onclick = () => { salva(); location.reload(); };
+    $("bTfImporta").onclick = () => { chiudi("veloTrasferito"); apriImporta(); };
+    $("bTfNuova").onclick = () => { chiudi("veloTrasferito"); chiedi(t("tf_nuova"), t("tf_nuova_testo"), ricominciaQui); };
     $("veloTrasferisci").onclick = e => { if (e.target.id === "veloTrasferisci") chiudi("veloTrasferisci"); };
     $("bChiudiInfo").onclick = () => chiudi("veloInfo");
     $("veloInfo").onclick = e => { if (e.target.id === "veloInfo") chiudi("veloInfo"); };
@@ -13402,6 +14587,7 @@
   mostraMenuIniziale();
   $("menuIniziale").classList.remove("entra");
   Online.collega();
+  if (G.trasferitoA) { Online.disattivato = true; setTimeout(mostraTrasferito, 1200); }
   aperturaAnimata(() => {
     $("sipario").classList.add("via");
     $("menuIniziale").classList.add("entra");
@@ -13447,7 +14633,9 @@
     if (ora - ultimoLento > 1000) {
       automazioni();
       gestisciEventi();
+      if (Online.disattivato && !Aggiornamento.inCorso && !aperto("veloTrasferito") && !aperto("veloTrasferisci") && !aperto("veloConferma")) mostraTrasferito();
       if (G.sfideMie && Object.keys(G.sfideMie).length && (R.giroSfide = (R.giroSfide || 0) + 1) % 10 === 0) aggiornaSfide();
+      if ((R.giroScambi = (R.giroScambi || 0) + 1) % 60 === 0) Scambi.controlla();
       controllaTraguardi(); disegnaBadge(); controllaTarghette();
       if (vistaAttiva("opera")) scriviSalaGiochi();
       if ((R.giroMese = (R.giroMese || 0) + 1) % 30 === 5) Mensile.controlla();
