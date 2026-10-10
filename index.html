@@ -452,7 +452,21 @@
   .pa-testo { font-family: var(--tasti); font-size: 19px; line-height: 1.45; margin: 0 0 14px; white-space: pre-wrap; word-break: break-word; max-height: 40vh; overflow-y: auto; }
   .pa-firma { font-family: var(--tasti); font-size: 14px; color: #6b6455; text-align: right; margin: 0; }
   /* eventi in ufficio */
-  .barra-evento { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 8px; position: relative; padding-right: 46px; }
+  .barra-evento { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 8px; position: relative; padding: 0 46px; }
+  .bottone-ruota { position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; font-size: 20px; }
+  .bottone-ruota .pallino-r { position: absolute; top: -3px; right: -3px; width: 12px; height: 12px; border-radius: 50%; background: var(--nastro); border: 2px solid var(--foglia-1); display: none; }
+  .bottone-ruota.pronta { border-color: var(--banana); animation: bonus-pulsa 2.4s ease-in-out infinite; }
+  .bottone-ruota.pronta .pallino-r { display: block; }
+  .ruota-finestra { text-align: center; }
+  .ruota-box { position: relative; width: min(290px, 74vw); aspect-ratio: 1; margin: 8px auto 6px; }
+  .ruota-box svg { width: 100%; height: 100%; display: block; transition: transform 4.6s cubic-bezier(.1, .7, .12, 1); filter: drop-shadow(0 8px 16px rgba(0, 0, 0, .45)); }
+  .ruota-freccia { position: absolute; top: -8px; left: 50%; transform: translateX(-50%); width: 0; height: 0; z-index: 2;
+    border-left: 14px solid transparent; border-right: 14px solid transparent; border-top: 26px solid #ff4d6d; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .55)); }
+  .ruota-esito { min-height: 44px; font-weight: 800; font-size: 16px; line-height: 1.35; margin: 4px 0 8px; }
+  .ruota-esito.vinto { color: var(--banana); }
+  .ruota-info { margin-top: 10px; text-align: left; }
+  .ruota-info summary { cursor: pointer; color: var(--spento); font-size: 13px; font-weight: 700; }
+  .ruota-premi { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 12px; font-size: 12.5px; color: var(--spento); margin-top: 6px; }
   .bottone-amici { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; font-size: 19px; }
   .bottone-amici .pallino { top: -4px; right: -4px; }
   .sfida { background: var(--foglia-2); border-radius: 14px; padding: 10px 12px; margin-bottom: 8px; }
@@ -1296,6 +1310,7 @@
     <button class="bonus-chip" id="bonusChip" hidden></button>
     <button class="info-i" id="bEvInfo" aria-label="info">i</button>
     <button class="tondo piccolo bottone-amici" id="bAmici" data-t-aria="am_tit">👥<span class="pallino" id="badgeAmici"></span></button>
+    <button class="tondo piccolo bottone-ruota" id="bRuota" data-t-aria="ruota_tit">🎡<span class="pallino-r"></span></button>
   </div>
 </header>
 <div class="effetti" id="effetti" aria-hidden="true"></div>
@@ -1525,7 +1540,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 57</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 58</p>
   </div>
 </div>
 
@@ -1944,6 +1959,17 @@
   </div>
 </div>
 
+<!-- =============== RUOTA DELLA FORTUNA =============== -->
+<div class="velo centro sopra" id="veloRuota">
+  <div class="finestra ruota-finestra" role="dialog" aria-modal="true" aria-labelledby="titRuota">
+    <h2 id="titRuota" data-t="ruota_tit"></h2>
+    <p class="sotto" data-t="ruota_sotto"></p>
+    <div class="ruota-box"><div class="ruota-freccia"></div><div id="ruotaDisco"></div></div>
+    <p class="ruota-esito" id="ruotaEsito"></p>
+    <div class="azioni"><button class="pulsante" id="bGira"></button><button class="pulsante secondario" id="bRuotaChiudi" data-t="chiudi"></button></div>
+    <details class="ruota-info"><summary data-t="ruota_premi"></summary><div class="ruota-premi" id="ruotaPremi"></div></details>
+  </div>
+</div>
 <div class="velo centro sopra" id="veloConferma">
   <div class="finestra" role="dialog" aria-modal="true" aria-labelledby="titConferma">
     <h2 id="titConferma"></h2>
@@ -2247,7 +2273,7 @@
       ant_nuova: "Mai scritta finora.",
       rit_parole: "📝 Parole completate: {n}",
       imp_notifiche: "Notifiche",
-      imp_notifiche_sotto: "Avvisami quando una scimmia completa una parola o una frase",
+      imp_notifiche_sotto: "Avvisami quando una scimmia completa una frase, quando la ruota è pronta e quando ci sono premi o potenziamenti da prendere",
       notif_negate: "Notifiche bloccate: riattivale dalle impostazioni del telefono",
       notif_prova_tit: "🔔 Notifiche attive",
       notif_prova: "Ti avviserò quando una scimmia completa una parola o una frase.",
@@ -2344,7 +2370,7 @@
       camp_tit: "🏆 La scimmia del record",
       camp_sotto: "È la scimmia che ha scritto più lettere giuste di fila, partendo dall'inizio della frase. Ecco fin dove è arrivata:",
       ev_info_tit: "🎲 Eventi in ufficio",
-      ev_info_sotto: "Mentre giochi, in ufficio succede qualcosa a sorpresa: in media ogni 6 minuti, a volte prima, a volte dopo, e mai lo stesso evento due volte di fila. Gli eventi cambiano velocità, scimmie o banane, o portano una cassa, ma mai la fortuna. I più rari sono anche i più forti.",
+      ev_info_sotto: "Ogni 4-8 minuti, mentre giochi, in ufficio succede qualcosa a sorpresa, e mai lo stesso evento due volte di fila. Gli eventi cambiano velocità, scimmie o banane, o portano una cassa, ma mai la fortuna. I più rari sono anche i più forti.",
       ev_prossimo: "Prossimo evento tra {t}",
       ev_breve: "Prossimo evento: a breve",
       ev_nome_festa: "Festa dell'ufficio",
@@ -2516,8 +2542,8 @@
       prezzo_sale: "il prezzo sale con le tue scimmie",
       bib_livello: "Livello {n}",
       ant_bloccata: "Prima completa «{titolo}»",
-      ant_livello: "Livello {n}: i livelli si sbloccano uno alla volta e ognuno ha 2 lettere in più del precedente.",
-      livello_riportato: "📜 Livelli nuovi: ognuno ha 2 lettere in più del precedente e la stessa lunghezza in tutte le lingue. Riparti da «{titolo}»; il record della frase che scrivevi resta salvato.",
+      ant_livello: "Livello {n}: i livelli si sbloccano uno alla volta e ognuno ha almeno 2 lettere in più del precedente.",
+      livello_riportato: "📜 Livelli aggiornati: ora le frasi sono sempre intere. Riparti da «{titolo}»; il record della frase che scrivevi resta salvato.",
       sez_spec: "🎯 Specializzazioni",
       sez_spec_sotto: "Si sbloccano con tanti pezzi dello stesso tipo e li rendono molto più forti",
       spec1_sc: "Addestramento: {nome}",
@@ -2816,14 +2842,47 @@
       tut_chiedi_si: "Sì, rivedilo",
       tut_chiedi_no: "No, grazie",
       ev_sorpresa: "Prossimo evento: a sorpresa",
-      nov10_1: "📜 Livelli nuovi: ognuno ha 2 lettere in più del precedente e la stessa lunghezza in tutte le lingue (la frase cambia da lingua a lingua). Le altre frasi diventano «frasi libere»",
+      nov10_1: "📜 Livelli nuovi: ognuno ha almeno 2 lettere in più del precedente e, dove si può, la stessa lunghezza in tutte le lingue (la frase cambia da lingua a lingua). Le altre frasi diventano «frasi libere»",
       nov10_2: "💱 Gli Scambi sono negli Amici e si aprono da soli quando arriva un invito; banane e scimmie si mettono e si tolgono facilmente",
       nov10_3: "🔁 Ogni rinascita riparte con 150 scimmie, uguale per tutti: il talento «Squadra iniziale» non c'è più (le pagine spese ti sono state restituite)",
       nov10_4: "⚖️ Specializzazioni più deboli e più tarde (×1,5 a 100 pezzi, ×2 a 250); bonus dello zaino più deboli e più rari, e dello stesso tipo vale solo il più forte",
       nov10_5: "🎲 Gli eventi in ufficio arrivano a sorpresa e non si ripetono due volte di fila; in Facile i potenziamenti a livelli mostrano sempre quanti ne compri",
       nov10_6: "✨ Scintillio e Platino hanno una luce nuova che attraversa il nome; nel minigioco di scrittura la tastiera si apre subito",
-      tour10_1: "📚 Da qui vedi i livelli: ognuno ha 2 lettere in più del precedente. Le frasi libere si sbloccano quando superi un livello lungo quanto loro.",
-      tour10_2: "💱 Gli Scambi ora sono qui, negli Amici: quando un amico ti invita la finestra si apre da sola."
+      tour10_1: "📚 Da qui vedi i livelli: ognuno ha almeno 2 lettere in più del precedente. Le frasi libere si sbloccano quando superi un livello lungo quanto loro.",
+      tour10_2: "💱 Gli Scambi ora sono qui, negli Amici: quando un amico ti invita la finestra si apre da sola.",
+      ruota_tit: "Ruota della fortuna",
+      ruota_sotto: "Una volta al giorno gira la ruota: ogni spicchio ha la stessa probabilità.",
+      ruota_gira: "Gira!",
+      ruota_domani: "Torna tra {t}",
+      ruota_gia: "Oggi l'hai già girata: torna domani!",
+      ruota_premi: "Cosa puoi vincere",
+      ruota_et_min: "{n} min",
+      ruota_et_ore: "{n} h",
+      ruota_et_cassa: "Cassa",
+      ruota_et_argento: "Argento",
+      ruota_et_ogg: "Oggetto",
+      ruota_d_banane: "Banane: {t} di raccolto",
+      ruota_d_pagine: "{n} Pagine d'oro",
+      ruota_d_scimmie: "+{n}% scimmie per sempre",
+      ruota_d_ogg: "Un avatar, un colore o una scritta a caso",
+      ruota_v_banane: "Hai vinto {n} banane!",
+      ruota_v_bonus: "Hai vinto {ico} {nome}: è nello zaino!",
+      ruota_v_cassa: "Hai vinto una {nome} gratis: aprila nel Negozio!",
+      ruota_v_pagine: "Hai vinto {n} Pagine d'oro!",
+      ruota_v_scimmie: "Le tue scimmie crescono del {n}% per sempre!",
+      ruota_v_ogg: "Hai vinto {nome} ({rar})!",
+      prom_ruota: "🎡 La ruota della fortuna è pronta: girala e vinci un premio!",
+      prom_ruota_breve: "la ruota della fortuna",
+      prom_trag: "{n} traguardi da riscuotere",
+      prom_casse: "casse gratis da aprire",
+      prom_mini: "il premio grande dei minigiochi",
+      prom_pot: "{n} potenziamenti da comprare",
+      prom_intro: "Ti aspettano:",
+      nov11_1: "🎡 Ruota della fortuna: una volta al giorno la giri e vinci banane, scimmie, potenziamenti, casse, pagine d'oro o un oggetto",
+      nov11_2: "📜 Le frasi dei livelli sono sempre intere: un'opera breve tutta intera o frasi complete, mai tagliate a metà",
+      nov11_3: "🔔 Promemoria: ogni mezz'ora ti ricordo potenziamenti da comprare, premi da prendere e la ruota pronta (con le notifiche attive arrivano anche col gioco in sottofondo)",
+      nov11_4: "🎲 Gli eventi in ufficio tornano ogni 4-8 minuti",
+      tour11_1: "🎡 Questa è la Ruota della fortuna: girala una volta al giorno. Quando è pronta il pulsante si illumina."
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -3103,7 +3162,7 @@
       ant_nuova: "Never typed yet.",
       rit_parole: "📝 Words completed: {n}",
       imp_notifiche: "Notifications",
-      imp_notifiche_sotto: "Let me know when a monkey completes a word or a phrase",
+      imp_notifiche_sotto: "Let me know when a monkey completes a phrase, when the wheel is ready and when there are prizes or upgrades to get",
       notif_negate: "Notifications blocked: turn them back on in your phone's settings",
       notif_prova_tit: "🔔 Notifications on",
       notif_prova: "I'll let you know when a monkey completes a word or a phrase.",
@@ -3200,7 +3259,7 @@
       camp_tit: "🏆 The record monkey",
       camp_sotto: "Of all your monkeys, this is the one that typed the most correct letters in a row from the start of the phrase. Here's how far it got:",
       ev_info_tit: "🎲 Office events",
-      ev_info_sotto: "While you play, something surprising happens in the office: about every 6 minutes on average, sometimes sooner, sometimes later, and never the same event twice in a row. Events change speed, monkeys or bananas, or bring a crate, but never luck. The rarest are also the strongest.",
+      ev_info_sotto: "Every 4-8 minutes while you play, something surprising happens in the office, and never the same event twice in a row. Events change speed, monkeys or bananas, or bring a crate, but never luck. The rarest are also the strongest.",
       ev_prossimo: "Next event in {t}",
       ev_breve: "Next event: soon",
       ev_nome_festa: "Office party",
@@ -3372,8 +3431,8 @@
       prezzo_sale: "the price grows with your monkeys",
       bib_livello: "Level {n}",
       ant_bloccata: "First complete “{titolo}”",
-      ant_livello: "Level {n}: levels unlock one at a time and each has 2 more letters than the one before.",
-      livello_riportato: "📜 New levels: each has 2 more letters than the last and the same length in every language. You continue from “{titolo}”; the record of the phrase you were typing is kept.",
+      ant_livello: "Level {n}: levels unlock one at a time and each has at least 2 more letters than the one before.",
+      livello_riportato: "📜 Levels updated: phrases are now always complete. You continue from “{titolo}”; the record of the phrase you were typing is kept.",
       sez_spec: "🎯 Specialisations",
       sez_spec_sotto: "Unlocked by owning many of the same kind; they make them much stronger",
       spec1_sc: "Training: {nome}",
@@ -3672,14 +3731,47 @@
       tut_chiedi_si: "Yes, show it",
       tut_chiedi_no: "No, thanks",
       ev_sorpresa: "Next event: a surprise",
-      nov10_1: "📜 New levels: each has 2 more letters than the last and the same length in every language (the phrase changes from language to language). The other phrases become “free phrases”",
+      nov10_1: "📜 New levels: each has at least 2 more letters than the last and, where possible, the same length in every language (the phrase changes from language to language). The other phrases become “free phrases”",
       nov10_2: "💱 Trades are in Friends and open by themselves when an invite arrives; bananas and monkeys are easy to add and remove",
       nov10_3: "🔁 Every rebirth restarts with 150 monkeys, the same for everyone: the “Starting crew” talent is gone (the pages you spent were refunded)",
       nov10_4: "⚖️ Specialisations are weaker and come later (×1.5 at 100 pieces, ×2 at 250); backpack boosts are weaker and rarer, and of the same kind only the strongest counts",
       nov10_5: "🎲 Office events arrive by surprise and never repeat twice in a row; in Easy, level upgrades always show how many you're buying",
       nov10_6: "✨ Shimmer and Platinum have a new light sweeping across the name; in the typing minigame the keyboard opens right away",
-      tour10_1: "📚 Here you see the levels: each has 2 more letters than the last. Free phrases unlock when you clear a level as long as they are.",
-      tour10_2: "💱 Trades are now here, in Friends: when a friend invites you the window opens by itself."
+      tour10_1: "📚 Here you see the levels: each has at least 2 more letters than the last. Free phrases unlock when you clear a level as long as they are.",
+      tour10_2: "💱 Trades are now here, in Friends: when a friend invites you the window opens by itself.",
+      ruota_tit: "Wheel of fortune",
+      ruota_sotto: "Spin the wheel once a day: every slice has the same chance.",
+      ruota_gira: "Spin!",
+      ruota_domani: "Come back in {t}",
+      ruota_gia: "You've already spun today: come back tomorrow!",
+      ruota_premi: "What you can win",
+      ruota_et_min: "{n} min",
+      ruota_et_ore: "{n} h",
+      ruota_et_cassa: "Crate",
+      ruota_et_argento: "Silver",
+      ruota_et_ogg: "Item",
+      ruota_d_banane: "Bananas: {t} of harvest",
+      ruota_d_pagine: "{n} Golden Pages",
+      ruota_d_scimmie: "+{n}% monkeys forever",
+      ruota_d_ogg: "A random avatar, colour or animated name",
+      ruota_v_banane: "You won {n} bananas!",
+      ruota_v_bonus: "You won {ico} {nome}: it's in your backpack!",
+      ruota_v_cassa: "You won a free {nome}: open it in the Shop!",
+      ruota_v_pagine: "You won {n} Golden Pages!",
+      ruota_v_scimmie: "Your monkeys grow by {n}% forever!",
+      ruota_v_ogg: "You won {nome} ({rar})!",
+      prom_ruota: "🎡 The wheel of fortune is ready: spin it and win a prize!",
+      prom_ruota_breve: "the wheel of fortune",
+      prom_trag: "{n} achievements to collect",
+      prom_casse: "free crates to open",
+      prom_mini: "the mini-games big prize",
+      prom_pot: "{n} upgrades to buy",
+      prom_intro: "Waiting for you:",
+      nov11_1: "🎡 Wheel of fortune: once a day you spin it and win bananas, monkeys, boosts, crates, Golden Pages or an item",
+      nov11_2: "📜 Level phrases are always complete: a whole short work or full sentences, never cut in half",
+      nov11_3: "🔔 Reminders: every half hour I remind you of upgrades to buy, prizes to collect and the wheel when it's ready (with notifications on they also arrive with the game in the background)",
+      nov11_4: "🎲 Office events are back to every 4-8 minutes",
+      tour11_1: "🎡 This is the Wheel of fortune: spin it once a day. When it's ready the button lights up."
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -3959,7 +4051,7 @@
       ant_nuova: "Nunca escrita hasta ahora.",
       rit_parole: "📝 Palabras completadas: {n}",
       imp_notifiche: "Notificaciones",
-      imp_notifiche_sotto: "Avísame cuando un mono complete una palabra o una frase",
+      imp_notifiche_sotto: "Avísame cuando un mono complete una frase, cuando la rueda esté lista y cuando haya premios o mejoras",
       notif_negate: "Notificaciones bloqueadas: vuelve a activarlas en los ajustes del teléfono",
       notif_prova_tit: "🔔 Notificaciones activadas",
       notif_prova: "Te avisaré cuando un mono complete una palabra o una frase.",
@@ -4056,7 +4148,7 @@
       camp_tit: "🏆 El mono del récord",
       camp_sotto: "De todos tus monos, es el que ha escrito más letras correctas seguidas desde el principio de la frase. Hasta aquí ha llegado:",
       ev_info_tit: "🎲 Eventos en la oficina",
-      ev_info_sotto: "Mientras juegas, en la oficina pasa algo por sorpresa: de media cada 6 minutos, a veces antes, a veces después, y nunca el mismo evento dos veces seguidas. Los eventos cambian la velocidad, los monos o los plátanos, o traen una caja, pero nunca la suerte. Los más raros son también los más fuertes.",
+      ev_info_sotto: "Cada 4-8 minutos, mientras juegas, pasa algo por sorpresa en la oficina, y nunca el mismo evento dos veces seguidas. Los eventos cambian la velocidad, los monos o los plátanos, o traen una caja, pero nunca la suerte. Los más raros son también los más fuertes.",
       ev_prossimo: "Próximo evento en {t}",
       ev_breve: "Próximo evento: enseguida",
       ev_nome_festa: "Fiesta en la oficina",
@@ -4228,8 +4320,8 @@
       prezzo_sale: "el precio sube con tus monos",
       bib_livello: "Nivel {n}",
       ant_bloccata: "Primero completa «{titolo}»",
-      ant_livello: "Nivel {n}: los niveles se desbloquean de uno en uno y cada uno tiene 2 letras más que el anterior.",
-      livello_riportato: "📜 Niveles nuevos: cada uno tiene 2 letras más que el anterior y la misma longitud en todos los idiomas. Sigues desde «{titolo}»; el récord de la frase que escribías se guarda.",
+      ant_livello: "Nivel {n}: los niveles se desbloquean de uno en uno y cada uno tiene al menos 2 letras más que el anterior.",
+      livello_riportato: "📜 Niveles actualizados: ahora las frases siempre están completas. Sigues desde «{titolo}»; el récord de la frase que escribías se guarda.",
       sez_spec: "🎯 Especializaciones",
       sez_spec_sotto: "Se desbloquean con muchas piezas del mismo tipo y las hacen mucho más fuertes",
       spec1_sc: "Entrenamiento: {nome}",
@@ -4528,14 +4620,47 @@
       tut_chiedi_si: "Sí, verlo",
       tut_chiedi_no: "No, gracias",
       ev_sorpresa: "Próximo evento: sorpresa",
-      nov10_1: "📜 Niveles nuevos: cada uno tiene 2 letras más que el anterior y la misma longitud en todos los idiomas (la frase cambia según el idioma). Las demás frases pasan a ser «frases libres»",
+      nov10_1: "📜 Niveles nuevos: cada uno tiene al menos 2 letras más que el anterior y, cuando se puede, la misma longitud en todos los idiomas (la frase cambia según el idioma). Las demás frases pasan a ser «frases libres»",
       nov10_2: "💱 Los Intercambios están en Amigos y se abren solos cuando llega una invitación; plátanos y monos se ponen y se quitan fácilmente",
       nov10_3: "🔁 Cada renacer empieza con 150 monos, igual para todos: el talento «Equipo inicial» ya no existe (se te devolvieron las páginas gastadas)",
       nov10_4: "⚖️ Especializaciones más débiles y más tardías (×1,5 con 100 piezas, ×2 con 250); bonus de la mochila más débiles y más raros, y del mismo tipo solo cuenta el más fuerte",
       nov10_5: "🎲 Los eventos de la oficina llegan por sorpresa y no se repiten dos veces seguidas; en Fácil las mejoras por niveles siempre muestran cuántas compras",
       nov10_6: "✨ Destello y Platino tienen una luz nueva que recorre el nombre; en el minijuego de escritura el teclado se abre enseguida",
-      tour10_1: "📚 Aquí ves los niveles: cada uno tiene 2 letras más que el anterior. Las frases libres se desbloquean al superar un nivel igual de largo.",
-      tour10_2: "💱 Los Intercambios ahora están aquí, en Amigos: cuando un amigo te invita, la ventana se abre sola."
+      tour10_1: "📚 Aquí ves los niveles: cada uno tiene al menos 2 letras más que el anterior. Las frases libres se desbloquean al superar un nivel igual de largo.",
+      tour10_2: "💱 Los Intercambios ahora están aquí, en Amigos: cuando un amigo te invita, la ventana se abre sola.",
+      ruota_tit: "Rueda de la fortuna",
+      ruota_sotto: "Gira la rueda una vez al día: cada porción tiene la misma probabilidad.",
+      ruota_gira: "¡Girar!",
+      ruota_domani: "Vuelve en {t}",
+      ruota_gia: "Hoy ya la has girado: ¡vuelve mañana!",
+      ruota_premi: "Qué puedes ganar",
+      ruota_et_min: "{n} min",
+      ruota_et_ore: "{n} h",
+      ruota_et_cassa: "Caja",
+      ruota_et_argento: "Plata",
+      ruota_et_ogg: "Objeto",
+      ruota_d_banane: "Plátanos: {t} de cosecha",
+      ruota_d_pagine: "{n} Páginas de oro",
+      ruota_d_scimmie: "+{n}% monos para siempre",
+      ruota_d_ogg: "Un avatar, color o letra animada al azar",
+      ruota_v_banane: "¡Has ganado {n} plátanos!",
+      ruota_v_bonus: "¡Has ganado {ico} {nome}: está en la mochila!",
+      ruota_v_cassa: "¡Has ganado una {nome} gratis: ábrela en la Tienda!",
+      ruota_v_pagine: "¡Has ganado {n} Páginas de oro!",
+      ruota_v_scimmie: "¡Tus monos crecen un {n}% para siempre!",
+      ruota_v_ogg: "¡Has ganado {nome} ({rar})!",
+      prom_ruota: "🎡 La rueda de la fortuna está lista: ¡gírala y gana un premio!",
+      prom_ruota_breve: "la rueda de la fortuna",
+      prom_trag: "{n} logros por cobrar",
+      prom_casse: "cajas gratis por abrir",
+      prom_mini: "el premio grande de los minijuegos",
+      prom_pot: "{n} mejoras por comprar",
+      prom_intro: "Te esperan:",
+      nov11_1: "🎡 Rueda de la fortuna: una vez al día la giras y ganas plátanos, monos, bonus, cajas, Páginas de oro o un objeto",
+      nov11_2: "📜 Las frases de los niveles siempre están completas: una obra breve entera o frases completas, nunca cortadas por la mitad",
+      nov11_3: "🔔 Recordatorios: cada media hora te recuerdo mejoras por comprar, premios por recoger y la rueda lista (con las notificaciones activas llegan también con el juego en segundo plano)",
+      nov11_4: "🎲 Los eventos de la oficina vuelven a ser cada 4-8 minutos",
+      tour11_1: "🎡 Esta es la Rueda de la fortuna: gírala una vez al día. Cuando está lista, el botón se ilumina."
     },
 
     // ------------------------------------------------------------- 中文
@@ -4815,7 +4940,7 @@
       ant_nuova: "还从没打过。",
       rit_parole: "📝 完成的单词：{n}",
       imp_notifiche: "通知",
-      imp_notifiche_sotto: "猴子完成一个单词或一句话时提醒我",
+      imp_notifiche_sotto: "猴子完成句子、转盘就绪、有奖品或升级可拿时提醒我",
       notif_negate: "通知已被阻止：请在手机设置中重新开启",
       notif_prova_tit: "🔔 通知已开启",
       notif_prova: "猴子完成单词或句子时我会提醒你。",
@@ -4912,7 +5037,7 @@
       camp_tit: "🏆 纪录猴子",
       camp_sotto: "在你所有的猴子中，它从句子开头连续打对的字母最多。它打到了这里：",
       ev_info_tit: "🎲 办公室事件",
-      ev_info_sotto: "游戏时，办公室里会随机发生事件：平均每 6 分钟一次，有时早有时晚，同一个事件不会连续出现两次。事件会改变速度、猴子或香蕉，或者带来箱子，但从不改变运气。越稀有的越强。",
+      ev_info_sotto: "游戏时每 4-8 分钟，办公室里会随机发生事件，同一个事件不会连续出现两次。事件会改变速度、猴子或香蕉，或者带来箱子，但从不改变运气。越稀有的越强。",
       ev_prossimo: "下一个事件：{t} 后",
       ev_breve: "下一个事件：马上",
       ev_nome_festa: "办公室派对",
@@ -5084,8 +5209,8 @@
       prezzo_sale: "价格随猴子数量上涨",
       bib_livello: "第 {n} 关",
       ant_bloccata: "先完成《{titolo}》",
-      ant_livello: "第 {n} 关：关卡一个一个解锁，每关比上一关多 2 个字母。",
-      livello_riportato: "📜 新关卡：每关比上一关多 2 个字母，所有语言长度相同。你从「{titolo}」继续，之前那句的纪录会保留。",
+      ant_livello: "第 {n} 关：关卡一个一个解锁，每关至少比上一关多 2 个字母。",
+      livello_riportato: "📜 关卡已更新：现在句子总是完整的。你从「{titolo}」继续，之前那句的纪录会保留。",
       sez_spec: "🎯 专精",
       sez_spec_sotto: "拥有足够多同类后解锁，让它们强得多",
       spec1_sc: "训练：{nome}",
@@ -5384,14 +5509,47 @@
       tut_chiedi_si: "好，再看一遍",
       tut_chiedi_no: "不用了",
       ev_sorpresa: "下一个事件：随机出现",
-      nov10_1: "📜 新关卡：每关比上一关多 2 个字母，所有语言长度相同（不同语言的句子不同）。其余句子变成“自由句子”",
+      nov10_1: "📜 新关卡：每关至少比上一关多 2 个字母，尽量在所有语言中长度相同（不同语言的句子不同）。其余句子变成“自由句子”",
       nov10_2: "💱 交易在“好友”里，收到邀请时会自动打开；香蕉和猴子可以轻松放入和拿回",
       nov10_3: "🔁 每次重生都从 150 只猴子开始，人人相同：“初始团队”天赋已移除（花掉的金页已返还）",
       nov10_4: "⚖️ 专精更弱、解锁更晚（100 个 ×1.5，250 个 ×2）；背包加成更弱更少，同类只算最强的",
       nov10_5: "🎲 办公室事件随机出现，不会连续重复；简单模式下按等级的升级总会显示你买几级",
       nov10_6: "✨ “闪光”和“铂金”有了扫过名字的新光效；打字小游戏里键盘会马上弹出",
-      tour10_1: "📚 在这里查看关卡：每关比上一关多 2 个字母。通过同样长度的关卡后，自由句子就会解锁。",
-      tour10_2: "💱 交易现在在这里的“好友”中：好友邀请你时窗口会自动打开。"
+      tour10_1: "📚 在这里查看关卡：每关至少比上一关多 2 个字母。通过同样长度的关卡后，自由句子就会解锁。",
+      tour10_2: "💱 交易现在在这里的“好友”中：好友邀请你时窗口会自动打开。",
+      ruota_tit: "幸运转盘",
+      ruota_sotto: "每天转一次：每个扇区的概率都一样。",
+      ruota_gira: "转！",
+      ruota_domani: "{t} 后再来",
+      ruota_gia: "今天已经转过了：明天再来！",
+      ruota_premi: "可以赢得什么",
+      ruota_et_min: "{n} 分钟",
+      ruota_et_ore: "{n} 小时",
+      ruota_et_cassa: "箱子",
+      ruota_et_argento: "银箱",
+      ruota_et_ogg: "物品",
+      ruota_d_banane: "香蕉：{t} 的收成",
+      ruota_d_pagine: "{n} 张金页",
+      ruota_d_scimmie: "猴子永久 +{n}%",
+      ruota_d_ogg: "随机头像、颜色或动态字",
+      ruota_v_banane: "你赢得了 {n} 根香蕉！",
+      ruota_v_bonus: "你赢得了 {ico} {nome}：已放进背包！",
+      ruota_v_cassa: "你赢得了免费的{nome}：去商店打开！",
+      ruota_v_pagine: "你赢得了 {n} 张金页！",
+      ruota_v_scimmie: "你的猴子永久增加 {n}%！",
+      ruota_v_ogg: "你赢得了 {nome}（{rar}）！",
+      prom_ruota: "🎡 幸运转盘准备好了：转一转赢奖品！",
+      prom_ruota_breve: "幸运转盘",
+      prom_trag: "{n} 个成就待领取",
+      prom_casse: "免费箱子待打开",
+      prom_mini: "小游戏大奖",
+      prom_pot: "{n} 个升级可以购买",
+      prom_intro: "等着你的有：",
+      nov11_1: "🎡 幸运转盘：每天转一次，赢香蕉、猴子、加成、箱子、金页或物品",
+      nov11_2: "📜 关卡句子总是完整的：完整的短作品或完整的句子，绝不截断",
+      nov11_3: "🔔 提醒：每半小时提醒你可买的升级、可领的奖品和就绪的转盘（开启通知后，游戏在后台时也会收到）",
+      nov11_4: "🎲 办公室事件恢复为每 4-8 分钟一次",
+      tour11_1: "🎡 这是幸运转盘：每天转一次。准备好时按钮会发光。"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -5671,7 +5829,7 @@
       ant_nuova: "Jamais écrite pour l'instant.",
       rit_parole: "📝 Mots terminés : {n}",
       imp_notifiche: "Notifications",
-      imp_notifiche_sotto: "Préviens-moi quand un singe termine un mot ou une phrase",
+      imp_notifiche_sotto: "Préviens-moi quand un singe termine une phrase, quand la roue est prête et quand il y a des prix ou des améliorations",
       notif_negate: "Notifications bloquées : réactive-les dans les réglages du téléphone",
       notif_prova_tit: "🔔 Notifications activées",
       notif_prova: "Je te préviendrai quand un singe termine un mot ou une phrase.",
@@ -5768,7 +5926,7 @@
       camp_tit: "🏆 Le singe du record",
       camp_sotto: "De tous tes singes, c'est celui qui a écrit le plus de lettres justes d'affilée depuis le début de la phrase. Voici jusqu'où il est arrivé :",
       ev_info_tit: "🎲 Événements au bureau",
-      ev_info_sotto: "Pendant que tu joues, il se passe quelque chose au bureau par surprise : en moyenne toutes les 6 minutes, parfois avant, parfois après, et jamais deux fois de suite le même événement. Les événements changent la vitesse, les singes ou les bananes, ou apportent un coffre, mais jamais la chance. Les plus rares sont aussi les plus forts.",
+      ev_info_sotto: "Toutes les 4-8 minutes pendant que tu joues, il se passe quelque chose au bureau par surprise, et jamais deux fois de suite le même événement. Les événements changent la vitesse, les singes ou les bananes, ou apportent un coffre, mais jamais la chance. Les plus rares sont aussi les plus forts.",
       ev_prossimo: "Prochain événement dans {t}",
       ev_breve: "Prochain événement : bientôt",
       ev_nome_festa: "Fête au bureau",
@@ -5940,8 +6098,8 @@
       prezzo_sale: "le prix augmente avec tes singes",
       bib_livello: "Niveau {n}",
       ant_bloccata: "Termine d'abord « {titolo} »",
-      ant_livello: "Niveau {n} : les niveaux se débloquent un par un et chacun a 2 lettres de plus que le précédent.",
-      livello_riportato: "📜 Nouveaux niveaux : chacun a 2 lettres de plus que le précédent et la même longueur dans toutes les langues. Tu reprends à « {titolo} » ; le record de la phrase en cours est gardé.",
+      ant_livello: "Niveau {n} : les niveaux se débloquent un par un et chacun a au moins 2 lettres de plus que le précédent.",
+      livello_riportato: "📜 Niveaux mis à jour : les phrases sont maintenant toujours complètes. Tu reprends à « {titolo} » ; le record de la phrase en cours est gardé.",
       sez_spec: "🎯 Spécialisations",
       sez_spec_sotto: "Se débloquent avec beaucoup d'exemplaires du même type et les rendent bien plus forts",
       spec1_sc: "Entraînement : {nome}",
@@ -6240,14 +6398,47 @@
       tut_chiedi_si: "Oui, le revoir",
       tut_chiedi_no: "Non, merci",
       ev_sorpresa: "Prochain événement : surprise",
-      nov10_1: "📜 Nouveaux niveaux : chacun a 2 lettres de plus que le précédent et la même longueur dans toutes les langues (la phrase change selon la langue). Les autres phrases deviennent des « phrases libres »",
+      nov10_1: "📜 Nouveaux niveaux : chacun a au moins 2 lettres de plus que le précédent et, si possible, la même longueur dans toutes les langues (la phrase change selon la langue). Les autres phrases deviennent des « phrases libres »",
       nov10_2: "💱 Les Échanges sont dans Amis et s'ouvrent tout seuls quand une invitation arrive ; bananes et singes s'ajoutent et se retirent facilement",
       nov10_3: "🔁 Chaque renaissance repart avec 150 singes, pareil pour tous : le talent « Équipe de départ » n'existe plus (les pages dépensées t'ont été rendues)",
       nov10_4: "⚖️ Spécialisations plus faibles et plus tardives (×1,5 à 100 pièces, ×2 à 250) ; bonus du sac plus faibles et plus rares, et du même type seul le plus fort compte",
       nov10_5: "🎲 Les événements du bureau arrivent par surprise et ne se répètent pas deux fois de suite ; en Facile, les améliorations à niveaux montrent toujours combien tu en achètes",
       nov10_6: "✨ Scintillement et Platine ont une nouvelle lumière qui traverse le nom ; dans le mini-jeu d'écriture, le clavier s'ouvre tout de suite",
-      tour10_1: "📚 Ici tu vois les niveaux : chacun a 2 lettres de plus que le précédent. Les phrases libres se débloquent quand tu passes un niveau aussi long qu'elles.",
-      tour10_2: "💱 Les Échanges sont maintenant ici, dans Amis : quand un ami t'invite, la fenêtre s'ouvre toute seule."
+      tour10_1: "📚 Ici tu vois les niveaux : chacun a au moins 2 lettres de plus que le précédent. Les phrases libres se débloquent quand tu passes un niveau aussi long qu'elles.",
+      tour10_2: "💱 Les Échanges sont maintenant ici, dans Amis : quand un ami t'invite, la fenêtre s'ouvre toute seule.",
+      ruota_tit: "Roue de la fortune",
+      ruota_sotto: "Fais tourner la roue une fois par jour : chaque part a la même chance.",
+      ruota_gira: "Tourner !",
+      ruota_domani: "Reviens dans {t}",
+      ruota_gia: "Tu l'as déjà tournée aujourd'hui : reviens demain !",
+      ruota_premi: "Ce que tu peux gagner",
+      ruota_et_min: "{n} min",
+      ruota_et_ore: "{n} h",
+      ruota_et_cassa: "Coffre",
+      ruota_et_argento: "Argent",
+      ruota_et_ogg: "Objet",
+      ruota_d_banane: "Bananes : {t} de récolte",
+      ruota_d_pagine: "{n} Pages d'or",
+      ruota_d_scimmie: "+{n} % de singes pour toujours",
+      ruota_d_ogg: "Un avatar, une couleur ou un nom animé au hasard",
+      ruota_v_banane: "Tu as gagné {n} bananes !",
+      ruota_v_bonus: "Tu as gagné {ico} {nome} : il est dans ton sac !",
+      ruota_v_cassa: "Tu as gagné un {nome} gratuit : ouvre-le dans la Boutique !",
+      ruota_v_pagine: "Tu as gagné {n} Pages d'or !",
+      ruota_v_scimmie: "Tes singes augmentent de {n} % pour toujours !",
+      ruota_v_ogg: "Tu as gagné {nome} ({rar}) !",
+      prom_ruota: "🎡 La roue de la fortune est prête : fais-la tourner et gagne un prix !",
+      prom_ruota_breve: "la roue de la fortune",
+      prom_trag: "{n} succès à récupérer",
+      prom_casse: "coffres gratuits à ouvrir",
+      prom_mini: "le gros prix des mini-jeux",
+      prom_pot: "{n} améliorations à acheter",
+      prom_intro: "T'attendent :",
+      nov11_1: "🎡 Roue de la fortune : une fois par jour tu la fais tourner et gagnes des bananes, des singes, des bonus, des coffres, des Pages d'or ou un objet",
+      nov11_2: "📜 Les phrases des niveaux sont toujours complètes : une œuvre courte entière ou des phrases complètes, jamais coupées",
+      nov11_3: "🔔 Rappels : toutes les demi-heures je te rappelle les améliorations à acheter, les prix à récupérer et la roue prête (avec les notifications, ils arrivent aussi quand le jeu est en arrière-plan)",
+      nov11_4: "🎲 Les événements du bureau reviennent toutes les 4-8 minutes",
+      tour11_1: "🎡 Voici la Roue de la fortune : fais-la tourner une fois par jour. Quand elle est prête, le bouton s'allume."
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -6528,7 +6719,7 @@
       ant_nuova: "Ещё ни разу не печаталась.",
       rit_parole: "📝 Завершённых слов: {n}",
       imp_notifiche: "Уведомления",
-      imp_notifiche_sotto: "Сообщать, когда обезьяна завершит слово или фразу",
+      imp_notifiche_sotto: "Сообщать, когда обезьяна закончит фразу, когда готово колесо и когда есть призы или улучшения",
       notif_negate: "Уведомления заблокированы: включи их в настройках телефона",
       notif_prova_tit: "🔔 Уведомления включены",
       notif_prova: "Я сообщу, когда обезьяна завершит слово или фразу.",
@@ -6625,7 +6816,7 @@
       camp_tit: "🏆 Обезьяна-рекордсменка",
       camp_sotto: "Из всех твоих обезьян именно она напечатала больше всего верных букв подряд с начала фразы. Вот докуда она дошла:",
       ev_info_tit: "🎲 События в офисе",
-      ev_info_sotto: "Пока ты играешь, в офисе неожиданно что-то происходит: в среднем раз в 6 минут, иногда раньше, иногда позже, и никогда одно и то же событие два раза подряд. События меняют скорость, обезьян или бананы или приносят сундук, но никогда не меняют удачу. Самые редкие — самые сильные.",
+      ev_info_sotto: "Каждые 4-8 минут, пока ты играешь, в офисе неожиданно что-то происходит, и никогда одно и то же событие два раза подряд. События меняют скорость, обезьян или бананы или приносят сундук, но никогда не меняют удачу. Самые редкие — самые сильные.",
       ev_prossimo: "Следующее событие через {t}",
       ev_breve: "Следующее событие: скоро",
       ev_nome_festa: "Праздник в офисе",
@@ -6797,8 +6988,8 @@
       prezzo_sale: "цена растёт вместе с обезьянами",
       bib_livello: "Уровень {n}",
       ant_bloccata: "Сначала заверши «{titolo}»",
-      ant_livello: "Уровень {n}: уровни открываются по одному, и в каждом на 2 буквы больше, чем в предыдущем.",
-      livello_riportato: "📜 Новые уровни: в каждом на 2 буквы больше, чем в предыдущем, и одинаковая длина во всех языках. Продолжаешь с «{titolo}»; рекорд прежней фразы сохранён.",
+      ant_livello: "Уровень {n}: уровни открываются по одному, и в каждом минимум на 2 буквы больше, чем в предыдущем.",
+      livello_riportato: "📜 Уровни обновлены: теперь фразы всегда целые. Продолжаешь с «{titolo}»; рекорд прежней фразы сохранён.",
       sez_spec: "🎯 Специализации",
       sez_spec_sotto: "Открываются, когда много штук одного вида, и делают их намного сильнее",
       spec1_sc: "Тренировка: {nome}",
@@ -7097,14 +7288,47 @@
       tut_chiedi_si: "Да, показать",
       tut_chiedi_no: "Нет, спасибо",
       ev_sorpresa: "Следующее событие: сюрприз",
-      nov10_1: "📜 Новые уровни: в каждом на 2 буквы больше, чем в предыдущем, и одинаковая длина во всех языках (фраза зависит от языка). Остальные фразы стали «свободными»",
+      nov10_1: "📜 Новые уровни: в каждом минимум на 2 буквы больше, чем в предыдущем, и, где можно, одинаковая длина во всех языках (фраза зависит от языка). Остальные фразы стали «свободными»",
       nov10_2: "💱 Обмены теперь в «Друзьях» и открываются сами, когда приходит приглашение; бананы и обезьян легко добавить и убрать",
       nov10_3: "🔁 Каждое перерождение начинается со 150 обезьян, у всех одинаково: таланта «Стартовая команда» больше нет (потраченные страницы возвращены)",
       nov10_4: "⚖️ Специализации слабее и открываются позже (×1,5 при 100 штуках, ×2 при 250); бонусы рюкзака слабее и реже, из одного типа действует самый сильный",
       nov10_5: "🎲 События в офисе приходят неожиданно и не повторяются два раза подряд; в «Лёгком» улучшения по уровням всегда показывают, сколько покупаешь",
       nov10_6: "✨ У «Мерцания» и «Платины» новый свет, пробегающий по имени; в мини-игре на печать клавиатура открывается сразу",
-      tour10_1: "📚 Здесь уровни: в каждом на 2 буквы больше, чем в предыдущем. Свободные фразы открываются, когда проходишь уровень такой же длины.",
-      tour10_2: "💱 Обмены теперь здесь, в «Друзьях»: когда друг приглашает тебя, окно открывается само."
+      tour10_1: "📚 Здесь уровни: в каждом минимум на 2 буквы больше, чем в предыдущем. Свободные фразы открываются, когда проходишь уровень такой же длины.",
+      tour10_2: "💱 Обмены теперь здесь, в «Друзьях»: когда друг приглашает тебя, окно открывается само.",
+      ruota_tit: "Колесо фортуны",
+      ruota_sotto: "Крути колесо раз в день: у каждого сектора одинаковый шанс.",
+      ruota_gira: "Крутить!",
+      ruota_domani: "Возвращайся через {t}",
+      ruota_gia: "Сегодня ты уже крутил: возвращайся завтра!",
+      ruota_premi: "Что можно выиграть",
+      ruota_et_min: "{n} мин",
+      ruota_et_ore: "{n} ч",
+      ruota_et_cassa: "Сундук",
+      ruota_et_argento: "Серебро",
+      ruota_et_ogg: "Предмет",
+      ruota_d_banane: "Бананы: урожай за {t}",
+      ruota_d_pagine: "{n} Золотых страниц",
+      ruota_d_scimmie: "+{n}% обезьян навсегда",
+      ruota_d_ogg: "Случайный аватар, цвет или анимированное имя",
+      ruota_v_banane: "Ты выиграл {n} бананов!",
+      ruota_v_bonus: "Ты выиграл {ico} {nome}: он в рюкзаке!",
+      ruota_v_cassa: "Ты выиграл бесплатный {nome}: открой его в магазине!",
+      ruota_v_pagine: "Ты выиграл {n} Золотых страниц!",
+      ruota_v_scimmie: "Твоих обезьян навсегда больше на {n}%!",
+      ruota_v_ogg: "Ты выиграл {nome} ({rar})!",
+      prom_ruota: "🎡 Колесо фортуны готово: крути и выигрывай приз!",
+      prom_ruota_breve: "колесо фортуны",
+      prom_trag: "наград к получению: {n}",
+      prom_casse: "бесплатные сундуки",
+      prom_mini: "большой приз мини-игр",
+      prom_pot: "улучшений можно купить: {n}",
+      prom_intro: "Тебя ждут:",
+      nov11_1: "🎡 Колесо фортуны: раз в день крутишь и выигрываешь бананы, обезьян, бонусы, сундуки, Золотые страницы или предмет",
+      nov11_2: "📜 Фразы уровней всегда целые: короткое произведение полностью или законченные предложения, без обрывов",
+      nov11_3: "🔔 Напоминания: каждые полчаса — об улучшениях, призах и готовом колесе (с включёнными уведомлениями приходят и когда игра в фоне)",
+      nov11_4: "🎲 События в офисе снова каждые 4-8 минут",
+      tour11_1: "🎡 Это Колесо фортуны: крути его раз в день. Когда оно готово, кнопка светится."
     }
   };
 
@@ -8611,86 +8835,99 @@
   }
 
   // =====================================================================
-  //  LIVELLI: ogni livello ha 2 lettere in più del precedente e, in tutte le lingue,
-  //  lo stesso numero di caratteri. Per questo la frase di un livello cambia da lingua a lingua;
-  //  se una frase è più lunga del livello, le scimmie ne scrivono l'inizio (fino a una parola intera).
-  //  Le frasi che non sono livelli restano "frasi libere": si sbloccano quando hai superato un livello lungo almeno quanto loro.
+  //  LIVELLI: ogni livello ha almeno 2 lettere in più del precedente. Le scimmie scrivono sempre
+  //  frasi intere: un'opera breve tutta intera, oppure una o più frasi complete (dal punto al punto) di un testo lungo.
+  //  Dove si può, un livello ha lo stesso numero di caratteri in tutte le lingue (per questo la frase cambia da lingua a lingua);
+  //  nei livelli molto lunghi, dove le frasi complete sono poche, la lunghezza può differire di qualche lettera.
+  //  Le frasi che non sono livelli restano "frasi libere": si sbloccano quando superi un livello lungo almeno quanto loro.
   // =====================================================================
   const LINGUE_FRASI = ["it", "en", "es", "zh", "fr", "ru"];
-  const PRIMO_LIVELLO = 6, PASSO_LIVELLO = 2, ULTIMO_LIVELLO = 200;
+  const PRIMO_LIVELLO = 6, PASSO_LIVELLO = 2, ULTIMO_LIVELLO = 420;
   const SCALE = {};
-  const VERSIONE_SCALA = 2;   // da cambiare se cambiano le frasi o le regole della scala
+  const VERSIONE_SCALA = 4;   // da cambiare se cambiano le frasi o le regole della scala
   const testoIntero = (o, lingua) => (o.testi && o.testi[lingua]) || o.testo;
-  const inizioFrase = (testo, w) => testo.split(/\s+/).filter(Boolean).slice(0, w).join(" ").replace(/[\s,;:\-–—]+$/, "");
-  function candidatiScala(lingua, modo) {
-    return OPERE.map(o => {
-      const testo = testoIntero(o, lingua);
-      const parole = testo.split(/\s+/).filter(Boolean);
-      const intera = normalizza(testo, modo).length;
-      // inizi possibili: meglio se finiscono con una pausa (virgola, punto...), così la frase tagliata ha senso
-      const inizi = new Map();
-      for (let w = 2; w < parole.length; w++) {
-        const l = normalizza(inizioFrase(testo, w), modo).length;
-        if (l > ULTIMO_LIVELLO) break;
-        const pausa = /[,;:.!?…»"')]$/.test(parole[w - 1]);
-        if (!inizi.has(l) || (pausa && !inizi.get(l).pausa)) inizi.set(l, { w, pausa });
-      }
-      return { id: o.id, intera, inizi };
-    });
+  // il testo diviso in frasi complete (senza spezzare "Mr.", "Dr."...)
+  const ABBREVIAZIONI = /\b(Mr|Mrs|Ms|Dr|St|Sig|Sr|Sra|Mme|Mlle|Prof|M)\./g;
+  function frasiDi(testo) {
+    const t2 = testo.replace(ABBREVIAZIONI, "$1․");
+    const pezzi = t2.match(/[^.!?…]+(?:[.!?…]+["»”')]*|$)/g) || [t2];
+    return pezzi.map(x => x.replace(/․/g, ".").trim()).filter(Boolean);
   }
-  // abbina a ogni lunghezza una frase diversa (prima le frasi intere, poi l'inizio delle frasi più corte)
-  function abbinaScala(cand, lunghezze) {
-    const per = (a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
-    // prima le frasi intere, poi l'inizio di un testo lungo che finisce con una pausa, poi l'inizio di un testo lungo qualsiasi
-    // (le frasi corte non si tagliano: perderebbero la parola che le rende famose)
-    const lunga = (c, Lg) => c.intera >= Lg + 12 && c.inizi.has(Lg);
-    const ordine = (a, b) => a.intera - b.intera || per(a, b);
-    const liste = lunghezze.map(Lg => cand.filter(c => c.intera === Lg).sort(per).map(c => [c.id, 0])
-      .concat(cand.filter(c => lunga(c, Lg) && c.inizi.get(Lg).pausa).sort(ordine).map(c => [c.id, c.inizi.get(Lg).w]))
-      .concat(cand.filter(c => lunga(c, Lg) && !c.inizi.get(Lg).pausa).sort(ordine).map(c => [c.id, c.inizi.get(Lg).w])));
-    const dove = new Map(), scelta = [];
-    function prova(k, visti) {
-      for (const [id, w] of liste[k]) {
-        if (visti.has(id)) continue;
-        visti.add(id);
-        if (!dove.has(id) || prova(dove.get(id), visti)) { dove.set(id, k); scelta[k] = { id, w }; return true; }
+  const iniziaBene = x => /^["«“'(¡¿]*[A-ZÀ-ÖØ-ÞА-ЯЁ]/.test(x);
+  // per ogni opera, tutte le lunghezze che si possono ottenere con frasi intere
+  function candidatiScala(lingua, modo) {
+    const perL = new Map();
+    for (const o of OPERE) {
+      const intero = testoIntero(o, lingua), fr = frasiDi(intero);
+      const viste = new Set();
+      const metti = (l, sp, pri) => {
+        if (l < PRIMO_LIVELLO || l > ULTIMO_LIVELLO || viste.has(l)) return;
+        viste.add(l);
+        if (!perL.has(l)) perL.set(l, []);
+        perL.get(l).push({ id: o.id, l, s: sp, pri });
+      };
+      metti(normalizza(intero, modo).length, null, 0);
+      for (let a = 0; a < fr.length; a++) {
+        if (a > 0 && !iniziaBene(fr[a])) continue;
+        for (let b = a + 1; b <= fr.length; b++) {
+          if (a === 0 && b === fr.length) continue;
+          // non si finisce su una domanda o sui puntini se il testo va avanti (la risposta resterebbe fuori)
+          if (b < fr.length && /(\?|…|\.\.\.)["»”')]*$/.test(fr[b - 1])) continue;
+          const l = normalizza(fr.slice(a, b).join(" "), modo).length;
+          if (l > ULTIMO_LIVELLO) break;
+          metti(l, [a, b], a === 0 ? 1 : 2);
+        }
       }
-      return false;
     }
-    let k = 0;
-    while (k < lunghezze.length && prova(k, new Set())) k++;
-    return { n: k, scelta };
+    // a parità di lunghezza: prima le opere intere, poi l'inizio di un testo, poi le altre frasi
+    for (const lista of perL.values()) lista.sort((x, y) => x.pri - y.pri || (x.id < y.id ? -1 : x.id > y.id ? 1 : 0));
+    return perL;
   }
   function scalaLivelli(modo = modoCorrente()) {
     if (SCALE[modo]) return SCALE[modo];
-    const chiave = "scimmie-scala-" + modo + "-" + OPERE.length + "-" + OPERE.map(o => o.id.length).join("").length + "-v" + VERSIONE_SCALA;
+    const chiave = "scimmie-scala-" + modo + "-" + OPERE.length + "-v" + VERSIONE_SCALA;
+    const completa = sc => {
+      sc.indice = {};
+      for (const l of LINGUE_FRASI) sc.indice[l] = new Map(sc.per[l].map((x, i) => [x.id, i]));
+      return (SCALE[modo] = sc);
+    };
     try {
       const c = JSON.parse(localStorage.getItem(chiave) || "null");
-      if (c && c.lung && c.per && LINGUE_FRASI.every(l => Array.isArray(c.per[l]) && c.per[l].length === c.lung.length)) {
-        c.indice = {};
-        for (const l of LINGUE_FRASI) c.indice[l] = new Map(c.per[l].map((x, i) => [x.id, i]));
-        return (SCALE[modo] = c);
-      }
+      if (c && c.lung && c.per && LINGUE_FRASI.every(l => Array.isArray(c.per[l]) && c.per[l].length === c.lung.length)) return completa(c);
     } catch (e) {}
-    const tutte = [];
-    for (let l = PRIMO_LIVELLO; l <= ULTIMO_LIVELLO; l += PASSO_LIVELLO) tutte.push(l);
-    const ris = {};
-    let n = tutte.length;
-    for (const lingua of LINGUE_FRASI) { ris[lingua] = abbinaScala(candidatiScala(lingua, modo), tutte); n = Math.min(n, ris[lingua].n); }
-    const sc = { lung: tutte.slice(0, n), per: {}, indice: {} };
-    for (const lingua of LINGUE_FRASI) {
-      sc.per[lingua] = ris[lingua].scelta.slice(0, n).map((x, i) => ({ id: x.id, w: x.w, l: tutte[i] }));
-      sc.indice[lingua] = new Map(sc.per[lingua].map((x, i) => [x.id, i]));
+    const C = {}, usati = {}, per = {}, prima = {};
+    for (const lg of LINGUE_FRASI) { C[lg] = candidatiScala(lg, modo); usati[lg] = new Set(); per[lg] = []; prima[lg] = PRIMO_LIVELLO - PASSO_LIVELLO; }
+    const prendi = (lg, l) => (C[lg].get(l) || []).find(c => !usati[lg].has(c.id)) || null;
+    const lung = [];
+    for (let k = 0; k < OPERE.length; k++) {
+      const L0 = Math.max(...LINGUE_FRASI.map(lg => prima[lg] + PASSO_LIVELLO));
+      // la lunghezza più vicina che esiste in tutte le lingue...
+      let comune = 0;
+      for (let x = L0; x <= L0 + Math.max(6, Math.round(L0 * 0.12)) && !comune; x++)
+        if (LINGUE_FRASI.every(lg => prendi(lg, x))) comune = x;
+      // ...altrimenti in ogni lingua la frase intera più vicina
+      const scelte = {};
+      let ok = true;
+      for (const lg of LINGUE_FRASI) {
+        let c = comune ? prendi(lg, comune) : null;
+        for (let x = Math.max(L0, prima[lg] + PASSO_LIVELLO); !c && x <= ULTIMO_LIVELLO; x++) c = prendi(lg, x);
+        if (!c) { ok = false; break; }
+        scelte[lg] = c;
+      }
+      if (!ok) break;
+      for (const lg of LINGUE_FRASI) { const c = scelte[lg]; usati[lg].add(c.id); prima[lg] = c.l; per[lg].push({ id: c.id, s: c.s, l: c.l }); }
+      lung.push(Math.max(...LINGUE_FRASI.map(lg => scelte[lg].l)));
     }
-    try { localStorage.setItem(chiave, JSON.stringify({ lung: sc.lung, per: sc.per })); } catch (e) {}
-    return (SCALE[modo] = sc);
+    const sc = { lung, per };
+    try { localStorage.setItem(chiave, JSON.stringify(sc)); } catch (e) {}
+    return completa(sc);
   }
   const linguaFrasi = lingua => (LINGUE_FRASI.includes(lingua) ? lingua : "it");
-  // quante parole della frase si scrivono in questo livello (0 = tutta)
-  function taglioLivello(id, lingua = L, modo = modoCorrente()) {
+  // quali frasi del testo si scrivono in questo livello ([da, a]; null = tutto il testo)
+  function parteLivello(id, lingua = L, modo = modoCorrente()) {
     const sc = scalaLivelli(modo), lg = linguaFrasi(lingua);
     const i = sc.indice[lg].get(id);
-    return i === undefined ? 0 : sc.per[lg][i].w;
+    return i === undefined ? null : sc.per[lg][i].s;
   }
 
   // =====================================================================
@@ -9663,8 +9900,8 @@
     if (id === "mio") return { id: "mio", titolo: t("mio_titolo"), autore: null, testo: G.testoMio };
     const o = OPERE.find(x => x.id === id) || OPERE[0];
     const intero = testoIntero(o, lingua);
-    const w = taglioLivello(o.id, lingua, modo);
-    return { ...o, titolo: (o.titoli && o.titoli[lingua]) || o.titolo, testo: w ? inizioFrase(intero, w) : intero, intero, tagliata: !!w };
+    const sp = parteLivello(o.id, lingua, modo);
+    return { ...o, titolo: (o.titoli && o.titoli[lingua]) || o.titolo, testo: sp ? frasiDi(intero).slice(sp[0], sp[1]).join(" ") : intero, intero, estratto: !!sp };
   }
   // i record delle opere tradotte si tengono separati per lingua (il testo cambia)
   function chiaveOpera(id, lingua, modo = modoCorrente()) {
@@ -10548,17 +10785,18 @@
   }
   // i livelli si sbloccano uno alla volta (G.livello = quanti ne hai superati in questa difficoltà)
   const livelliQui = () => scalaLivelli().per[linguaFrasi(L)];
-  const lunghezzeLivelli = () => scalaLivelli().lung;
+  const lunghezzeLivelli = () => livelliQui().map(x => x.l);
   // chi arriva da una versione vecchia riparte dal livello che corrisponde alla frase più lunga che ha completato
   function livelloDaFrasi(m) {
     let max = 0;
     for (const [id, l] of Object.entries(((G.frasiModo || {})[m]) || {})) if (id !== "mio") max = Math.max(max, l || 0);
-    return scalaLivelli(m).lung.filter(l => l <= max).length;
+    return scalaLivelli(m).per[linguaFrasi(L)].filter(x => x.l <= max).length;
   }
   function assicuraLivello() {
     if (!G) return;
-    if (typeof G.livello !== "number" || !isFinite(G.livello) || G.livello < 0) {
+    if (typeof G.livello !== "number" || !isFinite(G.livello) || G.livello < 0 || G.scalaLivello !== VERSIONE_SCALA) {
       G.livello = livelloDaFrasi(modoCorrente());
+      G.scalaLivello = VERSIONE_SCALA;
       if ((G.opereFatte || []).length) G.avvisoLivelli = true;   // chi giocava già riparte dal livello giusto
     }
     G.livello = Math.min(G.livello, lunghezzeLivelli().length);
@@ -10591,7 +10829,7 @@
     const rec = o.id === G.operaId ? G.record : (arc ? arc.record : 0);
     $("titAnteprima").textContent = loc.titolo;
     $("antInfo").textContent = autoreOpera(o) + " · " + t("cart_" + o.cartella) + " · " + caratteri(lung);
-    $("antTesto").textContent = loc.testo + (loc.tagliata ? " …" : "");
+    $("antTesto").textContent = loc.testo;
     $("antStato").textContent = G.opereFatte.includes(o.id) ? t("ant_fatta") :
       rec ? t("ant_record", { r: rec, l: lung }) : t("ant_nuova");
     $("bAntScegli").textContent = corrente ? t("ant_continua") : t("ant_scegli");
@@ -13685,6 +13923,131 @@
     }
   };
   const invitiRicevuti = () => Object.values(Scambi.inviti || {});
+
+  // =====================================================================
+  //  RUOTA DELLA FORTUNA: si gira una volta al giorno; 12 spicchi uguali, ognuno con la stessa probabilità
+  // =====================================================================
+  const oggi = () => { const d = new Date(); return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); };
+  const ruotaPronta = () => !!G && G.ruotaGiorno !== oggi();
+  const secondiADomani = () => { const d = new Date(); return Math.max(1, (new Date(d.getFullYear(), d.getMonth(), d.getDate() + 1) - d) / 1000); };
+  const bananeRuota = sec => Math.max(sec / 6, produzioneBase() * sec);
+  function oggettoRuota() {
+    // un oggetto a caso: 60% comune, 30% raro, 10% epico (quelli che non hai valgono tre volte tanto)
+    const tiro = Math.random() * 100, rar = tiro < 60 ? 0 : tiro < 90 ? 1 : 2;
+    const lista = ESTETICI.filter(x => x.r === rar && !x.g);
+    let tl = Math.random() * lista.reduce((a, x) => a + (possiede(x.id) ? 1 : 3), 0), scelta = lista[0];
+    for (const x of lista) { tl -= possiede(x.id) ? 1 : 3; if (tl < 0) { scelta = x; break; } }
+    aggiungiOggetto(scelta.id);
+    return scelta;
+  }
+  const bonusRuota = id => { G.zaino = { ...(G.zaino || {}), [id]: ((G.zaino || {})[id] || 0) + 1 }; return t("ruota_v_bonus", { ico: BONUS[id].ico, nome: nomeBonus(id) }); };
+  const RUOTA = [
+    { ico: "🍌", et: () => t("ruota_et_min", { n: 30 }), desc: () => t("ruota_d_banane", { t: fmtBreve(1800) }), dai: () => { const n = bananeRuota(1800); G.banane += n; return t("ruota_v_banane", { n: fmtB(n) }); } },
+    { ico: "⚡", et: () => "×" + BONUS.vel5.molt, desc: () => BONUS.vel5.ico + " " + nomeBonus("vel5"), dai: () => bonusRuota("vel5") },
+    { ico: "📦", et: () => t("ruota_et_cassa"), desc: () => t("cassa_legno"), dai: () => { cambiaCasseGratis("legno", 1); return t("ruota_v_cassa", { nome: t("cassa_legno") }); } },
+    { ico: "🐒", et: () => "×" + BONUS.sc2.molt, desc: () => BONUS.sc2.ico + " " + nomeBonus("sc2"), dai: () => bonusRuota("sc2") },
+    { ico: "🍌", et: () => t("ruota_et_ore", { n: 2 }), desc: () => t("ruota_d_banane", { t: fmtBreve(7200) }), dai: () => { const n = bananeRuota(7200); G.banane += n; return t("ruota_v_banane", { n: fmtB(n) }); } },
+    { ico: "📃", et: () => "+25", desc: () => t("ruota_d_pagine", { n: 25 }), dai: () => { G.pagine = (G.pagine || 0) + 25; return t("ruota_v_pagine", { n: 25 }); } },
+    { ico: "🍼", et: () => "+10%", desc: () => t("ruota_d_scimmie", { n: 10 }), dai: () => { G.cuccioli = Math.min(1e200, (G.cuccioli || 1) * 1.1); return t("ruota_v_scimmie", { n: 10 }); } },
+    { ico: "⏩", et: () => t("ruota_et_ore", { n: 1 }), desc: () => BONUS.salto1.ico + " " + nomeBonus("salto1"), dai: () => bonusRuota("salto1") },
+    { ico: "✨", et: () => t("ruota_et_ogg"), desc: () => t("ruota_d_ogg"), dai: () => { const o = oggettoRuota(); return t("ruota_v_ogg", { nome: nomeOggetto(o.id), rar: t("rar_" + o.r) }); } },
+    { ico: "🍌", et: () => t("ruota_et_min", { n: 30 }), desc: () => t("ruota_d_banane", { t: fmtBreve(1800) }), dai: () => { const n = bananeRuota(1800); G.banane += n; return t("ruota_v_banane", { n: fmtB(n) }); } },
+    { ico: "🦍", et: () => "×" + BONUS.sc5.molt, desc: () => BONUS.sc5.ico + " " + nomeBonus("sc5"), dai: () => bonusRuota("sc5") },
+    { ico: "🎁", et: () => t("ruota_et_argento"), desc: () => t("cassa_argento"), dai: () => { cambiaCasseGratis("argento", 1); return t("ruota_v_cassa", { nome: t("cassa_argento") }); } }
+  ];
+  const COLORI_RUOTA = ["#ffd23f", "#4ade80", "#38bdf8", "#f472b6", "#a78bfa", "#fb923c"];
+  function disegnaRuota() {
+    const n = RUOTA.length, r = 100, c = 110, gradi = 360 / n;
+    const punto = a => [c + r * Math.sin(a * Math.PI / 180), c - r * Math.cos(a * Math.PI / 180)].map(v => v.toFixed(2)).join(",");
+    let svg = `<svg viewBox="0 0 220 220" id="ruotaSvg" style="transform: rotate(${R.ruotaGiro || 0}deg)">`;
+    svg += `<circle cx="${c}" cy="${c}" r="${r + 5}" fill="#1b2a20" stroke="#ffd23f" stroke-width="4"/>`;
+    RUOTA.forEach((p, i) => {
+      svg += `<path d="M${c},${c} L${punto((i - 0.5) * gradi)} A${r},${r} 0 0 1 ${punto((i + 0.5) * gradi)} Z" fill="${COLORI_RUOTA[i % COLORI_RUOTA.length]}" stroke="#1b2a20" stroke-width="2"/>`;
+      // icona verso il bordo, scritta lungo il raggio (così non tocca gli spicchi vicini)
+      svg += `<g transform="rotate(${i * gradi} ${c} ${c})"><text x="${c}" y="${c - r * 0.8}" text-anchor="middle" dominant-baseline="central" font-size="18">${p.ico}</text>` +
+        `<text transform="translate(${c} ${(c - r * 0.45).toFixed(1)}) rotate(-90)" text-anchor="middle" dominant-baseline="central" font-size="9.5" font-weight="800" fill="#1b2a20">${p.et()}</text></g>`;
+    });
+    svg += `<circle cx="${c}" cy="${c}" r="17" fill="#1b2a20" stroke="#ffd23f" stroke-width="3"/><text x="${c}" y="${c + 1}" text-anchor="middle" dominant-baseline="central" font-size="17">🐒</text></svg>`;
+    $("ruotaDisco").innerHTML = svg;
+    $("ruotaPremi").innerHTML = "";
+    RUOTA.forEach(p => { const sp = document.createElement("span"); sp.textContent = p.ico + " " + p.desc(); $("ruotaPremi").appendChild(sp); });
+  }
+  function scriviRuota() {
+    const pronta = ruotaPronta();
+    $("bRuota").classList.toggle("pronta", pronta);
+    if (!$("bGira")) return;
+    $("bGira").disabled = !pronta || !!R.ruotaGira;
+    $("bGira").textContent = pronta ? "🎡 " + t("ruota_gira") : "⏳ " + t("ruota_domani", { t: fmtBreve(secondiADomani()) });
+  }
+  function apriRuota() {
+    if (!R.ruotaGira) { $("ruotaEsito").textContent = ruotaPronta() ? "" : t("ruota_gia"); $("ruotaEsito").classList.remove("vinto"); }
+    disegnaRuota();
+    scriviRuota();
+    apri("veloRuota");
+  }
+  function giraRuota() {
+    if (!ruotaPronta() || R.ruotaGira) return;
+    const n = RUOTA.length, i = Math.floor(Math.random() * n);
+    // il premio si dà subito (così non si perde se chiudi il gioco mentre gira), poi la ruota lo mostra
+    const testo = RUOTA[i].dai();
+    G.ruotaGiorno = oggi();
+    G.ruoteGirate = (G.ruoteGirate || 0) + 1;
+    salva();
+    R.ruotaGira = true;
+    $("ruotaEsito").textContent = "";
+    $("ruotaEsito").classList.remove("vinto");
+    const prima = R.ruotaGiro || 0;
+    const fermo = (360 - i * 360 / n) % 360 + (Math.random() - 0.5) * (360 / n) * 0.6;
+    R.ruotaGiro = prima - (((prima % 360) + 360) % 360) + 360 * 6 + fermo;
+    scriviRuota();
+    Suono.clic();
+    requestAnimationFrame(() => { const sv = $("ruotaSvg"); if (sv) sv.style.transform = "rotate(" + R.ruotaGiro + "deg)"; });
+    setTimeout(() => {
+      R.ruotaGira = false;
+      $("ruotaEsito").textContent = "🎉 " + testo;
+      $("ruotaEsito").classList.add("vinto");
+      Suono.traguardo();
+      avviso("🎡 " + testo, "oro");
+      scriviRuota();
+      disegnaTutto(true);
+      Online.pubblicaProfilo(true);
+    }, 4800);
+  }
+
+  // =====================================================================
+  //  PROMEMORIA: ogni 30 minuti, se c'è qualcosa da fare (potenziamenti da comprare, premi da prendere, la ruota),
+  //  arriva un avviso; se il gioco è in sottofondo, una notifica. La ruota si annuncia appena è pronta.
+  // =====================================================================
+  const PROMEMORIA_OGNI = 30 * 60000;
+  function cosaTiAspetta() {
+    const voci = [];
+    if (ruotaPronta()) voci.push(t("prom_ruota_breve"));
+    const trag = daRiscuotere().length;
+    if (trag) voci.push(t("prom_trag", { n: trag }));
+    if (ciSonoCasseGratis()) voci.push(t("prom_casse"));
+    if (premiPronti()) voci.push(t("prom_mini"));
+    const pot = POT.filter(p => visibile(p) && sbloccato(p) && !(p.max !== undefined && G.liv[p.id] >= p.max) && !((p.tipo === "unico" || p.tipo === "spec") && G.liv[p.id] >= 1) && costoPer(p, 1) <= G.banane).length;
+    if (pot) voci.push(t("prom_pot", { n: pot }));
+    return voci;
+  }
+  function controllaPromemoria() {
+    if (!G || !R || R.nelMenu || !G.tutorialFatto || passoTut >= 0) return;
+    const ora = Date.now();
+    if (ruotaPronta() && G.ruotaAvvisata !== oggi()) {
+      G.ruotaAvvisata = oggi();
+      avviso(t("prom_ruota"), "oro");
+      notifica("🎡 " + t("ruota_tit"), t("prom_ruota"));
+      return;
+    }
+    if (!G.ultimoPromemoria) { G.ultimoPromemoria = ora; return; }
+    if (ora - G.ultimoPromemoria < PROMEMORIA_OGNI) return;
+    const voci = cosaTiAspetta();
+    if (!voci.length) return;
+    G.ultimoPromemoria = ora;
+    const testo = t("prom_intro") + " " + voci.join(" · ");
+    if (document.hidden) notifica("🐒 " + t("gioco"), testo);
+    else avviso("🔔 " + testo);
+  }
   // quando arriva un invito o l'amico entra nella stanza, la finestra degli scambi si apre da sola
   // (non durante il tutorial, il menu iniziale o un minigioco)
   function apriScambiDaSolo() {
@@ -14514,8 +14877,8 @@
   const PESO_TOTALE = EVENTI.reduce((n, e) => n + e.peso, 0);
   const rarEvento = ev => (ev.peso >= 20 ? 0 : ev.peso >= 8 ? 1 : ev.peso >= 2 ? 2 : 3);
   const etichettaMolt = ev => ev.molt ? "⌨️×" + decimale(ev.molt) : ev.moltB ? "🍌×" + ev.moltB : ev.moltS ? "🐒×" + ev.moltS : "";
-  // il prossimo evento arriva a sorpresa: in media ogni 6 minuti, a volte dopo 1 minuto e mezzo, a volte dopo un quarto d'ora
-  const prossimoEvento = () => Date.now() + Math.min(15, 1.5 + -Math.log(1 - Math.random()) * 4.5) * 60000;
+  // il prossimo evento arriva tra 4 e 8 minuti (in un momento a caso)
+  const prossimoEvento = () => Date.now() + (4 + Math.random() * 4) * 60000;
   const mmss = sec => Math.floor(sec / 60) + ":" + String(sec % 60).padStart(2, "0");
   // barra sotto i numeri in alto: evento in corso (nome, effetto, tempo) oppure quanto manca al prossimo
   function scriviStriscia() {
@@ -15393,6 +15756,9 @@
     { v: 57, voci: 6, chiave: "nov10_", passi: [
       { sel: "#bApriBiblioteca", testo: "tour10_1", vista: "opera" },
       { sel: "#bAmici", testo: "tour10_2" }
+    ] },
+    { v: 58, voci: 4, chiave: "nov11_", passi: [
+      { sel: "#bRuota", testo: "tour11_1", vista: "opera" }
     ] }
   ];
   const VERSIONE_NOVITA = GRUPPI_NOVITA[GRUPPI_NOVITA.length - 1].v;
@@ -15464,7 +15830,7 @@
   // ogni difficoltà ha la sua partita (sessione): banane, scimmie, potenziamenti, frasi, traguardi e pubblicazioni
   // restano separati. Restano in comune nome, impostazioni, aspetto, casse e collezione.
   const CAMPI_SESSIONE = ["banane", "liv", "cuccioli", "raccolto", "raccoltoRun", "tasti", "lettere", "tempo", "completate", "completateRun",
-    "operaId", "testoMio", "record", "recordChi", "recordTs", "linguaOpera", "modoOpera", "opereFatte", "livello", "archivio", "lunghe", "lungheModo",
+    "operaId", "testoMio", "record", "recordChi", "recordTs", "linguaOpera", "modoOpera", "opereFatte", "livello", "scalaLivello", "archivio", "lunghe", "lungheModo",
     "fraseMio", "fraseMioModo", "parole", "parolaMax", "pagine", "pagineTot", "pubblicazioni", "talenti", "auto", "traguardi",
     "diario", "diarioTarget", "ultimaTappa", "pagineComprate", "riequilibrato", "tariffa1", "tariffa2", "economia48", "dimezzo1"];
   function cambiaSessione(da, a) {
@@ -15620,6 +15986,10 @@
     $("cesto").onclick = raccogliCesto;
     $("bEvInfo").onclick = apriInfoEventi;
     $("bAmici").onclick = apriAmici;
+    $("bRuota").onclick = apriRuota;
+    $("bGira").onclick = giraRuota;
+    $("bRuotaChiudi").onclick = () => chiudi("veloRuota");
+    $("veloRuota").onclick = e => { if (e.target.id === "veloRuota") chiudi("veloRuota"); };
     $("bAmChiudi").onclick = () => chiudi("veloAmici");
     $("veloAmici").onclick = e => { if (e.target.id === "veloAmici") chiudi("veloAmici"); };
     $("bSfChiudi").onclick = () => chiudi("veloSceltaSfida");
@@ -15861,6 +16231,8 @@
       controllaTraguardi(); disegnaBadge(); controllaTarghette();
       if (vistaAttiva("opera")) scriviSalaGiochi();
       if ((R.giroMese = (R.giroMese || 0) + 1) % 30 === 5) Mensile.controlla();
+      scriviRuota();
+      if ((R.giroProm = (R.giroProm || 0) + 1) % 20 === 3) controllaPromemoria();
       if (vistaAttiva("traguardi")) disegnaTraguardi();
       if (R.nelMenu) scriviMenuIniziale();
       ultimoLento = ora;
