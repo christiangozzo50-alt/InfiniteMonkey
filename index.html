@@ -522,6 +522,20 @@
   @keyframes fx-cade { 0%, 82%, 100% { transform: none; color: var(--c); } 86% { transform: translateY(4px) rotate(14deg); color: color-mix(in srgb, var(--c) 40%, #e0213c); } 92% { transform: translateY(-1px) rotate(-4deg); } }
   @keyframes fx-tremito { 0%, 100% { transform: none; } 50% { transform: translateX(.6px); } 52% { transform: translateX(-.6px); } 54% { transform: none; } }
 
+  /* Ragnatela: le lettere pendono da un filo e dondolano come ragni */
+  .e_ragnatela { text-shadow: 0 0 5px rgba(200, 196, 225, .45); }
+  .e_ragnatela .lt { position: relative; transform-origin: 50% -.55em; animation: fx-pendolo 2.6s ease-in-out infinite; animation-delay: calc(var(--i) * -.33s); }
+  .e_ragnatela .lt::before { content: ""; position: absolute; left: 50%; top: -.5em; width: 1px; height: .55em; background: color-mix(in srgb, var(--c) 35%, rgba(220, 215, 240, .7)); opacity: .6; }
+  @keyframes fx-pendolo { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg) translateY(1px); color: color-mix(in srgb, var(--c) 70%, #ffffff); } }
+
+  /* Pozione: le lettere ribollono di verde e fanno salire le bolle */
+  .e_pozione { text-shadow: 0 0 7px color-mix(in srgb, var(--c) 45%, #4ade80); }
+  .e_pozione .lt { position: relative; animation: fx-ribolle var(--d) ease-in-out infinite; animation-delay: calc(var(--i) * -.41s); }
+  .e_pozione .lt::after { content: ""; position: absolute; left: 35%; bottom: 70%; width: 3px; height: 3px; border-radius: 50%; border: 1px solid color-mix(in srgb, var(--c) 40%, #9dff7a);
+    opacity: 0; animation: fx-bolla 2.3s ease-out infinite; animation-delay: calc(var(--i) * -.67s); pointer-events: none; }
+  @keyframes fx-ribolle { 0%, 100% { transform: translateY(0) scale(1); color: var(--c); } 45% { transform: translateY(-2px) scale(1.08, .94); color: color-mix(in srgb, var(--c) 45%, #7dff5a); } 60% { transform: translateY(0) scale(.94, 1.06); } }
+  @keyframes fx-bolla { 0% { opacity: 0; transform: translateY(0) scale(.6); } 20% { opacity: .9; } 100% { opacity: 0; transform: translateY(-11px) scale(1.2); } }
+
   /* Nebbia: le lettere spariscono nella nebbia una dopo l'altra */
   .e_nebbia .lt { animation: fx-foschia 3.6s ease-in-out infinite; animation-delay: calc(var(--i) * .22s - 36s); }
   @keyframes fx-foschia { 0%, 100% { opacity: 1; filter: blur(0); text-shadow: none; } 45% { opacity: .25; filter: blur(1.6px); text-shadow: 0 0 10px rgba(220, 210, 235, .9); } }
@@ -1056,6 +1070,31 @@
   .lega-come-sotto { margin: 4px 0 6px; font-size: 13px; color: var(--spento); line-height: 1.4; }
   .lega-punti li small { color: var(--spento); }
   .riquadro-lega .gara-barra { margin: -2px 0 10px; }
+  /* premi della stagione, in cima alla lega: grandi e ben visibili */
+  .stagione-box { margin: 4px 0 12px; padding: 12px; border-radius: 14px; position: relative; overflow: hidden;
+    background: linear-gradient(160deg, rgba(255, 122, 26, .24), rgba(124, 58, 237, .24)), var(--foglia-2);
+    box-shadow: inset 0 0 0 2px rgba(255, 138, 31, .7), 0 0 18px rgba(255, 122, 26, .28); }
+  .stb-testa { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .stb-ico { font-size: 28px; line-height: 1; animation: stb-dondola 2.4s ease-in-out infinite; }
+  @keyframes stb-dondola { 0%, 100% { transform: rotate(-8deg); } 50% { transform: rotate(8deg) scale(1.06); } }
+  .stb-tit b { display: block; font-size: 16px; color: #ffb347; text-shadow: 0 0 8px rgba(255, 122, 26, .55); }
+  .stb-tit small { color: var(--spento); font-weight: 700; }
+  .stb-premi { display: grid; gap: 8px; }
+  .stb-livello { border-radius: 12px; padding: 8px 10px; background: rgba(0, 0, 0, .24); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .1); }
+  .stb-livello.ok { box-shadow: inset 0 0 0 2px #74d394, 0 0 12px rgba(116, 211, 148, .3); }
+  .stb-req { font-weight: 800; font-size: 13px; margin-bottom: 6px; }
+  .stb-livello.ok .stb-req::after { content: " ✅"; }
+  .stb-cose { display: flex; gap: 10px; align-items: stretch; }
+  .stb-cosa { display: grid; justify-items: center; align-content: center; gap: 4px; flex: 1 1 0; min-width: 0; text-align: center; padding: 6px 4px; border-radius: 10px; background: rgba(255, 255, 255, .04); }
+  .stb-cosa .avatar-pg { width: 68px; height: 68px; }
+  .stb-nome { min-height: 68px; display: flex; align-items: center; justify-content: center; font-size: 19px; font-weight: 900; max-width: 100%; overflow: hidden; }
+  .stb-cosa small { color: var(--spento); font-size: 11px; font-weight: 700; line-height: 1.25; }
+  .stb-cosa small b { display: block; color: var(--testo); font-size: 12px; }
+  .stb-stato { margin: 9px 0 0; font-weight: 800; font-size: 13px; }
+  .stb-nota { margin: 4px 0 0; font-size: 11px; color: var(--spento); line-height: 1.35; }
+  .lega-gradini button.premio-stagione { position: relative; }
+  .lega-gradini button.premio-stagione::after { content: "🎃"; position: absolute; right: -5px; top: -7px; font-size: 12px; }
+  .lista-lega .stb-riga { color: #ffb347; font-weight: 800; }
   .lega-gradini { display: flex; justify-content: center; gap: 6px; margin: 2px 0 10px; font-size: 22px; }
   .lega-gradini span { opacity: .35; }
   .lega-gradini span.mia { opacity: 1; transform: scale(1.25); filter: drop-shadow(0 0 6px rgba(255, 210, 63, .5)); }
@@ -1113,8 +1152,7 @@
     --hud: rgba(17, 10, 22, .86); --menu-bg: rgba(14, 8, 18, .92); --menu-grad: #3a1d45; --ombra-sec: #170c1d;
     --pronto: #3a2210; --riscosso: #1f2a1c; --speciale: #3d2410; --velo: rgba(6, 2, 10, .78); --accento-tenue: rgba(255, 138, 31, .16);
     --carta: #ebdfc4; --inchiostro: #1e140c;
-    background: radial-gradient(circle at 88% 7%, rgba(255, 232, 180, .20) 0 34px, rgba(255, 190, 110, .07) 35px 120px, transparent 121px) fixed,
-      radial-gradient(120% 60% at 50% 0%, var(--sfondo-alto) 0%, var(--notte) 62%) fixed, var(--notte);
+    background: radial-gradient(120% 60% at 50% 0%, var(--sfondo-alto) 0%, var(--notte) 62%) fixed, var(--notte);
   }
   body.atmo-halloween .hud { border-bottom-color: rgba(255, 138, 31, .25);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg transform='translate(60 0) scale(-1 1)'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.26' stroke-width='.7'%3E%3Cpath d='M60 0L0 0M60 0L60 60M60 0L4 40M60 0L22 58M60 0L40 60M60 0L0 18'/%3E%3Cpath d='M50 0Q52 6 60 9M38 0Q42 12 60 19M26 0Q31 20 60 31M14 0Q21 30 60 44M3 0Q11 38 60 58'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.26' stroke-width='.7'%3E%3Cpath d='M60 0L0 0M60 0L60 60M60 0L4 40M60 0L22 58M60 0L40 60M60 0L0 18'/%3E%3Cpath d='M50 0Q52 6 60 9M38 0Q42 12 60 19M26 0Q31 20 60 31M14 0Q21 30 60 44M3 0Q11 38 60 58'/%3E%3C/g%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left top, right top; background-size: 46px 46px; }
@@ -1464,9 +1502,13 @@
   }
   .sipario.via { opacity: 0; visibility: hidden; transition: opacity .7s ease, visibility .7s; }
   .sip-nebbia, .sip-lampo { display: none; }
+  .luna-pix { position: absolute; display: none; pointer-events: none; image-rendering: pixelated; image-rendering: crisp-edges;
+    filter: drop-shadow(0 0 12px rgba(255, 214, 140, .55)) drop-shadow(0 0 34px rgba(255, 150, 60, .3)); animation: luna-respira 6s ease-in-out infinite; }
+  @keyframes luna-respira { 50% { filter: drop-shadow(0 0 16px rgba(255, 214, 140, .7)) drop-shadow(0 0 44px rgba(255, 150, 60, .4)); } }
+  .sipario.spaventoso .luna-pix { display: block; top: 7%; right: 9%; width: 96px; height: 96px; }
+  body.atmo-halloween #menuIniziale .luna-pix { display: block; top: calc(16px + env(safe-area-inset-top, 0px)); right: 18px; width: 76px; height: 76px; }
   /* Halloween: notte, luna rossa, nebbia, fulmini, lettere che grondano e pipistrelli che escono dal foglio */
-  .sipario.spaventoso { background: radial-gradient(circle at 78% 16%, #ffcfb8 0 24px, #e0613f 25px 28px, rgba(255, 80, 50, .25) 29px 46px, rgba(150, 20, 40, .12) 47px 120px, transparent 121px),
-    radial-gradient(90% 60% at 50% 45%, #2a0f33 0%, #08040b 78%), #08040b; overflow: hidden; }
+  .sipario.spaventoso { background: radial-gradient(90% 60% at 50% 45%, #2a0f33 0%, #08040b 78%), #08040b; overflow: hidden; }
   .sipario.spaventoso .sip-nebbia { display: block; position: absolute; left: -50%; right: -50%; bottom: -5%; height: 55%; opacity: .8; pointer-events: none;
     background: radial-gradient(ellipse 18% 45% at 15% 75%, rgba(190, 170, 210, .18), transparent 70%), radial-gradient(ellipse 22% 50% at 45% 85%, rgba(190, 170, 210, .14), transparent 70%),
       radial-gradient(ellipse 20% 45% at 75% 70%, rgba(190, 170, 210, .17), transparent 70%); animation: atmo-nebbia 14s linear infinite alternate; }
@@ -1850,6 +1892,12 @@
       </div>
     <div class="riquadro riquadro-lega" id="riquadroLega">
       <h3 data-t="lega_finestra"></h3>
+      <div class="stagione-box" id="boxStagione" hidden>
+        <div class="stb-testa"><span class="stb-ico" id="stbIco">🎃</span><span class="stb-tit"><b id="stbTitolo"></b><small id="stbFine"></small></span></div>
+        <div class="stb-premi" id="stbPremi"></div>
+        <p class="stb-stato" id="stbStato"></p>
+        <p class="stb-nota" id="stbNota"></p>
+      </div>
       <div class="segmenti modi-cl" role="group" id="legaModi">
         <button data-lmodo="facile" aria-pressed="false">🌱 <span data-t="modo_facile"></span></button>
         <button data-lmodo="normale" aria-pressed="true">⌨️ <span data-t="modo_normale"></span></button>
@@ -1948,10 +1996,6 @@
       <span class="testo"><b>🎨 <span data-t="imp_person"></span></b><small id="impTemaNome"></small></span>
       <button class="pulsante secondario piccolo" id="bImpTema" data-t="cambia"></button>
     </div>
-    <div class="impostazione" id="rigaAtmo" hidden>
-      <span class="testo"><b>🕸️ <span data-t="imp_atmo"></span></b><small id="atmoSotto"></small></span>
-      <button class="interruttore" id="bAtmo" data-t-aria="imp_atmo"></button>
-    </div>
     <div class="impostazione">
       <span class="testo"><b>🌐 <span data-t="lingua"></span></b><small id="impLinguaNome"></small></span>
       <button class="pulsante secondario piccolo" id="bImpLingua" data-t="cambia"></button>
@@ -1966,7 +2010,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 67</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 69</p>
   </div>
 </div>
 
@@ -3602,17 +3646,14 @@
       gd_n_oggi: "🎯 Missioni, serie e lega",
       gd_n_lega: "🏅 Classifiche di lega e gara",
       gd_n_album: "📖 Album degli autori",
-      gd_oggi_1: "🔥 Torna ogni giorno: il premio cresce fino al 7° giorno (una Cassa d'oro). Ogni difficoltà ha la sua serie; se salti un giorno riparte.",
+      gd_oggi_1: "🔥 Torna ogni giorno: il premio cresce fino al 7° giorno (una Cassa d'oro). Si ritira una volta al giorno e va nella partita che stai giocando; se salti un giorno la serie riparte.",
       gd_oggi_2: "🎯 Tre missioni nuove ogni giorno. Ognuna dà banane e punti lega; tutte e tre insieme Pagine d'oro e un bonus per lo zaino.",
       gd_oggi_3: "🏅 Tutto quello che fai vale punti lega. Il lunedì i migliori salgono di lega e gli ultimi scendono, con premi per tutti.",
       gd_oggi_4: "🏁 La gara della settimana: la stessa frase per tutti, scritta da scimmie uguali per tutti mentre giochi. Vince chi la finisce prima.",
-      gd_lega_1: "🥉🥈🥇💠💎 Le cinque leghe: si parte da Bronzo e si sale una lega alla volta.",
+      gd_lega_1: "🥉🥈🥇💠💎 Le cinque leghe. Ogni lunedì in Bronzo salgono i primi 4, in Argento i primi 3, in Oro i primi 2 e in Platino il primo. Dall'Argento in su gli ultimi 2 scendono; in Bronzo nessuno.",
       gd_lega_2: "📋 Chi gioca nella tua lega questa settimana. Riga verde: zona promozione; riga rossa: zona retrocessione.",
       gd_lega_3: "🏁 Qui la gara: vedi la frase, quanto hai scritto e chi è arrivato prima.",
       gd_album_1: "📖 Ogni autore ha il suo album: tocca per vedere le sue frasi. Completale tutte, in qualunque difficoltà, per vincere Pagine d'oro.",
-      imp_atmo: "Atmosfera dell'evento",
-      imp_atmo_halloween: "Colori, nebbia, ragnatele e pipistrelli di Halloween in tutte le schermate",
-      imp_atmo_natale: "Colori e neve di Natale in tutte le schermate",
       bat_dado: "Un nome a caso",
       fam_rinomina: "Cambia nome",
       fam_elimina_tit: "Togliere il nome?",
@@ -3640,10 +3681,9 @@
       nov15_5: "🔥 Serie di accessi più bella; premi di serie e missioni ribilanciati",
       nov15_6: "⚖️ Le specializzazioni arrivano dopo la prima rinascita, una alla volta (le ×2 dopo la terza); la rinascita si spiega da sola appena puoi farla",
       tour15_1: "🏅 La tua lega e la gara della settimana ora sono qui, divise per difficoltà. Sotto vedi da dove arrivano i tuoi punti.",
-      tour15_2: "🕸️ Se l'atmosfera di Halloween ti disturba, la spegni nelle Impostazioni.",
       lega_guardi: "👀 Stai guardando la {lega}: tocca il tuo rango per tornare alla tua.",
       lega_vuota_altra: "Nessuno in questa lega per ora.",
-      lega_zona_su: "⬆️ Salgono in {lega} (con almeno {s} punti)",
+      lega_zona_su: "⬆️ Salgono in {lega}",
       lega_zona_giu: "⬇️ Scendono in {lega}",
       lega_zona_resta: "➡️ Restano in questa lega",
       lega_servono: "mancano {n} punti per salire",
@@ -3683,16 +3723,44 @@
       gd_neg_2: "⚡ Qui rendi le scimmie più veloci con oggetti e miglioramenti.",
       gd_neg_3: "🔢 Scegli quanti comprarne alla volta: ×10, ×100 o il massimo che puoi.",
       gd_trag_1: "🏆 Traguardi: quando ne raggiungi uno si illumina, toccalo per riscuotere le banane.",
-      nov16_1: "🔥 Ogni difficoltà ha la sua serie di accessi, che compare quando apri la partita: Cassa di legno il 1° giorno, d'argento il 3°, d'oro il 7°",
+      nov16_1: "🔥 Serie di accessi: Cassa di legno il 1° giorno, d'argento il 3°, d'oro il 7°; si ritira una volta al giorno nella partita che apri",
       nov16_2: "🏅 Classifica della lega più chiara: accanto a ogni posto vedi il premio, le zone per salire e scendere sono evidenziate e toccando i ranghi vedi le altre leghe",
       nov16_3: "🎨 Nuovo colore «Nessuno»: le scritte animate tornano al loro colore originale",
       nov16_4: "🏆 30 traguardi nuovi: missioni, serie, ruota, minigiochi, casse, leghe, gare, album, pagine e Halloween",
       nov16_5: "👾 Le icone del gioco sono disegnate a pixel, come gli avatar; e ad Halloween anche l'apertura fa paura",
       nov16_6: "⭐ Il nome di una scimmia ora si dà, cambia o toglie dalla sua pagina autografa (Biblioteca → Pagine)",
-      tour16_1: "🔥 Questa è la serie della difficoltà in cui stai giocando: ogni difficoltà ha la sua.",
+      tour16_1: "🔥 La serie di accessi: un premio al giorno, nella partita che stai giocando.",
       tour16_2: "🏅 Tocca i ranghi per vedere chi c'è nelle altre leghe.",
       desc_lgs: "Arriva in {lega}",
-      trg_lgs: "Scalatore"
+      trg_lgs: "Scalatore",
+      serie_va_in: "Il premio va nella partita {modo}",
+      nov17_1: "🔥 La serie di accessi è una sola: il premio si ritira una volta al giorno, nella partita che apri",
+      nov17_2: "🏅 In lega si sale solo per la posizione: i primi salgono, senza punteggio minimo",
+      nov17_3: "🎒 I bonus dello zaino restano nella difficoltà in cui li trovi",
+      lega_reg_su: {"one": "⬆️ sale il primo", "other": "⬆️ salgono i primi {n}"},
+      lega_reg_giu: {"one": "⬇️ scende l'ultimo", "other": "⬇️ scendono gli ultimi {n}"},
+      lega_reg_no_giu: "nessuno scende",
+      lega_reg_cima: "la lega più alta",
+      lega_reg_pochi: "con pochi giocatori: su {su}, giù {giu}",
+      stag_tit_halloween: "Premi della stagione di Halloween",
+      stag_fine: "Finisce tra {t} · si vincono solo qui",
+      stag_req: "Chiudi la stagione in {lega} o più su",
+      stag_req_top: "Chiudi la stagione in {lega}",
+      stag_foto: "Foto profilo",
+      stag_nome: "Effetto del nome",
+      stag_nota: "I leggendari e i mitici di Halloween si vincono solo così: non escono da casse, ruota o eventi. Vale la lega migliore tra le tre difficoltà, quella con cui finisci l'ultima settimana.",
+      stag_ora_si: "✅ Adesso sei in {lega}: restaci fino alla fine e sono tuoi!",
+      stag_ora_no: {"one": "Adesso sei in {lega}: ti manca {n} lega per i primi premi", "other": "Adesso sei in {lega}: ti mancano {n} leghe per i primi premi"},
+      stag_bloccato: "🏆 Premio della stagione: chiudila in {lega} o più su",
+      stag_vinto_tit: "Premi della stagione!",
+      stag_vinto_testo: "Hai chiuso la stagione in {lega}: sono tuoi {nomi}. Li trovi in Personalizzazione.",
+      stag_etichetta: "🎃 Fine stagione",
+      stag_riga: "🎃 premi della stagione",
+      nov18_1: "🎃 Premi della stagione: Vampiro, Stregato e i mitici di Halloween si vincono solo chiudendo la stagione in una lega alta",
+      nov18_2: "🏅 Nuove regole delle leghe: in Bronzo salgono i primi 4 e nessuno scende; più su salgono in meno e scendono gli ultimi 2",
+      nov18_3: "🐈‍⬛ Nuovi oggetti di Halloween: gatto nero, zombi, ragno, lupo mannaro, calderone e le scritte Ragnatela e Pozione",
+      nov18_4: "🎻 La musica di Halloween fa più paura, con lo stesso motivetto",
+      tour18_1: "🎃 I premi della stagione: chiudila in Lega Oro o più su (in una qualunque difficoltà) e sono tuoi. Non si trovano da nessun'altra parte!"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -4817,17 +4885,14 @@
       gd_n_oggi: "🎯 Missions, streak and league",
       gd_n_lega: "🏅 League and race rankings",
       gd_n_album: "📖 Author albums",
-      gd_oggi_1: "🔥 Come back every day: the prize grows up to day 7 (a Gold crate). Each difficulty has its own streak; skip a day and it restarts.",
+      gd_oggi_1: "🔥 Come back every day: the prize grows up to day 7 (a Gold crate). You claim it once a day and it goes to the game you're playing; skip a day and the streak restarts.",
       gd_oggi_2: "🎯 Three new missions every day. Each gives bananas and league points; all three together Golden pages and a backpack boost.",
       gd_oggi_3: "🏅 Everything you do earns league points. On Monday the best move up a league and the last move down, with prizes for everyone.",
       gd_oggi_4: "🏁 The weekly race: the same phrase for everyone, typed by the same monkeys for everyone while you play. Whoever finishes first wins.",
-      gd_lega_1: "🥉🥈🥇💠💎 The five leagues: you start in Bronze and move up one league at a time.",
+      gd_lega_1: "🥉🥈🥇💠💎 The five leagues. Every Monday the top 4 go up in Bronze, the top 3 in Silver, the top 2 in Gold and the top player in Platinum. From Silver up the last 2 go down; in Bronze nobody does.",
       gd_lega_2: "📋 Who's playing in your league this week. Green line: promotion zone; red line: relegation zone.",
       gd_lega_3: "🏁 Here's the race: see the phrase, how much you've typed and who finished first.",
       gd_album_1: "📖 Every author has an album: tap it to see their phrases. Complete them all, in any difficulty, to win Golden pages.",
-      imp_atmo: "Event atmosphere",
-      imp_atmo_halloween: "Halloween colours, fog, cobwebs and bats on every screen",
-      imp_atmo_natale: "Christmas colours and snow on every screen",
       bat_dado: "A random name",
       fam_rinomina: "Rename",
       fam_elimina_tit: "Remove the name?",
@@ -4855,10 +4920,9 @@
       nov15_5: "🔥 A nicer login streak; streak and mission prizes rebalanced",
       nov15_6: "⚖️ Specialisations arrive after the first rebirth, one at a time (the ×2 ones after the third); rebirth explains itself as soon as you can do it",
       tour15_1: "🏅 Your league and the weekly race are now here, split by difficulty. Below you see where your points come from.",
-      tour15_2: "🕸️ If the Halloween atmosphere bothers you, switch it off in Settings.",
       lega_guardi: "👀 You're looking at the {lega}: tap your rank to go back to yours.",
       lega_vuota_altra: "Nobody in this league right now.",
-      lega_zona_su: "⬆️ Moving up to {lega} (with at least {s} points)",
+      lega_zona_su: "⬆️ Moving up to {lega}",
       lega_zona_giu: "⬇️ Moving down to {lega}",
       lega_zona_resta: "➡️ Staying in this league",
       lega_servono: "{n} more points to move up",
@@ -4898,16 +4962,44 @@
       gd_neg_2: "⚡ Here you make monkeys faster with items and improvements.",
       gd_neg_3: "🔢 Choose how many to buy at once: ×10, ×100 or as many as you can.",
       gd_trag_1: "🏆 Achievements: when you reach one it lights up, tap it to claim the bananas.",
-      nov16_1: "🔥 Each difficulty has its own login streak, shown when you open that game: Wooden crate on day 1, Silver on day 3, Gold on day 7",
+      nov16_1: "🔥 Login streak: Wooden crate on day 1, Silver on day 3, Gold on day 7; claim it once a day in the game you open",
       nov16_2: "🏅 A clearer league ranking: next to each place you see the prize, the zones to move up and down are highlighted, and tapping the ranks shows the other leagues",
       nov16_3: "🎨 New colour “None”: name effects go back to their original colour",
       nov16_4: "🏆 30 new achievements: missions, streaks, wheel, mini-games, crates, leagues, races, albums, pages and Halloween",
       nov16_5: "👾 The game's icons are pixel art, like the avatars; and at Halloween even the opening is scary",
       nov16_6: "⭐ A monkey's name is now given, changed or removed from its autograph page (Library → Pages)",
-      tour16_1: "🔥 This is the streak for the difficulty you're playing: each difficulty has its own.",
+      tour16_1: "🔥 The login streak: one prize a day, in the game you're playing.",
       tour16_2: "🏅 Tap the ranks to see who's in the other leagues.",
       desc_lgs: "Reach the {lega}",
-      trg_lgs: "Climber"
+      trg_lgs: "Climber",
+      serie_va_in: "The prize goes to your {modo} game",
+      nov17_1: "🔥 There's one login streak: the prize is claimed once a day, in the game you open",
+      nov17_2: "🏅 In the league you move up by position only: the top players go up, with no minimum score",
+      nov17_3: "🎒 Backpack boosts stay in the difficulty where you find them",
+      lega_reg_su: {"one": "⬆️ the top player goes up", "other": "⬆️ the top {n} go up"},
+      lega_reg_giu: {"one": "⬇️ the last goes down", "other": "⬇️ the last {n} go down"},
+      lega_reg_no_giu: "nobody goes down",
+      lega_reg_cima: "the top league",
+      lega_reg_pochi: "few players: {su} up, {giu} down",
+      stag_tit_halloween: "Halloween season prizes",
+      stag_fine: "Ends in {t} · only won here",
+      stag_req: "Finish the season in the {lega} or higher",
+      stag_req_top: "Finish the season in the {lega}",
+      stag_foto: "Profile picture",
+      stag_nome: "Name effect",
+      stag_nota: "Halloween legendaries and mythics can only be won this way: they never come from crates, the wheel or events. Your best league across the three difficulties counts, the one you finish the last week in.",
+      stag_ora_si: "✅ You're in the {lega} now: stay there until the end and they're yours!",
+      stag_ora_no: {"one": "You're in the {lega} now: {n} more league to the first prizes", "other": "You're in the {lega} now: {n} more leagues to the first prizes"},
+      stag_bloccato: "🏆 Season prize: finish it in the {lega} or higher",
+      stag_vinto_tit: "Season prizes!",
+      stag_vinto_testo: "You finished the season in the {lega}: {nomi} are yours. Find them in Customisation.",
+      stag_etichetta: "🎃 Season end",
+      stag_riga: "🎃 season prizes",
+      nov18_1: "🎃 Season prizes: Vampire, Haunted and the Halloween mythics can only be won by finishing the season in a high league",
+      nov18_2: "🏅 New league rules: in Bronze the top 4 go up and nobody goes down; higher up fewer go up and the last 2 go down",
+      nov18_3: "🐈‍⬛ New Halloween items: black cat, zombie, spider, werewolf, cauldron and the Cobweb and Potion name effects",
+      nov18_4: "🎻 The Halloween music is spookier, with the same tune",
+      tour18_1: "🎃 The season prizes: finish it in the Gold League or higher (in any difficulty) and they're yours. You can't get them anywhere else!"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -6032,17 +6124,14 @@
       gd_n_oggi: "🎯 Misiones, racha y liga",
       gd_n_lega: "🏅 Clasificaciones de liga y carrera",
       gd_n_album: "📖 Álbumes de autores",
-      gd_oggi_1: "🔥 Vuelve cada día: el premio crece hasta el 7.º día (una Caja de oro). Cada dificultad tiene su racha; si te saltas un día, vuelve a empezar.",
+      gd_oggi_1: "🔥 Vuelve cada día: el premio crece hasta el 7.º día (una Caja de oro). Se recoge una vez al día y va a la partida que juegas; si te saltas un día, la racha vuelve a empezar.",
       gd_oggi_2: "🎯 Tres misiones nuevas cada día. Cada una da plátanos y puntos de liga; las tres juntas, Páginas de oro y un bonus para la mochila.",
       gd_oggi_3: "🏅 Todo lo que haces da puntos de liga. El lunes los mejores suben de liga y los últimos bajan, con premios para todos.",
       gd_oggi_4: "🏁 La carrera semanal: la misma frase para todos, escrita por monos iguales para todos mientras juegas. Gana quien la termina primero.",
-      gd_lega_1: "🥉🥈🥇💠💎 Las cinco ligas: se empieza en Bronce y se sube de una en una.",
+      gd_lega_1: "🥉🥈🥇💠💎 Las cinco ligas. Cada lunes en Bronce suben los 4 primeros, en Plata los 3 primeros, en Oro los 2 primeros y en Platino el primero. De Plata para arriba bajan los 2 últimos; en Bronce nadie.",
       gd_lega_2: "📋 Quién juega en tu liga esta semana. Línea verde: zona de ascenso; línea roja: zona de descenso.",
       gd_lega_3: "🏁 Aquí está la carrera: ves la frase, cuánto has escrito y quién llegó primero.",
       gd_album_1: "📖 Cada autor tiene su álbum: tócalo para ver sus frases. Complétalas todas, en cualquier dificultad, para ganar Páginas de oro.",
-      imp_atmo: "Ambiente del evento",
-      imp_atmo_halloween: "Colores, niebla, telarañas y murciélagos de Halloween en todas las pantallas",
-      imp_atmo_natale: "Colores y nieve de Navidad en todas las pantallas",
       bat_dado: "Un nombre al azar",
       fam_rinomina: "Cambiar nombre",
       fam_elimina_tit: "¿Quitar el nombre?",
@@ -6070,10 +6159,9 @@
       nov15_5: "🔥 Racha de accesos más bonita; premios de racha y misiones reequilibrados",
       nov15_6: "⚖️ Las especializaciones llegan tras el primer renacer, de una en una (las ×2 tras el tercero); el renacer se explica solo en cuanto puedes hacerlo",
       tour15_1: "🏅 Tu liga y la carrera semanal ahora están aquí, por dificultad. Debajo ves de dónde vienen tus puntos.",
-      tour15_2: "🕸️ Si el ambiente de Halloween te molesta, lo apagas en Ajustes.",
       lega_guardi: "👀 Estás viendo la {lega}: toca tu rango para volver a la tuya.",
       lega_vuota_altra: "Nadie en esta liga por ahora.",
-      lega_zona_su: "⬆️ Suben a {lega} (con al menos {s} puntos)",
+      lega_zona_su: "⬆️ Suben a {lega}",
       lega_zona_giu: "⬇️ Bajan a {lega}",
       lega_zona_resta: "➡️ Se quedan en esta liga",
       lega_servono: "faltan {n} puntos para subir",
@@ -6113,16 +6201,44 @@
       gd_neg_2: "⚡ Aquí haces más rápidos a los monos con objetos y mejoras.",
       gd_neg_3: "🔢 Elige cuántos comprar a la vez: ×10, ×100 o el máximo posible.",
       gd_trag_1: "🏆 Logros: cuando consigues uno se ilumina, tócalo para cobrar los plátanos.",
-      nov16_1: "🔥 Cada dificultad tiene su racha, que aparece al abrir la partida: Caja de madera el 1.er día, de plata el 3.º, de oro el 7.º",
+      nov16_1: "🔥 Racha de accesos: Caja de madera el 1.er día, de plata el 3.º, de oro el 7.º; se recoge una vez al día en la partida que abres",
       nov16_2: "🏅 Clasificación de liga más clara: junto a cada puesto ves el premio, las zonas para subir y bajar están resaltadas y tocando los rangos ves las otras ligas",
       nov16_3: "🎨 Nuevo color «Ninguno»: los efectos de nombre vuelven a su color original",
       nov16_4: "🏆 30 logros nuevos: misiones, rachas, rueda, minijuegos, cajas, ligas, carreras, álbumes, páginas y Halloween",
       nov16_5: "👾 Los iconos del juego son pixel art, como los avatares; y en Halloween hasta la apertura da miedo",
       nov16_6: "⭐ El nombre de un mono ahora se pone, cambia o quita desde su página autógrafa (Biblioteca → Páginas)",
-      tour16_1: "🔥 Esta es la racha de la dificultad en la que juegas: cada dificultad tiene la suya.",
+      tour16_1: "🔥 La racha de accesos: un premio al día, en la partida que juegas.",
       tour16_2: "🏅 Toca los rangos para ver quién hay en las otras ligas.",
       desc_lgs: "Llega a la {lega}",
-      trg_lgs: "Escalador"
+      trg_lgs: "Escalador",
+      serie_va_in: "El premio va a la partida {modo}",
+      nov17_1: "🔥 La racha de accesos es una sola: el premio se recoge una vez al día, en la partida que abres",
+      nov17_2: "🏅 En la liga se sube solo por la posición: los primeros suben, sin puntuación mínima",
+      nov17_3: "🎒 Los bonus de la mochila se quedan en la dificultad donde los encuentras",
+      lega_reg_su: {"one": "⬆️ sube el primero", "other": "⬆️ suben los {n} primeros"},
+      lega_reg_giu: {"one": "⬇️ baja el último", "other": "⬇️ bajan los {n} últimos"},
+      lega_reg_no_giu: "nadie baja",
+      lega_reg_cima: "la liga más alta",
+      lega_reg_pochi: "con pocos jugadores: suben {su}, bajan {giu}",
+      stag_tit_halloween: "Premios de la temporada de Halloween",
+      stag_fine: "Termina en {t} · solo se ganan aquí",
+      stag_req: "Acaba la temporada en la {lega} o más arriba",
+      stag_req_top: "Acaba la temporada en la {lega}",
+      stag_foto: "Foto de perfil",
+      stag_nome: "Efecto del nombre",
+      stag_nota: "Los legendarios y míticos de Halloween solo se ganan así: no salen de cajas, la rueda ni eventos. Cuenta tu mejor liga entre las tres dificultades, con la que acabas la última semana.",
+      stag_ora_si: "✅ Ahora estás en la {lega}: ¡quédate hasta el final y son tuyos!",
+      stag_ora_no: {"one": "Ahora estás en la {lega}: te falta {n} liga para los primeros premios", "other": "Ahora estás en la {lega}: te faltan {n} ligas para los primeros premios"},
+      stag_bloccato: "🏆 Premio de temporada: acábala en la {lega} o más arriba",
+      stag_vinto_tit: "¡Premios de temporada!",
+      stag_vinto_testo: "Acabaste la temporada en la {lega}: {nomi} son tuyos. Los encuentras en Personalización.",
+      stag_etichetta: "🎃 Fin de temporada",
+      stag_riga: "🎃 premios de temporada",
+      nov18_1: "🎃 Premios de temporada: Vampiro, Embrujado y los míticos de Halloween solo se ganan acabando la temporada en una liga alta",
+      nov18_2: "🏅 Nuevas reglas de liga: en Bronce suben los 4 primeros y nadie baja; más arriba suben menos y bajan los 2 últimos",
+      nov18_3: "🐈‍⬛ Nuevos objetos de Halloween: gato negro, zombi, araña, hombre lobo, caldero y los efectos Telaraña y Poción",
+      nov18_4: "🎻 La música de Halloween da más miedo, con la misma melodía",
+      tour18_1: "🎃 Los premios de temporada: acábala en la Liga Oro o más arriba (en cualquier dificultad) y son tuyos. ¡No están en ningún otro sitio!"
     },
 
     // ------------------------------------------------------------- 中文
@@ -7247,17 +7363,14 @@
       gd_n_oggi: "🎯 任务、连续登录和联赛",
       gd_n_lega: "🏅 联赛和竞赛排名",
       gd_n_album: "📖 作者图鉴",
-      gd_oggi_1: "🔥 每天回来：奖励一直增加到第 7 天（黄金箱）。每个难度都有自己的连续登录；漏掉一天就重新开始。",
+      gd_oggi_1: "🔥 每天回来：奖励一直增加到第 7 天（黄金箱）。每天领取一次，发放到你正在玩的存档；漏掉一天就重新开始。",
       gd_oggi_2: "🎯 每天 3 个新任务。每个给香蕉和联赛积分；三个全完成再得金页和一个背包加成。",
       gd_oggi_3: "🏅 你做的每件事都能获得联赛积分。周一表现最好的升级，最后几名降级，人人有奖。",
       gd_oggi_4: "🏁 每周竞赛：所有人同一句话，由人人相同的猴子在你游戏时打字。先完成者获胜。",
-      gd_lega_1: "🥉🥈🥇💠💎 五个联赛：从青铜开始，一次升一级。",
+      gd_lega_1: "🥉🥈🥇💠💎 五个联赛。每周一，青铜前 4 名升级，白银前 3 名，黄金前 2 名，铂金第 1 名。从白银开始最后 2 名降级；青铜没有人降级。",
       gd_lega_2: "📋 本周与你同联赛的玩家。绿线：晋级区；红线：降级区。",
       gd_lega_3: "🏁 这里是竞赛：查看句子、你打了多少，以及谁先完成。",
       gd_album_1: "📖 每位作者都有图鉴：点按查看他的句子。在任意难度下全部完成即可赢得金页。",
-      imp_atmo: "活动氛围",
-      imp_atmo_halloween: "所有界面都有万圣节的颜色、迷雾、蛛网和蝙蝠",
-      imp_atmo_natale: "所有界面都有圣诞的颜色和雪花",
       bat_dado: "随机名字",
       fam_rinomina: "改名",
       fam_elimina_tit: "移除名字？",
@@ -7285,10 +7398,9 @@
       nov15_5: "🔥 连续登录更漂亮了；连续登录和任务奖励重新平衡",
       nov15_6: "⚖️ 专精在第一次重生后才出现，一次一个（×2 的要第三次重生后）；能重生时游戏会自动讲解",
       tour15_1: "🏅 你的联赛和每周竞赛现在在这里，按难度区分。下面可以看到积分来源。",
-      tour15_2: "🕸️ 如果万圣节氛围打扰到你，可以在设置里关闭。",
       lega_guardi: "👀 你正在查看{lega}：点你的段位回到自己的联赛。",
       lega_vuota_altra: "这个联赛暂时没有人。",
-      lega_zona_su: "⬆️ 晋级到{lega}（至少 {s} 分）",
+      lega_zona_su: "⬆️ 晋级到{lega}",
       lega_zona_giu: "⬇️ 降到{lega}",
       lega_zona_resta: "➡️ 留在本联赛",
       lega_servono: "还差 {n} 分晋级",
@@ -7328,16 +7440,44 @@
       gd_neg_2: "⚡ 在这里用道具和改进让猴子更快。",
       gd_neg_3: "🔢 选择一次买多少：×10、×100 或最多。",
       gd_trag_1: "🏆 成就：达成后会亮起，点它领取香蕉。",
-      nov16_1: "🔥 每个难度都有自己的连续登录，打开该难度游戏时出现：第 1 天木箱，第 3 天白银箱，第 7 天黄金箱",
+      nov16_1: "🔥 连续登录：第 1 天木箱，第 3 天白银箱，第 7 天黄金箱；每天在你打开的存档里领取一次",
       nov16_2: "🏅 联赛排名更清楚：每个名次旁显示奖励，晋级和降级区高亮，点段位图标可查看其他联赛",
       nov16_3: "🎨 新颜色“无”：名字特效恢复原本的颜色",
       nov16_4: "🏆 30 个新成就：任务、连续登录、转盘、小游戏、箱子、联赛、竞赛、图鉴、手稿和万圣节",
       nov16_5: "👾 游戏图标改成像素风，和头像一样；万圣节期间连开场动画都很吓人",
       nov16_6: "⭐ 猴子的名字现在可以在它的亲笔手稿页里起名、修改或移除（图书馆 → 手稿）",
-      tour16_1: "🔥 这是你当前难度的连续登录：每个难度都有自己的。",
+      tour16_1: "🔥 连续登录：每天一份奖励，发放到你正在玩的存档。",
       tour16_2: "🏅 点段位图标查看其他联赛的玩家。",
       desc_lgs: "进入{lega}",
-      trg_lgs: "攀登者"
+      trg_lgs: "攀登者",
+      serie_va_in: "奖励发放到{modo}存档",
+      nov17_1: "🔥 连续登录只有一个：每天领取一次奖励，发放到你打开的存档",
+      nov17_2: "🏅 联赛只看名次晋级：前几名晋级，没有最低分要求",
+      nov17_3: "🎒 背包加成留在你获得它的难度里",
+      lega_reg_su: {"other": "⬆️ 前 {n} 名升级"},
+      lega_reg_giu: {"other": "⬇️ 最后 {n} 名降级"},
+      lega_reg_no_giu: "没有人降级",
+      lega_reg_cima: "最高联赛",
+      lega_reg_pochi: "人少时：升 {su}，降 {giu}",
+      stag_tit_halloween: "万圣节赛季奖励",
+      stag_fine: "{t}后结束 · 只能在这里赢得",
+      stag_req: "赛季结束时位于{lega}或更高",
+      stag_req_top: "赛季结束时位于{lega}",
+      stag_foto: "头像",
+      stag_nome: "名字特效",
+      stag_nota: "万圣节的传说和神话物品只能这样获得：箱子、转盘和活动里都不会出。按三个难度中最好的联赛计算，以最后一周结束时为准。",
+      stag_ora_si: "✅ 你现在在{lega}：保持到最后就归你了！",
+      stag_ora_no: {"other": "你现在在{lega}：离第一份奖励还差 {n} 个联赛"},
+      stag_bloccato: "🏆 赛季奖励：赛季结束时位于{lega}或更高",
+      stag_vinto_tit: "赛季奖励！",
+      stag_vinto_testo: "你以{lega}结束了赛季：{nomi}归你了。在个性化里可以找到。",
+      stag_etichetta: "🎃 赛季结束",
+      stag_riga: "🎃 赛季奖励",
+      nov18_1: "🎃 赛季奖励：吸血鬼、闹鬼和万圣节神话物品只能在赛季结束时位于高级联赛才能赢得",
+      nov18_2: "🏅 联赛新规则：青铜前 4 名升级且没有人降级；越往上升级的人越少，最后 2 名降级",
+      nov18_3: "🐈‍⬛ 新的万圣节物品：黑猫、僵尸、蜘蛛、狼人、坩埚，以及蛛网和药水名字特效",
+      nov18_4: "🎻 万圣节音乐更吓人了，旋律不变",
+      tour18_1: "🎃 赛季奖励：赛季结束时位于黄金联赛或更高（任意难度）就归你。其他地方都拿不到！"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -8462,17 +8602,14 @@
       gd_n_oggi: "🎯 Missions, série et ligue",
       gd_n_lega: "🏅 Classements de ligue et course",
       gd_n_album: "📖 Albums d'auteurs",
-      gd_oggi_1: "🔥 Reviens chaque jour : le prix grandit jusqu'au 7e jour (un Coffre en or). Chaque difficulté a sa série ; si tu sautes un jour, elle repart.",
+      gd_oggi_1: "🔥 Reviens chaque jour : le prix grandit jusqu'au 7e jour (un Coffre en or). Tu le récupères une fois par jour et il va dans la partie que tu joues ; si tu sautes un jour, la série repart.",
       gd_oggi_2: "🎯 Trois nouvelles missions chaque jour. Chacune donne des bananes et des points de ligue ; les trois ensemble, des Pages d'or et un bonus pour le sac.",
       gd_oggi_3: "🏅 Tout ce que tu fais rapporte des points de ligue. Lundi, les meilleurs montent de ligue et les derniers descendent, avec des prix pour tous.",
       gd_oggi_4: "🏁 La course de la semaine : la même phrase pour tous, tapée par des singes identiques pour tous pendant que tu joues. Le premier qui la finit gagne.",
-      gd_lega_1: "🥉🥈🥇💠💎 Les cinq ligues : on commence en Bronze et on monte d'une ligue à la fois.",
+      gd_lega_1: "🥉🥈🥇💠💎 Les cinq ligues. Chaque lundi, en Bronze les 4 premiers montent, en Argent les 3 premiers, en Or les 2 premiers et en Platine le premier. À partir de l'Argent les 2 derniers descendent ; en Bronze personne.",
       gd_lega_2: "📋 Qui joue dans ta ligue cette semaine. Ligne verte : zone de promotion ; ligne rouge : zone de relégation.",
       gd_lega_3: "🏁 Voici la course : tu vois la phrase, ce que tu as tapé et qui est arrivé premier.",
       gd_album_1: "📖 Chaque auteur a son album : touche-le pour voir ses phrases. Termine-les toutes, dans n'importe quelle difficulté, pour gagner des Pages d'or.",
-      imp_atmo: "Ambiance de l'événement",
-      imp_atmo_halloween: "Couleurs, brouillard, toiles d'araignée et chauves-souris d'Halloween sur tous les écrans",
-      imp_atmo_natale: "Couleurs et neige de Noël sur tous les écrans",
       bat_dado: "Un nom au hasard",
       fam_rinomina: "Renommer",
       fam_elimina_tit: "Retirer le nom ?",
@@ -8500,10 +8637,9 @@
       nov15_5: "🔥 Série de connexions plus belle ; prix de série et de missions rééquilibrés",
       nov15_6: "⚖️ Les spécialisations arrivent après la première renaissance, une à la fois (les ×2 après la troisième) ; la renaissance s'explique d'elle-même dès que tu peux la faire",
       tour15_1: "🏅 Ta ligue et la course de la semaine sont maintenant ici, par difficulté. En dessous, tu vois d'où viennent tes points.",
-      tour15_2: "🕸️ Si l'ambiance d'Halloween te gêne, tu peux la couper dans les Réglages.",
       lega_guardi: "👀 Tu regardes la {lega} : touche ton rang pour revenir à la tienne.",
       lega_vuota_altra: "Personne dans cette ligue pour l'instant.",
-      lega_zona_su: "⬆️ Montent en {lega} (avec au moins {s} points)",
+      lega_zona_su: "⬆️ Montent en {lega}",
       lega_zona_giu: "⬇️ Descendent en {lega}",
       lega_zona_resta: "➡️ Restent dans cette ligue",
       lega_servono: "encore {n} points pour monter",
@@ -8543,16 +8679,44 @@
       gd_neg_2: "⚡ Ici tu rends les singes plus rapides avec des objets et des améliorations.",
       gd_neg_3: "🔢 Choisis combien en acheter à la fois : ×10, ×100 ou le maximum.",
       gd_trag_1: "🏆 Succès : quand tu en atteins un, il s'allume, touche-le pour récupérer les bananes.",
-      nov16_1: "🔥 Chaque difficulté a sa série de connexions, qui apparaît quand tu ouvres la partie : Coffre en bois le 1er jour, en argent le 3e, en or le 7e",
+      nov16_1: "🔥 Série de connexions : Coffre en bois le 1er jour, en argent le 3e, en or le 7e ; à récupérer une fois par jour dans la partie que tu ouvres",
       nov16_2: "🏅 Classement de ligue plus clair : à côté de chaque place tu vois le prix, les zones pour monter et descendre sont mises en évidence et en touchant les rangs tu vois les autres ligues",
       nov16_3: "🎨 Nouvelle couleur « Aucune » : les effets de nom reprennent leur couleur d'origine",
       nov16_4: "🏆 30 nouveaux succès : missions, séries, roue, mini-jeux, coffres, ligues, courses, albums, pages et Halloween",
       nov16_5: "👾 Les icônes du jeu sont en pixel art, comme les avatars ; et à Halloween même l'ouverture fait peur",
       nov16_6: "⭐ Le nom d'un singe se donne, se change ou se retire maintenant depuis sa page autographe (Bibliothèque → Pages)",
-      tour16_1: "🔥 Voici la série de la difficulté à laquelle tu joues : chaque difficulté a la sienne.",
+      tour16_1: "🔥 La série de connexions : un prix par jour, dans la partie que tu joues.",
       tour16_2: "🏅 Touche les rangs pour voir qui est dans les autres ligues.",
       desc_lgs: "Atteins la {lega}",
-      trg_lgs: "Grimpeur"
+      trg_lgs: "Grimpeur",
+      serie_va_in: "Le prix va dans la partie {modo}",
+      nov17_1: "🔥 Il n'y a qu'une série de connexions : le prix se récupère une fois par jour, dans la partie que tu ouvres",
+      nov17_2: "🏅 En ligue on monte uniquement selon la place : les premiers montent, sans score minimum",
+      nov17_3: "🎒 Les bonus du sac restent dans la difficulté où tu les trouves",
+      lega_reg_su: {"one": "⬆️ le premier monte", "other": "⬆️ les {n} premiers montent"},
+      lega_reg_giu: {"one": "⬇️ le dernier descend", "other": "⬇️ les {n} derniers descendent"},
+      lega_reg_no_giu: "personne ne descend",
+      lega_reg_cima: "la ligue la plus haute",
+      lega_reg_pochi: "peu de joueurs : {su} montent, {giu} descendent",
+      stag_tit_halloween: "Prix de la saison d'Halloween",
+      stag_fine: "Se termine dans {t} · à gagner seulement ici",
+      stag_req: "Termine la saison en {lega} ou plus haut",
+      stag_req_top: "Termine la saison en {lega}",
+      stag_foto: "Photo de profil",
+      stag_nome: "Effet du nom",
+      stag_nota: "Les légendaires et mythiques d'Halloween ne se gagnent qu'ainsi : ils ne sortent ni des coffres, ni de la roue, ni des événements. Ta meilleure ligue parmi les trois difficultés compte, celle où tu finis la dernière semaine.",
+      stag_ora_si: "✅ Tu es en {lega} : restes-y jusqu'à la fin et ils sont à toi !",
+      stag_ora_no: {"one": "Tu es en {lega} : encore {n} ligue pour les premiers prix", "other": "Tu es en {lega} : encore {n} ligues pour les premiers prix"},
+      stag_bloccato: "🏆 Prix de saison : termine-la en {lega} ou plus haut",
+      stag_vinto_tit: "Prix de la saison !",
+      stag_vinto_testo: "Tu as terminé la saison en {lega} : {nomi} sont à toi. Retrouve-les dans Personnalisation.",
+      stag_etichetta: "🎃 Fin de saison",
+      stag_riga: "🎃 prix de saison",
+      nov18_1: "🎃 Prix de saison : Vampire, Hanté et les mythiques d'Halloween ne se gagnent qu'en finissant la saison dans une ligue haute",
+      nov18_2: "🏅 Nouvelles règles des ligues : en Bronze les 4 premiers montent et personne ne descend ; plus haut, moins de joueurs montent et les 2 derniers descendent",
+      nov18_3: "🐈‍⬛ Nouveaux objets d'Halloween : chat noir, zombie, araignée, loup-garou, chaudron et les effets Toile d'araignée et Potion",
+      nov18_4: "🎻 La musique d'Halloween fait plus peur, avec le même air",
+      tour18_1: "🎃 Les prix de la saison : termine-la en Ligue Or ou plus haut (dans n'importe quelle difficulté) et ils sont à toi. Introuvables ailleurs !"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -9678,17 +9842,14 @@
       gd_n_oggi: "🎯 Задания, серия и лига",
       gd_n_lega: "🏅 Рейтинги лиги и гонки",
       gd_n_album: "📖 Альбомы авторов",
-      gd_oggi_1: "🔥 Возвращайся каждый день: приз растёт до 7-го дня (Золотой сундук). У каждой сложности своя серия; пропустишь день — начнётся заново.",
+      gd_oggi_1: "🔥 Возвращайся каждый день: приз растёт до 7-го дня (Золотой сундук). Забирается раз в день и идёт в игру, в которую ты играешь; пропустишь день — серия начнётся заново.",
       gd_oggi_2: "🎯 Три новых задания каждый день. Каждое даёт бананы и очки лиги; все три вместе — Золотые страницы и бонус в рюкзак.",
       gd_oggi_3: "🏅 Всё, что ты делаешь, приносит очки лиги. В понедельник лучшие поднимаются, последние опускаются, призы — всем.",
       gd_oggi_4: "🏁 Гонка недели: одна фраза для всех, её печатают одинаковые для всех обезьяны, пока ты играешь. Побеждает тот, кто закончит первым.",
-      gd_lega_1: "🥉🥈🥇💠💎 Пять лиг: начинаешь с Бронзы и поднимаешься по одной.",
+      gd_lega_1: "🥉🥈🥇💠💎 Пять лиг. Каждый понедельник в Бронзе поднимаются первые 4, в Серебре первые 3, в Золоте первые 2, в Платине первый. Начиная с Серебра последние 2 опускаются; в Бронзе никто.",
       gd_lega_2: "📋 Кто играет в твоей лиге на этой неделе. Зелёная полоса — зона повышения, красная — зона понижения.",
       gd_lega_3: "🏁 Здесь гонка: фраза, сколько ты напечатал и кто финишировал первым.",
       gd_album_1: "📖 У каждого автора свой альбом: нажми, чтобы увидеть его фразы. Заверши их все на любой сложности — получишь Золотые страницы.",
-      imp_atmo: "Атмосфера события",
-      imp_atmo_halloween: "Цвета, туман, паутина и летучие мыши Хэллоуина на всех экранах",
-      imp_atmo_natale: "Рождественские цвета и снег на всех экранах",
       bat_dado: "Случайное имя",
       fam_rinomina: "Переименовать",
       fam_elimina_tit: "Убрать имя?",
@@ -9716,10 +9877,9 @@
       nov15_5: "🔥 Серия входов стала красивее; призы серии и заданий перебалансированы",
       nov15_6: "⚖️ Специализации появляются после первого перерождения, по одной (×2 — после третьего); перерождение объясняется само, как только оно доступно",
       tour15_1: "🏅 Твоя лига и гонка недели теперь здесь, по сложностям. Ниже видно, откуда твои очки.",
-      tour15_2: "🕸️ Если атмосфера Хэллоуина мешает, её можно выключить в Настройках.",
       lega_guardi: "👀 Ты смотришь: {lega}. Нажми на свой ранг, чтобы вернуться к своей.",
       lega_vuota_altra: "В этой лиге пока никого.",
-      lega_zona_su: "⬆️ Поднимаются: {lega} (не меньше {s} очков)",
+      lega_zona_su: "⬆️ Поднимаются: {lega}",
       lega_zona_giu: "⬇️ Опускаются: {lega}",
       lega_zona_resta: "➡️ Остаются в этой лиге",
       lega_servono: "до повышения {n} очк.",
@@ -9759,16 +9919,44 @@
       gd_neg_2: "⚡ Здесь ускоряй обезьян предметами и улучшениями.",
       gd_neg_3: "🔢 Выбери, сколько покупать за раз: ×10, ×100 или максимум.",
       gd_trag_1: "🏆 Достижения: выполненное подсвечивается, нажми, чтобы забрать бананы.",
-      nov16_1: "🔥 У каждой сложности своя серия входов, она появляется при открытии игры: Деревянный сундук в 1-й день, Серебряный в 3-й, Золотой в 7-й",
+      nov16_1: "🔥 Серия входов: Деревянный сундук в 1-й день, Серебряный в 3-й, Золотой в 7-й; забирается раз в день в той игре, которую открываешь",
       nov16_2: "🏅 Рейтинг лиги стал понятнее: у каждого места виден приз, зоны повышения и понижения выделены, а нажатие на ранги показывает другие лиги",
       nov16_3: "🎨 Новый цвет «Нет»: анимированные надписи возвращают свой исходный цвет",
       nov16_4: "🏆 30 новых достижений: задания, серии, колесо, мини-игры, сундуки, лиги, гонки, альбомы, страницы и Хэллоуин",
       nov16_5: "👾 Иконки игры теперь пиксельные, как аватары; а на Хэллоуин даже заставка пугает",
       nov16_6: "⭐ Имя обезьяны теперь даётся, меняется или убирается на её странице-автографе (Библиотека → Страницы)",
-      tour16_1: "🔥 Это серия для текущей сложности: у каждой сложности своя.",
+      tour16_1: "🔥 Серия входов: один приз в день — в ту игру, в которую ты играешь.",
       tour16_2: "🏅 Нажми на ранги, чтобы увидеть, кто в других лигах.",
       desc_lgs: "Попади в лигу: {lega}",
-      trg_lgs: "Покоритель"
+      trg_lgs: "Покоритель",
+      serie_va_in: "Приз попадёт в игру: {modo}",
+      nov17_1: "🔥 Серия входов одна: приз забирается раз в день, в той игре, которую открываешь",
+      nov17_2: "🏅 В лиге повышают только по месту: первые поднимаются, без минимума очков",
+      nov17_3: "🎒 Бонусы рюкзака остаются в той сложности, где ты их нашёл",
+      lega_reg_su: {"one": "⬆️ первый поднимается", "few": "⬆️ первые {n} поднимаются", "many": "⬆️ первые {n} поднимаются", "other": "⬆️ первые {n} поднимаются"},
+      lega_reg_giu: {"one": "⬇️ последний опускается", "few": "⬇️ последние {n} опускаются", "many": "⬇️ последние {n} опускаются", "other": "⬇️ последние {n} опускаются"},
+      lega_reg_no_giu: "никто не опускается",
+      lega_reg_cima: "высшая лига",
+      lega_reg_pochi: "мало игроков: вверх {su}, вниз {giu}",
+      stag_tit_halloween: "Награды сезона Хэллоуина",
+      stag_fine: "Конец через {t} · только здесь",
+      stag_req: "Итог сезона: {lega} или выше",
+      stag_req_top: "Итог сезона: {lega}",
+      stag_foto: "Аватар",
+      stag_nome: "Эффект имени",
+      stag_nota: "Легендарные и мифические предметы Хэллоуина можно получить только так: их нет в сундуках, колесе и событиях. Считается лучшая лига из трёх сложностей — та, в которой ты закончишь последнюю неделю.",
+      stag_ora_si: "✅ Сейчас у тебя {lega}: удержись до конца — и они твои!",
+      stag_ora_no: {"one": "Сейчас у тебя {lega}: до первых наград ещё {n} лига", "few": "Сейчас у тебя {lega}: до первых наград ещё {n} лиги", "many": "Сейчас у тебя {lega}: до первых наград ещё {n} лиг", "other": "Сейчас у тебя {lega}: до первых наград ещё {n} лиги"},
+      stag_bloccato: "🏆 Награда сезона: итог — {lega} или выше",
+      stag_vinto_tit: "Награды сезона!",
+      stag_vinto_testo: "Итог сезона — {lega}: {nomi} теперь твои. Ищи их в Оформлении.",
+      stag_etichetta: "🎃 Конец сезона",
+      stag_riga: "🎃 награды сезона",
+      nov18_1: "🎃 Награды сезона: Вампир, Колдовской и мифические предметы Хэллоуина — только за высокую лигу в конце сезона",
+      nov18_2: "🏅 Новые правила лиг: в Бронзе поднимаются первые 4 и никто не опускается; выше поднимается меньше, а последние 2 опускаются",
+      nov18_3: "🐈‍⬛ Новые предметы Хэллоуина: чёрный кот, зомби, паук, оборотень, котёл и эффекты Паутина и Зелье",
+      nov18_4: "🎻 Музыка Хэллоуина стала страшнее, мелодия та же",
+      tour18_1: "🎃 Награды сезона: закончи его в Золотой лиге или выше (на любой сложности) — и они твои. Больше их нигде не достать!"
     }
   };
 
@@ -11585,7 +11773,7 @@
   // =====================================================================
   const Suono = (() => {
     let ctx = null, master, gMusica, gEffetti, rumore = null, muto = null, primoSblocco = false;
-    let timerMusica = null, prossima = 0, passoMus = 0;
+    let timerMusica = null, prossima = 0, passoMus = 0, giroMus = 0, invioEco = null, rumoreLungo = null;
     const ACCORDI = [
       { basso: 110.00, note: [220.00, 261.63, 329.63, 392.00] },
       { basso: 146.83, note: [293.66, 349.23, 440.00, 523.25] },
@@ -11594,6 +11782,14 @@
     ];
     const SCALA = [440.00, 523.25, 587.33, 659.25, 783.99, 880.00];
     const OTTAVO = 60 / 84 / 2;
+    // Halloween: lo stesso giro con gli stessi bassi, ma ogni accordo ha una nota che inquieta
+    const ACCORDI_PAURA = [
+      { basso: 110.00, note: [220.00, 261.63, 329.63, 415.30] },   // la minore con il sol diesis
+      { basso: 146.83, note: [293.66, 349.23, 440.00, 493.88] },   // re minore con il si: il tritono
+      { basso: 98.00,  note: [196.00, 246.94, 349.23, 415.30] },   // sol settima con la nona bemolle
+      { basso: 130.81, note: [261.63, 329.63, 415.30, 493.88] }    // do con la quinta eccedente
+    ];
+    const paura = () => { try { return temaAttivo() === "halloween"; } catch (e) { return false; } };
 
     // mezzo secondo di silenzio in formato WAV, creato al volo
     function wavMuto() {
@@ -11627,6 +11823,14 @@
         master = ctx.createGain(); master.gain.value = 1; master.connect(comp);
         gMusica = ctx.createGain(); gMusica.gain.value = 0; gMusica.connect(master);
         gEffetti = ctx.createGain(); gEffetti.gain.value = 0; gEffetti.connect(master);
+        // eco della musica (solo nella versione spaventosa): ritardo, filtro e ritorno
+        invioEco = ctx.createGain(); invioEco.gain.value = 1;
+        const eco = ctx.createDelay(2), fEco = ctx.createBiquadFilter(), ritorno = ctx.createGain();
+        eco.delayTime.value = OTTAVO * 3; fEco.type = "lowpass"; fEco.frequency.value = 1700; ritorno.gain.value = 0.42;
+        invioEco.connect(eco); eco.connect(fEco); fEco.connect(ritorno); ritorno.connect(eco); fEco.connect(gMusica);
+        rumoreLungo = ctx.createBuffer(1, Math.floor(ctx.sampleRate * 2), ctx.sampleRate);
+        const dl = rumoreLungo.getChannelData(0);
+        for (let i = 0; i < dl.length; i++) dl[i] = Math.random() * 2 - 1;
         const len = Math.floor(ctx.sampleRate * 0.06);
         rumore = ctx.createBuffer(1, len, ctx.sampleRate);
         const d = rumore.getChannelData(0);
@@ -11691,7 +11895,77 @@
         passoMus = (passoMus + 1) % 32;
       }
     }
+    // ---- strumenti della versione spaventosa ----
+    // carillon: parziali stonate, attacco secco, coda lunga e l'eco
+    function campana(freq, t0, durata, vol) {
+      for (const [m, v] of [[1, 1], [2.76, 0.22], [5.4, 0.07]]) {
+        const osc = ctx.createOscillator(), g = ctx.createGain(), fine = t0 + durata / Math.sqrt(m);
+        osc.type = "sine"; osc.frequency.value = freq * m;
+        g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(vol * v, t0 + 0.004); g.gain.exponentialRampToValueAtTime(0.0001, fine);
+        osc.connect(g); g.connect(gMusica); g.connect(invioEco);
+        osc.start(t0); osc.stop(fine + 0.05);
+      }
+    }
+    // organo scuro: due voci un po' stonate tra loro, filtrate, con un tremolo lento
+    function organo(freq, t0, durata, vol) {
+      const g = ctx.createGain(), f = ctx.createBiquadFilter(), lfo = ctx.createOscillator(), prof = ctx.createGain();
+      f.type = "lowpass"; f.frequency.value = 620; f.Q.value = 3;
+      g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(vol, t0 + 0.9);
+      g.gain.setValueAtTime(vol, t0 + durata - 0.7); g.gain.exponentialRampToValueAtTime(0.0001, t0 + durata);
+      lfo.frequency.value = 4.6; prof.gain.value = vol * 0.35; lfo.connect(prof); prof.connect(g.gain);
+      for (const det of [-9, 8]) {
+        const osc = ctx.createOscillator();
+        osc.type = "sawtooth"; osc.frequency.value = freq; osc.detune.value = det;
+        osc.connect(f); osc.start(t0); osc.stop(t0 + durata + 0.05);
+      }
+      f.connect(g); g.connect(gMusica); g.connect(invioEco);
+      lfo.start(t0); lfo.stop(t0 + durata + 0.05);
+    }
+    // vento che sale e scende
+    function vento(t0, durata) {
+      const src = ctx.createBufferSource(), f = ctx.createBiquadFilter(), g = ctx.createGain();
+      src.buffer = rumoreLungo; src.loop = true;
+      f.type = "bandpass"; f.Q.value = 7;
+      f.frequency.setValueAtTime(280, t0); f.frequency.linearRampToValueAtTime(950, t0 + durata * 0.45); f.frequency.linearRampToValueAtTime(320, t0 + durata);
+      g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.06, t0 + durata * 0.4); g.gain.exponentialRampToValueAtTime(0.0001, t0 + durata);
+      src.connect(f); f.connect(g); g.connect(gMusica);
+      src.start(t0); src.stop(t0 + durata + 0.05);
+    }
+    // una voce di fantasma che scivola giù, con il vibrato
+    function fantasma(t0, da, a, durata) {
+      const osc = ctx.createOscillator(), g = ctx.createGain(), lfo = ctx.createOscillator(), prof = ctx.createGain();
+      osc.type = "sine"; osc.frequency.setValueAtTime(da, t0); osc.frequency.exponentialRampToValueAtTime(a, t0 + durata);
+      lfo.frequency.value = 5.5; prof.gain.value = da * 0.012; lfo.connect(prof); prof.connect(osc.frequency);
+      g.gain.setValueAtTime(0.0001, t0); g.gain.exponentialRampToValueAtTime(0.022, t0 + durata * 0.35); g.gain.exponentialRampToValueAtTime(0.0001, t0 + durata);
+      osc.connect(g); g.connect(gMusica); g.connect(invioEco);
+      osc.start(t0); osc.stop(t0 + durata + 0.05); lfo.start(t0); lfo.stop(t0 + durata + 0.05);
+    }
+    // stesso giro, stessi bassi e stessa melodia della musica normale: cambiano solo i colori
+    function suonaPassoPaura(p, t0) {
+      const acc = ACCORDI_PAURA[Math.floor(p / 8)], b = p % 8;
+      if (p === 0) {
+        giroMus++;
+        // una nota bassa ferma sotto tutto il giro, con due voci che battono tra loro
+        for (const fq of [55, 55.7]) nota(fq, t0, OTTAVO * 32.5, { tipo: "sine", vol: 0.026, attacco: 1.5, uscita: gMusica });
+        if (giroMus % 2) vento(t0 + OTTAVO * 2, OTTAVO * 14);
+      }
+      if (p === 20 && giroMus % 3 === 2) fantasma(t0, 880, 523.25, OTTAVO * 9);
+      if (b === 0) for (const f of acc.note) organo(f, t0, OTTAVO * 8.5, 0.012);
+      // il basso come un battito di cuore
+      if (b === 0 || b === 4) {
+        nota(acc.basso, t0, OTTAVO * 3, { tipo: "triangle", vol: 0.08, attacco: 0.01, uscita: gMusica, filtro: 500 });
+        nota(acc.basso / 2, t0, 0.32, { vol: 0.1, attacco: 0.008, uscita: gMusica });
+        nota(acc.basso / 2, t0 + 0.17, 0.28, { vol: 0.06, attacco: 0.008, uscita: gMusica });
+      }
+      // un orologio che ticchetta al posto del charleston
+      if (b % 2 === 1) fruscio(t0, 0.009, b % 4 === 1 ? 2600 : 2100, 0.03, gMusica);
+      if (Math.random() < (b % 2 ? 0.18 : 0.42)) {
+        const f = SCALA[Math.floor(Math.random() * SCALA.length)];
+        campana(f, t0, 1.7, 0.034);
+      }
+    }
     function suonaPasso(p, t0) {
+      if (paura() && invioEco) { suonaPassoPaura(p, t0); return; }
       const acc = ACCORDI[Math.floor(p / 8)], b = p % 8;
       if (b === 0) for (const f of acc.note) nota(f, t0, OTTAVO * 8.5, { tipo: "triangle", vol: 0.02, attacco: 0.5, uscita: gMusica, filtro: 900 });
       if (b === 0 || b === 4) nota(acc.basso, t0, OTTAVO * 3, { vol: 0.1, attacco: 0.01, uscita: gMusica });
@@ -14269,6 +14543,12 @@
   ESTETICI.push(...[{"id": "a_caramella", "t": "a", "v": "🍬", "r": 0, "g": false, "tema": "halloween"}, {"id": "c_zucca", "t": "c", "v": "#ff7a1a", "r": 0, "g": false, "tema": "halloween"}, {"id": "c_strega", "t": "c", "v": "#a36bff", "r": 0, "g": false, "tema": "halloween"}, {"id": "c_veleno", "t": "c", "v": "#7dff5a", "r": 0, "g": false, "tema": "halloween"}, {"id": "a_scheletro", "t": "a", "v": "💀", "r": 1, "g": false, "tema": "halloween"}, {"id": "a_strega", "t": "a", "v": "🧙", "r": 1, "g": false, "tema": "halloween"}, {"id": "c_sangue", "t": "c", "v": "#e0213c", "r": 1, "g": false, "tema": "halloween"}, {"id": "e_nebbia", "t": "e", "v": "", "r": 1, "g": false, "tema": "halloween"}, {"id": "e_candela", "t": "e", "v": "", "r": 2, "g": false, "tema": "halloween"}, {"id": "a_vampiro", "t": "a", "v": "🧛", "r": 3, "g": false, "tema": "halloween"}, {"id": "a_mietitore", "t": "a", "v": "💀", "r": 4, "g": false, "tema": "halloween"}, {"id": "e_maledetto", "t": "e", "v": "", "r": 4, "g": false, "tema": "halloween"}]);
   Object.assign(NOMI_ESTETICI, {"a_caramella": {"it": "Dolcetto", "en": "Treat", "es": "Golosina", "zh": "糖果", "fr": "Friandise", "ru": "Сладость"}, "c_zucca": {"it": "Zucca", "en": "Pumpkin", "es": "Calabaza", "zh": "南瓜橙", "fr": "Citrouille", "ru": "Тыквенный"}, "c_strega": {"it": "Strega", "en": "Witch", "es": "Bruja", "zh": "女巫紫", "fr": "Sorcière", "ru": "Ведьмин"}, "c_veleno": {"it": "Veleno", "en": "Poison", "es": "Veneno", "zh": "毒药绿", "fr": "Poison", "ru": "Ядовитый"}, "a_scheletro": {"it": "Scheletro", "en": "Skeleton", "es": "Esqueleto", "zh": "骷髅", "fr": "Squelette", "ru": "Скелет"}, "a_strega": {"it": "Scimmia strega", "en": "Witch monkey", "es": "Mono bruja", "zh": "女巫猴", "fr": "Singe sorcière", "ru": "Обезьяна-ведьма"}, "c_sangue": {"it": "Sangue", "en": "Blood", "es": "Sangre", "zh": "血红", "fr": "Sang", "ru": "Кровавый"}, "e_nebbia": {"it": "Nebbia", "en": "Fog", "es": "Niebla", "zh": "迷雾", "fr": "Brouillard", "ru": "Туман"}, "e_candela": {"it": "Candela", "en": "Candle", "es": "Vela", "zh": "烛光", "fr": "Bougie", "ru": "Свеча"}, "a_vampiro": {"it": "Vampiro", "en": "Vampire", "es": "Vampiro", "zh": "吸血鬼", "fr": "Vampire", "ru": "Вампир"}, "a_mietitore": {"it": "Il Mietitore", "en": "The Reaper", "es": "La Parca", "zh": "死神", "fr": "La Faucheuse", "ru": "Жнец"}, "e_maledetto": {"it": "Maledetto", "en": "Cursed", "es": "Maldito", "zh": "诅咒", "fr": "Maudit", "ru": "Проклятый"}});
   Object.assign(NOMI_ESTETICI, {"a_zucca": {"it": "Zucca", "en": "Pumpkin", "es": "Calabaza", "zh": "南瓜", "fr": "Citrouille", "ru": "Тыква"}, "a_fantasma": {"it": "Fantasma", "en": "Ghost", "es": "Fantasma", "zh": "幽灵", "fr": "Fantôme", "ru": "Призрак"}, "a_pipistrello": {"it": "Pipistrello", "en": "Bat", "es": "Murciélago", "zh": "蝙蝠", "fr": "Chauve-souris", "ru": "Летучая мышь"}, "e_stregato": {"it": "Stregato", "en": "Haunted", "es": "Embrujado", "zh": "闹鬼", "fr": "Hanté", "ru": "Колдовской"}, "a_babbo": {"it": "Babbo Natale", "en": "Santa", "es": "Papá Noel", "zh": "圣诞老人", "fr": "Père Noël", "ru": "Санта-Клаус"}, "a_pupazzo": {"it": "Pupazzo di neve", "en": "Snowman", "es": "Muñeco de nieve", "zh": "雪人", "fr": "Bonhomme de neige", "ru": "Снеговик"}, "a_albero": {"it": "Albero di Natale", "en": "Christmas tree", "es": "Árbol de Navidad", "zh": "圣诞树", "fr": "Sapin de Noël", "ru": "Ёлка"}, "c_natale": {"it": "Natalizio", "en": "Festive", "es": "Navideño", "zh": "节日彩条", "fr": "Festif", "ru": "Праздничный"}});
+  // altri oggetti di Halloween (69)
+  ESTETICI.push(...[{"id": "a_gatto", "t": "a", "v": "🐈‍⬛", "r": 0, "g": false, "tema": "halloween"}, {"id": "c_mummia", "t": "c", "v": "#e9dcc0", "r": 0, "g": false, "tema": "halloween"}, {"id": "c_notte", "t": "c", "v": "#8f7dff", "r": 0, "g": false, "tema": "halloween"}, {"id": "a_zombie", "t": "a", "v": "🧟", "r": 1, "g": false, "tema": "halloween"}, {"id": "a_ragno", "t": "a", "v": "🕷️", "r": 1, "g": false, "tema": "halloween"}, {"id": "e_ragnatela", "t": "e", "v": "", "r": 1, "g": false, "tema": "halloween"}, {"id": "a_lupo", "t": "a", "v": "🐺", "r": 2, "g": false, "tema": "halloween"}, {"id": "a_calderone", "t": "a", "v": "🧪", "r": 2, "g": false, "tema": "halloween"}, {"id": "e_pozione", "t": "e", "v": "", "r": 2, "g": false, "tema": "halloween"}]);
+  Object.assign(NOMI_ESTETICI, {"a_gatto": {"it": "Gatto nero", "en": "Black cat", "es": "Gato negro", "zh": "黑猫", "fr": "Chat noir", "ru": "Чёрный кот"}, "c_mummia": {"it": "Bende", "en": "Bandages", "es": "Vendas", "zh": "绷带", "fr": "Bandelettes", "ru": "Бинты"}, "c_notte": {"it": "Mezzanotte", "en": "Midnight", "es": "Medianoche", "zh": "午夜", "fr": "Minuit", "ru": "Полночь"}, "a_zombie": {"it": "Zombi", "en": "Zombie", "es": "Zombi", "zh": "僵尸", "fr": "Zombie", "ru": "Зомби"}, "a_ragno": {"it": "Ragno", "en": "Spider", "es": "Araña", "zh": "蜘蛛", "fr": "Araignée", "ru": "Паук"}, "e_ragnatela": {"it": "Ragnatela", "en": "Cobweb", "es": "Telaraña", "zh": "蛛网", "fr": "Toile d'araignée", "ru": "Паутина"}, "a_lupo": {"it": "Lupo mannaro", "en": "Werewolf", "es": "Hombre lobo", "zh": "狼人", "fr": "Loup-garou", "ru": "Оборотень"}, "a_calderone": {"it": "Calderone", "en": "Cauldron", "es": "Caldero", "zh": "坩埚", "fr": "Chaudron", "ru": "Котёл"}, "e_pozione": {"it": "Pozione", "en": "Potion", "es": "Poción", "zh": "药水", "fr": "Potion", "ru": "Зелье"}});
+  Object.assign(COLORE_EFFETTO, { e_ragnatela: "#d9d4ee", e_pozione: "#7dff5a" });
+  // il pipistrello è diventato epico: leggendari e mitici di Halloween si vincono solo a fine stagione
+  ESTETICI.find(x => x.id === "a_pipistrello").r = 2;
   // probabilità per rarità: comune, raro, epico, leggendario, mitico
   // bonus: probabilità (%) che esca un bonus per lo zaino invece di un oggetto; zaino: pesi dei bonus
   const CASSE = [
@@ -14389,7 +14669,12 @@
     a_scheletro: { pelo: "#232329", muso: "#f2f2ee", sf: "#3b2a1c", acc: "scheletro" },
     a_strega: { pelo: "#7a4a22", muso: "#e8c39e", sf: "#2b1d3a", acc: "strega" },
     a_vampiro: { pelo: "#24242e", muso: "#e9e2f2", sf: "castello", acc: "vampiro" },
-    a_mietitore: { pelo: "#16161f", muso: "#d8d8e2", sf: "nebbiaverde", acc: "falce" }
+    a_mietitore: { pelo: "#16161f", muso: "#d8d8e2", sf: "nebbiaverde", acc: "falce" },
+    a_gatto: { pelo: "#26222e", muso: "#4b4556", sf: "#6a56a0", acc: "gatto" },
+    a_zombie: { pelo: "#5f7a4a", muso: "#a3c27e", sf: "#2b2a1c", acc: "zombie" },
+    a_ragno: { pelo: "#7a4a22", muso: "#e8c39e", sf: "ragnatela", acc: "ragno" },
+    a_lupo: { pelo: "#6e6e7c", muso: "#cbc2b8", sf: "#1b2440", acc: "lupo" },
+    a_calderone: { pelo: "#7a4a22", muso: "#e8c39e", sf: "#1d2f22", acc: "calderone" }
   };
   const AV_DIM = [16, 20, 24, 32, 40, 48];
   const tinta = (hex, f) => {
@@ -14504,6 +14789,16 @@
         const v = 1 + (k % 3), x = Math.floor(casoFisso(k + 11) * S), y = Math.floor((casoFisso(k + 31) * S + f * v * 0.5) % S);
         pix(x, y, k % 4 ? "#ffffff" : "#a9c7ff");
       }
+    } else if (st.sf === "ragnatela") {
+      // notte viola con una ragnatela nell'angolo
+      ctx.fillStyle = "#2a2048"; ctx.fillRect(0, 0, S, S);
+      const filo = "#6a5d9e";
+      for (let k = 0; k <= 2; k++) { const an = k / 2 * Math.PI / 2; for (let d = 0; d < S * 0.62; d++) pix(S - 1 - Math.cos(an) * d, Math.sin(an) * d, filo); }
+      // archi tra un filo e l'altro, un po' cadenti come in una vera ragnatela
+      for (const rr of [0.3, 0.56]) for (let k = 0; k < 2; k++) {
+        const a0 = k * Math.PI / 4, a1 = (k + 1) * Math.PI / 4;
+        for (let j = 0; j <= 12; j++) { const an = a0 + (a1 - a0) * j / 12, cad = 1 - 0.2 * Math.sin(Math.PI * j / 12); pix(S - 1 - Math.cos(an) * rr * S * cad, Math.sin(an) * rr * S * cad, filo); }
+      }
     } else if (st.sf === "diamante") {
       for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) pix(x, y, ((x + y) >> 2) % 2 ? "#0e4a6b" : "#13628c");
     } else if (rar === 0) {
@@ -14556,8 +14851,9 @@
     // spalle (dal raro in su)
     if (rar >= 1) ellisse(8 * u, 16.5 * u, 6.5 * u, 3.4 * u, st.pelo);
     // orecchie
-    cerchio(3.2 * u, 8 * u, 2.2 * u, st.pelo); cerchio(12.8 * u, 8 * u, 2.2 * u, st.pelo);
-    if (rar >= 1) { cerchio(3.2 * u, 8 * u, 1.1 * u, musoScuro); cerchio(12.8 * u, 8 * u, 1.1 * u, musoScuro); }
+    const orecchieTonde = st.acc !== "gatto" && st.acc !== "lupo";
+    if (orecchieTonde) { cerchio(3.2 * u, 8 * u, 2.2 * u, st.pelo); cerchio(12.8 * u, 8 * u, 2.2 * u, st.pelo); }
+    if (rar >= 1 && orecchieTonde) { cerchio(3.2 * u, 8 * u, 1.1 * u, musoScuro); cerchio(12.8 * u, 8 * u, 1.1 * u, musoScuro); }
     // testa con ombre
     const cx = 8 * u, cy = 8 * u, r = 5.2 * u;
     for (let y = Math.floor(cy - r); y <= Math.ceil(cy + r); y++) for (let x = Math.floor(cx - r); x <= Math.ceil(cx + r); x++) {
@@ -14674,6 +14970,52 @@
       // canini e occhi rossi
       metti(7.2 * u, 11.9 * u, "#ffffff"); metti(8.8 * u, 11.9 * u, "#ffffff");
       for (const ox of [6.3 * u, 9.7 * u]) rett(ox - 0.5, 7.2 * u, Math.max(1, Math.round(u)), 2, "#ff3b5c");
+    }
+    if (a === "gatto" || a === "lupo") {
+      // orecchie a punta
+      const lupo = a === "lupo";
+      for (const lato of [-1, 1]) for (let k = 0; k < 3.4 * u; k++) {
+        const w = Math.max(1, Math.round((k + 1) * (lupo ? 0.8 : 0.9))), x = 8 * u + lato * 3.5 * u;
+        rett(x - w / 2, 0.5 * u + k, w, 1, lupo && k < 2 ? scuro : st.pelo);
+        if (k > 1 && w > 2) metti(x, 0.5 * u + k, lupo ? "#3a2a2a" : "#c76b8a");
+      }
+      // occhi gialli a fessura
+      for (const ox of [6.3 * u, 9.7 * u]) { rett(ox - 1, 7 * u, 2, 2, lupo ? "#ffcc33" : "#ffe14a"); rett(ox - 0.5, 7 * u, 1, 2, "#111111"); }
+      if (lupo) {
+        // ciuffi di pelo sulle guance, naso nero e zanne
+        for (const lato of [-1, 1]) for (let k = 0; k < 3; k++) rett(8 * u + lato * (5 + k * 0.45) * u - (lato < 0 ? u : 0), (8.6 + k * 1.3) * u, u, Math.max(1, 0.9 * u), k % 2 ? scuro : st.pelo);
+        rett(7.2 * u, 9.2 * u, 1.6 * u, Math.max(1, u), "#1a1410");
+        for (const ox of [7.1, 8.9]) rett(ox * u - 0.5, 11.7 * u, 1, Math.max(1, Math.round(u)), "#ffffff");
+      } else {
+        for (const [x, y] of [[4.3, 9.6], [4.5, 10.8], [11.7, 9.6], [11.5, 10.8]]) metti(x * u, y * u, "#d8d8e0");
+        metti(8 * u, 9.6 * u, "#c76b8a");
+      }
+    }
+    if (a === "zombie") {
+      // pelle verde, punti di sutura sulla fronte, un occhio spento e denti storti
+      rett(5.4 * u, 4.4 * u, 5.2 * u, Math.max(1, 0.5 * u), "#2b1d1a");
+      for (let x = 5.8 * u; x < 10.6 * u; x += 1.6 * u) { metti(x, 3.9 * u, "#2b1d1a"); metti(x, 5.1 * u, "#2b1d1a"); }
+      rett(5.5 * u, 6.8 * u, 1.7 * u, 1.7 * u, "#ecead4"); metti(6.3 * u, 7.5 * u, "#8a8a78");
+      rett(9.7 * u - 0.5, 7.2 * u, Math.max(1, Math.round(u)), 2, "#c0392b");
+      rett(6.3 * u, 11 * u, 3.4 * u, Math.max(1, 0.8 * u), "#2b1414");
+      metti(6.9 * u, 11 * u, "#efe9c8"); metti(8.7 * u, 11 * u, "#efe9c8");
+      metti(11.4 * u, 4.9 * u, "#3a4f2a"); metti(4.6 * u, 10.8 * u, "#3a4f2a");
+    }
+    if (a === "ragno") {
+      // un ragno che scende dal filo accanto alla testa
+      const rx = 2.4 * u, ry = 3.4 * u;
+      for (let y = 0; y < ry - 1.2 * u; y++) metti(rx, y, "#e6e2f4");
+      ellisse(rx, ry, 1.2 * u, 1.35 * u, "#120c18");
+      for (const lato of [-1, 1]) for (let k = 0; k < 3; k++) { metti(rx + lato * 1.6 * u, ry + (k - 1) * 0.9 * u, "#120c18"); metti(rx + lato * 2.2 * u, ry + (k - 1) * 0.9 * u + (k === 1 ? 0 : (k - 1) * 0.5 * u), "#120c18"); }
+      metti(rx - 0.4 * u, ry - 0.5 * u, "#ff3b3b"); metti(rx + 0.4 * u, ry - 0.5 * u, "#ff3b3b"); metti(rx, ry + 0.5 * u, "#ff8a1f");
+    }
+    if (a === "calderone") {
+      // un calderone che ribolle di pozione verde, con le bolle che salgono
+      ellisse(8 * u, 14.6 * u, 5.4 * u, 2.6 * u, "#1b1b22");
+      rett(2.4 * u, 11.7 * u, 11.2 * u, Math.max(1, u), "#3d3d4a");
+      ellisse(8 * u, 11.9 * u, 4.6 * u, 0.7 * u, "#4ade80");
+      for (const [x, y, rr] of [[4.2, 10.2, 0.6], [11.6, 9.4, 0.7], [12.9, 7, 0.5], [3.3, 7.6, 0.45]]) cerchio(x * u, y * u, rr * u, "#86efac");
+      metti(8 * u, 13.8 * u, "#2b2b36");
     }
     if (a === "babbo") {
       // cappello rosso col pompon, barba e baffi bianchi
@@ -14898,7 +15240,7 @@
   // scrive un nome con il colore e la scritta animata scelti
   // scritte animate lettera per lettera: i colori delle lettere vanno dal primo all'ultimo della lista
   const FX_LETTERE = Object.fromEntries(["e_brillio", "e_neon", "e_arcobaleno", "c_oceano", "c_foresta", "e_candela", "e_fuoco", "e_galassia", "c_lava",
-    "e_stregato", "e_infinito", "e_maledetto", "e_nebbia", "c_platino", "e_leggenda"].map(id => [id, []]));
+    "e_stregato", "e_infinito", "e_maledetto", "e_nebbia", "c_platino", "e_leggenda", "e_ragnatela", "e_pozione"].map(id => [id, []]));
   function mescolaColori(a, b, k) {
     const pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16);
     const c = sh => Math.round(((pa >> sh) & 255) * (1 - k) + ((pb >> sh) & 255) * k);
@@ -14975,11 +15317,12 @@
     if (!mio) b.classList.add("bloccato");
     const sc = aspetto();
     b.setAttribute("aria-pressed", sc.avatar === o.id || sc.colore === o.id || sc.effetto === o.id);
-    b.title = (mio ? "" : t("pz_bloccato") + " · ") + t("rar_" + o.r);
+    const bloccato = o.stagione ? t("stag_bloccato", { lega: nomeLega(o.legaStagione) }) : t("pz_bloccato");
+    b.title = (mio ? "" : bloccato + " · ") + t("rar_" + o.r);
     contenuto(b);
     if (quantita(o.id) > 1) { const q = document.createElement("i"); q.className = "qta-ogg"; q.textContent = "×" + quantita(o.id); b.appendChild(q); }
     b.onclick = () => {
-      if (!mio) { avviso(t("pz_bloccato") + " (" + t("rar_" + o.r) + ")"); return; }
+      if (!mio) { avviso(bloccato + " (" + t("rar_" + o.r) + ")"); return; }
       equipaggia(o.id);
       mostraSchedaPz(R.schedaPz);
     };
@@ -14997,7 +15340,7 @@
         mostraAvatar(av, o.id);
         const sm = document.createElement("small");
         sm.className = "rarc-" + o.r;
-        sm.textContent = possiede(o.id) ? "" : "🔒";
+        sm.textContent = possiede(o.id) ? "" : o.stagione ? "🏆" : "🔒";
         b.append(av, sm);
       }));
     }
@@ -15041,7 +15384,7 @@
       for (const o of lista) {
         box.appendChild(bottoneEstetico(o, b => {
           const sp = document.createElement("span");
-          mostraNome(sp, (possiede(o.id) ? "" : "🔒 ") + nomeEstetico(o.id),
+          mostraNome(sp, (possiede(o.id) ? "" : o.stagione ? "🏆 " : "🔒 ") + nomeEstetico(o.id),
             tipo === "c" ? o.id : coloreProva, tipo === "e" ? o.id : "e_nessuno");
           b.appendChild(sp);
         }));
@@ -16757,7 +17100,7 @@
   //  Gli oggetti sono cumulabili: i doppioni delle casse si accumulano e si possono scambiare.
   // =====================================================================
   const quantita = id => (possiede(id) ? 1 + Math.max(0, (G.extra || {})[id] || 0) : 0);
-  const scambiabili = () => ESTETICI.filter(o => !o.g && possiede(o.id));
+  const scambiabili = () => ESTETICI.filter(o => !o.g && !o.stagione && possiede(o.id));
   // un oggetto lascia l'inventario (prima le copie in più); se era l'ultimo e lo stavi usando torni a quello di partenza
   function togliOggetto(id) {
     if ((G.extra || {})[id] > 0) { G.extra = { ...G.extra, [id]: G.extra[id] - 1 }; return; }
@@ -16997,7 +17340,7 @@
   // Gli Esclusivi restano solo nella cassa di diamante.
   function oggettiInPalio(rar) {
     const tema = temaAttivo();
-    if (tema && rar < 5) { const l = ESTETICI.filter(x => x.tema === tema && x.r === rar); if (l.length) return l; }
+    if (tema && rar < 5) { const l = ESTETICI.filter(x => x.tema === tema && x.r === rar && !x.stagione); if (l.length) return l; }
     return ESTETICI.filter(x => x.r === rar && !x.g && !x.tema);
   }
   // nelle liste da scegliere: quelli che hai, più quelli che si possono trovare adesso
@@ -17205,10 +17548,20 @@
     () => premioCassa("oro", "👑")
   ];
   // una serie per ogni difficoltà (chi arriva dalla 66 ritrova la sua in quella in cui gioca adesso)
-  function serieDi(m = modoCorrente()) {
-    G.serieModi = G.serieModi || {};
-    if (G.serie) { if (!G.serieModi[modoCorrente()]) G.serieModi[modoCorrente()] = G.serie; delete G.serie; }
-    return G.serieModi[m] || {};
+  // una sola serie per tutto il gioco: si ritira una volta al giorno, nella prima partita che apri
+  // (chi aveva le serie separate della 67 tiene quella più avanti)
+  function serieDi() {
+    if (!G.serieUnica) {
+      const tutte = Object.values(G.serieModi || {}).concat(G.serie ? [G.serie] : []);
+      const oggiPresa = tutte.filter(x => x.ultimo === oggi()), ieriPresa = tutte.filter(x => x.ultimo === ieri());
+      const filaIeri = Math.max(0, ...ieriPresa.map(x => x.fila || 0));
+      const max = Math.max(0, ...tutte.map(x => x.max || 0)), tot = tutte.reduce((a, x) => a + (x.tot || 0), 0);
+      // se oggi l'avevi già presa in una difficoltà, la serie continua da quella più lunga di ieri
+      G.serieUnica = oggiPresa.length ? { ultimo: oggi(), fila: Math.max(filaIeri + 1, ...oggiPresa.map(x => x.fila || 0)), max: Math.max(max, filaIeri + 1), tot }
+        : filaIeri ? { ultimo: ieri(), fila: filaIeri, max, tot } : { ...(tutte.sort((a, b) => (b.fila || 0) - (a.fila || 0))[0] || {}), max, tot };
+      delete G.serie; delete G.serieModi; delete G.serieProposte;
+    }
+    return G.serieUnica;
   }
   function statoSerie(m = modoCorrente()) {
     const s = serieDi(m);
@@ -17250,7 +17603,7 @@
     $("seriePremioNome").textContent = p.desc();
     $("testoSerie").textContent = st.rotta ? t("serie_pop_rotta") : "";
     $("testoSerie").hidden = !st.rotta;
-    $("serieModo").textContent = ICONE_MODO[modoCorrente()] + " " + t("modo_" + modoCorrente());
+    $("serieModo").textContent = t("serie_va_in", { modo: ICONE_MODO[modoCorrente()] + " " + t("modo_" + modoCorrente()) });
     apri("veloSerie");
   }
   function ritiraSerie() {
@@ -17260,7 +17613,7 @@
     R.ruotaOggetto = null;
     const testo = p.dai();
     const vecchia = serieDi();
-    G.serieModi[modoCorrente()] = { ultimo: oggi(), fila: st.prossimo, tot: (vecchia.tot || 0) + 1, max: Math.max(vecchia.max || 0, st.prossimo) };
+    G.serieUnica = { ultimo: oggi(), fila: st.prossimo, tot: (vecchia.tot || 0) + 1, max: Math.max(vecchia.max || 0, st.prossimo) };
     puntiLega("serie");
     Suono.traguardo();
     salva();
@@ -17272,10 +17625,8 @@
   function proponiSerie() {
     if (!G || !G.tutorialFatto || R.nelMenu || passoTut >= 0 || document.querySelector(".velo.aperto") || !$("intro").hidden || ($("sipario") && !$("sipario").classList.contains("via"))) return;
     if ($("tutorial") && !$("tutorial").hidden) return;
-    const m = modoCorrente();
-    G.serieProposte = G.serieProposte || {};
-    if (statoSerie().presoOggi || G.serieProposte[m] === oggi()) return;
-    G.serieProposte[m] = oggi();
+    if (statoSerie().presoOggi || G.serieProposta === oggi()) return;
+    G.serieProposta = oggi();
     apriSerie();
   }
   // la finestra grande dei premi (la stessa della ruota)
@@ -17371,7 +17722,7 @@
     // serie
     const st = statoSerie();
     disegnaSerieIn($("serieGiorni"));
-    $("serieInfo").textContent = ICONE_MODO[modoCorrente()] + (st.fila > 0 ? " " + t("serie_fila", { n: st.fila }) : "");
+    $("serieInfo").textContent = st.fila > 0 ? t("serie_fila", { n: st.fila }) : "";
     const p = PREMI_SERIE[st.indice]();
     $("serieTesto").textContent = st.presoOggi ? t("serie_fatto") : t("serie_oggi", { premio: p.ico + " " + p.desc() });
     $("bSerie").hidden = st.presoOggi;
@@ -17470,6 +17821,7 @@
     let lega = v.lega | 0;
     if (v.punti > 0 || v.gRec > 0) (G.settChiuse = G.settChiuse || []).push({ modo: m, sett: v.sett, lega, punti: Math.round(v.punti || 0), gRec: v.gRec || 0, gFatto: v.gFatto || 0, gL: v.gL || 0, saltate: Math.max(0, s - v.sett - 1) });
     else if (lega > 0) lega--;   // una settimana senza punti: si scende di una lega
+    if (!(v.punti > 0 || v.gRec > 0)) segnaStagione(m, v.sett, s, lega);
     G.leghe[m] = { ...legaVuota(s), lega };
     R.legaSporca = true;
   }
@@ -17503,7 +17855,25 @@
   }
   const ordinaLega = v => v.slice().sort((a, b) => b.punti - a.punti || (a.io ? -1 : b.io ? 1 : 0) || String(a.id).localeCompare(String(b.id)));
   const ordinaGara = v => v.filter(x => x.gRec > 0 || x.gFatto).sort((a, b) => (a.gFatto ? 0 : 1) - (b.gFatto ? 0 : 1) || (a.gFatto || 0) - (b.gFatto || 0) || b.gRec - a.gRec || (a.io ? -1 : 1));
-  const zoneLega = n => ({ su: Math.max(1, Math.floor(n * 0.3)), giu: n >= 4 ? Math.floor(n * 0.3) : 0 });
+  // chi sale e chi scende: in Bronzo salgono i primi 4 e non scende nessuno; più su salgono sempre meno (3, 2, 1, in Diamante nessuno)
+  // e scendono gli ultimi 2. Con pochi giocatori salgono i primi 2 (in Platino comunque 1) e scende solo l'ultimo.
+  const SALGONO_LEGA = [4, 3, 2, 1, 0];
+  function zoneLega(n, lega = 0) {
+    const cima = lega >= LEGHE.length - 1, base = cima ? 0 : SALGONO_LEGA[lega];
+    let su = base, giu = lega > 0 ? 2 : 0;
+    if (n <= su + giu) { su = Math.min(2, base); giu = lega > 0 ? 1 : 0; }
+    if (n <= 1) { su = Math.min(su, n); giu = 0; }
+    else if (su + giu > n) su = Math.max(0, n - giu);
+    return { su, giu };
+  }
+  // la regola di una lega in parole (con i numeri di questa settimana)
+  function regolaLega(n, lega) {
+    const z = zoneLega(Math.max(n, 1e3), lega), q = zoneLega(n, lega);
+    const parti = [lega >= LEGHE.length - 1 ? t("lega_reg_cima") : t("lega_reg_su", { n: z.su }), z.giu ? t("lega_reg_giu", { n: z.giu }) : t("lega_reg_no_giu")];
+    let x = LEGHE[lega].ico + " " + parti.join(" · ");
+    if (n >= 1 && (q.su !== z.su || q.giu !== z.giu)) x += " — " + t("lega_reg_pochi", { su: q.su, giu: q.giu });
+    return x;
+  }
   // a fine settimana, per ogni difficoltà giocata: posizione, promozione o retrocessione, gara e premi
   function chiudiRisultati() {
     const coda = G.settChiuse || [];
@@ -17520,14 +17890,14 @@
       let nuova = c.lega, esito = "resta";
       if (!c.punti) { if (c.lega > 0) { nuova--; esito = "scende"; } }
       else {
-        const z = zoneLega(n);
-        if (pos <= z.su && c.punti >= SOGLIA_SALITA && c.lega < LEGHE.length - 1) { nuova++; esito = "sale"; }
+        const z = zoneLega(n, c.lega);
+        if (pos <= z.su && c.lega < LEGHE.length - 1) { nuova++; esito = "sale"; }
         else if (z.giu && pos > n - z.giu && c.lega > 0) { nuova--; esito = "scende"; }
       }
       if (c.saltate > 0 && nuova > 0 && esito !== "scende") nuova--;
       if (c.punti > 0) {
         pagine += P.pagine[c.lega];
-        if (pos === 1 && c.punti >= SOGLIA_SALITA) casse.push(P.cassa[c.lega]);
+        if (pos === 1) casse.push(P.cassa[c.lega]);
         if (esito === "sale") pagine += P.sale;
       }
       const corsa = ordinaGara(tutti), gPos = corsa.findIndex(x => x.io) + 1;
@@ -17539,6 +17909,7 @@
       // la lega nuova si applica alla settimana in corso di quella difficoltà
       const L = legaDi(m);
       L.lega = nuova;
+      segnaStagione(m, c.sett, c.sett + 1 + (c.saltate || 0), nuova);
       G.legaMax = Math.max(G.legaMax || 0, nuova);
       righe.push(ICONE_MODO[m] + " " + t("modo_" + m) + ": " + (c.punti > 0 ? t("sett_lega", { lega: nomeLega(c.lega), pos, n }) : t("sett_lega_zero", { lega: nomeLega(c.lega) })));
       righe.push(t("sett_" + esito, { lega: nomeLega(nuova) }));
@@ -17596,6 +17967,99 @@
       mostraPremio({ ico: "🏁", etichetta: t("gara_tit"), titolo: t("gara_fatta_tit"), testo: t("gara_fatta_testo", { n: fmtB(premio) }), classe: "rp-leggendario" });
     }
   }
+  // =====================================================================
+  //  STAGIONE: durante un evento i premi più rari (leggendari e mitici a tema) si vincono solo così:
+  //  chiudendo la stagione in una lega alta, in almeno una difficoltà. Si vede tutto in cima alla lega.
+  // =====================================================================
+  const STAGIONI = [
+    { id: "halloween2026", tema: "halloween", ico: "🎃", fine: Date.UTC(2026, 10, 2), premi: [
+      { lega: 2, oggetti: ["a_vampiro", "e_stregato"] },
+      { lega: 4, oggetti: ["a_mietitore", "e_maledetto"] }
+    ] }
+  ];
+  for (const st of STAGIONI) for (const p of st.premi) for (const id of p.oggetti) { const o = estetico(id); if (o) { o.stagione = st.id; o.legaStagione = p.lega; } }
+  // l'ultima settimana di una stagione (finisce un lunedì a mezzanotte)
+  const ultimaSettStagione = st => settimana(st.fine) - 1;
+  const stagioneInCorso = () => STAGIONI.find(st => st.tema === temaAttivo() && Date.now() < st.fine) || null;
+  const datiStagione = id => { G.stagioni = G.stagioni || {}; return (G.stagioni[id] = G.stagioni[id] || { leghe: {} }); };
+  // quando si chiude una settimana a cavallo della fine di una stagione, si segna la lega con cui la si è finita
+  function segnaStagione(m, da, a, lega) {
+    for (const st of STAGIONI) {
+      const u = ultimaSettStagione(st);
+      if (da <= u && a > u) datiStagione(st.id).leghe[m] = lega;
+    }
+  }
+  // la lega migliore adesso, tra le tre difficoltà
+  const legaMigliore = () => { assicuraLega(); let mx = 0, mm = modoCorrente(); for (const m of MODI) if ((G.leghe[m].lega | 0) > mx) { mx = G.leghe[m].lega | 0; mm = m; } return { lega: mx, modo: mm }; };
+  // a stagione finita (e con tutte le settimane chiuse) arrivano i premi
+  function chiudiStagione() {
+    if (!G || !G.tutorialFatto || (G.settChiuse || []).length) return;
+    for (const st of STAGIONI) {
+      if (Date.now() < st.fine) continue;
+      const x = datiStagione(st.id);
+      if (x.fatta) continue;
+      const migliore = Math.max(0, ...MODI.map(m => x.leghe[m] === undefined ? 0 : x.leghe[m] | 0));
+      const vinti = [];
+      for (const p of st.premi) if (migliore >= p.lega) for (const id of p.oggetti) { if (!possiede(id)) aggiungiOggetto(id); vinti.push(id); }
+      x.fatta = Date.now(); x.lega = migliore; x.vinti = vinti;
+      salva();
+      if (vinti.length) (R.stagioneDaMostrare = R.stagioneDaMostrare || []).push({ st, vinti, lega: migliore });
+    }
+  }
+  function mostraStagione() {
+    const coda = R.stagioneDaMostrare;
+    if (!coda || !coda.length || R.nelMenu || passoTut >= 0 || document.querySelector(".velo.aperto")) return;
+    const x = coda.shift();
+    Suono.fine();
+    const av = x.vinti.find(id => (estetico(id) || {}).t === "a") || x.vinti[0];
+    mostraPremio({ oggetto: av, etichetta: t("stag_etichetta"), titolo: t("stag_vinto_tit"), classe: "rp-leggendario",
+      testo: t("stag_vinto_testo", { lega: nomeLega(x.lega), nomi: x.vinti.map(id => "«" + nomeOggetto(id) + "»").join(", ") }) });
+  }
+  // il riquadro della stagione: i premi grandi, la lega che serve e a che punto sei
+  function disegnaStagione() {
+    const box = $("boxStagione"), st = stagioneInCorso();
+    box.hidden = !st;
+    if (!st) return;
+    $("stbFine").textContent = t("stag_fine", { t: fmtBreve(Math.max(60, (st.fine - Date.now()) / 1000)) });
+    const ora = legaMigliore(), nick = (G.nick || "").trim() || t("cl_anonimo");
+    const chiave = [st.id, L, ora.lega, ora.modo, nick].join("|");
+    if (box.dataset.chiave === chiave) return;
+    box.dataset.chiave = chiave;
+    $("stbIco").textContent = st.ico;
+    $("stbTitolo").textContent = t("stag_tit_" + st.tema);
+    const premi = $("stbPremi");
+    premi.innerHTML = "";
+    for (const p of st.premi) {
+      const d = document.createElement("div");
+      d.className = "stb-livello" + (ora.lega >= p.lega ? " ok" : "");
+      const req = document.createElement("div");
+      req.className = "stb-req";
+      req.textContent = LEGHE[p.lega].ico + " " + t(p.lega >= LEGHE.length - 1 ? "stag_req_top" : "stag_req", { lega: nomeLega(p.lega) });
+      const cose = document.createElement("div");
+      cose.className = "stb-cose";
+      for (const id of p.oggetti) {
+        const o = estetico(id);
+        if (!o) continue;
+        const c = document.createElement("div");
+        c.className = "stb-cosa";
+        if (o.t === "a") { const av = document.createElement("span"); av.className = "avatar-pg"; mostraAvatar(av, id); c.appendChild(av); }
+        else { const nb = document.createElement("span"); nb.className = "stb-nome"; const n = document.createElement("span"); mostraNome(n, nick, "c_nessuno", id); nb.appendChild(n); c.appendChild(nb); }
+        const sm = document.createElement("small");
+        sm.innerHTML = "<b></b>";
+        sm.querySelector("b").textContent = nomeOggetto(id);
+        sm.append(t(o.t === "a" ? "stag_foto" : "stag_nome") + " · " + t("rar_" + o.r));
+        sm.className = "rarc-" + o.r;
+        c.appendChild(sm);
+        cose.appendChild(c);
+      }
+      d.append(req, cose);
+      premi.appendChild(d);
+    }
+    const primo = Math.min(...st.premi.map(p => p.lega));
+    $("stbStato").textContent = ora.lega >= primo ? t("stag_ora_si", { lega: nomeLega(ora.lega) + (MODI.length > 1 ? " (" + ICONE_MODO[ora.modo] + " " + t("modo_" + ora.modo) + ")" : "") })
+      : t("stag_ora_no", { lega: nomeLega(ora.lega), n: primo - ora.lega });
+    $("stbNota").textContent = t("stag_nota");
+  }
   // la parte online: un documento "leghe/<id>" per giocatore con le tre difficoltà, tutti lo leggono
   const Leghe = {
     righe: [], ascolto: null, ultimo: "", ultimaScrittura: 0, caricate: false, errore: false, scrivendo: false,
@@ -17644,6 +18108,8 @@
       if (Online.pronto) this.avvia();
       if ((G.settChiuse || []).length && (this.caricate || Online.disponibile === false || Date.now() - (R.avvioLega || (R.avvioLega = Date.now())) > 30000)) chiudiRisultati();
       if (R.settimanaDaMostrare) mostraSettimana();
+      chiudiStagione();
+      if (R.stagioneDaMostrare && R.stagioneDaMostrare.length && !R.settimanaDaMostrare) mostraStagione();
       if (R.legaSporca) { R.legaSporca = false; R.legaChiave = ""; this.pubblica(); }
       else if (Date.now() - this.ultimaScrittura > 120000) this.pubblica();
       if (vistaAttiva("diario")) disegnaLega();
@@ -17679,12 +18145,13 @@
     document.querySelectorAll("[data-lscheda]").forEach(b => b.setAttribute("aria-pressed", b.dataset.lscheda === scheda));
     $("lsLega").hidden = scheda !== "lega";
     $("lsGara").hidden = scheda !== "gara";
+    disegnaStagione();
     const lg = G.leghe[m], resto = fmtBreve(Math.max(60, (fineSettimana() - Date.now()) / 1000));
     const mio = { lega: lg.lega | 0, punti: Math.round(lg.punti || 0), gRec: lg.gRec || 0, gFatto: lg.gFatto || 0 };
     const statoRete = !Online.disponibile ? t("lega_offline") : Leghe.errore ? t("lega_errore") : !Leghe.caricate ? t("cl_caricamento") : "";
     const tutti = righeSettimana(lg.sett, m, mio);
     const gruppo = ordinaLega(tutti.filter(x => x.lega === mio.lega && (x.punti > 0 || x.io)));
-    const attivi = gruppo.filter(x => x.punti > 0).length, z = zoneLega(attivi);
+    const attivi = gruppo.filter(x => x.punti > 0).length;
     const P = PREMI_LEGA[m], PG = PREMI_GARA[m];
     // intestazione
     $("legaIco").textContent = LEGHE[mio.lega].ico;
@@ -17701,15 +18168,17 @@
     if (R.legaChiave === chiave) return;
     R.legaChiave = chiave;
     // i ranghi: si toccano per vedere chi c'è nelle altre leghe
+    const stStag = stagioneInCorso(), minStag = stStag ? Math.min(...stStag.premi.map(p => p.lega)) : 99;
+    const ultimaSett = stStag && settimana() === ultimaSettStagione(stStag);
     $("legaGradini").innerHTML = "";
     LEGHE.forEach((x, i) => {
       const b = document.createElement("button");
       b.textContent = x.ico; b.title = nomeLega(i); b.setAttribute("aria-label", nomeLega(i));
-      b.className = (i === mio.lega ? "mia" : "") + (i === vista ? " vista" : "");
+      b.className = (i === mio.lega ? "mia" : "") + (i === vista ? " vista" : "") + (stStag && i >= minStag ? " premio-stagione" : "");
       b.onclick = () => { R.legaVista = i; R.legaChiave = ""; disegnaLega(); };
       $("legaGradini").appendChild(b);
     });
-    $("legaPremi").textContent = vista === mio.lega ? "" : t("lega_guardi", { lega: nomeLega(vista) });
+    $("legaPremi").textContent = (vista === mio.lega ? "" : t("lega_guardi", { lega: nomeLega(vista) }) + " ") + regolaLega(ordinaLega(tutti.filter(x => x.lega === vista && x.punti > 0)).length, vista);
     // punti di questa settimana, per fonte
     const fonti = $("legaFonti");
     fonti.innerHTML = "";
@@ -17718,14 +18187,15 @@
     for (const [k, v] of voci) { const sp = document.createElement("span"); sp.innerHTML = "<b></b>"; sp.prepend((FONTI_LEGA[k] || {}).ico + " " + t("lp_" + k) + " "); sp.querySelector("b").textContent = "+" + v; fonti.appendChild(sp); }
     // la classifica della lega guardata, con il premio di ogni posizione e le zone di promozione e retrocessione
     const elenco = ordinaLega(tutti.filter(x => x.lega === vista && (x.punti > 0 || (x.io && vista === mio.lega))));
-    const att = elenco.filter(x => x.punti > 0).length, zz = zoneLega(att);
+    const att = elenco.filter(x => x.punti > 0).length, zz = zoneLega(att, vista);
     $("legaStato").textContent = statoRete || (elenco.length < 2 ? (vista === mio.lega ? t("lega_vuota") : elenco.length ? "" : t("lega_vuota_altra")) : "");
     const premioPos = (k, punti) => {
       if (!(punti > 0)) return "—";
       let pagine = P.pagine[vista];
-      const sale = k < zz.su && punti >= SOGLIA_SALITA && vista < LEGHE.length - 1;
+      const sale = k < zz.su && vista < LEGHE.length - 1, scende = zz.giu && k >= att - zz.giu && vista > 0;
       if (sale) pagine += P.sale;
-      return "🎁 " + (k === 0 && punti >= SOGLIA_SALITA ? nomeCassa(P.cassa[vista]) + " + " : "") + pagine + " 📃";
+      const finale = vista + (sale ? 1 : 0) - (scende ? 1 : 0);
+      return "🎁 " + (k === 0 ? nomeCassa(P.cassa[vista]) + " + " : "") + pagine + " 📃" + (ultimaSett && finale >= minStag ? " + " + t("stag_riga") : "");
     };
     const ll = $("listaLega");
     ll.innerHTML = "";
@@ -17739,7 +18209,7 @@
         else if (zonaPrima) separatore("sep-resta", t("lega_zona_resta"));
         zonaPrima = zona;
       }
-      const sotto = premioPos(k, r.punti) + (zona === "su" && r.punti < SOGLIA_SALITA ? " · " + t("lega_servono", { n: SOGLIA_SALITA - r.punti }) : "");
+      const sotto = premioPos(k, r.punti);
       const li = rigaClassifica(r, t("lega_pt", { n: fmt(r.punti) }), sotto);
       li.querySelector(".pos").textContent = medaglia(k);
       li.classList.add("zona-" + zona);
@@ -17977,7 +18447,7 @@
   const operaVisibile = o => !o.tema || o.tema === temaAttivo() || o.id === (G && G.operaId);
   const fineTema = () => "";
   function oggettoTema(tema) {
-    const lista = ESTETICI.filter(x => x.tema === tema && !possiede(x.id));
+    const lista = ESTETICI.filter(x => x.tema === tema && !x.stagione && !possiede(x.id));
     return lista.length ? lista[Math.floor(Math.random() * lista.length)] : null;
   }
   function premioOggettoTema(ogg) {
@@ -18046,11 +18516,11 @@
     }
   }
 
-  // ---------- atmosfera dell'evento in tutte le schermate (si può spegnere nelle impostazioni) ----------
+  // ---------- atmosfera dell'evento in tutte le schermate (sempre accesa durante l'evento) ----------
   const SVG_PIPISTRELLO = '<svg viewBox="0 0 40 20" aria-hidden="true"><path d="M20 9C17 3 9 2 0 6c5 1 7 4 6 8 4-3 8-2 11 1 1-2 2-3 3-3s2 1 3 3c3-3 7-4 11-1-1-4 1-7 6-8-9-4-17-3-20 3z" fill="#1b0d22"/><circle cx="18.6" cy="8.6" r=".7" fill="#ff9a2e"/><circle cx="21.4" cy="8.6" r=".7" fill="#ff9a2e"/></svg>';
   function aggiornaAtmosfera() {
     if (!document.body) return;
-    const tema = temaAttivo(), on = !!tema && !(G && G.imp && G.imp.atmosfera === false);
+    const tema = temaAttivo(), on = !!tema;
     document.body.classList.toggle("atmo-halloween", on && tema === "halloween");
     document.body.classList.toggle("atmo-natale", on && tema === "natale");
     if (!$("atmo")) {
@@ -18064,28 +18534,63 @@
     if (!on || tema !== "halloween" || document.hidden || !R || (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
     const ora = Date.now();
     if (!R.prossimoPipistrello) R.prossimoPipistrello = ora + 6000;
-    if (ora < R.prossimoPipistrello || $("atmoVolo").children.length >= 2) return;
-    R.prossimoPipistrello = ora + 18000 + Math.random() * 26000;
-    const quanti = Math.random() < 0.3 ? 2 : 1;
+    if (ora < R.prossimoPipistrello || $("atmoVolo").children.length) return;
+    R.prossimoPipistrello = ora + 22000 + Math.random() * 28000;
+    // uno stormo di pipistrelli piccoli che passa insieme (uno solo sembrerebbe qualcosa da toccare)
+    const quanti = 5 + Math.floor(Math.random() * 5), alto = 80 + Math.random() * (window.innerHeight || 700) * 0.3, durata = 10 + Math.random() * 4;
     for (let k = 0; k < quanti; k++) {
       const p = document.createElement("div");
       p.className = "pipistrello-fx";
       p.innerHTML = SVG_PIPISTRELLO;
-      const dur = 9 + Math.random() * 6;
-      p.style.top = Math.round(90 + Math.random() * (window.innerHeight || 700) * 0.35 + k * 30) + "px";
+      const dur = durata + (Math.random() - 0.5) * 1.6, ritardo = k * 0.18 + Math.random() * 0.5;
+      p.style.top = Math.round(alto + (Math.random() - 0.5) * 80) + "px";
       p.style.setProperty("--t", dur.toFixed(1) + "s");
-      p.style.setProperty("--w", Math.round(26 + Math.random() * 16) + "px");
-      p.style.animationDelay = (k * 0.6).toFixed(1) + "s";
+      p.style.setProperty("--w", Math.round(14 + Math.random() * 12) + "px");
+      p.style.opacity = (0.5 + Math.random() * 0.35).toFixed(2);
+      p.style.animationDelay = ritardo.toFixed(2) + "s";
       $("atmoVolo").appendChild(p);
-      setTimeout(() => p.remove(), (dur + 2) * 1000);
+      setTimeout(() => p.remove(), (dur + ritardo + 1.5) * 1000);
     }
+  }
+
+  // la luna di Halloween, disegnata a pixel come il resto del gioco: piena, con i crateri e la luce da sinistra
+  function lunaPixel() {
+    const D = 32, cv = document.createElement("canvas");
+    cv.width = cv.height = D;
+    const ctx = cv.getContext && cv.getContext("2d");
+    if (!ctx) return "";
+    const c = 15.5, r = 13;
+    const crateri = [[11, 12, 2.6], [19.5, 19, 3.2], [21, 9.5, 1.5]];
+    for (let y = 0; y < D; y++) for (let x = 0; x < D; x++) {
+      const dx = x + 0.5 - c, dy = y + 0.5 - c, d = Math.hypot(dx, dy);
+      if (d > r) continue;
+      // crema chiara, un po' più scura in basso a destra e un filo d'ombra sul bordo
+      let col = "#fff2c8";
+      if (dx + dy > r * 0.6) col = "#f6e0a6";
+      if (d > r - 1.2 && dx + dy > 0) col = "#e8c983";
+      if (dx + dy < -r * 0.75) col = "#fffbea";
+      for (const [cx, cy, cr] of crateri) {
+        const ex = x + 0.5 - cx, ey = y + 0.5 - cy, e = Math.hypot(ex, ey);
+        if (e < cr) col = ex + ey < -cr * 0.35 ? "#e3c88c" : "#eed59c";
+        else if (e < cr + 0.9 && ex + ey > cr * 0.4) col = "#fffbea";
+      }
+      ctx.fillStyle = col; ctx.fillRect(x, y, 1, 1);
+    }
+    return cv.toDataURL();
+  }
+  for (const id of ["sipario", "menuIniziale"]) {
+    const el = $(id);
+    if (!el) continue;
+    const im = document.createElement("img");
+    im.className = "luna-pix"; im.alt = ""; im.setAttribute("aria-hidden", "true"); im.src = lunaPixel();
+    el.prepend(im);
   }
 
   // =====================================================================
   //  ICONE IN PIXEL ART: le emoji delle icone si ridisegnano a pixel, con colori ridotti e il contorno scuro degli avatar
   // =====================================================================
   const PIX_ICONE = new Map();
-  const SEL_ICONE = ".ico, .sg-ico, .ol-ico, .grande-ico, .esito-ico, .ic-bonus, .se-ico, .nodo, .fiamma, .vr-premio, .lega-gradini button, .tondo, #bApriBiblioteca, #cesto, .ev-ico, .gioco-carta .ico";
+  const SEL_ICONE = ".ico, .sg-ico, .ol-ico, .grande-ico, .esito-ico, .ic-bonus, .se-ico, .nodo, .fiamma, .vr-premio, .lega-gradini button, .tondo, #bApriBiblioteca, #cesto, .ev-ico, .gioco-carta .ico, .stb-ico";
   const segmentatore = typeof Intl !== "undefined" && Intl.Segmenter ? new Intl.Segmenter(undefined, { granularity: "grapheme" }) : null;
   const unaEmoji = x => {
     const v = x.trim();
@@ -20033,12 +20538,15 @@
       { sel: "#bApriBiblioteca", testo: "tour14_3", vista: "opera" }
     ] },
     { v: 66, voci: 6, chiave: "nov15_", passi: [
-      { sel: "#riquadroLega", testo: "tour15_1", vista: "diario" },
-      { sel: "#bImpostazioni", testo: "tour15_2", vista: "opera" }
+      { sel: "#riquadroLega", testo: "tour15_1", vista: "diario" }
     ] },
     { v: 67, voci: 6, chiave: "nov16_", passi: [
       { sel: "#boxSerie", testo: "tour16_1", vista: "traguardi" },
       { sel: "#legaGradini", testo: "tour16_2", vista: "diario" }
+    ] },
+    { v: 68, voci: 3, chiave: "nov17_", passi: [] },
+    { v: 69, voci: 4, chiave: "nov18_", passi: [
+      { sel: "#boxStagione", testo: "tour18_1", vista: "diario" }
     ] }
   ];
   const VERSIONE_NOVITA = GRUPPI_NOVITA[GRUPPI_NOVITA.length - 1].v;
@@ -20087,9 +20595,6 @@
 
     const tm = TEMI.find(x => x.id === G.imp.tema) || TEMI[0];
     $("impTemaNome").textContent = nomeTema(tm);
-    $("rigaAtmo").hidden = !temaAttivo();
-    $("bAtmo").setAttribute("aria-pressed", G.imp.atmosfera !== false);
-    $("atmoSotto").textContent = temaAttivo() ? t("imp_atmo_" + temaAttivo()) : "";
     $("bMenuPrincipale").hidden = !!R.nelMenu;
   }
   function apriImpostazioni() {
@@ -20115,7 +20620,7 @@
   const CAMPI_SESSIONE = ["banane", "liv", "cuccioli", "raccolto", "raccoltoRun", "tasti", "lettere", "tempo", "completate", "completateRun",
     "operaId", "testoMio", "record", "recordChi", "recordTs", "linguaOpera", "modoOpera", "opereFatte", "livello", "scalaLivello", "archivio", "lunghe", "lungheModo",
     "fraseMio", "fraseMioModo", "parole", "parolaMax", "pagine", "pagineTot", "pubblicazioni", "talenti", "auto", "traguardi",
-    "diario", "diarioTarget", "ultimaTappa", "pagineComprate", "riequilibrato", "tariffa1", "tariffa2", "economia48", "dimezzo1"];
+    "diario", "diarioTarget", "ultimaTappa", "pagineComprate", "riequilibrato", "tariffa1", "tariffa2", "economia48", "dimezzo1", "zaino", "bonusAttivi"];
   function cambiaSessione(da, a) {
     G.sessioni = G.sessioni || {};
     const vecchia = {};
@@ -20265,7 +20770,7 @@
     $("bAntChiudi").onclick = () => chiudi("veloAnteprima");
     $("veloAnteprima").onclick = e => { if (e.target.id === "veloAnteprima") chiudi("veloAnteprima"); };
     $("bNotifiche").onclick = cambiaNotifiche;
-    $("bAtmo").onclick = () => { G.imp.atmosfera = G.imp.atmosfera === false; salva(); scriviImpostazioni(); aggiornaAtmosfera(); };
+
     $("veloPagina").onclick = e => { if (e.target.id === "veloPagina") chiudi("veloPagina"); };
     $("cesto").onclick = raccogliCesto;
     $("bEvInfo").onclick = apriInfoEventi;
