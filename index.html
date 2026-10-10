@@ -996,6 +996,9 @@
   .serie-premio-oggi small { display: block; font-size: 12px; color: var(--spento); font-weight: 700; }
   .serie-premio-oggi b { display: block; font-size: 16px; color: var(--banana); }
   .serie-pop .serie-traccia { margin-bottom: 8px; }
+  .bv-lista { list-style: none; padding: 0; margin: 8px 0 14px; display: grid; gap: 8px; text-align: left; }
+  .bv-lista li { background: var(--foglia-2); border-radius: 12px; padding: 10px 12px; font-size: 14.5px; line-height: 1.4; }
+  .serie-modo { margin: -6px 0 4px; font-size: 13px; font-weight: 800; color: var(--spento); }
   .serie-sotto { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 9px; font-size: 13px; color: var(--testo-2); line-height: 1.35; }
   .btn-ritira { border: 0; border-radius: 12px; padding: 8px 14px; font: inherit; font-weight: 800; font-size: 13.5px; background: var(--banana); color: var(--banana-inchiostro); box-shadow: 0 3px 0 var(--banana-ombra); white-space: nowrap; cursor: pointer; }
   .btn-ritira:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--banana-ombra); }
@@ -1031,10 +1034,15 @@
   .carta-gara { background: var(--carta); color: var(--inchiostro); font-family: var(--tasti); font-size: 16px; line-height: 1.45; border-radius: 12px; padding: 12px 14px; margin: 0 0 8px; word-break: break-word; }
   .carta-gara mark { background: rgba(116, 211, 148, .55); color: inherit; border-radius: 3px; }
   .carta-gara small { display: block; font-family: var(--ui); font-size: 12px; color: #6b6355; margin-top: 4px; }
-  .lista-lega li.zona-su { box-shadow: inset 4px 0 0 #4ade80; }
-  .lista-lega li.zona-giu { box-shadow: inset 4px 0 0 var(--nastro); }
-  .lista-lega li.io.zona-su { box-shadow: inset 0 0 0 2px var(--banana), inset 4px 0 0 #4ade80; }
-  .lista-lega li.io.zona-giu { box-shadow: inset 0 0 0 2px var(--banana), inset 4px 0 0 var(--nastro); }
+  .lista-lega li.zona-su { box-shadow: inset 0 0 0 2px #4ade80; background: rgba(74, 222, 128, .08); }
+  .lista-lega li.zona-giu { box-shadow: inset 0 0 0 2px var(--nastro); background: rgba(226, 82, 62, .08); }
+  .lista-lega li.io.zona-su, .lista-lega li.io.zona-giu, .lista-lega li.io.zona-resta { outline: 2px solid var(--banana); outline-offset: 2px; }
+  .lista-lega li .chi small { color: var(--banana); font-weight: 700; }
+  .lista-lega li.lega-sep { display: block; cursor: default; padding: 4px 6px 0; background: none; box-shadow: none; font-size: 12.5px; font-weight: 800; letter-spacing: .2px; }
+  .lega-sep.sep-su { color: #4ade80; } .lega-sep.sep-giu { color: #ff8a7a; } .lega-sep.sep-resta { color: var(--spento); }
+  .lega-gradini button { background: none; border: 0; padding: 2px 4px 4px; font-size: 22px; line-height: 1; cursor: pointer; opacity: .45; border-bottom: 3px solid transparent; border-radius: 6px; }
+  .lega-gradini button.mia { opacity: 1; filter: drop-shadow(0 0 6px rgba(255, 210, 63, .5)); }
+  .lega-gradini button.vista { opacity: 1; border-bottom-color: var(--banana); }
   .lega-punti { margin: 6px 0 4px; font-size: 13.5px; color: var(--testo-2); }
   .lega-punti summary { cursor: pointer; font-weight: 800; color: var(--banana); padding: 4px 0; }
   .lega-punti ul { margin: 6px 0 0; padding-left: 18px; display: grid; gap: 3px; }
@@ -1073,6 +1081,10 @@
   .battesimo[hidden] { display: none; }
   .battezzata { margin: 0 0 12px; font-weight: 800; color: var(--banana); }
   .lista-famose { display: grid; gap: 7px; }
+  .pa-nome { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin: 0 0 10px; }
+  .pa-nome b { color: var(--banana); }
+  .pa-nome input { flex: 1; min-width: 0; font: inherit; font-size: 15px; padding: 8px 10px; border-radius: 10px; border: 1px solid var(--linea); background: var(--notte); color: var(--testo); }
+  .pa-nome button.mini { width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--bordo); background: var(--foglia-2); font-size: 16px; padding: 0; }
   .famosa { display: grid; grid-template-columns: 34px 1fr auto; gap: 2px 10px; align-items: center; background: var(--foglia-2); border-radius: 12px; padding: 8px 10px; }
   .famosa .fam-azioni { grid-row: span 2; display: flex; gap: 4px; }
   .famosa .fam-azioni button { width: 32px; height: 32px; border-radius: 10px; border: 1px solid var(--bordo); background: var(--foglia-1); font-size: 15px; padding: 0; }
@@ -1149,6 +1161,11 @@
   body.atmo-halloween .mi-dentro h1::before, body.atmo-halloween .mi-dentro h1::after { content: "🎃"; display: inline-block; font-size: .62em; margin: 0 8px; vertical-align: middle; animation: atmo-dondola 3s ease-in-out infinite; }
   body.atmo-halloween .mi-dentro h1::after { animation-delay: -1.5s; }
   body.atmo-halloween .velo-tema.halloween { background: radial-gradient(ellipse at 50% 45%, transparent 52%, rgba(255, 120, 20, .08) 78%, rgba(90, 20, 140, .26) 100%); }
+
+  /* icone in pixel art */
+  img.pix-ico { width: 1.15em; height: 1.15em; image-rendering: pixelated; image-rendering: crisp-edges; vertical-align: -0.22em; display: inline-block; pointer-events: none; }
+  .tondo img.pix-ico { width: 1.25em; height: 1.25em; vertical-align: -0.25em; }
+  .grande-ico img.pix-ico, .esito-ico img.pix-ico, .vr-premio img.pix-ico { width: 1.1em; height: 1.1em; }
 
   /* =============== DIARIO =============== */
   .info { display: grid; gap: 8px; font-size: 15px; }
@@ -1446,6 +1463,28 @@
     transition: opacity .7s ease, visibility .7s;
   }
   .sipario.via { opacity: 0; visibility: hidden; transition: opacity .7s ease, visibility .7s; }
+  .sip-nebbia, .sip-lampo { display: none; }
+  /* Halloween: notte, luna rossa, nebbia, fulmini, lettere che grondano e pipistrelli che escono dal foglio */
+  .sipario.spaventoso { background: radial-gradient(circle at 78% 16%, #ffcfb8 0 24px, #e0613f 25px 28px, rgba(255, 80, 50, .25) 29px 46px, rgba(150, 20, 40, .12) 47px 120px, transparent 121px),
+    radial-gradient(90% 60% at 50% 45%, #2a0f33 0%, #08040b 78%), #08040b; overflow: hidden; }
+  .sipario.spaventoso .sip-nebbia { display: block; position: absolute; left: -50%; right: -50%; bottom: -5%; height: 55%; opacity: .8; pointer-events: none;
+    background: radial-gradient(ellipse 18% 45% at 15% 75%, rgba(190, 170, 210, .18), transparent 70%), radial-gradient(ellipse 22% 50% at 45% 85%, rgba(190, 170, 210, .14), transparent 70%),
+      radial-gradient(ellipse 20% 45% at 75% 70%, rgba(190, 170, 210, .17), transparent 70%); animation: atmo-nebbia 14s linear infinite alternate; }
+  .sipario.spaventoso .sip-lampo { display: block; position: absolute; inset: 0; background: #e8e0ff; opacity: 0; pointer-events: none; }
+  .sipario.spaventoso .sip-lampo.via { animation: sip-fulmine .9s ease-out; }
+  @keyframes sip-fulmine { 0% { opacity: 0; } 6% { opacity: .85; } 12% { opacity: .1; } 18% { opacity: .65; } 100% { opacity: 0; } }
+  .sipario.spaventoso .sip-chi { color: #b693ff; text-shadow: 0 0 8px rgba(168, 85, 247, .8); animation: sip-tremola 2.2s steps(1) infinite; }
+  @keyframes sip-tremola { 0%, 100% { opacity: 1; } 47% { opacity: .35; } 49% { opacity: 1; } 83% { opacity: .55; } 85% { opacity: 1; } }
+  .sipario.spaventoso .sip-foglio { background: #e2d2b0; color: #3a0a0a; box-shadow: inset 0 0 34px rgba(90, 30, 0, .55), 0 8px 0 -3px #b8a47c, 0 16px 0 -6px #9c8762, 0 22px 40px -8px rgba(120, 0, 30, .7);
+    animation: sip-brivido 4s ease-in-out infinite; }
+  @keyframes sip-brivido { 0%, 90%, 100% { transform: none; } 92% { transform: translate(-2px, 1px) rotate(-.4deg); } 94% { transform: translate(2px, -1px) rotate(.4deg); } 96% { transform: translate(-1px, 0); } }
+  .sipario.spaventoso .sip-sbagliata { color: #2bff5a; text-shadow: 0 0 8px rgba(43, 255, 90, .8); animation: sip-cola 1.2s ease-in forwards; }
+  @keyframes sip-cola { to { transform: rotate(-8deg) translateY(10px) scaleY(1.4); opacity: .2; filter: blur(1px); } }
+  .sipario.spaventoso .sip-cursore { background: #b3001b; box-shadow: 0 0 6px #ff2a3a; }
+  .sipario.spaventoso.finale .sip-foglio { color: #ff7a1a; text-shadow: 0 0 10px rgba(255, 122, 26, .9), 0 0 22px rgba(255, 60, 0, .6); background: #1c0d10; }
+  .sip-pipistrello { position: absolute; left: 50%; top: 50%; width: 34px; height: 17px; pointer-events: none; animation: sip-volo 1.6s cubic-bezier(.2, .6, .4, 1) forwards; }
+  .sip-pipistrello svg { width: 100%; height: 100%; animation: atmo-ali .16s ease-in-out infinite alternate; }
+  @keyframes sip-volo { from { transform: translate(-50%, -50%) scale(.3); opacity: 0; } 15% { opacity: 1; } to { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.3); opacity: 0; } }
   .sip-dentro { width: min(100%, 520px); text-align: center; animation: sip-entra .6s cubic-bezier(.2, .8, .2, 1) both; }
   .sip-chi { color: var(--spento); font-size: 14px; font-weight: 700; min-height: 1.4em; margin-bottom: 10px; }
   .sip-foglio {
@@ -1544,6 +1583,7 @@
 
 <!-- =============== APERTURA: la scimmietta che batte a macchina, poi il menu =============== -->
 <div class="sipario" id="sipario" aria-hidden="true">
+  <div class="sip-nebbia" aria-hidden="true"></div><div class="sip-lampo" id="sipLampo" aria-hidden="true"></div>
   <div class="sip-dentro">
     <div class="sip-chi" id="sipChi">🐒</div>
     <div class="sip-foglio"><span id="sipTesto"></span><span class="sip-cursore"></span></div>
@@ -1808,10 +1848,6 @@
         <div><small data-t="st_frasi"></small><strong id="sFrasi"></strong></div>
         <div><small data-t="st_parola_max"></small><strong id="sParolaMax"></strong></div>
       </div>
-    <div class="riquadro">
-      <h3>⭐ <span data-t="fam_tit"></span></h3>
-      <div class="lista-famose" id="listaFamose"></div>
-    </div>
     <div class="riquadro riquadro-lega" id="riquadroLega">
       <h3 data-t="lega_finestra"></h3>
       <div class="segmenti modi-cl" role="group" id="legaModi">
@@ -1930,7 +1966,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 66</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 67</p>
   </div>
 </div>
 
@@ -1958,6 +1994,7 @@
       <p class="pa-testo" id="paTesto"></p>
       <p class="pa-firma" id="paFirma"></p>
     </div>
+    <div class="pa-nome" id="paNome"></div>
     <p class="tappe-info" id="paInfo"></p>
     <div class="azioni">
       <button class="pulsante" id="bCondividiPagina" data-t="cond_btn"></button>
@@ -2388,10 +2425,20 @@
     <div class="azioni"><button class="pulsante" id="bVrOk" data-t="ruota_ok"></button></div>
   </div>
 </div>
+<div class="velo centro sopra" id="veloBenvenuto">
+  <div class="finestra benvenuto" role="dialog" aria-modal="true" aria-labelledby="titBenvenuto">
+    <div class="grande-ico">🐒</div>
+    <h2 id="titBenvenuto" data-t="bv_tit"></h2>
+    <p data-t="bv_testo"></p>
+    <ul class="bv-lista"><li data-t="bv_1"></li><li data-t="bv_2"></li><li data-t="bv_3"></li></ul>
+    <div class="azioni"><button class="pulsante" id="bBenvenuto" data-t="bv_ok"></button></div>
+  </div>
+</div>
 <div class="velo centro sopra" id="veloSerie">
   <div class="finestra serie-pop" role="dialog" aria-modal="true" aria-labelledby="titSerie">
     <div class="serie-fuoco" aria-hidden="true"><span class="fiamma">🔥</span><b id="serieNumero"></b></div>
     <h2 id="titSerie"></h2>
+    <p class="serie-modo" id="serieModo"></p>
     <div class="serie-premio-oggi"><span class="ico" id="seriePremioIco"></span><span><small data-t="serie_oggi_vinci"></small><b id="seriePremioNome"></b></span></div>
     <div class="serie-giorni" id="serieGiorni2"></div>
     <p class="sotto" id="testoSerie"></p>
@@ -3273,10 +3320,10 @@
       sc_togli: "Togli",
       sc_valute_nota: "Scrivi quante e premi Metti. Per toglierle premi ✕ nella tua offerta o metti 0.",
       rimborso_squadra: "📃 Il talento «Squadra iniziale» non c'è più (ora si rinasce sempre con 150 scimmie): ti restituisco {n} Pagine d'oro.",
-      tut_chiedi_tit: "Rivedere il tutorial?",
-      tut_chiedi_reset: "Hai ricominciato da capo. Vuoi rivedere il tutorial passo per passo?",
-      tut_chiedi_modo: "Hai cambiato difficoltà. Vuoi rivedere il tutorial passo per passo?",
-      tut_chiedi_si: "Sì, rivedilo",
+      tut_chiedi_tit: "Rivedere le spiegazioni?",
+      tut_chiedi_reset: "Hai ricominciato da capo. Vuoi che ti rispieghi ogni schermata la prima volta che la apri?",
+      tut_chiedi_modo: "Hai cambiato difficoltà. Vuoi che ti rispieghi ogni schermata la prima volta che la apri?",
+      tut_chiedi_si: "Sì, spiegami",
       tut_chiedi_no: "No, grazie",
       ev_sorpresa: "Prossimo evento: a sorpresa",
       nov10_1: "📜 Livelli nuovi: ognuno ha almeno 2 lettere in più del precedente e, dove si può, la stessa lunghezza in tutte le lingue (la frase cambia da lingua a lingua). Le altre frasi diventano «frasi libere»",
@@ -3555,7 +3602,7 @@
       gd_n_oggi: "🎯 Missioni, serie e lega",
       gd_n_lega: "🏅 Classifiche di lega e gara",
       gd_n_album: "📖 Album degli autori",
-      gd_oggi_1: "🔥 Torna ogni giorno, in qualunque difficoltà: il premio cresce fino al 7° giorno (una Cassa d'argento). Se salti un giorno la serie riparte.",
+      gd_oggi_1: "🔥 Torna ogni giorno: il premio cresce fino al 7° giorno (una Cassa d'oro). Ogni difficoltà ha la sua serie; se salti un giorno riparte.",
       gd_oggi_2: "🎯 Tre missioni nuove ogni giorno. Ognuna dà banane e punti lega; tutte e tre insieme Pagine d'oro e un bonus per lo zaino.",
       gd_oggi_3: "🏅 Tutto quello che fai vale punti lega. Il lunedì i migliori salgono di lega e gli ultimi scendono, con premi per tutti.",
       gd_oggi_4: "🏁 La gara della settimana: la stessa frase per tutti, scritta da scimmie uguali per tutti mentre giochi. Vince chi la finisce prima.",
@@ -3590,10 +3637,62 @@
       nov15_2: "🏅 Leghe e gara sono nel Diario e sono separate per difficoltà: più è difficile, più i premi sono rari. I punti ora sono chiari: vedi da dove arrivano",
       nov15_3: "✨ Scritte animate rifatte: ognuna si muove in modo diverso e usa il colore che scegli per il nome",
       nov15_4: "⭐ Scimmie famose: un nome proposto col dado 🎲, e dal Diario puoi cambiarlo o toglierlo (si aggiorna anche nelle pagine già scritte)",
-      nov15_5: "🔥 Serie di accessi più bella e valida per tutte le difficoltà, anche dal menu; premi di serie e missioni ribilanciati",
+      nov15_5: "🔥 Serie di accessi più bella; premi di serie e missioni ribilanciati",
       nov15_6: "⚖️ Le specializzazioni arrivano dopo la prima rinascita, una alla volta (le ×2 dopo la terza); la rinascita si spiega da sola appena puoi farla",
       tour15_1: "🏅 La tua lega e la gara della settimana ora sono qui, divise per difficoltà. Sotto vedi da dove arrivano i tuoi punti.",
-      tour15_2: "🕸️ Se l'atmosfera di Halloween ti disturba, la spegni nelle Impostazioni."
+      tour15_2: "🕸️ Se l'atmosfera di Halloween ti disturba, la spegni nelle Impostazioni.",
+      lega_guardi: "👀 Stai guardando la {lega}: tocca il tuo rango per tornare alla tua.",
+      lega_vuota_altra: "Nessuno in questa lega per ora.",
+      lega_zona_su: "⬆️ Salgono in {lega} (con almeno {s} punti)",
+      lega_zona_giu: "⬇️ Scendono in {lega}",
+      lega_zona_resta: "➡️ Restano in questa lega",
+      lega_servono: "mancano {n} punti per salire",
+      pa_dai_nome: "Dai un nome alla scimmia",
+      trg_mis: "Missionario",
+      trg_srs: "Fedele",
+      trg_rt: "Girandola",
+      trg_mg: "Giocatore",
+      trg_cs: "Scassinatore",
+      trg_lg: "Scalatore",
+      trg_gr: "Corridore",
+      trg_al: "Collezionista di autori",
+      trg_pg: "Archivio",
+      trg_hw: "Cacciatore di mostri",
+      desc_mis: "Completa tutte e 3 le missioni del giorno {n} volte",
+      desc_srs: "Arriva a {n} giorni di fila nella serie di accessi",
+      desc_rt: "Gira la ruota della fortuna {n} volte",
+      desc_mg: "Gioca {n} partite ai minigiochi",
+      desc_cs: "Apri {n} casse",
+      desc_gr: "Finisci {n} gare della settimana",
+      desc_al: "Completa {n} album degli autori",
+      desc_pg: "Raccogli {n} pagine autografe",
+      desc_hw: "Trova {n} oggetti di Halloween",
+      bv_tit: "Benvenuto in Scimmie infinite!",
+      bv_testo: "Infinite scimmie battono a caso sulle macchine da scrivere: prima o poi scriveranno qualsiasi frase. Tu le aiuti a farlo prima.",
+      bv_1: "🧭 Esplora il gioco come vuoi: la prima volta che apri una schermata ti spiego come funziona.",
+      bv_2: "🍌 Le lettere giuste valgono banane: con le banane compri scimmie e potenziamenti.",
+      bv_3: "📜 Quando una scimmia completa la frase, passi al livello successivo, un po' più lungo.",
+      bv_ok: "Esploriamo!",
+      gd_n_opera: "📜 La frase e le scimmie",
+      gd_n_negozio: "🍌 Comprare scimmie e velocità",
+      gd_opera_1: "📜 Le scimmie battono a caso per scrivere questa frase: le lettere evidenziate sono il record, quelle giuste di fila.",
+      gd_opera_2: "🍌 Qui vedi le tue banane: ogni lettera giusta ne porta un po', anche a gioco chiuso.",
+      gd_opera_3: "📚 Qui apri la Biblioteca: cambi frase e vedi i livelli.",
+      gd_opera_4: "👉 In Potenzia compri altre scimmie e le fai battere più veloci: provaci!",
+      gd_neg_1: "🐒 Compra scimmie: più sono, più tasti battono. Tieni premuto per comprarne tante di fila.",
+      gd_neg_2: "⚡ Qui rendi le scimmie più veloci con oggetti e miglioramenti.",
+      gd_neg_3: "🔢 Scegli quanti comprarne alla volta: ×10, ×100 o il massimo che puoi.",
+      gd_trag_1: "🏆 Traguardi: quando ne raggiungi uno si illumina, toccalo per riscuotere le banane.",
+      nov16_1: "🔥 Ogni difficoltà ha la sua serie di accessi, che compare quando apri la partita: Cassa di legno il 1° giorno, d'argento il 3°, d'oro il 7°",
+      nov16_2: "🏅 Classifica della lega più chiara: accanto a ogni posto vedi il premio, le zone per salire e scendere sono evidenziate e toccando i ranghi vedi le altre leghe",
+      nov16_3: "🎨 Nuovo colore «Nessuno»: le scritte animate tornano al loro colore originale",
+      nov16_4: "🏆 30 traguardi nuovi: missioni, serie, ruota, minigiochi, casse, leghe, gare, album, pagine e Halloween",
+      nov16_5: "👾 Le icone del gioco sono disegnate a pixel, come gli avatar; e ad Halloween anche l'apertura fa paura",
+      nov16_6: "⭐ Il nome di una scimmia ora si dà, cambia o toglie dalla sua pagina autografa (Biblioteca → Pagine)",
+      tour16_1: "🔥 Questa è la serie della difficoltà in cui stai giocando: ogni difficoltà ha la sua.",
+      tour16_2: "🏅 Tocca i ranghi per vedere chi c'è nelle altre leghe.",
+      desc_lgs: "Arriva in {lega}",
+      trg_lgs: "Scalatore"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -4436,10 +4535,10 @@
       sc_togli: "Remove",
       sc_valute_nota: "Type how many and press Add. To remove them press ✕ in your offer or add 0.",
       rimborso_squadra: "📃 The “Starting crew” talent is gone (rebirths now always start with 150 monkeys): you get back {n} Golden Pages.",
-      tut_chiedi_tit: "See the tutorial again?",
-      tut_chiedi_reset: "You started over. Do you want to see the step-by-step tutorial again?",
-      tut_chiedi_modo: "You changed difficulty. Do you want to see the step-by-step tutorial again?",
-      tut_chiedi_si: "Yes, show it",
+      tut_chiedi_tit: "See the explanations again?",
+      tut_chiedi_reset: "You started over. Want me to explain each screen again the first time you open it?",
+      tut_chiedi_modo: "You changed difficulty. Want me to explain each screen again the first time you open it?",
+      tut_chiedi_si: "Yes, explain",
       tut_chiedi_no: "No, thanks",
       ev_sorpresa: "Next event: a surprise",
       nov10_1: "📜 New levels: each has at least 2 more letters than the last and, where possible, the same length in every language (the phrase changes from language to language). The other phrases become “free phrases”",
@@ -4718,7 +4817,7 @@
       gd_n_oggi: "🎯 Missions, streak and league",
       gd_n_lega: "🏅 League and race rankings",
       gd_n_album: "📖 Author albums",
-      gd_oggi_1: "🔥 Come back every day, in any difficulty: the prize grows up to day 7 (a Silver crate). Skip a day and the streak restarts.",
+      gd_oggi_1: "🔥 Come back every day: the prize grows up to day 7 (a Gold crate). Each difficulty has its own streak; skip a day and it restarts.",
       gd_oggi_2: "🎯 Three new missions every day. Each gives bananas and league points; all three together Golden pages and a backpack boost.",
       gd_oggi_3: "🏅 Everything you do earns league points. On Monday the best move up a league and the last move down, with prizes for everyone.",
       gd_oggi_4: "🏁 The weekly race: the same phrase for everyone, typed by the same monkeys for everyone while you play. Whoever finishes first wins.",
@@ -4753,10 +4852,62 @@
       nov15_2: "🏅 Leagues and the race are in the Journal and split by difficulty: the harder it is, the rarer the prizes. Points are now clear: you see where they come from",
       nov15_3: "✨ Name effects remade: each one moves differently and uses the colour you pick for your name",
       nov15_4: "⭐ Famous monkeys: a suggested name with the dice 🎲, and from the Journal you can change or remove it (pages already written update too)",
-      nov15_5: "🔥 A nicer login streak that counts for every difficulty, even from the menu; streak and mission prizes rebalanced",
+      nov15_5: "🔥 A nicer login streak; streak and mission prizes rebalanced",
       nov15_6: "⚖️ Specialisations arrive after the first rebirth, one at a time (the ×2 ones after the third); rebirth explains itself as soon as you can do it",
       tour15_1: "🏅 Your league and the weekly race are now here, split by difficulty. Below you see where your points come from.",
-      tour15_2: "🕸️ If the Halloween atmosphere bothers you, switch it off in Settings."
+      tour15_2: "🕸️ If the Halloween atmosphere bothers you, switch it off in Settings.",
+      lega_guardi: "👀 You're looking at the {lega}: tap your rank to go back to yours.",
+      lega_vuota_altra: "Nobody in this league right now.",
+      lega_zona_su: "⬆️ Moving up to {lega} (with at least {s} points)",
+      lega_zona_giu: "⬇️ Moving down to {lega}",
+      lega_zona_resta: "➡️ Staying in this league",
+      lega_servono: "{n} more points to move up",
+      pa_dai_nome: "Name the monkey",
+      trg_mis: "Missionary",
+      trg_srs: "Loyal",
+      trg_rt: "Spinner",
+      trg_mg: "Gamer",
+      trg_cs: "Crate cracker",
+      trg_lg: "Climber",
+      trg_gr: "Runner",
+      trg_al: "Author collector",
+      trg_pg: "Archive",
+      trg_hw: "Monster hunter",
+      desc_mis: "Complete all 3 daily missions {n} times",
+      desc_srs: "Reach a {n}-day login streak",
+      desc_rt: "Spin the wheel of fortune {n} times",
+      desc_mg: "Play {n} mini-games",
+      desc_cs: "Open {n} crates",
+      desc_gr: "Finish {n} weekly races",
+      desc_al: "Complete {n} author albums",
+      desc_pg: "Collect {n} autograph pages",
+      desc_hw: "Find {n} Halloween items",
+      bv_tit: "Welcome to Infinite Monkeys!",
+      bv_testo: "Infinite monkeys type at random on typewriters: sooner or later they'll write any phrase. You help them do it faster.",
+      bv_1: "🧭 Explore the game however you like: the first time you open a screen I'll explain how it works.",
+      bv_2: "🍌 Correct letters are worth bananas: with bananas you buy monkeys and upgrades.",
+      bv_3: "📜 When a monkey completes the phrase, you move to the next, slightly longer level.",
+      bv_ok: "Let's explore!",
+      gd_n_opera: "📜 The phrase and the monkeys",
+      gd_n_negozio: "🍌 Buying monkeys and speed",
+      gd_opera_1: "📜 The monkeys type at random to write this phrase: the highlighted letters are the record, the correct ones in a row.",
+      gd_opera_2: "🍌 Here are your bananas: every correct letter brings some, even with the game closed.",
+      gd_opera_3: "📚 Here you open the Library: change phrase and see the levels.",
+      gd_opera_4: "👉 In Upgrades you buy more monkeys and make them type faster: give it a try!",
+      gd_neg_1: "🐒 Buy monkeys: the more there are, the more keys they hit. Hold to buy many in a row.",
+      gd_neg_2: "⚡ Here you make monkeys faster with items and improvements.",
+      gd_neg_3: "🔢 Choose how many to buy at once: ×10, ×100 or as many as you can.",
+      gd_trag_1: "🏆 Achievements: when you reach one it lights up, tap it to claim the bananas.",
+      nov16_1: "🔥 Each difficulty has its own login streak, shown when you open that game: Wooden crate on day 1, Silver on day 3, Gold on day 7",
+      nov16_2: "🏅 A clearer league ranking: next to each place you see the prize, the zones to move up and down are highlighted, and tapping the ranks shows the other leagues",
+      nov16_3: "🎨 New colour “None”: name effects go back to their original colour",
+      nov16_4: "🏆 30 new achievements: missions, streaks, wheel, mini-games, crates, leagues, races, albums, pages and Halloween",
+      nov16_5: "👾 The game's icons are pixel art, like the avatars; and at Halloween even the opening is scary",
+      nov16_6: "⭐ A monkey's name is now given, changed or removed from its autograph page (Library → Pages)",
+      tour16_1: "🔥 This is the streak for the difficulty you're playing: each difficulty has its own.",
+      tour16_2: "🏅 Tap the ranks to see who's in the other leagues.",
+      desc_lgs: "Reach the {lega}",
+      trg_lgs: "Climber"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -5599,10 +5750,10 @@
       sc_togli: "Quitar",
       sc_valute_nota: "Escribe cuántos y pulsa Poner. Para quitarlos pulsa ✕ en tu oferta o pon 0.",
       rimborso_squadra: "📃 El talento «Equipo inicial» ya no existe (ahora siempre se renace con 150 monos): te devuelvo {n} Páginas de oro.",
-      tut_chiedi_tit: "¿Ver el tutorial otra vez?",
-      tut_chiedi_reset: "Has empezado de cero. ¿Quieres ver otra vez el tutorial paso a paso?",
-      tut_chiedi_modo: "Has cambiado la dificultad. ¿Quieres ver otra vez el tutorial paso a paso?",
-      tut_chiedi_si: "Sí, verlo",
+      tut_chiedi_tit: "¿Ver de nuevo las explicaciones?",
+      tut_chiedi_reset: "Has empezado de cero. ¿Quieres que te vuelva a explicar cada pantalla la primera vez que la abras?",
+      tut_chiedi_modo: "Has cambiado de dificultad. ¿Quieres que te vuelva a explicar cada pantalla la primera vez que la abras?",
+      tut_chiedi_si: "Sí, explícame",
       tut_chiedi_no: "No, gracias",
       ev_sorpresa: "Próximo evento: sorpresa",
       nov10_1: "📜 Niveles nuevos: cada uno tiene al menos 2 letras más que el anterior y, cuando se puede, la misma longitud en todos los idiomas (la frase cambia según el idioma). Las demás frases pasan a ser «frases libres»",
@@ -5881,7 +6032,7 @@
       gd_n_oggi: "🎯 Misiones, racha y liga",
       gd_n_lega: "🏅 Clasificaciones de liga y carrera",
       gd_n_album: "📖 Álbumes de autores",
-      gd_oggi_1: "🔥 Vuelve cada día, en cualquier dificultad: el premio crece hasta el 7.º día (una Caja de plata). Si te saltas un día, la racha vuelve a empezar.",
+      gd_oggi_1: "🔥 Vuelve cada día: el premio crece hasta el 7.º día (una Caja de oro). Cada dificultad tiene su racha; si te saltas un día, vuelve a empezar.",
       gd_oggi_2: "🎯 Tres misiones nuevas cada día. Cada una da plátanos y puntos de liga; las tres juntas, Páginas de oro y un bonus para la mochila.",
       gd_oggi_3: "🏅 Todo lo que haces da puntos de liga. El lunes los mejores suben de liga y los últimos bajan, con premios para todos.",
       gd_oggi_4: "🏁 La carrera semanal: la misma frase para todos, escrita por monos iguales para todos mientras juegas. Gana quien la termina primero.",
@@ -5916,10 +6067,62 @@
       nov15_2: "🏅 Ligas y carrera están en el Diario y separadas por dificultad: cuanto más difícil, más raros los premios. Los puntos ahora son claros: ves de dónde vienen",
       nov15_3: "✨ Efectos de nombre rehechos: cada uno se mueve distinto y usa el color que eliges para el nombre",
       nov15_4: "⭐ Monos famosos: un nombre sugerido con el dado 🎲, y desde el Diario puedes cambiarlo o quitarlo (también se actualiza en las páginas ya escritas)",
-      nov15_5: "🔥 Racha de accesos más bonita y válida para todas las dificultades, también desde el menú; premios de racha y misiones reequilibrados",
+      nov15_5: "🔥 Racha de accesos más bonita; premios de racha y misiones reequilibrados",
       nov15_6: "⚖️ Las especializaciones llegan tras el primer renacer, de una en una (las ×2 tras el tercero); el renacer se explica solo en cuanto puedes hacerlo",
       tour15_1: "🏅 Tu liga y la carrera semanal ahora están aquí, por dificultad. Debajo ves de dónde vienen tus puntos.",
-      tour15_2: "🕸️ Si el ambiente de Halloween te molesta, lo apagas en Ajustes."
+      tour15_2: "🕸️ Si el ambiente de Halloween te molesta, lo apagas en Ajustes.",
+      lega_guardi: "👀 Estás viendo la {lega}: toca tu rango para volver a la tuya.",
+      lega_vuota_altra: "Nadie en esta liga por ahora.",
+      lega_zona_su: "⬆️ Suben a {lega} (con al menos {s} puntos)",
+      lega_zona_giu: "⬇️ Bajan a {lega}",
+      lega_zona_resta: "➡️ Se quedan en esta liga",
+      lega_servono: "faltan {n} puntos para subir",
+      pa_dai_nome: "Ponle nombre al mono",
+      trg_mis: "Misionero",
+      trg_srs: "Fiel",
+      trg_rt: "Molinete",
+      trg_mg: "Jugador",
+      trg_cs: "Abrecajas",
+      trg_lg: "Escalador",
+      trg_gr: "Corredor",
+      trg_al: "Coleccionista de autores",
+      trg_pg: "Archivo",
+      trg_hw: "Cazamonstruos",
+      desc_mis: "Completa las 3 misiones del día {n} veces",
+      desc_srs: "Llega a {n} días seguidos en la racha",
+      desc_rt: "Gira la rueda de la fortuna {n} veces",
+      desc_mg: "Juega {n} partidas a los minijuegos",
+      desc_cs: "Abre {n} cajas",
+      desc_gr: "Termina {n} carreras semanales",
+      desc_al: "Completa {n} álbumes de autores",
+      desc_pg: "Reúne {n} páginas autógrafas",
+      desc_hw: "Encuentra {n} objetos de Halloween",
+      bv_tit: "¡Bienvenido a Monos infinitos!",
+      bv_testo: "Infinitos monos teclean al azar en máquinas de escribir: tarde o temprano escribirán cualquier frase. Tú les ayudas a hacerlo antes.",
+      bv_1: "🧭 Explora el juego como quieras: la primera vez que abras una pantalla te explico cómo funciona.",
+      bv_2: "🍌 Las letras correctas valen plátanos: con los plátanos compras monos y mejoras.",
+      bv_3: "📜 Cuando un mono completa la frase, pasas al siguiente nivel, un poco más largo.",
+      bv_ok: "¡A explorar!",
+      gd_n_opera: "📜 La frase y los monos",
+      gd_n_negozio: "🍌 Comprar monos y velocidad",
+      gd_opera_1: "📜 Los monos teclean al azar para escribir esta frase: las letras resaltadas son el récord, las correctas seguidas.",
+      gd_opera_2: "🍌 Aquí ves tus plátanos: cada letra correcta trae algunos, incluso con el juego cerrado.",
+      gd_opera_3: "📚 Aquí abres la Biblioteca: cambias de frase y ves los niveles.",
+      gd_opera_4: "👉 En Mejoras compras más monos y los haces teclear más rápido: ¡pruébalo!",
+      gd_neg_1: "🐒 Compra monos: cuantos más, más teclas pulsan. Mantén pulsado para comprar muchos seguidos.",
+      gd_neg_2: "⚡ Aquí haces más rápidos a los monos con objetos y mejoras.",
+      gd_neg_3: "🔢 Elige cuántos comprar a la vez: ×10, ×100 o el máximo posible.",
+      gd_trag_1: "🏆 Logros: cuando consigues uno se ilumina, tócalo para cobrar los plátanos.",
+      nov16_1: "🔥 Cada dificultad tiene su racha, que aparece al abrir la partida: Caja de madera el 1.er día, de plata el 3.º, de oro el 7.º",
+      nov16_2: "🏅 Clasificación de liga más clara: junto a cada puesto ves el premio, las zonas para subir y bajar están resaltadas y tocando los rangos ves las otras ligas",
+      nov16_3: "🎨 Nuevo color «Ninguno»: los efectos de nombre vuelven a su color original",
+      nov16_4: "🏆 30 logros nuevos: misiones, rachas, rueda, minijuegos, cajas, ligas, carreras, álbumes, páginas y Halloween",
+      nov16_5: "👾 Los iconos del juego son pixel art, como los avatares; y en Halloween hasta la apertura da miedo",
+      nov16_6: "⭐ El nombre de un mono ahora se pone, cambia o quita desde su página autógrafa (Biblioteca → Páginas)",
+      tour16_1: "🔥 Esta es la racha de la dificultad en la que juegas: cada dificultad tiene la suya.",
+      tour16_2: "🏅 Toca los rangos para ver quién hay en las otras ligas.",
+      desc_lgs: "Llega a la {lega}",
+      trg_lgs: "Escalador"
     },
 
     // ------------------------------------------------------------- 中文
@@ -6762,10 +6965,10 @@
       sc_togli: "移除",
       sc_valute_nota: "输入数量后按“放入”。要拿回来，点你报价里的 ✕ 或输入 0。",
       rimborso_squadra: "📃 “初始团队”天赋已移除（现在重生总是有 150 只猴子）：返还你 {n} 张金页。",
-      tut_chiedi_tit: "再看一遍教程？",
-      tut_chiedi_reset: "你已经从头开始。要再看一遍分步教程吗？",
-      tut_chiedi_modo: "你换了难度。要再看一遍分步教程吗？",
-      tut_chiedi_si: "好，再看一遍",
+      tut_chiedi_tit: "重新查看说明？",
+      tut_chiedi_reset: "你重新开始了。要在第一次打开每个界面时再给你讲解吗？",
+      tut_chiedi_modo: "你换了难度。要在第一次打开每个界面时再给你讲解吗？",
+      tut_chiedi_si: "好的，讲解吧",
       tut_chiedi_no: "不用了",
       ev_sorpresa: "下一个事件：随机出现",
       nov10_1: "📜 新关卡：每关至少比上一关多 2 个字母，尽量在所有语言中长度相同（不同语言的句子不同）。其余句子变成“自由句子”",
@@ -7044,7 +7247,7 @@
       gd_n_oggi: "🎯 任务、连续登录和联赛",
       gd_n_lega: "🏅 联赛和竞赛排名",
       gd_n_album: "📖 作者图鉴",
-      gd_oggi_1: "🔥 每天回来，任意难度都行：奖励一直增加到第 7 天（白银箱）。漏掉一天就重新开始。",
+      gd_oggi_1: "🔥 每天回来：奖励一直增加到第 7 天（黄金箱）。每个难度都有自己的连续登录；漏掉一天就重新开始。",
       gd_oggi_2: "🎯 每天 3 个新任务。每个给香蕉和联赛积分；三个全完成再得金页和一个背包加成。",
       gd_oggi_3: "🏅 你做的每件事都能获得联赛积分。周一表现最好的升级，最后几名降级，人人有奖。",
       gd_oggi_4: "🏁 每周竞赛：所有人同一句话，由人人相同的猴子在你游戏时打字。先完成者获胜。",
@@ -7079,10 +7282,62 @@
       nov15_2: "🏅 联赛和竞赛移到了日志里，并按难度区分：越难奖励越稀有。积分现在一目了然：能看到每一分的来源",
       nov15_3: "✨ 名字特效全部重做：每种动法都不同，并使用你为名字选的颜色",
       nov15_4: "⭐ 著名猴子：用骰子 🎲 随机起名，还能在日志里改名或移除（已写好的页面也会更新）",
-      nov15_5: "🔥 连续登录更漂亮了，所有难度通用，在菜单里也能领；连续登录和任务奖励重新平衡",
+      nov15_5: "🔥 连续登录更漂亮了；连续登录和任务奖励重新平衡",
       nov15_6: "⚖️ 专精在第一次重生后才出现，一次一个（×2 的要第三次重生后）；能重生时游戏会自动讲解",
       tour15_1: "🏅 你的联赛和每周竞赛现在在这里，按难度区分。下面可以看到积分来源。",
-      tour15_2: "🕸️ 如果万圣节氛围打扰到你，可以在设置里关闭。"
+      tour15_2: "🕸️ 如果万圣节氛围打扰到你，可以在设置里关闭。",
+      lega_guardi: "👀 你正在查看{lega}：点你的段位回到自己的联赛。",
+      lega_vuota_altra: "这个联赛暂时没有人。",
+      lega_zona_su: "⬆️ 晋级到{lega}（至少 {s} 分）",
+      lega_zona_giu: "⬇️ 降到{lega}",
+      lega_zona_resta: "➡️ 留在本联赛",
+      lega_servono: "还差 {n} 分晋级",
+      pa_dai_nome: "给猴子起名",
+      trg_mis: "任务达人",
+      trg_srs: "忠实玩家",
+      trg_rt: "转盘手",
+      trg_mg: "玩家",
+      trg_cs: "开箱者",
+      trg_lg: "攀登者",
+      trg_gr: "竞速者",
+      trg_al: "作者收藏家",
+      trg_pg: "档案馆",
+      trg_hw: "怪物猎人",
+      desc_mis: "完成全部 3 个每日任务 {n} 次",
+      desc_srs: "连续登录达到 {n} 天",
+      desc_rt: "转动幸运转盘 {n} 次",
+      desc_mg: "玩 {n} 局小游戏",
+      desc_cs: "打开 {n} 个箱子",
+      desc_gr: "完成 {n} 次每周竞赛",
+      desc_al: "完成 {n} 本作者图鉴",
+      desc_pg: "收集 {n} 页亲笔手稿",
+      desc_hw: "找到 {n} 件万圣节物品",
+      bv_tit: "欢迎来到无限猴子！",
+      bv_testo: "无数只猴子在打字机上随机敲键：迟早会打出任何一句话。你来帮它们更快做到。",
+      bv_1: "🧭 随意探索游戏：第一次打开每个界面时，我会告诉你怎么玩。",
+      bv_2: "🍌 打对的字母能换香蕉：用香蕉购买猴子和升级。",
+      bv_3: "📜 猴子打完整句话后，你就进入下一关，句子稍长一点。",
+      bv_ok: "开始探索！",
+      gd_n_opera: "📜 句子和猴子",
+      gd_n_negozio: "🍌 购买猴子和速度",
+      gd_opera_1: "📜 猴子随机打字，想打出这句话：高亮的字母是纪录，即连续打对的部分。",
+      gd_opera_2: "🍌 这里是你的香蕉：每个打对的字母都会带来一些，关掉游戏也一样。",
+      gd_opera_3: "📚 在这里打开图书馆：换句子、查看关卡。",
+      gd_opera_4: "👉 在“升级”里买更多猴子、让它们打得更快：去试试吧！",
+      gd_neg_1: "🐒 购买猴子：越多，按键越多。长按可以连续购买。",
+      gd_neg_2: "⚡ 在这里用道具和改进让猴子更快。",
+      gd_neg_3: "🔢 选择一次买多少：×10、×100 或最多。",
+      gd_trag_1: "🏆 成就：达成后会亮起，点它领取香蕉。",
+      nov16_1: "🔥 每个难度都有自己的连续登录，打开该难度游戏时出现：第 1 天木箱，第 3 天白银箱，第 7 天黄金箱",
+      nov16_2: "🏅 联赛排名更清楚：每个名次旁显示奖励，晋级和降级区高亮，点段位图标可查看其他联赛",
+      nov16_3: "🎨 新颜色“无”：名字特效恢复原本的颜色",
+      nov16_4: "🏆 30 个新成就：任务、连续登录、转盘、小游戏、箱子、联赛、竞赛、图鉴、手稿和万圣节",
+      nov16_5: "👾 游戏图标改成像素风，和头像一样；万圣节期间连开场动画都很吓人",
+      nov16_6: "⭐ 猴子的名字现在可以在它的亲笔手稿页里起名、修改或移除（图书馆 → 手稿）",
+      tour16_1: "🔥 这是你当前难度的连续登录：每个难度都有自己的。",
+      tour16_2: "🏅 点段位图标查看其他联赛的玩家。",
+      desc_lgs: "进入{lega}",
+      trg_lgs: "攀登者"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -7925,10 +8180,10 @@
       sc_togli: "Retirer",
       sc_valute_nota: "Écris combien et appuie sur Ajouter. Pour les retirer, appuie sur ✕ dans ton offre ou mets 0.",
       rimborso_squadra: "📃 Le talent « Équipe de départ » n'existe plus (on renaît toujours avec 150 singes) : je te rends {n} Pages d'or.",
-      tut_chiedi_tit: "Revoir le tutoriel ?",
-      tut_chiedi_reset: "Tu as recommencé à zéro. Veux-tu revoir le tutoriel pas à pas ?",
-      tut_chiedi_modo: "Tu as changé de difficulté. Veux-tu revoir le tutoriel pas à pas ?",
-      tut_chiedi_si: "Oui, le revoir",
+      tut_chiedi_tit: "Revoir les explications ?",
+      tut_chiedi_reset: "Tu as recommencé à zéro. Tu veux que je te réexplique chaque écran la première fois que tu l'ouvres ?",
+      tut_chiedi_modo: "Tu as changé de difficulté. Tu veux que je te réexplique chaque écran la première fois que tu l'ouvres ?",
+      tut_chiedi_si: "Oui, explique",
       tut_chiedi_no: "Non, merci",
       ev_sorpresa: "Prochain événement : surprise",
       nov10_1: "📜 Nouveaux niveaux : chacun a au moins 2 lettres de plus que le précédent et, si possible, la même longueur dans toutes les langues (la phrase change selon la langue). Les autres phrases deviennent des « phrases libres »",
@@ -8207,7 +8462,7 @@
       gd_n_oggi: "🎯 Missions, série et ligue",
       gd_n_lega: "🏅 Classements de ligue et course",
       gd_n_album: "📖 Albums d'auteurs",
-      gd_oggi_1: "🔥 Reviens chaque jour, dans n'importe quelle difficulté : le prix grandit jusqu'au 7e jour (un Coffre en argent). Si tu sautes un jour, la série repart.",
+      gd_oggi_1: "🔥 Reviens chaque jour : le prix grandit jusqu'au 7e jour (un Coffre en or). Chaque difficulté a sa série ; si tu sautes un jour, elle repart.",
       gd_oggi_2: "🎯 Trois nouvelles missions chaque jour. Chacune donne des bananes et des points de ligue ; les trois ensemble, des Pages d'or et un bonus pour le sac.",
       gd_oggi_3: "🏅 Tout ce que tu fais rapporte des points de ligue. Lundi, les meilleurs montent de ligue et les derniers descendent, avec des prix pour tous.",
       gd_oggi_4: "🏁 La course de la semaine : la même phrase pour tous, tapée par des singes identiques pour tous pendant que tu joues. Le premier qui la finit gagne.",
@@ -8242,10 +8497,62 @@
       nov15_2: "🏅 Ligues et course sont dans le Journal et séparées par difficulté : plus c'est difficile, plus les prix sont rares. Les points sont maintenant clairs : tu vois d'où ils viennent",
       nov15_3: "✨ Effets de nom refaits : chacun bouge différemment et utilise la couleur que tu choisis pour ton nom",
       nov15_4: "⭐ Singes célèbres : un nom proposé avec le dé 🎲, et depuis le Journal tu peux le changer ou le retirer (les pages déjà écrites se mettent à jour aussi)",
-      nov15_5: "🔥 Série de connexions plus belle et valable pour toutes les difficultés, même depuis le menu ; prix de série et de missions rééquilibrés",
+      nov15_5: "🔥 Série de connexions plus belle ; prix de série et de missions rééquilibrés",
       nov15_6: "⚖️ Les spécialisations arrivent après la première renaissance, une à la fois (les ×2 après la troisième) ; la renaissance s'explique d'elle-même dès que tu peux la faire",
       tour15_1: "🏅 Ta ligue et la course de la semaine sont maintenant ici, par difficulté. En dessous, tu vois d'où viennent tes points.",
-      tour15_2: "🕸️ Si l'ambiance d'Halloween te gêne, tu peux la couper dans les Réglages."
+      tour15_2: "🕸️ Si l'ambiance d'Halloween te gêne, tu peux la couper dans les Réglages.",
+      lega_guardi: "👀 Tu regardes la {lega} : touche ton rang pour revenir à la tienne.",
+      lega_vuota_altra: "Personne dans cette ligue pour l'instant.",
+      lega_zona_su: "⬆️ Montent en {lega} (avec au moins {s} points)",
+      lega_zona_giu: "⬇️ Descendent en {lega}",
+      lega_zona_resta: "➡️ Restent dans cette ligue",
+      lega_servono: "encore {n} points pour monter",
+      pa_dai_nome: "Donner un nom au singe",
+      trg_mis: "Missionnaire",
+      trg_srs: "Fidèle",
+      trg_rt: "Toupie",
+      trg_mg: "Joueur",
+      trg_cs: "Casseur de coffres",
+      trg_lg: "Grimpeur",
+      trg_gr: "Coureur",
+      trg_al: "Collectionneur d'auteurs",
+      trg_pg: "Archives",
+      trg_hw: "Chasseur de monstres",
+      desc_mis: "Termine les 3 missions du jour {n} fois",
+      desc_srs: "Atteins {n} jours d'affilée dans la série",
+      desc_rt: "Fais tourner la roue de la fortune {n} fois",
+      desc_mg: "Joue {n} parties de mini-jeux",
+      desc_cs: "Ouvre {n} coffres",
+      desc_gr: "Termine {n} courses de la semaine",
+      desc_al: "Termine {n} albums d'auteurs",
+      desc_pg: "Récolte {n} pages autographes",
+      desc_hw: "Trouve {n} objets d'Halloween",
+      bv_tit: "Bienvenue dans Singes infinis !",
+      bv_testo: "Des singes infinis tapent au hasard sur des machines à écrire : tôt ou tard ils écriront n'importe quelle phrase. Tu les aides à y arriver plus vite.",
+      bv_1: "🧭 Explore le jeu comme tu veux : la première fois que tu ouvres un écran, je t'explique comment il marche.",
+      bv_2: "🍌 Les lettres justes rapportent des bananes : avec les bananes tu achètes des singes et des améliorations.",
+      bv_3: "📜 Quand un singe termine la phrase, tu passes au niveau suivant, un peu plus long.",
+      bv_ok: "Explorons !",
+      gd_n_opera: "📜 La phrase et les singes",
+      gd_n_negozio: "🍌 Acheter des singes et de la vitesse",
+      gd_opera_1: "📜 Les singes tapent au hasard pour écrire cette phrase : les lettres surlignées sont le record, les bonnes d'affilée.",
+      gd_opera_2: "🍌 Voici tes bananes : chaque lettre juste en rapporte, même jeu fermé.",
+      gd_opera_3: "📚 Ici tu ouvres la Bibliothèque : tu changes de phrase et tu vois les niveaux.",
+      gd_opera_4: "👉 Dans Améliorer, tu achètes plus de singes et tu les fais taper plus vite : essaie !",
+      gd_neg_1: "🐒 Achète des singes : plus il y en a, plus ils tapent. Reste appuyé pour en acheter plein d'affilée.",
+      gd_neg_2: "⚡ Ici tu rends les singes plus rapides avec des objets et des améliorations.",
+      gd_neg_3: "🔢 Choisis combien en acheter à la fois : ×10, ×100 ou le maximum.",
+      gd_trag_1: "🏆 Succès : quand tu en atteins un, il s'allume, touche-le pour récupérer les bananes.",
+      nov16_1: "🔥 Chaque difficulté a sa série de connexions, qui apparaît quand tu ouvres la partie : Coffre en bois le 1er jour, en argent le 3e, en or le 7e",
+      nov16_2: "🏅 Classement de ligue plus clair : à côté de chaque place tu vois le prix, les zones pour monter et descendre sont mises en évidence et en touchant les rangs tu vois les autres ligues",
+      nov16_3: "🎨 Nouvelle couleur « Aucune » : les effets de nom reprennent leur couleur d'origine",
+      nov16_4: "🏆 30 nouveaux succès : missions, séries, roue, mini-jeux, coffres, ligues, courses, albums, pages et Halloween",
+      nov16_5: "👾 Les icônes du jeu sont en pixel art, comme les avatars ; et à Halloween même l'ouverture fait peur",
+      nov16_6: "⭐ Le nom d'un singe se donne, se change ou se retire maintenant depuis sa page autographe (Bibliothèque → Pages)",
+      tour16_1: "🔥 Voici la série de la difficulté à laquelle tu joues : chaque difficulté a la sienne.",
+      tour16_2: "🏅 Touche les rangs pour voir qui est dans les autres ligues.",
+      desc_lgs: "Atteins la {lega}",
+      trg_lgs: "Grimpeur"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -9089,10 +9396,10 @@
       sc_togli: "Убрать",
       sc_valute_nota: "Впиши сколько и нажми «Добавить». Чтобы убрать, нажми ✕ в своём предложении или впиши 0.",
       rimborso_squadra: "📃 Таланта «Стартовая команда» больше нет (теперь всегда перерождаешься со 150 обезьянами): возвращаю {n} Золотых страниц.",
-      tut_chiedi_tit: "Посмотреть обучение ещё раз?",
-      tut_chiedi_reset: "Ты начал заново. Хочешь снова пройти пошаговое обучение?",
-      tut_chiedi_modo: "Ты сменил сложность. Хочешь снова пройти пошаговое обучение?",
-      tut_chiedi_si: "Да, показать",
+      tut_chiedi_tit: "Снова показать подсказки?",
+      tut_chiedi_reset: "Ты начал заново. Объяснить каждый экран снова, когда ты его впервые откроешь?",
+      tut_chiedi_modo: "Ты сменил сложность. Объяснить каждый экран снова, когда ты его впервые откроешь?",
+      tut_chiedi_si: "Да, объясни",
       tut_chiedi_no: "Нет, спасибо",
       ev_sorpresa: "Следующее событие: сюрприз",
       nov10_1: "📜 Новые уровни: в каждом минимум на 2 буквы больше, чем в предыдущем, и, где можно, одинаковая длина во всех языках (фраза зависит от языка). Остальные фразы стали «свободными»",
@@ -9371,7 +9678,7 @@
       gd_n_oggi: "🎯 Задания, серия и лига",
       gd_n_lega: "🏅 Рейтинги лиги и гонки",
       gd_n_album: "📖 Альбомы авторов",
-      gd_oggi_1: "🔥 Возвращайся каждый день, на любой сложности: приз растёт до 7-го дня (Серебряный сундук). Пропустишь день — серия начнётся заново.",
+      gd_oggi_1: "🔥 Возвращайся каждый день: приз растёт до 7-го дня (Золотой сундук). У каждой сложности своя серия; пропустишь день — начнётся заново.",
       gd_oggi_2: "🎯 Три новых задания каждый день. Каждое даёт бананы и очки лиги; все три вместе — Золотые страницы и бонус в рюкзак.",
       gd_oggi_3: "🏅 Всё, что ты делаешь, приносит очки лиги. В понедельник лучшие поднимаются, последние опускаются, призы — всем.",
       gd_oggi_4: "🏁 Гонка недели: одна фраза для всех, её печатают одинаковые для всех обезьяны, пока ты играешь. Побеждает тот, кто закончит первым.",
@@ -9406,10 +9713,62 @@
       nov15_2: "🏅 Лиги и гонка теперь в Дневнике и разделены по сложности: чем сложнее, тем реже призы. Очки стали понятными: видно, откуда они",
       nov15_3: "✨ Анимированные надписи переделаны: каждая движется по-своему и использует выбранный тобой цвет имени",
       nov15_4: "⭐ Знаменитые обезьяны: имя можно выбрать кубиком 🎲, а в Дневнике изменить или убрать (обновится и на уже написанных страницах)",
-      nov15_5: "🔥 Серия входов стала красивее и работает для всех сложностей, даже из меню; призы серии и заданий перебалансированы",
+      nov15_5: "🔥 Серия входов стала красивее; призы серии и заданий перебалансированы",
       nov15_6: "⚖️ Специализации появляются после первого перерождения, по одной (×2 — после третьего); перерождение объясняется само, как только оно доступно",
       tour15_1: "🏅 Твоя лига и гонка недели теперь здесь, по сложностям. Ниже видно, откуда твои очки.",
-      tour15_2: "🕸️ Если атмосфера Хэллоуина мешает, её можно выключить в Настройках."
+      tour15_2: "🕸️ Если атмосфера Хэллоуина мешает, её можно выключить в Настройках.",
+      lega_guardi: "👀 Ты смотришь: {lega}. Нажми на свой ранг, чтобы вернуться к своей.",
+      lega_vuota_altra: "В этой лиге пока никого.",
+      lega_zona_su: "⬆️ Поднимаются: {lega} (не меньше {s} очков)",
+      lega_zona_giu: "⬇️ Опускаются: {lega}",
+      lega_zona_resta: "➡️ Остаются в этой лиге",
+      lega_servono: "до повышения {n} очк.",
+      pa_dai_nome: "Дать имя обезьяне",
+      trg_mis: "Миссионер",
+      trg_srs: "Верный",
+      trg_rt: "Вертушка",
+      trg_mg: "Игрок",
+      trg_cs: "Взломщик",
+      trg_lg: "Покоритель",
+      trg_gr: "Бегун",
+      trg_al: "Собиратель авторов",
+      trg_pg: "Архив",
+      trg_hw: "Охотник на монстров",
+      desc_mis: "Выполни все 3 задания дня {n} раз",
+      desc_srs: "Набери серию входов в {n} дней подряд",
+      desc_rt: "Покрути колесо фортуны {n} раз",
+      desc_mg: "Сыграй {n} партий в мини-игры",
+      desc_cs: "Открой {n} сундуков",
+      desc_gr: "Пройди {n} гонок недели",
+      desc_al: "Собери {n} альбомов авторов",
+      desc_pg: "Собери {n} страниц-автографов",
+      desc_hw: "Найди {n} предметов Хэллоуина",
+      bv_tit: "Добро пожаловать в «Бесконечных обезьян»!",
+      bv_testo: "Бесконечные обезьяны наугад стучат по машинкам: рано или поздно они напечатают любую фразу. Ты помогаешь им сделать это быстрее.",
+      bv_1: "🧭 Исследуй игру как хочешь: когда впервые откроешь экран, я объясню, как он работает.",
+      bv_2: "🍌 Верные буквы приносят бананы: на бананы покупаешь обезьян и улучшения.",
+      bv_3: "📜 Когда обезьяна допишет фразу, ты переходишь на следующий уровень, чуть длиннее.",
+      bv_ok: "Вперёд!",
+      gd_n_opera: "📜 Фраза и обезьяны",
+      gd_n_negozio: "🍌 Покупка обезьян и скорости",
+      gd_opera_1: "📜 Обезьяны наугад печатают эту фразу: подсвеченные буквы — рекорд, верные подряд.",
+      gd_opera_2: "🍌 Здесь твои бананы: каждая верная буква приносит немного, даже когда игра закрыта.",
+      gd_opera_3: "📚 Здесь открывается Библиотека: меняй фразу и смотри уровни.",
+      gd_opera_4: "👉 В «Улучшениях» покупай обезьян и ускоряй их: попробуй!",
+      gd_neg_1: "🐒 Покупай обезьян: чем их больше, тем больше нажатий. Удерживай, чтобы купить много подряд.",
+      gd_neg_2: "⚡ Здесь ускоряй обезьян предметами и улучшениями.",
+      gd_neg_3: "🔢 Выбери, сколько покупать за раз: ×10, ×100 или максимум.",
+      gd_trag_1: "🏆 Достижения: выполненное подсвечивается, нажми, чтобы забрать бананы.",
+      nov16_1: "🔥 У каждой сложности своя серия входов, она появляется при открытии игры: Деревянный сундук в 1-й день, Серебряный в 3-й, Золотой в 7-й",
+      nov16_2: "🏅 Рейтинг лиги стал понятнее: у каждого места виден приз, зоны повышения и понижения выделены, а нажатие на ранги показывает другие лиги",
+      nov16_3: "🎨 Новый цвет «Нет»: анимированные надписи возвращают свой исходный цвет",
+      nov16_4: "🏆 30 новых достижений: задания, серии, колесо, мини-игры, сундуки, лиги, гонки, альбомы, страницы и Хэллоуин",
+      nov16_5: "👾 Иконки игры теперь пиксельные, как аватары; а на Хэллоуин даже заставка пугает",
+      nov16_6: "⭐ Имя обезьяны теперь даётся, меняется или убирается на её странице-автографе (Библиотека → Страницы)",
+      tour16_1: "🔥 Это серия для текущей сложности: у каждой сложности своя.",
+      tour16_2: "🏅 Нажми на ранги, чтобы увидеть, кто в других лигах.",
+      desc_lgs: "Попади в лигу: {lega}",
+      trg_lgs: "Покоритель"
     }
   };
 
@@ -11782,6 +12141,23 @@
   TRAGUARDI.push({ id: "soglia200", ico: "🎯", desc: () => t("desc_soglia"),
     val: () => Math.max(...STRUTTURE.map(([id]) => G.liv[id])), obiettivo: 200, pct: 10 });
   TRAGUARDI.forEach((tr, i) => { tr.nome = () => NOMI_TRAG[L][i]; });
+  // traguardi aggiunti dopo: hanno il loro nome (con I, II, III)
+  const ROMANI = ["I", "II", "III", "IV"];
+  function gruppoTraguardiNuovo(prefisso, ico, soglie, desc, val) {
+    soglie.forEach((n, i) => TRAGUARDI.push({ id: prefisso + n, ico, desc: () => desc(n), val, obiettivo: n, pct: PCT_PREMIO[Math.min(PCT_PREMIO.length - 1, i * 2 + 1)], min: 200 * Math.pow(4, i),
+      nome: () => t("trg_" + prefisso) + " " + ROMANI[i] }));
+  }
+  gruppoTraguardiNuovo("mis", "🎯", [1, 7, 30], n => t("desc_mis", { n }), () => G.giorniMissioni || 0);
+  gruppoTraguardiNuovo("srs", "🔥", [3, 7, 30], n => t("desc_srs", { n }), () => Math.max(0, ...MODI.map(m => serieDi(m).max || 0)));
+  gruppoTraguardiNuovo("rt", "🎡", [1, 10, 50], n => t("desc_rt", { n }), () => G.ruoteGirate || 0);
+  gruppoTraguardiNuovo("mg", "🎮", [10, 50, 200], n => t("desc_mg", { n }), () => G.partiteMini || 0);
+  gruppoTraguardiNuovo("cs", "📦", [1, 10, 50], n => t("desc_cs", { n }), () => G.casseAperte || 0);
+  gruppoTraguardiNuovo("lgs", "🏅", [1, 2, 4], n => t("desc_lgs", { lega: nomeLega(n) }), () => G.legaMax || 0);
+  gruppoTraguardiNuovo("gr", "🏁", [1, 5, 20], n => t("desc_gr", { n }), () => G.gareFinite || 0);
+  gruppoTraguardiNuovo("al", "📖", [1, 5, 10], n => t("desc_al", { n }), () => Object.keys(G.album || {}).length);
+  gruppoTraguardiNuovo("pg", "📃", [5, 20, 50], n => t("desc_pg", { n }), () => Object.keys(G.pagineAut || {}).length);
+  gruppoTraguardiNuovo("hw", "🎃", [3, 8, 16], n => t("desc_hw", { n }), () => (G.collezione || []).filter(id => (estetico(id) || {}).tema === "halloween").length);
+
   // categorie dei traguardi di prima
   const CAT_PREFISSO = { sc: "scimmie", ts: "velocita", rc: "record", op: "frasi", tt: "tasti", tm: "tempo" };
   for (const tr of TRAGUARDI) {
@@ -12832,7 +13208,6 @@
     $("dAttesa").textContent = R.fermo ? t("fatto") : ferme ? "—" : fmtTempoLog(lung * lTasti - lRate);
   }
   function disegnaStatistiche() {
-    if (R.famoseDisegnate !== (G.famose || []).length + L) { R.famoseDisegnate = (G.famose || []).length + L; disegnaFamose(); }
     $("sTasti").textContent = fmt(G.tasti);
     $("sTempo").textContent = fmtTempo(G.tempo);
     $("sMax").textContent = caratteri(recordMassimo());
@@ -13707,8 +14082,16 @@
     apri("veloConferma");
   }
   // dopo "ricomincia da capo" o un cambio di difficoltà: vuoi rivedere il tutorial?
+  // benvenuto: niente tutorial lungo, le spiegazioni arrivano la prima volta che apri ogni schermata
+  function mostraBenvenuto() {
+    G.tutorialFatto = true;
+    G.guideBase = true;
+    G.versioneVista = VERSIONE_NOVITA;
+    salva();
+    apri("veloBenvenuto");
+  }
   function chiediTutorial(chiave) {
-    chiedi(t("tut_chiedi_tit"), t(chiave), () => avviaTutorial(),
+    chiedi(t("tut_chiedi_tit"), t(chiave), () => { G.guideViste = {}; mostraBenvenuto(); },
       { si: t("tut_chiedi_si"), no: t("tut_chiedi_no"), seNo: () => { G.tutorialFatto = true; salva(); dopoTutorial(); } });
   }
 
@@ -13731,6 +14114,8 @@
     if (nome === "diario") { Online.disegna(); R.legaChiave = ""; disegnaLega(); guidaSeNuova("lega", 600); }
     if (nome === "bottega") guidaSeNuova("bottega");
     if (nome === "traguardi") guidaSeNuova("oggi");
+    if (nome === "negozio" && R.gruppo !== "editore") guidaSeNuova("negozio");
+    if (nome === "opera") guidaSeNuova("opera");
     window.scrollTo(0, 0);
     disegnaTutto(true);
   }
@@ -13765,7 +14150,7 @@
       const chiave = R.chiediTutorial;
       R.chiediTutorial = null;
       if (chiave) chiediTutorial(chiave);
-      else if (!G.tutorialFatto) avviaTutorial();
+      else if (!G.tutorialFatto) mostraBenvenuto();
       else dopoTutorial();
     });
   }
@@ -13777,6 +14162,24 @@
     // tasti sbagliati presi dalla stessa "tastiera" del titolo
     const tastiera = /[\u4e00-\u9fff]/.test(titolo) ? "猴香蕉字打机键盘纸书" :
       scrittura(titolo) === "cir" ? "абвгдежзийклмнопрстуфхцчшщыэюя" : "abcdefghijklmnopqrstuvwxyz";
+    aggiornaAtmosfera();
+    const paura = document.body.classList.contains("atmo-halloween");
+    if (paura) $("sipario").classList.add("spaventoso");
+    const fulmine = () => { const l = $("sipLampo"); if (!l) return; l.classList.remove("via"); void l.offsetWidth; l.classList.add("via"); };
+    const pipistrelli = () => {
+      $("sipario").classList.add("finale");
+      fulmine();
+      for (let k = 0; k < 7; k++) {
+        const p = document.createElement("div");
+        p.className = "sip-pipistrello";
+        p.innerHTML = SVG_PIPISTRELLO;
+        const ang = -Math.PI / 2 + (k - 3) * 0.42, dist = 260 + Math.random() * 160;
+        p.style.setProperty("--dx", Math.round(Math.cos(ang) * dist) + "px");
+        p.style.setProperty("--dy", Math.round(Math.sin(ang) * dist * 0.8) + "px");
+        p.style.animationDelay = Math.round(k * 60) + "ms";
+        $("sipario").appendChild(p);
+      }
+    };
     const passi = [];
     let id = 2 + Math.floor(Math.random() * 30);
     for (const quota of [0.15, 0.4, 0.7]) {
@@ -13787,6 +14190,7 @@
       id = id * (4 + Math.floor(Math.random() * 6)) + Math.floor(Math.random() * 90);
     }
     passi.push({ chi: id, giuste: lettere.length, sbagliata: null });
+    if (paura) setTimeout(fulmine, 900);
     const timer = [];
     const dopo = (ms, f) => timer.push(setTimeout(f, ms));
     let finito = false;
@@ -13819,7 +14223,8 @@
         });
         tempo += v + 420;
       } else {
-        dopo(tempo + 900, chiudiApertura);   // titolo scritto tutto giusto: si apre il menu
+        if (paura) { dopo(tempo + 250, pipistrelli); dopo(tempo + 1700, chiudiApertura); }
+        else dopo(tempo + 900, chiudiApertura);   // titolo scritto tutto giusto: si apre il menu
       }
     });
   }
@@ -13852,6 +14257,13 @@
   // =====================================================================
   const ESTETICI = [{"id": "a_scimmia", "t": "a", "v": "🐒", "r": 0, "g": true}, {"id": "a_nonvedo", "t": "a", "v": "🙈", "r": 0, "g": true}, {"id": "a_banana", "t": "a", "v": "🍌", "r": 0, "g": true}, {"id": "a_nonsento", "t": "a", "v": "🙉", "r": 0, "g": false}, {"id": "a_nonparlo", "t": "a", "v": "🙊", "r": 0, "g": false}, {"id": "a_muso", "t": "a", "v": "🐵", "r": 0, "g": false}, {"id": "a_gorilla", "t": "a", "v": "🦍", "r": 0, "g": false}, {"id": "a_orango", "t": "a", "v": "🦧", "r": 0, "g": false}, {"id": "a_palma", "t": "a", "v": "🌴", "r": 0, "g": false}, {"id": "a_pergamena", "t": "a", "v": "📜", "r": 1, "g": false}, {"id": "a_penna", "t": "a", "v": "✍️", "r": 1, "g": false}, {"id": "a_tastiera", "t": "a", "v": "⌨️", "r": 1, "g": false}, {"id": "a_cilindro", "t": "a", "v": "🎩", "r": 1, "g": false}, {"id": "a_occhiali", "t": "a", "v": "🕶️", "r": 1, "g": false}, {"id": "a_cuffie", "t": "a", "v": "🎧", "r": 1, "g": false}, {"id": "a_ananas", "t": "a", "v": "🍍", "r": 1, "g": false}, {"id": "a_corona", "t": "a", "v": "👑", "r": 2, "g": false}, {"id": "a_robot", "t": "a", "v": "🤖", "r": 2, "g": false}, {"id": "a_alieno", "t": "a", "v": "👽", "r": 2, "g": false}, {"id": "a_unicorno", "t": "a", "v": "🦄", "r": 2, "g": false}, {"id": "a_drago", "t": "a", "v": "🐉", "r": 2, "g": false}, {"id": "a_mago", "t": "a", "v": "🧙", "r": 2, "g": false}, {"id": "a_galassia", "t": "a", "v": "🌌", "r": 3, "g": false}, {"id": "a_diamante", "t": "a", "v": "💎", "r": 3, "g": false}, {"id": "a_fuoco", "t": "a", "v": "🔥", "r": 3, "g": false}, {"id": "a_arcobaleno", "t": "a", "v": "🌈", "r": 3, "g": false}, {"id": "c_bianco", "t": "c", "v": "", "r": 0, "g": true}, {"id": "c_banana", "t": "c", "v": "#ffd23f", "r": 0, "g": true}, {"id": "c_menta", "t": "c", "v": "#b5f5c9", "r": 0, "g": true}, {"id": "c_cielo", "t": "c", "v": "#5cc8ff", "r": 0, "g": false}, {"id": "c_rosa", "t": "c", "v": "#ff9ec4", "r": 0, "g": false}, {"id": "c_arancio", "t": "c", "v": "#ff8a1f", "r": 0, "g": false}, {"id": "c_lavanda", "t": "c", "v": "#d8b4fe", "r": 1, "g": false}, {"id": "c_corallo", "t": "c", "v": "#ff6f61", "r": 1, "g": false}, {"id": "c_oro", "t": "c", "v": "#c9a227", "r": 1, "g": false}, {"id": "c_smeraldo", "t": "c", "v": "#22c55e", "r": 1, "g": false}, {"id": "c_tramonto", "t": "e", "v": "", "r": 2, "g": false}, {"id": "c_oceano", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_nessuno", "t": "e", "v": "", "r": 0, "g": true}, {"id": "e_bagliore", "t": "e", "v": "", "r": 1, "g": false}, {"id": "e_brillio", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_neon", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_arcobaleno", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_fuoco", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_galassia", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_orofuso", "t": "e", "v": "", "r": 3, "g": false}, {"id": "a_infinita", "t": "a", "v": "♾️", "r": 4, "g": false}, {"id": "a_bardo", "t": "a", "v": "🎭", "r": 4, "g": false}, {"id": "c_aurora", "t": "e", "v": "", "r": 4, "g": false}, {"id": "e_infinito", "t": "e", "v": "", "r": 4, "g": false}, {"id": "a_cappuccino", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_mandrillo", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_neve", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_poeta", "t": "a", "v": "🖋️", "r": 1, "g": false}, {"id": "a_dj", "t": "a", "v": "🎧", "r": 1, "g": false}, {"id": "a_esploratore", "t": "a", "v": "🌴", "r": 1, "g": false}, {"id": "a_re_nero", "t": "a", "v": "👑", "r": 2, "g": false}, {"id": "a_cyborg", "t": "a", "v": "🤖", "r": 2, "g": false}, {"id": "c_lime", "t": "c", "v": "#a3e635", "r": 0, "g": false}, {"id": "c_cremisi", "t": "c", "v": "#d61f3a", "r": 1, "g": false}, {"id": "c_glaciale", "t": "e", "v": "", "r": 2, "g": false}, {"id": "a_scimmia_oro", "t": "a", "v": "🥇", "r": 5, "g": false}, {"id": "a_primo", "t": "a", "v": "✒️", "r": 5, "g": false}, {"id": "c_platino", "t": "e", "v": "", "r": 5, "g": false}, {"id": "e_leggenda", "t": "e", "v": "", "r": 5, "g": false}, {"id": "c_turchese", "t": "c", "v": "#2dd4bf", "r": 0, "g": false}, {"id": "c_pesca", "t": "c", "v": "#ffc8a2", "r": 0, "g": false}, {"id": "c_ghiaccio", "t": "c", "v": "#d6f3ff", "r": 0, "g": false}, {"id": "c_ciliegia", "t": "c", "v": "#c2185b", "r": 1, "g": false}, {"id": "c_ambra", "t": "c", "v": "#b45f1c", "r": 1, "g": false}, {"id": "c_viola", "t": "c", "v": "#8b5cf6", "r": 1, "g": false}, {"id": "c_azzurro", "t": "c", "v": "#4f7dff", "r": 1, "g": false}, {"id": "c_fiamma", "t": "e", "v": "", "r": 2, "g": false}, {"id": "c_vaporwave", "t": "e", "v": "", "r": 2, "g": false}, {"id": "c_foresta", "t": "e", "v": "", "r": 2, "g": false}, {"id": "c_crepuscolo", "t": "e", "v": "", "r": 3, "g": false}, {"id": "c_prisma", "t": "e", "v": "", "r": 3, "g": false}, {"id": "c_lava", "t": "e", "v": "", "r": 3, "g": false}, {"id": "c_nebulosa", "t": "e", "v": "", "r": 4, "g": false}];
   const NOMI_ESTETICI = {"c_bianco": {"it": "Bianco", "en": "White", "es": "Blanco", "zh": "白色", "fr": "Blanc", "ru": "Белый"}, "c_banana": {"it": "Banana", "en": "Banana", "es": "Plátano", "zh": "香蕉黄", "fr": "Banane", "ru": "Банановый"}, "c_menta": {"it": "Menta", "en": "Mint", "es": "Menta", "zh": "薄荷绿", "fr": "Menthe", "ru": "Мятный"}, "c_cielo": {"it": "Cielo", "en": "Sky", "es": "Cielo", "zh": "天蓝", "fr": "Ciel", "ru": "Небесный"}, "c_rosa": {"it": "Rosa", "en": "Pink", "es": "Rosa", "zh": "粉红", "fr": "Rose", "ru": "Розовый"}, "c_arancio": {"it": "Arancio", "en": "Orange", "es": "Naranja", "zh": "橙色", "fr": "Orange", "ru": "Оранжевый"}, "c_lavanda": {"it": "Lavanda", "en": "Lavender", "es": "Lavanda", "zh": "薰衣草紫", "fr": "Lavande", "ru": "Лавандовый"}, "c_corallo": {"it": "Corallo", "en": "Coral", "es": "Coral", "zh": "珊瑚红", "fr": "Corail", "ru": "Коралловый"}, "c_oro": {"it": "Oro", "en": "Gold", "es": "Oro", "zh": "金色", "fr": "Or", "ru": "Золотой"}, "c_smeraldo": {"it": "Smeraldo", "en": "Emerald", "es": "Esmeralda", "zh": "翡翠绿", "fr": "Émeraude", "ru": "Изумрудный"}, "c_tramonto": {"it": "Tramonto", "en": "Sunset", "es": "Atardecer", "zh": "日落", "fr": "Coucher de soleil", "ru": "Закат"}, "c_oceano": {"it": "Oceano", "en": "Ocean", "es": "Océano", "zh": "海洋", "fr": "Océan", "ru": "Океан"}, "e_nessuno": {"it": "Nessuna", "en": "None", "es": "Ninguno", "zh": "无", "fr": "Aucun", "ru": "Нет"}, "e_bagliore": {"it": "Bagliore", "en": "Glow", "es": "Brillo", "zh": "光晕", "fr": "Lueur", "ru": "Сияние"}, "e_brillio": {"it": "Scintillio", "en": "Shimmer", "es": "Destello", "zh": "闪光", "fr": "Scintillement", "ru": "Мерцание"}, "e_neon": {"it": "Neon", "en": "Neon", "es": "Neón", "zh": "霓虹", "fr": "Néon", "ru": "Неон"}, "e_arcobaleno": {"it": "Arcobaleno", "en": "Rainbow", "es": "Arcoíris", "zh": "彩虹", "fr": "Arc-en-ciel", "ru": "Радуга"}, "e_fuoco": {"it": "Fuoco", "en": "Fire", "es": "Fuego", "zh": "火焰", "fr": "Feu", "ru": "Огонь"}, "e_galassia": {"it": "Galassia", "en": "Galaxy", "es": "Galaxia", "zh": "星系", "fr": "Galaxie", "ru": "Галактика"}, "e_orofuso": {"it": "Oro fuso", "en": "Molten gold", "es": "Oro fundido", "zh": "熔金", "fr": "Or fondu", "ru": "Расплавленное золото"}, "c_aurora": {"it": "Aurora", "en": "Aurora", "es": "Aurora", "zh": "极光", "fr": "Aurore", "ru": "Сияние зари"}, "e_infinito": {"it": "Infinito", "en": "Infinite", "es": "Infinito", "zh": "无限", "fr": "Infini", "ru": "Бесконечность"}, "a_infinita": {"it": "La Scimmia Infinita", "en": "The Infinite Monkey", "es": "El Mono Infinito", "zh": "无限猴子", "fr": "Le Singe Infini", "ru": "Бесконечная Обезьяна"}, "a_bardo": {"it": "Il Bardo", "en": "The Bard", "es": "El Bardo", "zh": "吟游诗人", "fr": "Le Barde", "ru": "Бард"}, "c_lime": {"it": "Lime", "en": "Lime", "es": "Lima", "zh": "青柠", "fr": "Citron vert", "ru": "Лайм"}, "c_cremisi": {"it": "Cremisi", "en": "Crimson", "es": "Carmesí", "zh": "深红", "fr": "Cramoisi", "ru": "Багровый"}, "c_glaciale": {"it": "Glaciale", "en": "Glacier", "es": "Glacial", "zh": "冰川", "fr": "Glacier", "ru": "Ледяной"}, "c_platino": {"it": "Platino", "en": "Platinum", "es": "Platino", "zh": "铂金", "fr": "Platine", "ru": "Платина"}, "e_leggenda": {"it": "Leggenda", "en": "Legend", "es": "Leyenda", "zh": "传奇", "fr": "Légende", "ru": "Легенда"}, "a_scimmia_oro": {"it": "La Scimmia d'oro", "en": "The Golden Monkey", "es": "El Mono de oro", "zh": "黄金猴子", "fr": "Le Singe d'or", "ru": "Золотая обезьяна"}, "a_primo": {"it": "Il Primo Scrittore", "en": "The First Writer", "es": "El Primer Escritor", "zh": "第一位作家", "fr": "Le Premier Écrivain", "ru": "Первый писатель"}, "c_turchese": {"it": "Turchese", "en": "Turquoise", "es": "Turquesa", "zh": "绿松石", "fr": "Turquoise", "ru": "Бирюзовый"}, "c_pesca": {"it": "Pesca", "en": "Peach", "es": "Melocotón", "zh": "蜜桃", "fr": "Pêche", "ru": "Персиковый"}, "c_ghiaccio": {"it": "Ghiaccio", "en": "Ice", "es": "Hielo", "zh": "冰蓝", "fr": "Glace", "ru": "Голубой лёд"}, "c_ciliegia": {"it": "Ciliegia", "en": "Cherry", "es": "Cereza", "zh": "樱桃红", "fr": "Cerise", "ru": "Вишнёвый"}, "c_ambra": {"it": "Ambra", "en": "Amber", "es": "Ámbar", "zh": "琥珀", "fr": "Ambre", "ru": "Янтарный"}, "c_viola": {"it": "Viola", "en": "Violet", "es": "Violeta", "zh": "紫罗兰", "fr": "Violet", "ru": "Фиолетовый"}, "c_azzurro": {"it": "Azzurro", "en": "Azure", "es": "Azur", "zh": "天青", "fr": "Azur", "ru": "Лазурный"}, "c_fiamma": {"it": "Battito", "en": "Heartbeat", "es": "Latido", "zh": "心跳", "fr": "Battement", "ru": "Сердцебиение"}, "c_vaporwave": {"it": "Vaporwave", "en": "Vaporwave", "es": "Vaporwave", "zh": "蒸汽波", "fr": "Vaporwave", "ru": "Вейпорвейв"}, "c_foresta": {"it": "Foresta", "en": "Forest", "es": "Bosque", "zh": "森林", "fr": "Forêt", "ru": "Лес"}, "c_crepuscolo": {"it": "Crepuscolo", "en": "Twilight", "es": "Crepúsculo", "zh": "暮光", "fr": "Crépuscule", "ru": "Сумерки"}, "c_prisma": {"it": "Prisma", "en": "Prism", "es": "Prisma", "zh": "棱镜", "fr": "Prisme", "ru": "Призма"}, "c_lava": {"it": "Lava", "en": "Lava", "es": "Lava", "zh": "熔岩", "fr": "Lave", "ru": "Лава"}, "c_nebulosa": {"it": "Nebulosa", "en": "Nebula", "es": "Nebulosa", "zh": "星云", "fr": "Nébuleuse", "ru": "Туманность"}, "a_scimmia": {"it": "Scimmia", "en": "Monkey", "es": "Mono", "zh": "猴子", "fr": "Singe", "ru": "Обезьяна"}, "a_nonvedo": {"it": "Non vedo", "en": "See no evil", "es": "No veo", "zh": "不看", "fr": "Je ne vois rien", "ru": "Не вижу"}, "a_banana": {"it": "Banana", "en": "Banana", "es": "Plátano", "zh": "香蕉", "fr": "Banane", "ru": "Банан"}, "a_nonsento": {"it": "Non sento", "en": "Hear no evil", "es": "No oigo", "zh": "不听", "fr": "Je n'entends rien", "ru": "Не слышу"}, "a_nonparlo": {"it": "Non parlo", "en": "Speak no evil", "es": "No hablo", "zh": "不说", "fr": "Je ne dis rien", "ru": "Не говорю"}, "a_muso": {"it": "Musetto", "en": "Little face", "es": "Carita", "zh": "小脸", "fr": "Frimousse", "ru": "Мордочка"}, "a_gorilla": {"it": "Gorilla", "en": "Gorilla", "es": "Gorila", "zh": "大猩猩", "fr": "Gorille", "ru": "Горилла"}, "a_orango": {"it": "Orango", "en": "Orangutan", "es": "Orangután", "zh": "红毛猩猩", "fr": "Orang-outan", "ru": "Орангутан"}, "a_palma": {"it": "Palma", "en": "Palm tree", "es": "Palmera", "zh": "棕榈树", "fr": "Palmier", "ru": "Пальма"}, "a_pergamena": {"it": "Pergamena", "en": "Scroll", "es": "Pergamino", "zh": "卷轴", "fr": "Parchemin", "ru": "Свиток"}, "a_penna": {"it": "Penna", "en": "Pen", "es": "Pluma", "zh": "钢笔", "fr": "Plume", "ru": "Перо"}, "a_tastiera": {"it": "Tastiera", "en": "Keyboard", "es": "Teclado", "zh": "键盘", "fr": "Clavier", "ru": "Клавиатура"}, "a_cilindro": {"it": "Cilindro", "en": "Top hat", "es": "Chistera", "zh": "礼帽", "fr": "Haut-de-forme", "ru": "Цилиндр"}, "a_occhiali": {"it": "Occhiali da sole", "en": "Sunglasses", "es": "Gafas de sol", "zh": "墨镜", "fr": "Lunettes de soleil", "ru": "Солнечные очки"}, "a_cuffie": {"it": "Cuffie", "en": "Headphones", "es": "Auriculares", "zh": "耳机", "fr": "Casque", "ru": "Наушники"}, "a_ananas": {"it": "Ananas", "en": "Pineapple", "es": "Piña", "zh": "菠萝", "fr": "Ananas", "ru": "Ананас"}, "a_corona": {"it": "Corona", "en": "Crown", "es": "Corona", "zh": "王冠", "fr": "Couronne", "ru": "Корона"}, "a_robot": {"it": "Robot", "en": "Robot", "es": "Robot", "zh": "机器人", "fr": "Robot", "ru": "Робот"}, "a_alieno": {"it": "Alieno", "en": "Alien", "es": "Alienígena", "zh": "外星人", "fr": "Extraterrestre", "ru": "Пришелец"}, "a_unicorno": {"it": "Unicorno", "en": "Unicorn", "es": "Unicornio", "zh": "独角兽", "fr": "Licorne", "ru": "Единорог"}, "a_drago": {"it": "Drago", "en": "Dragon", "es": "Dragón", "zh": "龙", "fr": "Dragon", "ru": "Дракон"}, "a_mago": {"it": "Mago", "en": "Wizard", "es": "Mago", "zh": "巫师", "fr": "Magicien", "ru": "Волшебник"}, "a_galassia": {"it": "Scimmia galattica", "en": "Galactic monkey", "es": "Mono galáctico", "zh": "银河猴", "fr": "Singe galactique", "ru": "Галактическая обезьяна"}, "a_diamante": {"it": "Diamante", "en": "Diamond", "es": "Diamante", "zh": "钻石", "fr": "Diamant", "ru": "Алмаз"}, "a_fuoco": {"it": "Scimmia di fuoco", "en": "Fire monkey", "es": "Mono de fuego", "zh": "火焰猴", "fr": "Singe de feu", "ru": "Огненная обезьяна"}, "a_arcobaleno": {"it": "Scimmia arcobaleno", "en": "Rainbow monkey", "es": "Mono arcoíris", "zh": "彩虹猴", "fr": "Singe arc-en-ciel", "ru": "Радужная обезьяна"}, "a_cappuccino": {"it": "Cappuccino", "en": "Capuchin", "es": "Capuchino", "zh": "卷尾猴", "fr": "Capucin", "ru": "Капуцин"}, "a_mandrillo": {"it": "Mandrillo", "en": "Mandrill", "es": "Mandril", "zh": "山魈", "fr": "Mandrill", "ru": "Мандрил"}, "a_neve": {"it": "Scimmia delle nevi", "en": "Snow monkey", "es": "Mono de las nieves", "zh": "雪猴", "fr": "Singe des neiges", "ru": "Снежная обезьяна"}, "a_poeta": {"it": "Poeta", "en": "Poet", "es": "Poeta", "zh": "诗人", "fr": "Poète", "ru": "Поэт"}, "a_dj": {"it": "DJ", "en": "DJ", "es": "DJ", "zh": "DJ", "fr": "DJ", "ru": "Диджей"}, "a_esploratore": {"it": "Esploratore", "en": "Explorer", "es": "Explorador", "zh": "探险家", "fr": "Explorateur", "ru": "Исследователь"}, "a_re_nero": {"it": "Re nero", "en": "Black king", "es": "Rey negro", "zh": "黑王", "fr": "Roi noir", "ru": "Чёрный король"}, "a_cyborg": {"it": "Cyborg", "en": "Cyborg", "es": "Cíborg", "zh": "赛博格", "fr": "Cyborg", "ru": "Киборг"}};
+  // colore "Nessuno": il nome prende il colore originale della sua scritta animata (bianco senza scritta)
+  ESTETICI.push({ id: "c_nessuno", t: "c", v: "", r: 0, g: true });
+  NOMI_ESTETICI.c_nessuno = { it: "Nessuno", en: "None", es: "Ninguno", zh: "无", fr: "Aucune", ru: "Нет" };
+  const COLORE_EFFETTO = { e_bagliore: "#ffd23f", e_brillio: "#fff1a8", e_neon: "#39ff14", e_arcobaleno: "#ff5e5e", e_fuoco: "#ff7a00", e_galassia: "#a78bfa",
+    e_orofuso: "#ffcc33", c_tramonto: "#ffb347", c_oceano: "#38bdf8", e_infinito: "#00f5d4", e_leggenda: "#ffd23f", c_aurora: "#22d3ee", c_glaciale: "#93d8ff",
+    c_platino: "#e2e8f0", c_fiamma: "#ff4d6d", c_vaporwave: "#ff79e6", c_foresta: "#4ade80", c_crepuscolo: "#c4b5fd", c_prisma: "#f472b6", c_lava: "#fb5607",
+    c_nebulosa: "#f0abfc", e_stregato: "#a855f7", c_natale: "#ff4040", e_nebbia: "#cbd5e1", e_candela: "#ffb347", e_maledetto: "#e0213c" };
   // oggetti a tempo limitato: si trovano solo durante il loro evento (mai nelle casse o nella ruota)
   ESTETICI.push(...[{"id": "a_zucca", "t": "a", "v": "🎃", "r": 2, "g": false, "tema": "halloween"}, {"id": "a_fantasma", "t": "a", "v": "👻", "r": 2, "g": false, "tema": "halloween"}, {"id": "a_pipistrello", "t": "a", "v": "🦇", "r": 3, "g": false, "tema": "halloween"}, {"id": "e_stregato", "t": "e", "v": "", "r": 3, "g": false, "tema": "halloween"}, {"id": "a_babbo", "t": "a", "v": "🎅", "r": 2, "g": false, "tema": "natale"}, {"id": "a_pupazzo", "t": "a", "v": "⛄", "r": 2, "g": false, "tema": "natale"}, {"id": "a_albero", "t": "a", "v": "🎄", "r": 3, "g": false, "tema": "natale"}, {"id": "c_natale", "t": "e", "v": "", "r": 3, "g": false, "tema": "natale"}]);
   ESTETICI.push(...[{"id": "a_caramella", "t": "a", "v": "🍬", "r": 0, "g": false, "tema": "halloween"}, {"id": "c_zucca", "t": "c", "v": "#ff7a1a", "r": 0, "g": false, "tema": "halloween"}, {"id": "c_strega", "t": "c", "v": "#a36bff", "r": 0, "g": false, "tema": "halloween"}, {"id": "c_veleno", "t": "c", "v": "#7dff5a", "r": 0, "g": false, "tema": "halloween"}, {"id": "a_scheletro", "t": "a", "v": "💀", "r": 1, "g": false, "tema": "halloween"}, {"id": "a_strega", "t": "a", "v": "🧙", "r": 1, "g": false, "tema": "halloween"}, {"id": "c_sangue", "t": "c", "v": "#e0213c", "r": 1, "g": false, "tema": "halloween"}, {"id": "e_nebbia", "t": "e", "v": "", "r": 1, "g": false, "tema": "halloween"}, {"id": "e_candela", "t": "e", "v": "", "r": 2, "g": false, "tema": "halloween"}, {"id": "a_vampiro", "t": "a", "v": "🧛", "r": 3, "g": false, "tema": "halloween"}, {"id": "a_mietitore", "t": "a", "v": "💀", "r": 4, "g": false, "tema": "halloween"}, {"id": "e_maledetto", "t": "e", "v": "", "r": 4, "g": false, "tema": "halloween"}]);
@@ -14516,7 +14928,7 @@
     el.textContent = testo;
     el.className = "nome-pg";
     el.style.color = ""; el.style.removeProperty("--g"); el.style.removeProperty("--c");
-    const solido = c.v && !c.v.startsWith("linear") ? c.v : "";
+    const solido = c.id === "c_nessuno" ? (COLORE_EFFETTO[e.id] || "") : c.v && !c.v.startsWith("linear") ? c.v : "";
     el.style.setProperty("--c", solido || "var(--testo)");
     if (c.v.startsWith("linear")) { el.classList.add("ns-grad"); el.style.setProperty("--g", c.v); }
     else if (solido) el.style.color = solido;
@@ -14622,10 +15034,10 @@
     }
     for (const [box, tipo] of [[$("gColori"), "c"], [$("gEffetti"), "e"]]) {
       box.innerHTML = "";
-      // prima "Bianco" / "Nessuna", poi dal più comune al più raro
-      const lista = ESTETICI.filter(x => x.t === tipo && oggettoVisibile(x)).sort((a, b) => (b.g && b.r === 0 && /bianco|nessuno/.test(b.id)) - (a.g && a.r === 0 && /bianco|nessuno/.test(a.id)) || a.r - b.r);
+      // prima "Nessuno" / "Bianco" / "Nessuna", poi dal più comune al più raro
+      const lista = ESTETICI.filter(x => x.t === tipo && oggettoVisibile(x)).sort((a, b) => (b.id === "c_nessuno") - (a.id === "c_nessuno") || (b.g && b.r === 0 && /bianco|nessuno/.test(b.id)) - (a.g && a.r === 0 && /bianco|nessuno/.test(a.id)) || a.r - b.r);
       // le scritte che usano il colore del nome si vedono meglio su un colore che sul bianco
-      const coloreProva = sc.colore && sc.colore !== "c_bianco" && (estetico(sc.colore) || {}).t === "c" ? sc.colore : "c_cielo";
+      const coloreProva = sc.colore && sc.colore !== "c_bianco" && (estetico(sc.colore) || {}).t === "c" ? sc.colore : "c_nessuno";
       for (const o of lista) {
         box.appendChild(bottoneEstetico(o, b => {
           const sp = document.createElement("span");
@@ -14746,6 +15158,7 @@
     }
     R.cassaAperta = true;
     missione("cassa"); puntiLega("cassa");
+    G.casseAperte = (G.casseAperte || 0) + 1;
     const giro = (R.giroCassa = (R.giroCassa || 0) + 1);
     if (gratis) cambiaCasseGratis(c.id, -1); else G.pagine -= c.costo;
     // il premio entra subito nella collezione o nello zaino (così non si perde se chiudi il gioco a metà)
@@ -16783,16 +17196,22 @@
   const ieri = () => { const d = new Date(); d.setDate(d.getDate() - 1); return giornoDi(d); };
   // premi della serie: piccoli i primi giorni, il 7° (una Cassa d'argento) premia chi torna tutta la settimana
   const PREMI_SERIE = [
-    () => premioBanane("serie1", 1800),
+    () => premioCassa("legno", "📦"),
+    () => premioBanane("serie2", 1800),
+    () => premioCassa("argento", "🎁"),
     () => premioPagine(10),
-    () => premioBanane("serie3", 3600),
-    () => premioBonus("ban3", "💰"),
-    () => premioPagine(20),
+    () => premioBanane("serie5", 3600),
     () => premioBonus("sc2", "🐒"),
-    () => premioCassa("argento", "🎁")
+    () => premioCassa("oro", "👑")
   ];
-  function statoSerie() {
-    const s = G.serie || {};
+  // una serie per ogni difficoltà (chi arriva dalla 66 ritrova la sua in quella in cui gioca adesso)
+  function serieDi(m = modoCorrente()) {
+    G.serieModi = G.serieModi || {};
+    if (G.serie) { if (!G.serieModi[modoCorrente()]) G.serieModi[modoCorrente()] = G.serie; delete G.serie; }
+    return G.serieModi[m] || {};
+  }
+  function statoSerie(m = modoCorrente()) {
+    const s = serieDi(m);
     const presoOggi = s.ultimo === oggi();
     const continua = presoOggi || s.ultimo === ieri();
     const fila = continua ? (s.fila || 0) : 0;            // giorni di fila già ritirati
@@ -16829,7 +17248,9 @@
     $("titSerie").textContent = t("serie_pop_giorno", { n: st.prossimo });
     $("seriePremioIco").textContent = p.ico;
     $("seriePremioNome").textContent = p.desc();
-    $("testoSerie").textContent = (st.rotta ? t("serie_pop_rotta") + " " : "") + t("serie_pop_testo");
+    $("testoSerie").textContent = st.rotta ? t("serie_pop_rotta") : "";
+    $("testoSerie").hidden = !st.rotta;
+    $("serieModo").textContent = ICONE_MODO[modoCorrente()] + " " + t("modo_" + modoCorrente());
     apri("veloSerie");
   }
   function ritiraSerie() {
@@ -16838,8 +17259,8 @@
     const p = PREMI_SERIE[st.indice]();
     R.ruotaOggetto = null;
     const testo = p.dai();
-    const vecchia = G.serie || {};
-    G.serie = { ultimo: oggi(), fila: st.prossimo, tot: (vecchia.tot || 0) + 1, max: Math.max(vecchia.max || 0, st.prossimo) };
+    const vecchia = serieDi();
+    G.serieModi[modoCorrente()] = { ultimo: oggi(), fila: st.prossimo, tot: (vecchia.tot || 0) + 1, max: Math.max(vecchia.max || 0, st.prossimo) };
     puntiLega("serie");
     Suono.traguardo();
     salva();
@@ -16849,10 +17270,12 @@
   }
   // una volta al giorno, appena si entra a giocare (non sopra altre finestre o il tutorial)
   function proponiSerie() {
-    if (!G || !G.tutorialFatto || passoTut >= 0 || document.querySelector(".velo.aperto") || !$("intro").hidden || ($("sipario") && !$("sipario").classList.contains("via"))) return;
+    if (!G || !G.tutorialFatto || R.nelMenu || passoTut >= 0 || document.querySelector(".velo.aperto") || !$("intro").hidden || ($("sipario") && !$("sipario").classList.contains("via"))) return;
     if ($("tutorial") && !$("tutorial").hidden) return;
-    if (statoSerie().presoOggi || G.serieProposta === oggi()) return;
-    G.serieProposta = oggi();
+    const m = modoCorrente();
+    G.serieProposte = G.serieProposte || {};
+    if (statoSerie().presoOggi || G.serieProposte[m] === oggi()) return;
+    G.serieProposte[m] = oggi();
     apriSerie();
   }
   // la finestra grande dei premi (la stessa della ruota)
@@ -16948,7 +17371,7 @@
     // serie
     const st = statoSerie();
     disegnaSerieIn($("serieGiorni"));
-    $("serieInfo").textContent = st.fila > 0 ? t("serie_fila", { n: st.fila }) : "";
+    $("serieInfo").textContent = ICONE_MODO[modoCorrente()] + (st.fila > 0 ? " " + t("serie_fila", { n: st.fila }) : "");
     const p = PREMI_SERIE[st.indice]();
     $("serieTesto").textContent = st.presoOggi ? t("serie_fatto") : t("serie_oggi", { premio: p.ico + " " + p.desc() });
     $("bSerie").hidden = st.presoOggi;
@@ -17273,27 +17696,53 @@
     // gara: barra e stato si aggiornano sempre
     const fr = fraseGara(m);
     $("garaBarra").style.width = (lg.gFatto ? 100 : 100 * (lg.gRec || 0) / fr.l) + "%";
-    const chiave = [m, scheda, L, JSON.stringify(mio), Leghe.righe.length, Leghe.caricate, Leghe.errore, JSON.stringify(lg.fonti || {}), (G.aspetto || {}).avatar].join("|");
+    const vista = R.legaVista === undefined || R.legaVista === null ? mio.lega : R.legaVista;
+    const chiave = [m, scheda, L, vista, JSON.stringify(mio), Leghe.righe.length, Leghe.caricate, Leghe.errore, JSON.stringify(lg.fonti || {}), (G.aspetto || {}).avatar].join("|");
     if (R.legaChiave === chiave) return;
     R.legaChiave = chiave;
+    // i ranghi: si toccano per vedere chi c'è nelle altre leghe
     $("legaGradini").innerHTML = "";
-    LEGHE.forEach((x, i) => { const sp = document.createElement("span"); sp.textContent = x.ico; sp.title = nomeLega(i); if (i === mio.lega) sp.className = "mia"; $("legaGradini").appendChild(sp); });
-    $("legaPremi").textContent = t("lega_premi_" + m, { p: P.pagine[mio.lega], c: nomeCassa(P.cassa[mio.lega]), s: P.sale, soglia: SOGLIA_SALITA }) + " " +
-      (mio.lega >= LEGHE.length - 1 ? t("lega_regole_top", { giu: z.giu }) : t("lega_regole", { su: z.su, giu: z.giu, s: SOGLIA_SALITA }));
+    LEGHE.forEach((x, i) => {
+      const b = document.createElement("button");
+      b.textContent = x.ico; b.title = nomeLega(i); b.setAttribute("aria-label", nomeLega(i));
+      b.className = (i === mio.lega ? "mia" : "") + (i === vista ? " vista" : "");
+      b.onclick = () => { R.legaVista = i; R.legaChiave = ""; disegnaLega(); };
+      $("legaGradini").appendChild(b);
+    });
+    $("legaPremi").textContent = vista === mio.lega ? "" : t("lega_guardi", { lega: nomeLega(vista) });
     // punti di questa settimana, per fonte
     const fonti = $("legaFonti");
     fonti.innerHTML = "";
     const voci = Object.entries(lg.fonti || {}).filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]);
     if (!voci.length) { const sp = document.createElement("span"); sp.textContent = t("lega_nessun_punto"); fonti.appendChild(sp); }
     for (const [k, v] of voci) { const sp = document.createElement("span"); sp.innerHTML = "<b></b>"; sp.prepend((FONTI_LEGA[k] || {}).ico + " " + t("lp_" + k) + " "); sp.querySelector("b").textContent = "+" + v; fonti.appendChild(sp); }
-    $("legaStato").textContent = statoRete || (gruppo.length < 2 ? t("lega_vuota") : "");
+    // la classifica della lega guardata, con il premio di ogni posizione e le zone di promozione e retrocessione
+    const elenco = ordinaLega(tutti.filter(x => x.lega === vista && (x.punti > 0 || (x.io && vista === mio.lega))));
+    const att = elenco.filter(x => x.punti > 0).length, zz = zoneLega(att);
+    $("legaStato").textContent = statoRete || (elenco.length < 2 ? (vista === mio.lega ? t("lega_vuota") : elenco.length ? "" : t("lega_vuota_altra")) : "");
+    const premioPos = (k, punti) => {
+      if (!(punti > 0)) return "—";
+      let pagine = P.pagine[vista];
+      const sale = k < zz.su && punti >= SOGLIA_SALITA && vista < LEGHE.length - 1;
+      if (sale) pagine += P.sale;
+      return "🎁 " + (k === 0 && punti >= SOGLIA_SALITA ? nomeCassa(P.cassa[vista]) + " + " : "") + pagine + " 📃";
+    };
     const ll = $("listaLega");
     ll.innerHTML = "";
-    gruppo.forEach((r, k) => {
-      const li = rigaClassifica(r, t("lega_pt", { n: fmt(r.punti) }), "");
+    const separatore = (classe, testo) => { const li = document.createElement("li"); li.className = "lega-sep " + classe; li.textContent = testo; ll.appendChild(li); };
+    let zonaPrima = "";
+    elenco.forEach((r, k) => {
+      const zona = r.punti > 0 && k < zz.su && vista < LEGHE.length - 1 ? "su" : r.punti > 0 && zz.giu && k >= att - zz.giu && vista > 0 ? "giu" : "resta";
+      if (zona !== zonaPrima) {
+        if (zona === "su") separatore("sep-su", t("lega_zona_su", { lega: nomeLega(vista + 1), s: SOGLIA_SALITA }));
+        else if (zona === "giu") separatore("sep-giu", t("lega_zona_giu", { lega: nomeLega(vista - 1) }));
+        else if (zonaPrima) separatore("sep-resta", t("lega_zona_resta"));
+        zonaPrima = zona;
+      }
+      const sotto = premioPos(k, r.punti) + (zona === "su" && r.punti < SOGLIA_SALITA ? " · " + t("lega_servono", { n: SOGLIA_SALITA - r.punti }) : "");
+      const li = rigaClassifica(r, t("lega_pt", { n: fmt(r.punti) }), sotto);
       li.querySelector(".pos").textContent = medaglia(k);
-      if (r.punti > 0 && k < z.su && mio.lega < LEGHE.length - 1) li.classList.add("zona-su");
-      else if (r.punti > 0 && z.giu && k >= attivi - z.giu && mio.lega > 0) li.classList.add("zona-giu");
+      li.classList.add("zona-" + zona);
       ll.appendChild(li);
     });
     if ($("legaCome").dataset.l !== L) {
@@ -17328,7 +17777,13 @@
     });
   }
   document.querySelectorAll("[data-lscheda]").forEach(b => { b.onclick = () => { R.schedaLega = b.dataset.lscheda; R.legaChiave = ""; disegnaLega(); }; });
-  document.querySelectorAll("[data-lmodo]").forEach(b => { b.onclick = () => { R.legaModo = b.dataset.lmodo; R.legaChiave = ""; disegnaLega(); }; });
+  document.querySelectorAll("[data-lmodo]").forEach(b => { b.onclick = () => { R.legaModo = b.dataset.lmodo; R.legaVista = null; R.legaChiave = ""; disegnaLega(); }; });
+  $("bBenvenuto").onclick = () => {
+    chiudi("veloBenvenuto");
+    mostraVista("opera");
+    dopoTutorial();
+    setTimeout(() => guidaSeNuova("opera", 0), 300);
+  };
   $("bSerie").onclick = ritiraSerie;
   $("bSerie2").onclick = ritiraSerie;
   $("bSerieDopo").onclick = () => chiudi("veloSerie");
@@ -17498,7 +17953,6 @@
       G.famose = (G.famose || []).filter(x => x.id !== id);
       R.mappaFamose = null;
       salva();
-      disegnaFamose();
     }, { si: t("fam_elimina_si") });
   }
   $("bDadoNome").onclick = () => { $("nomeScimmia").value = nomeACaso(); };
@@ -17626,6 +18080,76 @@
       setTimeout(() => p.remove(), (dur + 2) * 1000);
     }
   }
+
+  // =====================================================================
+  //  ICONE IN PIXEL ART: le emoji delle icone si ridisegnano a pixel, con colori ridotti e il contorno scuro degli avatar
+  // =====================================================================
+  const PIX_ICONE = new Map();
+  const SEL_ICONE = ".ico, .sg-ico, .ol-ico, .grande-ico, .esito-ico, .ic-bonus, .se-ico, .nodo, .fiamma, .vr-premio, .lega-gradini button, .tondo, #bApriBiblioteca, #cesto, .ev-ico, .gioco-carta .ico";
+  const segmentatore = typeof Intl !== "undefined" && Intl.Segmenter ? new Intl.Segmenter(undefined, { granularity: "grapheme" }) : null;
+  const unaEmoji = x => {
+    const v = x.trim();
+    if (!v || !/\p{Extended_Pictographic}/u.test(v)) return false;
+    return segmentatore ? [...segmentatore.segment(v)].length === 1 : [...v].length <= 3;
+  };
+  function emojiPixel(em) {
+    if (PIX_ICONE.has(em)) return PIX_ICONE.get(em);
+    let url = null;
+    try {
+      const D = 24, cv = document.createElement("canvas");
+      cv.width = cv.height = D;
+      const ctx = cv.getContext("2d");
+      ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      ctx.font = "19px 'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji','Twemoji Mozilla',sans-serif";
+      ctx.fillText(em, D / 2, D / 2 + 1);
+      const img = ctx.getImageData(0, 0, D, D), d = img.data;
+      let pieni = 0;
+      const tinte = new Set();
+      for (let k = 0; k < d.length; k += 4) {
+        if (d[k + 3] >= 120) {
+          tinte.add((d[k] >> 6) * 16 + (d[k + 1] >> 6) * 4 + (d[k + 2] >> 6));
+          // colori ridotti a pochi livelli, come in una tavolozza a pixel
+          for (let c = 0; c < 3; c++) d[k + c] = Math.min(255, (d[k + c] >> 5) * 34 + 14);
+          d[k + 3] = 255; pieni++;
+        } else d[k + 3] = 0;
+      }
+      // solo se il dispositivo ha le emoji a colori (altrimenti resta l'emoji di testo)
+      if (pieni >= 12 && tinte.size >= 3) {
+        // contorno scuro intorno al disegno
+        const fuori = new Uint8ClampedArray(d);
+        for (let y = 0; y < D; y++) for (let x = 0; x < D; x++) {
+          const k = (y * D + x) * 4;
+          if (d[k + 3]) continue;
+          const vicino = [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => { const X = x + dx, Y = y + dy; return X >= 0 && Y >= 0 && X < D && Y < D && d[(Y * D + X) * 4 + 3]; });
+          if (vicino) { fuori[k] = 20; fuori[k + 1] = 15; fuori[k + 2] = 12; fuori[k + 3] = 255; }
+        }
+        ctx.putImageData(new ImageData(fuori, D, D), 0, 0);
+        url = cv.toDataURL();
+      }
+    } catch (e) { url = null; }
+    PIX_ICONE.set(em, url);
+    return url;
+  }
+  function pixelaIcone(radice = document) {
+    radice.querySelectorAll(SEL_ICONE).forEach(el => {
+      for (const n of [...el.childNodes]) {
+        if (n.nodeType !== 3 || !unaEmoji(n.nodeValue)) continue;
+        const em = n.nodeValue.trim(), url = emojiPixel(em);
+        if (!url) continue;
+        const im = document.createElement("img");
+        im.className = "pix-ico"; im.src = url; im.alt = em; im.draggable = false;
+        const spazio = /\s$/.test(n.nodeValue) ? " " : "";
+        n.replaceWith(im, ...(spazio ? [document.createTextNode(spazio)] : []));
+      }
+    });
+  }
+  // si rifà da solo ogni volta che il gioco cambia un'icona
+  let pixInAttesa = false;
+  new MutationObserver(() => {
+    if (pixInAttesa) return;
+    pixInAttesa = true;
+    setTimeout(() => { pixInAttesa = false; pixelaIcone(); }, 120);
+  }).observe(document.body, { childList: true, subtree: true, characterData: true });
 
   // quando arriva un invito o l'amico entra nella stanza, la finestra degli scambi si apre da sola
   // (non durante il tutorial, il menu iniziale o un minigioco)
@@ -18454,7 +18978,50 @@
     $("paFirma").textContent = "— " + firmaPagina(pg);
     const o = OPERE.find(x => x.id === pg.id);
     $("paInfo").textContent = titoloPagina(pg) + (o ? " · " + autoreOpera(o) : "") + " · " + ICONE_MODO[pg.modo || "normale"] + " " + t("modo_" + (pg.modo || "normale"));
+    scriviNomePagina(pg);
     apri("veloPagina");
+  }
+  // sotto la pagina: il nome della scimmia che l'ha scritta, da dare, cambiare o togliere
+  function scriviNomePagina(pg, modifica) {
+    const box = $("paNome");
+    box.innerHTML = "";
+    if (!(pg.chi > 0)) return;
+    const nome = nomeFamosa(pg.chi);
+    const salva_ = v => {
+      v = pulisciNome(v);
+      if (!v) return;
+      if (nome) rinominaFamosa(pg.chi, v);
+      else {
+        G.famose = [{ id: pg.chi, nome: v, titolo: titoloPagina(pg), op: pg.id, l: (pg.testo || "").length, ts: pg.ts || Date.now(), modo: pg.modo }, ...(G.famose || [])].slice(0, MAX_FAMOSE);
+        R.mappaFamose = null;
+        salva();
+      }
+      $("paFirma").textContent = "— " + firmaPagina(pg);
+      scriviNomePagina(pg);
+    };
+    if (modifica) {
+      const inp = document.createElement("input"); inp.maxLength = 20; inp.value = nome || nomeACaso(); inp.setAttribute("aria-label", t("bat_ph"));
+      const dado = document.createElement("button"); dado.className = "mini"; dado.textContent = "🎲"; dado.onclick = () => { inp.value = nomeACaso(); };
+      const ok = document.createElement("button"); ok.className = "pulsante piccolo"; ok.textContent = "✓"; ok.onclick = () => salva_(inp.value);
+      inp.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); salva_(inp.value); } });
+      box.append(inp, dado, ok);
+      inp.focus(); try { inp.select(); } catch (e) {}
+      return;
+    }
+    if (nome) {
+      const b = document.createElement("span"); b.innerHTML = "⭐ <b></b>"; b.querySelector("b").textContent = "«" + nome + "»";
+      const m = document.createElement("button"); m.className = "mini"; m.textContent = "✏️"; m.setAttribute("aria-label", t("fam_rinomina")); m.onclick = () => scriviNomePagina(pg, true);
+      const x = document.createElement("button"); x.className = "mini"; x.textContent = "🗑️"; x.setAttribute("aria-label", t("fam_elimina_si"));
+      x.onclick = () => chiedi(t("fam_elimina_tit"), t("fam_elimina_testo", { nome }), () => {
+        G.famose = (G.famose || []).filter(f => f.id !== pg.chi); R.mappaFamose = null; salva();
+        $("paFirma").textContent = "— " + firmaPagina(pg); scriviNomePagina(pg);
+      }, { si: t("fam_elimina_si") });
+      box.append(b, m, x);
+    } else {
+      const b = document.createElement("button"); b.className = "pulsante secondario piccolo"; b.textContent = "✏️ " + t("pa_dai_nome");
+      b.onclick = () => scriviNomePagina(pg, true);
+      box.appendChild(b);
+    }
   }
 
   // ---------- eventi in ufficio: solo velocità o banane, la fortuna non cambia mai ----------
@@ -19147,6 +19714,7 @@
     delete G.avvisoLivelli;
   }
   function dopoTutorial() {
+    if (!G.guideBase) { G.guideBase = true; G.guideViste = { ...(G.guideViste || {}), opera: true, negozio: true }; salva(); }
     controllaLivello();
     riequilibra();
     // chi giocava già vede le novità (e può fare il tour)
@@ -19225,7 +19793,13 @@
     bottega: { apri: () => mostraVista("bottega"), passi: [{ sel: "#casse", testo: "gd_bottega_1" }, { sel: "#zaino", testo: "gd_bottega_2" }] },
     eventi: { apri: () => mostraVista("opera"), passi: [{ sel: "#eventoChip", testo: "gd_eventi_1" }, { sel: "#bEvInfo", testo: "gd_eventi_2" }] },
     oggi: { apri: () => mostraVista("traguardi"), passi: [
-      { sel: "#boxSerie", testo: "gd_oggi_1" }, { sel: "#boxMissioni", testo: "gd_oggi_2" }] },
+      { sel: "#boxSerie", testo: "gd_oggi_1" }, { sel: "#boxMissioni", testo: "gd_oggi_2" }, { sel: "#grigliaTrag", testo: "gd_trag_1" }] },
+    opera: { apri: () => mostraVista("opera"), passi: [
+      { sel: "#v-opera .foglio", testo: "gd_opera_1" }, { sel: ".hud .cassa", testo: "gd_opera_2" }, { sel: "#bApriBiblioteca", testo: "gd_opera_3" },
+      { sel: '.menu button[data-vista="negozio"]', testo: "gd_opera_4" }] },
+    negozio: { apri: () => { mostraVista("negozio"); mostraGruppo("scimmie", true); }, passi: [
+      { sel: "#lista-scimmie .pot:not([hidden])", testo: "gd_neg_1" }, { sel: '.segmenti button[data-gruppo="velocita"]', testo: "gd_neg_2" },
+      { sel: "#v-negozio .quantita", testo: "gd_neg_3" }] },
     lega: { apri: () => { mostraVista("diario"); R.schedaLega = "lega"; R.legaChiave = ""; disegnaLega(); $("riquadroLega").scrollIntoView({ block: "start" }); }, passi: [
       { sel: "#legaModi", testo: "gd_lega_0" }, { sel: "#legaGradini", testo: "gd_lega_1" }, { sel: "#legaFonti", testo: "gd_lega_4" }, { sel: '[data-lscheda="gara"]', testo: "gd_lega_3" }] },
     album: { apri: () => { R.cartella = "album"; disegnaBiblioteca(); apri("veloBiblioteca"); }, passi: [
@@ -19461,6 +20035,10 @@
     { v: 66, voci: 6, chiave: "nov15_", passi: [
       { sel: "#riquadroLega", testo: "tour15_1", vista: "diario" },
       { sel: "#bImpostazioni", testo: "tour15_2", vista: "opera" }
+    ] },
+    { v: 67, voci: 6, chiave: "nov16_", passi: [
+      { sel: "#boxSerie", testo: "tour16_1", vista: "traguardi" },
+      { sel: "#legaGradini", testo: "tour16_2", vista: "diario" }
     ] }
   ];
   const VERSIONE_NOVITA = GRUPPI_NOVITA[GRUPPI_NOVITA.length - 1].v;
