@@ -146,6 +146,16 @@
   .tg-pill { display: inline-block; vertical-align: middle; margin-left: 6px; padding: 1px 7px; border-radius: 999px; font-size: 11px; font-weight: 800;
     line-height: 1.5; white-space: nowrap; background: var(--accento-tenue); color: var(--banana); border: 1px solid rgba(255, 210, 63, .35); letter-spacing: .2px; }
   .tg-pill[hidden] { display: none; }
+  /* la targhetta ha il colore della sua rarità: più è difficile, più si nota */
+  .tg-pill.tg-r0 { background: rgba(255, 255, 255, .07); color: var(--spento); border-color: rgba(255, 255, 255, .18); }
+  .tg-pill.tg-r1 { background: rgba(90, 168, 255, .14); color: #7cbcff; border-color: rgba(90, 168, 255, .45); }
+  .tg-pill.tg-r2 { background: rgba(192, 132, 252, .15); color: #d3a8ff; border-color: rgba(192, 132, 252, .5); }
+  .tg-pill.tg-r3 { background: rgba(251, 191, 36, .16); color: #fcd34d; border-color: rgba(251, 191, 36, .6); }
+  .tg-pill.tg-r4 { background: rgba(255, 79, 216, .16); color: #ff8ae6; border-color: rgba(255, 79, 216, .65); box-shadow: 0 0 8px rgba(255, 79, 216, .45); }
+  .tg-pill.tg-r5 { color: #2b2100; border-color: #fff6c9; box-shadow: 0 0 10px rgba(255, 210, 63, .6);
+    background: linear-gradient(90deg, #fff6c9, #ffd23f, #7dd3fc, #fff6c9); background-size: 300% 100%; animation: tg-brilla 4s linear infinite; }
+  @keyframes tg-brilla { to { background-position: 300% 0; } }
+  .tg-scelta em { display: block; font-style: normal; font-size: 11px; font-weight: 800; margin: 1px 0; }
   .gc-testa .tg-pill { margin: 2px 0 4px; }
   .amico-corpo .tg-pill { margin: 2px 0 0; align-self: flex-start; }
   .anteprima-nome .tg-pill { margin-left: 8px; }
@@ -213,11 +223,42 @@
   .gioco-finestra { width: min(100%, 390px); }
   .mg-testa { display: flex; align-items: center; gap: 8px; }
   .mg-testa h2 { flex: 1; margin: 0; font-size: 18px; text-align: left; }
-  .mg-punti, .mg-tempo { font-weight: 800; font-variant-numeric: tabular-nums; padding: 3px 10px; border-radius: 999px; background: var(--foglia-2); }
-  .mg-tempo { color: var(--banana); }
+  .mg-punti { font-weight: 800; font-variant-numeric: tabular-nums; padding: 3px 10px; border-radius: 999px; background: var(--foglia-2); }
+  .mg-stato { display: grid; gap: 6px; margin: 8px 0 2px; }
+  .mg-timer { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 10px; }
+  .mg-sec { font-size: 22px; font-weight: 900; font-variant-numeric: tabular-nums; color: var(--banana); min-width: 4.3em; white-space: nowrap; }
+  .mg-tbarra { height: 12px; border-radius: 999px; background: var(--foglia-2); overflow: hidden; border: 1px solid var(--bordo); }
+  .mg-tbarra i { display: block; height: 100%; width: 100%; border-radius: inherit; background: linear-gradient(90deg, #4ade80, var(--banana)); }
+  .mg-timer.poco .mg-sec { color: #ff9f43; }
+  .mg-timer.poco .mg-tbarra i { background: #ff9f43; }
+  .mg-timer.pochissimo .mg-sec { color: #ff5e5e; animation: mg-pulsa .5s ease-in-out infinite alternate; }
+  .mg-timer.pochissimo .mg-tbarra i { background: #ff5e5e; }
+  @keyframes mg-pulsa { to { transform: scale(1.12); } }
+  .mg-livello { display: grid; grid-template-columns: auto 1fr; gap: 10px; align-items: center; }
+  .mg-livello[hidden] { display: none; }
+  .mg-livello b { font-size: 14px; padding: 3px 10px; border-radius: 999px; background: var(--accento-tenue); color: var(--banana); white-space: nowrap; }
+  .mg-ob { position: relative; height: 22px; border-radius: 999px; background: var(--foglia-2); overflow: hidden; border: 1px solid var(--bordo); }
+  .mg-ob i { position: absolute; left: 0; top: 0; bottom: 0; width: 0; background: rgba(74, 222, 128, .45); transition: width .2s; }
+  .mg-ob small { position: relative; display: block; text-align: center; font-size: 12.5px; font-weight: 800; line-height: 22px; white-space: nowrap; }
+  .mg-scena { position: relative; }
+  .mg-cartello { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; text-align: center; white-space: pre-line; pointer-events: none;
+    font-size: 21px; font-weight: 900; line-height: 1.35; color: #fff; padding: 0 18px; text-shadow: 0 2px 0 rgba(0, 0, 0, .7), 0 0 14px rgba(0, 0, 0, .8);
+    animation: mg-cartello .45s cubic-bezier(.2, 1.5, .4, 1) both; }
+  .mg-cartello[hidden] { display: none; }
+  .mg-cartello.conto { font-size: 76px; color: var(--banana); }
+  .mg-cartello.ok { color: #4ade80; }
+  @keyframes mg-cartello { from { transform: scale(.4); opacity: 0; } }
+  .mg-guida { display: grid; gap: 6px; padding: 10px 12px; border-radius: 12px; background: var(--foglia-1); border: 1px solid var(--bordo);
+    margin: 2px 0 10px; font-size: 13.5px; line-height: 1.35; text-align: left; }
+  .mg-guida[hidden] { display: none; }
+  .mg-guida b { font-size: 14px; color: var(--banana); }
+  .mg-parola.fatta mark { color: #4ade80; }
+  .mg-piu { color: var(--banana); font-size: 20px; margin-left: 8px; }
+  .mg-griglia.demo { grid-template-columns: repeat(4, 1fr); max-width: 260px; margin: 6px auto; }
+  .mg-griglia.demo .mg-carta { cursor: default; }
   .mg-area { margin: 8px 0 10px; display: grid; place-items: center; }
   .mg-area[hidden] { display: none; }
-  .mg-tela { width: 100%; max-width: 330px; height: auto; aspect-ratio: 60 / 80; image-rendering: pixelated; image-rendering: crisp-edges;
+  .mg-tela { width: min(100%, 300px, 33vh); height: auto; aspect-ratio: 60 / 80; image-rendering: pixelated; image-rendering: crisp-edges;
     border-radius: 12px; touch-action: none; border: 1px solid var(--bordo); }
   .mg-parola { font-family: var(--tasti); font-size: 30px; font-weight: 700; letter-spacing: 1px; padding: 14px 6px; text-align: center; min-height: 1.5em; word-break: break-all; }
   .mg-parola mark { background: none; color: #4ade80; }
@@ -1261,7 +1302,6 @@
       </div>
     <div class="riquadro riquadro-classifica">
       <h3 data-t="classifica"></h3>
-      <p class="sotto-cl" data-t="classifica_sotto"></p>
       <p class="premio-cl" id="clPremio"></p>
       <div class="segmenti modi-cl" role="group">
         <button data-clmodo="facile" aria-pressed="false">🌱 <span data-t="modo_facile"></span></button>
@@ -1339,7 +1379,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 52</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 53</p>
   </div>
 </div>
 
@@ -1512,9 +1552,16 @@
 </div>
 <div class="velo centro sopra" id="veloGioco">
   <div class="finestra gioco-finestra" role="dialog" aria-modal="true" aria-labelledby="mgTitolo">
-    <div class="mg-testa"><h2 id="mgTitolo"></h2><span class="mg-punti" id="mgPunti"></span><span class="mg-tempo" id="mgTempo"></span></div>
-    <p class="tappe-info" id="mgAiuto"></p>
-    <div class="mg-area" id="mgArea"></div>
+    <div class="mg-testa"><h2 id="mgTitolo"></h2><span class="mg-punti" id="mgPunti"></span></div>
+    <div class="mg-stato">
+      <div class="mg-livello" id="mgLivello" hidden><b id="mgLivN"></b><span class="mg-ob"><i id="mgObBarra"></i><small id="mgObTesto"></small></span></div>
+      <div class="mg-timer" id="mgTimer"><span class="mg-sec" id="mgTempo"></span><span class="mg-tbarra"><i id="mgTBarra"></i></span></div>
+    </div>
+    <div class="mg-scena">
+      <div class="mg-area" id="mgArea"></div>
+      <div class="mg-cartello" id="mgCartello" hidden></div>
+    </div>
+    <div class="mg-guida" id="mgGuida" hidden></div>
     <div class="mg-fine" id="mgFine" hidden><b id="mgEsito"></b><div class="righe" id="mgRighe"></div></div>
     <div class="azioni">
       <button class="pulsante" id="bMgVia"></button>
@@ -2373,7 +2420,7 @@
       mg_pronto: "🎁 Premio pronto",
       mg_best: "record {n}",
       mg_gioca: "Gioca",
-      mg_via: "Via!",
+      mg_via: "▶ Inizia",
       mg_ancora: "Gioca ancora",
       mg_punti: "Punti: {n}",
       mg_nuovo_record: "Nuovo record!",
@@ -2383,7 +2430,7 @@
       mg_fine: "Tempo scaduto!",
       mg_scrivi: "Scrivi qui…",
       mg_n_banane: "Banane al volo",
-      mg_d_banane: "Tocca le banane prima che cadano a terra: ognuna vale 1 punto, le dorate 5. Attento a quelle marce: −3!",
+      mg_d_banane: "Tocca le banane che cadono e supera i livelli: ognuno dura 20 secondi, ha un obiettivo ed è più difficile del precedente.",
       mg_n_battitura: "Gara di battitura",
       mg_d_battitura: "Scrivi più parole che puoi in 30 secondi: ogni lettera giusta vale un punto. Fai vedere alle scimmie come si fa!",
       mg_n_memoria: "Memoria delle scimmie",
@@ -2400,7 +2447,35 @@
       tour5_2: "🎒 Nel Negozio c'è lo zaino: i bonus trovati nelle casse si usano quando vuoi.",
       tour5_3: "🔁 In Potenzia i potenziamenti si sbloccano potenziando quelli prima, e «Rinascita» ha preso il posto di «Editore».",
       tour5_4: "👥 Tra gli amici vedi chi è online; toccando un amico la sua scheda si apre qui, sopra la lista.",
-      mg_carta: "Sala giochi"
+      mg_carta: "Sala giochi",
+      mg_via_breve: "Via!",
+      mg_come: "Come si gioca",
+      mg_liv: "Livello {n}",
+      mg_liv_ok: "Livello {n} superato!",
+      mg_arrivato: "Sei arrivato al livello {n}",
+      mg_bl_1: "🍌 Prendi le banane!",
+      mg_bl_2: "✨ Arrivano le banane dorate: +5",
+      mg_bl_3: "🤢 Attento alle banane marce: −3",
+      mg_bl_4: "🌬️ Si alza il vento: le banane ondeggiano",
+      mg_bl_5: "🥥 Noci di cocco: −5, non toccarle!",
+      mg_bl_6: "⚡ Alcune banane accelerano all'improvviso",
+      mg_bl_7: "🔥 Ancora più veloce!",
+      mg_g_banane_1: "👆 Tocca le banane prima che tocchino terra: +1 (le dorate ✨ +5)",
+      mg_g_banane_2: "🎯 Ogni livello dura 20 secondi e ha un obiettivo: raggiungilo per passare al successivo. I secondi avanzati diventano punti.",
+      mg_g_banane_3: "🔥 Prendine tante di fila per i punti doppi e tripli. Non toccare le marce 🤢 e le noci di cocco 🥥!",
+      mg_g_battitura_1: "👀 In alto c'è una parola: scrivila nella casella",
+      mg_g_battitura_2: "✅ Quando è giusta, arriva da sola la parola dopo: ogni lettera vale 1 punto",
+      mg_g_battitura_3: "⏱️ Hai 30 secondi: più parole scrivi, più punti fai",
+      mg_g_memoria_1: "👆 Gira due carte alla volta",
+      mg_g_memoria_2: "🐒 Se le scimmie sono uguali restano scoperte: +10",
+      mg_g_memoria_3: "⏱️ Trova le 8 coppie in 60 secondi: i secondi avanzati diventano punti",
+      tg_immortale: "Immortale",
+      tg_primo: "Numero uno",
+      tgd_primo: "Arriva primo in una classifica a fine mese",
+      nov6_1: "🍌 Banane al volo ora è a livelli: ogni livello ha 20 secondi e un obiettivo, e arrivano banane dorate, marce, vento e noci di cocco",
+      nov6_2: "🎮 Prima di ogni minigioco vedi come si gioca, poi un conto alla rovescia; il timer è grande e diventa rosso negli ultimi secondi",
+      nov6_3: "🏷️ Le targhette sono in ordine di difficoltà, con la loro rarità e il loro colore; le ultime sono davvero esclusive",
+      tour6_1: "🍌 Prova Banane al volo: ora ha i livelli, e prima di iniziare ti mostra come si gioca."
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -3047,7 +3122,7 @@
       mg_pronto: "🎁 Prize ready",
       mg_best: "record {n}",
       mg_gioca: "Play",
-      mg_via: "Go!",
+      mg_via: "▶ Start",
       mg_ancora: "Play again",
       mg_punti: "Score: {n}",
       mg_nuovo_record: "New record!",
@@ -3057,7 +3132,7 @@
       mg_fine: "Time's up!",
       mg_scrivi: "Type here…",
       mg_n_banane: "Banana catch",
-      mg_d_banane: "Tap the bananas before they hit the ground: each is worth 1 point, golden ones 5. Watch out for rotten ones: −3!",
+      mg_d_banane: "Tap the falling bananas and clear the levels: each lasts 20 seconds, has a target and is harder than the one before.",
       mg_n_battitura: "Typing race",
       mg_d_battitura: "Type as many words as you can in 30 seconds: every correct letter is a point. Show the monkeys how it's done!",
       mg_n_memoria: "Monkey memory",
@@ -3074,7 +3149,35 @@
       tour5_2: "🎒 The Shop now has a backpack: boosts from crates can be used whenever you like.",
       tour5_3: "🔁 In Upgrades, each upgrade unlocks by levelling the one before, and \"Rebirth\" replaced \"Publisher\".",
       tour5_4: "👥 In Friends you can see who's online; tap a friend and their card opens right here, over the list.",
-      mg_carta: "Game room"
+      mg_carta: "Game room",
+      mg_via_breve: "Go!",
+      mg_come: "How to play",
+      mg_liv: "Level {n}",
+      mg_liv_ok: "Level {n} cleared!",
+      mg_arrivato: "You reached level {n}",
+      mg_bl_1: "🍌 Catch the bananas!",
+      mg_bl_2: "✨ Golden bananas arrive: +5",
+      mg_bl_3: "🤢 Watch out for rotten bananas: −3",
+      mg_bl_4: "🌬️ The wind picks up: bananas sway",
+      mg_bl_5: "🥥 Coconuts: −5, don't touch them!",
+      mg_bl_6: "⚡ Some bananas suddenly speed up",
+      mg_bl_7: "🔥 Even faster!",
+      mg_g_banane_1: "👆 Tap the bananas before they hit the ground: +1 (golden ones ✨ +5)",
+      mg_g_banane_2: "🎯 Each level lasts 20 seconds and has a target: reach it to move on. Seconds left over become points.",
+      mg_g_banane_3: "🔥 Catch many in a row for double and triple points. Don't touch rotten ones 🤢 or coconuts 🥥!",
+      mg_g_battitura_1: "👀 There's a word at the top: type it in the box",
+      mg_g_battitura_2: "✅ When it's right, the next word appears by itself: each letter is worth 1 point",
+      mg_g_battitura_3: "⏱️ You have 30 seconds: the more words you type, the more points you get",
+      mg_g_memoria_1: "👆 Flip two cards at a time",
+      mg_g_memoria_2: "🐒 If the monkeys match, they stay face up: +10",
+      mg_g_memoria_3: "⏱️ Find the 8 pairs in 60 seconds: seconds left over become points",
+      tg_immortale: "Immortal",
+      tg_primo: "Number one",
+      tgd_primo: "Finish a month 1st on a leaderboard",
+      nov6_1: "🍌 Banana catch now has levels: each one has 20 seconds and a target, with golden and rotten bananas, wind and coconuts",
+      nov6_2: "🎮 Before each mini-game you see how to play, then a countdown; the timer is big and turns red in the last seconds",
+      nov6_3: "🏷️ Badges are ordered by difficulty, each with its rarity and colour; the last ones are truly exclusive",
+      tour6_1: "🍌 Try Banana catch: it now has levels, and before you start it shows you how to play."
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -3721,7 +3824,7 @@
       mg_pronto: "🎁 Premio listo",
       mg_best: "récord {n}",
       mg_gioca: "Jugar",
-      mg_via: "¡Ya!",
+      mg_via: "▶ Empezar",
       mg_ancora: "Jugar otra vez",
       mg_punti: "Puntos: {n}",
       mg_nuovo_record: "¡Nuevo récord!",
@@ -3731,7 +3834,7 @@
       mg_fine: "¡Se acabó el tiempo!",
       mg_scrivi: "Escribe aquí…",
       mg_n_banane: "Plátanos al vuelo",
-      mg_d_banane: "Toca los plátanos antes de que caigan al suelo: cada uno vale 1 punto, los dorados 5. ¡Cuidado con los podridos: −3!",
+      mg_d_banane: "Toca los plátanos que caen y supera los niveles: cada uno dura 20 segundos, tiene un objetivo y es más difícil que el anterior.",
       mg_n_battitura: "Carrera de mecanografía",
       mg_d_battitura: "Escribe todas las palabras que puedas en 30 segundos: cada letra correcta vale un punto. ¡Enséñales a los monos cómo se hace!",
       mg_n_memoria: "Memoria de monos",
@@ -3748,7 +3851,35 @@
       tour5_2: "🎒 En la Tienda está la mochila: los bonus de las cajas se usan cuando quieras.",
       tour5_3: "🔁 En Mejoras, cada mejora se desbloquea subiendo la anterior, y «Renacer» sustituye a «Editor».",
       tour5_4: "👥 En amigos ves quién está en línea; al tocar a un amigo su ficha se abre aquí, encima de la lista.",
-      mg_carta: "Sala de juegos"
+      mg_carta: "Sala de juegos",
+      mg_via_breve: "¡Ya!",
+      mg_come: "Cómo se juega",
+      mg_liv: "Nivel {n}",
+      mg_liv_ok: "¡Nivel {n} superado!",
+      mg_arrivato: "Llegaste al nivel {n}",
+      mg_bl_1: "🍌 ¡Atrapa los plátanos!",
+      mg_bl_2: "✨ Llegan los plátanos dorados: +5",
+      mg_bl_3: "🤢 Cuidado con los plátanos podridos: −3",
+      mg_bl_4: "🌬️ Se levanta el viento: los plátanos se balancean",
+      mg_bl_5: "🥥 Cocos: −5, ¡no los toques!",
+      mg_bl_6: "⚡ Algunos plátanos aceleran de repente",
+      mg_bl_7: "🔥 ¡Aún más rápido!",
+      mg_g_banane_1: "👆 Toca los plátanos antes de que lleguen al suelo: +1 (los dorados ✨ +5)",
+      mg_g_banane_2: "🎯 Cada nivel dura 20 segundos y tiene un objetivo: alcánzalo para pasar al siguiente. Los segundos que sobren son puntos.",
+      mg_g_banane_3: "🔥 Atrapa muchos seguidos para puntos dobles y triples. ¡No toques los podridos 🤢 ni los cocos 🥥!",
+      mg_g_battitura_1: "👀 Arriba hay una palabra: escríbela en la casilla",
+      mg_g_battitura_2: "✅ Cuando está bien, aparece sola la siguiente: cada letra vale 1 punto",
+      mg_g_battitura_3: "⏱️ Tienes 30 segundos: cuantas más palabras, más puntos",
+      mg_g_memoria_1: "👆 Gira dos cartas a la vez",
+      mg_g_memoria_2: "🐒 Si los monos son iguales, se quedan descubiertos: +10",
+      mg_g_memoria_3: "⏱️ Encuentra las 8 parejas en 60 segundos: los segundos que sobren son puntos",
+      tg_immortale: "Inmortal",
+      tg_primo: "Número uno",
+      tgd_primo: "Termina un mes 1.º en una clasificación",
+      nov6_1: "🍌 Plátanos al vuelo ahora tiene niveles: cada uno con 20 segundos y un objetivo, con plátanos dorados y podridos, viento y cocos",
+      nov6_2: "🎮 Antes de cada minijuego ves cómo se juega y luego una cuenta atrás; el temporizador es grande y se pone rojo al final",
+      nov6_3: "🏷️ Las placas están ordenadas por dificultad, con su rareza y su color; las últimas son de verdad exclusivas",
+      tour6_1: "🍌 Prueba Plátanos al vuelo: ahora tiene niveles y antes de empezar te enseña cómo se juega."
     },
 
     // ------------------------------------------------------------- 中文
@@ -4395,7 +4526,7 @@
       mg_pronto: "🎁 奖励已就绪",
       mg_best: "纪录 {n}",
       mg_gioca: "开始",
-      mg_via: "开始！",
+      mg_via: "▶ 开始",
       mg_ancora: "再玩一次",
       mg_punti: "得分：{n}",
       mg_nuovo_record: "新纪录！",
@@ -4405,7 +4536,7 @@
       mg_fine: "时间到！",
       mg_scrivi: "在这里输入…",
       mg_n_banane: "接香蕉",
-      mg_d_banane: "在香蕉落地前点击它们：每根 1 分，金香蕉 5 分。小心烂香蕉：−3！",
+      mg_d_banane: "点击掉落的香蕉，一关一关闯下去：每关 20 秒、有一个目标，而且比上一关更难。",
       mg_n_battitura: "打字比赛",
       mg_d_battitura: "30 秒内尽可能多地输入单词：每个正确字母 1 分。给猴子们做个示范！",
       mg_n_memoria: "猴子记忆",
@@ -4422,7 +4553,35 @@
       tour5_2: "🎒 商店里有背包：箱子开出的加成可以随时使用。",
       tour5_3: "🔁 在升级中，要先升级前一个才能解锁下一个；「重生」取代了「出版商」。",
       tour5_4: "👥 在好友里能看到谁在线；点一下好友，他的资料会在列表上方打开。",
-      mg_carta: "游戏室"
+      mg_carta: "游戏室",
+      mg_via_breve: "开始！",
+      mg_come: "玩法",
+      mg_liv: "第 {n} 关",
+      mg_liv_ok: "第 {n} 关通过！",
+      mg_arrivato: "你到达了第 {n} 关",
+      mg_bl_1: "🍌 接住香蕉！",
+      mg_bl_2: "✨ 金香蕉来了：+5",
+      mg_bl_3: "🤢 小心烂香蕉：−3",
+      mg_bl_4: "🌬️ 起风了：香蕉会左右摇摆",
+      mg_bl_5: "🥥 椰子：−5，别碰！",
+      mg_bl_6: "⚡ 有些香蕉会突然加速",
+      mg_bl_7: "🔥 更快了！",
+      mg_g_banane_1: "👆 在香蕉落地前点击：+1（金香蕉 ✨ +5）",
+      mg_g_banane_2: "🎯 每关 20 秒，有一个目标：达成就进入下一关。剩下的秒数会变成分数。",
+      mg_g_banane_3: "🔥 连续接住能得双倍、三倍分。别碰烂香蕉 🤢 和椰子 🥥！",
+      mg_g_battitura_1: "👀 上方有一个单词：把它输入到框里",
+      mg_g_battitura_2: "✅ 输对后会自动换下一个：每个字母 1 分",
+      mg_g_battitura_3: "⏱️ 你有 30 秒：打的单词越多，分数越高",
+      mg_g_memoria_1: "👆 每次翻开两张牌",
+      mg_g_memoria_2: "🐒 如果猴子相同，就会保持翻开：+10",
+      mg_g_memoria_3: "⏱️ 在 60 秒内找出 8 对：剩下的秒数会变成分数",
+      tg_immortale: "不朽",
+      tg_primo: "第一名",
+      tgd_primo: "在月底排行榜上获得第一名",
+      nov6_1: "🍌 接香蕉现在分关卡：每关 20 秒、有目标，还会有金香蕉、烂香蕉、大风和椰子",
+      nov6_2: "🎮 每个小游戏开始前会演示玩法，然后倒计时；计时器更大，最后几秒会变红",
+      nov6_3: "🏷️ 称号按难度排序，各有稀有度和颜色；最后几个真正稀有",
+      tour6_1: "🍌 试试接香蕉：现在有关卡了，开始前还会演示玩法。"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -5069,7 +5228,7 @@
       mg_pronto: "🎁 Prix prêt",
       mg_best: "record {n}",
       mg_gioca: "Jouer",
-      mg_via: "Go !",
+      mg_via: "▶ Commencer",
       mg_ancora: "Rejouer",
       mg_punti: "Points : {n}",
       mg_nuovo_record: "Nouveau record !",
@@ -5079,7 +5238,7 @@
       mg_fine: "Temps écoulé !",
       mg_scrivi: "Écris ici…",
       mg_n_banane: "Bananes au vol",
-      mg_d_banane: "Touche les bananes avant qu'elles tombent : chacune vaut 1 point, les dorées 5. Attention aux pourries : −3 !",
+      mg_d_banane: "Touche les bananes qui tombent et réussis les niveaux : chacun dure 20 secondes, a un objectif et est plus dur que le précédent.",
       mg_n_battitura: "Course de frappe",
       mg_d_battitura: "Tape le plus de mots possible en 30 secondes : chaque bonne lettre vaut un point. Montre aux singes comment on fait !",
       mg_n_memoria: "Mémoire des singes",
@@ -5096,7 +5255,35 @@
       tour5_2: "🎒 Dans la Boutique, il y a le sac : les bonus des coffres s'utilisent quand tu veux.",
       tour5_3: "🔁 Dans Améliorer, chaque amélioration se débloque en montant la précédente, et « Renaissance » remplace « Éditeur ».",
       tour5_4: "👥 Dans les amis, tu vois qui est en ligne ; touche un ami et sa fiche s'ouvre ici, par-dessus la liste.",
-      mg_carta: "Salle de jeux"
+      mg_carta: "Salle de jeux",
+      mg_via_breve: "Go !",
+      mg_come: "Comment jouer",
+      mg_liv: "Niveau {n}",
+      mg_liv_ok: "Niveau {n} réussi !",
+      mg_arrivato: "Tu as atteint le niveau {n}",
+      mg_bl_1: "🍌 Attrape les bananes !",
+      mg_bl_2: "✨ Voici les bananes dorées : +5",
+      mg_bl_3: "🤢 Attention aux bananes pourries : −3",
+      mg_bl_4: "🌬️ Le vent se lève : les bananes se balancent",
+      mg_bl_5: "🥥 Noix de coco : −5, n'y touche pas !",
+      mg_bl_6: "⚡ Certaines bananes accélèrent d'un coup",
+      mg_bl_7: "🔥 Encore plus vite !",
+      mg_g_banane_1: "👆 Touche les bananes avant qu'elles touchent le sol : +1 (les dorées ✨ +5)",
+      mg_g_banane_2: "🎯 Chaque niveau dure 20 secondes et a un objectif : atteins-le pour passer au suivant. Les secondes restantes deviennent des points.",
+      mg_g_banane_3: "🔥 Attrapes-en beaucoup d'affilée pour des points doubles et triples. Ne touche pas les pourries 🤢 ni les noix de coco 🥥 !",
+      mg_g_battitura_1: "👀 En haut, il y a un mot : tape-le dans la case",
+      mg_g_battitura_2: "✅ Quand c'est juste, le mot suivant arrive tout seul : chaque lettre vaut 1 point",
+      mg_g_battitura_3: "⏱️ Tu as 30 secondes : plus tu tapes de mots, plus tu marques",
+      mg_g_memoria_1: "👆 Retourne deux cartes à la fois",
+      mg_g_memoria_2: "🐒 Si les singes sont pareils, ils restent visibles : +10",
+      mg_g_memoria_3: "⏱️ Trouve les 8 paires en 60 secondes : les secondes restantes deviennent des points",
+      tg_immortale: "Immortel",
+      tg_primo: "Numéro un",
+      tgd_primo: "Termine un mois 1er d'un classement",
+      nov6_1: "🍌 Bananes au vol a maintenant des niveaux : chacun avec 20 secondes et un objectif, des bananes dorées et pourries, du vent et des noix de coco",
+      nov6_2: "🎮 Avant chaque mini-jeu, tu vois comment jouer, puis un compte à rebours ; le chrono est grand et devient rouge à la fin",
+      nov6_3: "🏷️ Les badges sont classés par difficulté, avec leur rareté et leur couleur ; les derniers sont vraiment exclusifs",
+      tour6_1: "🍌 Essaie Bananes au vol : il a maintenant des niveaux et te montre comment jouer avant de commencer."
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -5744,7 +5931,7 @@
       mg_pronto: "🎁 Награда готова",
       mg_best: "рекорд {n}",
       mg_gioca: "Играть",
-      mg_via: "Старт!",
+      mg_via: "▶ Начать",
       mg_ancora: "Ещё раз",
       mg_punti: "Очки: {n}",
       mg_nuovo_record: "Новый рекорд!",
@@ -5754,7 +5941,7 @@
       mg_fine: "Время вышло!",
       mg_scrivi: "Пиши здесь…",
       mg_n_banane: "Лови бананы",
-      mg_d_banane: "Нажимай на бананы, пока они не упали: каждый — 1 очко, золотые — 5. Осторожно, гнилые: −3!",
+      mg_d_banane: "Нажимай на падающие бананы и проходи уровни: каждый длится 20 секунд, у каждого своя цель, и он сложнее предыдущего.",
       mg_n_battitura: "Гонка печати",
       mg_d_battitura: "Напечатай как можно больше слов за 30 секунд: каждая верная буква — очко. Покажи обезьянам, как надо!",
       mg_n_memoria: "Обезьянья память",
@@ -5771,7 +5958,35 @@
       tour5_2: "🎒 В Магазине появился рюкзак: бонусы из сундуков используй когда захочешь.",
       tour5_3: "🔁 В «Улучшить» каждое улучшение открывается после прокачки предыдущего, а «Перерождение» заменило «Издателя».",
       tour5_4: "👥 В друзьях видно, кто в сети; нажми на друга — его карточка откроется прямо поверх списка.",
-      mg_carta: "Игровая"
+      mg_carta: "Игровая",
+      mg_via_breve: "Вперёд!",
+      mg_come: "Как играть",
+      mg_liv: "Уровень {n}",
+      mg_liv_ok: "Уровень {n} пройден!",
+      mg_arrivato: "Ты дошёл до уровня {n}",
+      mg_bl_1: "🍌 Лови бананы!",
+      mg_bl_2: "✨ Появились золотые бананы: +5",
+      mg_bl_3: "🤢 Осторожно, гнилые бананы: −3",
+      mg_bl_4: "🌬️ Поднялся ветер: бананы раскачиваются",
+      mg_bl_5: "🥥 Кокосы: −5, не трогай!",
+      mg_bl_6: "⚡ Некоторые бананы внезапно ускоряются",
+      mg_bl_7: "🔥 Ещё быстрее!",
+      mg_g_banane_1: "👆 Нажимай на бананы, пока они не упали: +1 (золотые ✨ +5)",
+      mg_g_banane_2: "🎯 Каждый уровень длится 20 секунд, и у него есть цель: достигни её, чтобы перейти дальше. Оставшиеся секунды — это очки.",
+      mg_g_banane_3: "🔥 Лови много подряд — очки удваиваются и утраиваются. Не трогай гнилые 🤢 и кокосы 🥥!",
+      mg_g_battitura_1: "👀 Вверху слово: напечатай его в поле",
+      mg_g_battitura_2: "✅ Когда верно, следующее слово появляется само: каждая буква — 1 очко",
+      mg_g_battitura_3: "⏱️ У тебя 30 секунд: чем больше слов, тем больше очков",
+      mg_g_memoria_1: "👆 Переворачивай по две карты",
+      mg_g_memoria_2: "🐒 Если обезьяны одинаковые, они остаются открытыми: +10",
+      mg_g_memoria_3: "⏱️ Найди 8 пар за 60 секунд: оставшиеся секунды — это очки",
+      tg_immortale: "Бессмертный",
+      tg_primo: "Номер один",
+      tgd_primo: "Закончи месяц первым в рейтинге",
+      nov6_1: "🍌 «Лови бананы» теперь с уровнями: у каждого 20 секунд и цель, а ещё золотые и гнилые бананы, ветер и кокосы",
+      nov6_2: "🎮 Перед каждой мини-игрой видно, как играть, потом обратный отсчёт; таймер крупный и краснеет в последние секунды",
+      nov6_3: "🏷️ Значки упорядочены по сложности, у каждого своя редкость и цвет; последние — по-настоящему эксклюзивные",
+      tour6_1: "🍌 Попробуй «Лови бананы»: теперь там уровни, а перед началом показано, как играть."
     }
   };
 
@@ -10331,8 +10546,12 @@
       const mia = prese.has(tg.id);
       if (!mia) b.classList.add("bloccato");
       b.setAttribute("aria-pressed", G.targhetta === tg.id);
-      b.innerHTML = "<b></b><small></small>";
+      b.innerHTML = "<b></b><em></em><small></small>";
+      b.classList.add("tg-scelta");
       b.querySelector("b").textContent = (mia ? tg.ico : "🔒") + " " + t("tg_" + tg.id);
+      const em = b.querySelector("em");
+      em.className = "rarc-" + (tg.r || 0);
+      em.textContent = t("rar_" + (tg.r || 0));
       b.querySelector("small").textContent = descTarghetta(tg);
       b.onclick = () => { if (mia) scegliTarghetta(tg.id); else avviso("🔒 " + descTarghetta(tg)); };
       gt.appendChild(b);
@@ -10553,7 +10772,7 @@
   // =====================================================================
   const ATTESA_MINI = 30 * 60000;
   const MINIGIOCHI = [
-    { id: "banane", ico: "🍌", durata: 30, buono: 40 },
+    { id: "banane", ico: "🍌", durata: 20, buono: 90 },
     { id: "battitura", ico: "⌨️", durata: 30, buono: 90 },
     { id: "memoria", ico: "🧠", durata: 60, buono: 80 }
   ];
@@ -10589,52 +10808,104 @@
     }
     apri("veloGiochi");
   }
-  // prepara la partita (la finestra mostra le regole e il pulsante Via!)
+  // prepara la partita: la scena mostra una piccola dimostrazione e sotto ci sono le regole in breve; poi «Inizia»
   function avviaMini(mg) {
     fermaMini();
-    R.mg = { mg, punti: 0, attivo: false };
+    const st = R.mg = { mg, punti: 0, attivo: false, totale: mg.durata };
     $("mgTitolo").textContent = mg.ico + " " + t("mg_n_" + mg.id);
-    $("mgAiuto").textContent = t("mg_d_" + mg.id);
-    $("mgAiuto").hidden = false;
     $("mgPunti").textContent = "0";
-    $("mgTempo").textContent = mmss(mg.durata);
     $("mgFine").hidden = true;
     $("mgArea").innerHTML = "";
     $("mgArea").hidden = false;
+    cartelloMini("");
+    $("mgLivello").hidden = mg.id !== "banane";
+    scriviTimerMini(mg.durata, mg.durata);
+    const guida = $("mgGuida");
+    guida.innerHTML = "";
+    const tit = document.createElement("b");
+    tit.textContent = "📖 " + t("mg_come");
+    guida.appendChild(tit);
+    for (let k = 1; k <= 3; k++) {
+      const r = document.createElement("span");
+      r.textContent = t("mg_g_" + mg.id + "_" + k);
+      guida.appendChild(r);
+    }
+    guida.hidden = false;
     $("veloGioco").classList.toggle("in-alto", mg.id === "battitura");
-    ({ banane: giocoBanane, battitura: giocoBattitura, memoria: giocoMemoria })[mg.id]($("mgArea"));
+    ({ banane: giocoBanane, battitura: giocoBattitura, memoria: giocoMemoria })[mg.id]($("mgArea"), st);
     $("bMgVia").textContent = t("mg_via");
     $("bMgVia").hidden = false;
     $("bMgVia").onclick = () => partiMini();
     apri("veloGioco");
   }
+  // il timer: secondi grandi e una barra che si svuota (verde e gialla, arancione negli ultimi 10 secondi, rossa negli ultimi 5)
+  function scriviTimerMini(resto, totale) {
+    const sec = Math.max(0, Math.ceil(resto));
+    $("mgTempo").textContent = "⏱ " + mmss(sec);
+    $("mgTBarra").style.width = Math.max(0, Math.min(100, 100 * resto / Math.max(1, totale))) + "%";
+    $("mgTimer").classList.toggle("poco", sec <= 10 && sec > 5);
+    $("mgTimer").classList.toggle("pochissimo", sec <= 5);
+  }
+  // scritta grande sopra la scena (conto alla rovescia, livello superato, livello nuovo)
+  function cartelloMini(testo, classe) {
+    const c = $("mgCartello");
+    c.hidden = !testo;
+    c.className = "mg-cartello" + (classe ? " " + classe : "");
+    c.textContent = testo || "";
+    if (testo && c.style) { c.style.animation = "none"; void c.offsetWidth; c.style.animation = ""; }
+  }
   function partiMini() {
     const st = R.mg;
-    if (!st || st.attivo) return;
+    if (!st || st.attivo || st.conto) return;
     if (st.finita) { avviaMini(st.mg); return partiMini(); }
+    if (st.fermaDemo) st.fermaDemo();
+    if (st.prepara) st.prepara();
+    $("bMgVia").hidden = true;
+    $("mgGuida").hidden = true;
+    // conto alla rovescia: 3, 2, 1, via!
+    st.conto = true;
+    const passi = ["3", "2", "1", t("mg_via_breve")];
+    passi.forEach((x, k) => setTimeout(() => {
+      if (R.mg !== st) return;
+      cartelloMini(x, "conto");
+      if (k < 3) Suono.clic(); else Suono.moneta();
+    }, k * 650));
+    setTimeout(() => { if (R.mg !== st) return; cartelloMini(""); st.conto = false; giroMini(st); }, passi.length * 650);
+  }
+  function giroMini(st) {
     st.attivo = true;
     st.inizio = performance.now();
-    st.fine = st.inizio + st.mg.durata * 1000;
+    st.fine = st.inizio + st.totale * 1000;
     st.ultimo = st.inizio;
-    $("bMgVia").hidden = true;
-    $("mgAiuto").hidden = true;
+    st.ultimoSec = Math.ceil(st.totale);
     if (st.allAvvio) st.allAvvio();
     const giro = ora => {
       if (R.mg !== st || !st.attivo) return;
       const dt = Math.min(0.1, (ora - st.ultimo) / 1000);
       st.ultimo = ora;
+      // durante una pausa (tra un livello e l'altro) il tempo resta fermo
+      if (st.pausa > 0) { st.pausa -= dt; st.fine += dt * 1000; }
       if (st.passo) st.passo(ora, dt);
+      if (R.mg !== st || !st.attivo) return;
+      const resto = (st.fine - ora) / 1000;
       $("mgPunti").textContent = fmt(Math.round(st.punti));
-      $("mgTempo").textContent = mmss(Math.max(0, Math.ceil((st.fine - ora) / 1000)));
-      if (ora >= st.fine) { fineMini(); return; }
+      scriviTimerMini(resto, st.totale);
+      // un tic a ogni secondo degli ultimi 5
+      const sec = Math.ceil(resto);
+      if (sec !== st.ultimoSec) { st.ultimoSec = sec; if (sec <= 5 && sec > 0 && !(st.pausa > 0)) Suono.clic(); }
+      if (ora >= st.fine && !(st.pausa > 0) && !st.livelloDopo) { fineMini(); return; }
       st.raf = requestAnimationFrame(giro);
     };
     st.raf = requestAnimationFrame(giro);
   }
   function fermaMini() {
-    if (R.mg) { R.mg.attivo = false; if (R.mg.raf) cancelAnimationFrame(R.mg.raf); }
+    if (R.mg) {
+      R.mg.attivo = false;
+      if (R.mg.raf) cancelAnimationFrame(R.mg.raf);
+      if (R.mg.fermaDemo) R.mg.fermaDemo();
+    }
   }
-  function esciMini() { fermaMini(); R.mg = null; chiudi("veloGioco"); $("mgArea").innerHTML = ""; scriviSalaGiochi(); if (aperto("veloGiochi")) apriGiochi(); }
+  function esciMini() { fermaMini(); R.mg = null; chiudi("veloGioco"); $("mgArea").innerHTML = ""; cartelloMini(""); scriviSalaGiochi(); if (aperto("veloGiochi")) apriGiochi(); }
   function fineMini() {
     const st = R.mg;
     if (!st || !st.attivo) return;
@@ -10649,6 +10920,8 @@
     G.mini = { ...(G.mini || {}), [mg.id]: { best: Math.max(prima.best || 0, punti), pronto: conPremio ? Date.now() + ATTESA_MINI : (prima.pronto || 0) } };
     G.partiteMini = (G.partiteMini || 0) + 1;
     const righe = ["🎯 " + t("mg_punti", { n: fmt(punti) }), record ? "🏅 " + t("mg_nuovo_record") : "🏅 " + t("mg_record", { n: fmt(prima.best || 0) })];
+    if (st.livello) righe.splice(1, 0, "🏁 " + t("mg_arrivato", { n: st.livello }));
+    cartelloMini("");
     if (conPremio) {
       const p = premioMini(mg, punti);
       G.banane += p.banane;
@@ -10671,16 +10944,57 @@
     disegnaTutto(true);
   }
 
-  // --- 1. Banane al volo: tocca le banane prima che tocchino terra ---
-  function giocoBanane(area) {
+  // --- 1. Banane al volo: livelli da 20 secondi, ognuno con un obiettivo e sempre più difficile ---
+  const LIV_BANANE = 20;
+  const livBanane = n => ({
+    obiettivo: 6 + 4 * n,                                         // punti da fare nel livello
+    intervallo: Math.max(0.26, 0.95 - 0.08 * (n - 1)),            // ogni quanto cade qualcosa
+    vel: 10 + 3 * n,                                               // velocità di caduta
+    dorate: n >= 2 ? 0.08 : 0,                                     // dal livello 2: banane dorate (+5)
+    marce: n >= 3 ? Math.min(0.24, 0.12 + 0.02 * (n - 3)) : 0,    // dal 3: banane marce (−3)
+    vento: n >= 4 ? Math.min(12, 5 + 1.5 * (n - 4)) : 0,          // dal 4: il vento le fa ondeggiare
+    cocchi: n >= 5 ? Math.min(0.14, 0.07 + 0.01 * (n - 5)) : 0,   // dal 5: noci di cocco (−5)
+    scatti: n >= 6 ? Math.min(0.35, 0.15 + 0.05 * (n - 6)) : 0    // dal 6: banane che accelerano all'improvviso
+  });
+  const COCCO = [".nnnn.", "nNNNNn", "nNkNkn", "nNNNNn", "nNNkNn", ".nnnn."];
+  const CURSORE = ["k.....", "kk....", "kwk...", "kwwk..", "kwwwk.", "kwwwwk", "kwwkkk", "kk.kwk", "k...kk"];
+  // cifre in pixel (3×5) per i punti che volano sopra le banane
+  const CIFRE = { "0": "111101101101111", "1": "010110010010111", "2": "111001111100111", "3": "111001111001111", "4": "101101111001001",
+    "5": "111100111001111", "6": "111100111101111", "7": "111001010010010", "8": "111101111101111", "9": "111101111001111",
+    "+": "000010111010000", "-": "000000111000000", "x": "000101010101000" };
+  function scrittaPixel(ctx, testo, x, y, colore) {
+    ctx.fillStyle = colore;
+    [...testo].forEach((ch, i) => {
+      const f = CIFRE[ch];
+      if (f) for (let k = 0; k < 15; k++) if (f[k] === "1") ctx.fillRect(x + i * 4 + (k % 3), y + Math.floor(k / 3), 1, 1);
+    });
+  }
+  function giocoBanane(area, st) {
     const W = 60, H = 80, TERRA = 74;
     const cv = document.createElement("canvas");
     cv.width = W; cv.height = H; cv.className = "mg-tela";
     area.appendChild(cv);
     const ctx = cv.getContext ? cv.getContext("2d") : null;
-    const ogg = [], lampi = [];
-    let prossimo = 0;
-    const disegna = ora => {
+    let ogg = [], lampi = [], scritte = [], prossimo = 0, combo = 0, puntiLiv = 0, cfg = livBanane(1);
+    st.totale = LIV_BANANE;
+    st.livello = 1;
+    const molt = () => Math.min(3, 1 + Math.floor(combo / 8));
+    const scriviLivello = () => {
+      $("mgLivN").textContent = t("mg_liv", { n: st.livello });
+      $("mgObBarra").style.width = Math.min(100, 100 * puntiLiv / cfg.obiettivo) + "%";
+      $("mgObTesto").textContent = "🎯 " + Math.min(puntiLiv, cfg.obiettivo) + "/" + cfg.obiettivo + (molt() > 1 ? "  ·  🔥×" + molt() : "");
+    };
+    const disegnaOggetto = (o, ora) => {
+      const x = Math.round(o.x + (o.ond ? Math.sin(o.fase + ora / 400) * o.ond : 0)), y = Math.round(o.y);
+      o.vx = x;
+      if (o.tipo === 3) { sprite(ctx, COCCO, x, y - 1, null, { n: "#5a3a1e", N: "#8a5a2e", k: "#2a1a0c" }); return; }
+      const col = o.tipo === 1 ? { y: "#fff3a0", Y: "#d4a017" } : o.tipo === 2 ? { y: "#6b5a2b", Y: "#2e2410" } : null;
+      sprite(ctx, BANANA, x, y, null, col);
+      if (o.tipo === 1 && Math.floor(ora / 150) % 2) rett(ctx, "#ffffff", x + 6, y - 1, 1, 1);
+      if (o.tipo === 2) rett(ctx, "#4a7a2a", x + 2, y + 1, 1, 1);
+      if (o.scattata && Math.floor(ora / 90) % 2) rett(ctx, "#ffffff", x + 3, y - 2, 1, 1);
+    };
+    const disegna = (ora, sopra) => {
       if (!ctx) return;
       rett(ctx, "#163a2a", 0, 0, W, H);
       // giungla: foglie in alto, tronchi ai lati, terra in basso
@@ -10690,45 +11004,129 @@
       // la scimmia con il cesto, in basso, che guarda
       sprite(ctx, TESTA, 22, TERRA - 14, null, { b: "#8b5a2b" });
       rett(ctx, "#a86a35", 20, TERRA - 2, 20, 2);
-      for (const o of ogg) {
-        const col = o.tipo === 1 ? { y: "#fff3a0", Y: "#d4a017" } : o.tipo === 2 ? { y: "#6b5a2b", Y: "#2e2410" } : null;
-        sprite(ctx, BANANA, Math.round(o.x), Math.round(o.y), null, col);
-        if (o.tipo === 1 && Math.floor(ora / 150) % 2) rett(ctx, "#ffffff", Math.round(o.x) + 6, Math.round(o.y) - 1, 1, 1);
-        if (o.tipo === 2) rett(ctx, "#4a7a2a", Math.round(o.x) + 2, Math.round(o.y) + 1, 1, 1);
-      }
+      for (const o of ogg) disegnaOggetto(o, ora);
       for (const l of lampi) {
         const c = l.p > 0 ? (l.p > 1 ? "#ffd23f" : "#ffffff") : "#ff5e5e", r = 2 + l.t * 10;
         rett(ctx, c, l.x - r, l.y, 1, 1); rett(ctx, c, l.x + r, l.y, 1, 1); rett(ctx, c, l.x, l.y - r, 1, 1); rett(ctx, c, l.x, l.y + r, 1, 1);
       }
+      for (const sc of scritte) scrittaPixel(ctx, sc.testo, Math.round(sc.x), Math.round(sc.y - sc.t * 10), sc.colore);
+      if (sopra) sopra();
+    };
+    const nuovo = () => {
+      const tiro = Math.random();
+      let tipo = 0;
+      if (tiro < cfg.cocchi) tipo = 3;
+      else if (tiro < cfg.cocchi + cfg.marce) tipo = 2;
+      else if (tiro < cfg.cocchi + cfg.marce + cfg.dorate) tipo = 1;
+      const ond = cfg.vento ? Math.random() * cfg.vento : 0, margine = 4 + ond;
+      const x = margine + Math.random() * Math.max(1, W - 11 - 2 * margine);
+      ogg.push({ x, vx: x, y: -5, v: cfg.vel + Math.random() * 6, tipo, ond, fase: Math.random() * 6.3,
+        scatto: Math.random() < cfg.scatti ? 22 + Math.random() * 22 : 0 });
+    };
+    const scritta = (testo, x, y, colore) => scritte.push({ testo, x: Math.min(W - 4 * testo.length, Math.max(1, x)), y, t: 0, colore });
+    // livello superato: i secondi avanzati diventano punti, poi una pausa con il cartello del livello nuovo
+    const superato = () => {
+      const resto = Math.max(0, Math.ceil((st.fine - performance.now()) / 1000));
+      st.punti += resto;
+      ogg = [];
+      Suono.traguardo();
+      st.pausa = 2.8;
+      st.livelloDopo = st.livello + 1;
+      cartelloMini("✅ " + t("mg_liv_ok", { n: st.livello }) + (resto ? "\n⏱️ +" + resto : ""), "ok");
+      const dopo = st.livelloDopo;
+      setTimeout(() => {
+        if (R.mg !== st || !st.attivo) return;
+        cartelloMini(t("mg_liv", { n: dopo }) + "\n" + t("mg_bl_" + Math.min(7, dopo)));
+      }, 1300);
     };
     cv.addEventListener("pointerdown", e => {
-      if (!R.mg || !R.mg.attivo) return;
+      if (R.mg !== st || !st.attivo || st.pausa > 0) return;
       e.preventDefault();
       const r = cv.getBoundingClientRect();
       const x = (e.clientX - r.left) / r.width * W, y = (e.clientY - r.top) / r.height * H;
       let migliore = -1, dist = 9;
-      ogg.forEach((o, k) => { const d = Math.hypot(x - (o.x + 3.5), y - (o.y + 2)); if (d < dist) { dist = d; migliore = k; } });
+      ogg.forEach((o, k) => { const d = Math.hypot(x - (o.vx + 3.5), y - (o.y + 2)); if (d < dist) { dist = d; migliore = k; } });
       if (migliore < 0) return;
       const o = ogg.splice(migliore, 1)[0];
-      const p = o.tipo === 1 ? 5 : o.tipo === 2 ? -3 : 1;
-      R.mg.punti = Math.max(0, R.mg.punti + p);
-      lampi.push({ x: Math.round(o.x + 3), y: Math.round(o.y + 2), t: 0, p });
-      if (p > 0) Suono.moneta(); else Suono.nego();
+      let p, base;
+      if (o.tipo >= 2) { p = base = o.tipo === 2 ? -3 : -5; combo = 0; Suono.nego(); }
+      else { combo++; base = o.tipo === 1 ? 5 : 1; p = base * molt(); Suono.moneta(); }
+      st.punti = Math.max(0, st.punti + p);
+      puntiLiv = Math.max(0, puntiLiv + base);
+      const cx = Math.round(o.vx + 3), cy = Math.round(o.y + 2);
+      lampi.push({ x: cx, y: cy, t: 0, p });
+      scritta((p > 0 ? "+" : "") + p, cx - 4, cy - 7, p > 1 ? "#ffd23f" : p > 0 ? "#ffffff" : "#ff5e5e");
+      if (p > 0 && combo % 8 === 0 && molt() > 1) scritta("x" + molt(), 26, 30, "#ff9f43");
+      scriviLivello();
+      if (puntiLiv >= cfg.obiettivo) superato();
     });
-    R.mg.passo = (ora, dt) => {
-      const trascorso = (ora - R.mg.inizio) / 1000;
-      prossimo -= dt;
-      if (prossimo <= 0) {
-        const tiro = Math.random();
-        ogg.push({ x: 4 + Math.random() * (W - 15), y: -5, v: 12 + Math.random() * 9 + trascorso * 0.8, tipo: tiro < 0.08 ? 1 : tiro < 0.24 ? 2 : 0 });
-        prossimo = Math.max(0.3, 0.8 - trascorso * 0.016);
+    st.prepara = () => { ogg = []; lampi = []; scritte = []; combo = 0; puntiLiv = 0; st.livello = 1; cfg = livBanane(1); scriviLivello(); disegna(0); };
+    st.allAvvio = () => { prossimo = 0.2; };
+    st.passo = (ora, dt) => {
+      // finita la pausa parte il livello nuovo, con il tempo di nuovo pieno
+      if (st.livelloDopo && !(st.pausa > 0)) {
+        st.livello = st.livelloDopo;
+        st.livelloDopo = 0;
+        cfg = livBanane(st.livello);
+        puntiLiv = 0;
+        prossimo = 0.2;
+        st.fine = ora + LIV_BANANE * 1000;
+        cartelloMini("");
+        scriviLivello();
       }
-      for (const o of ogg) o.y += o.v * dt;
-      for (let k = ogg.length - 1; k >= 0; k--) if (ogg[k].y > TERRA - 3) ogg.splice(k, 1);
+      if (!(st.pausa > 0)) {
+        prossimo -= dt;
+        if (prossimo <= 0) { nuovo(); prossimo = cfg.intervallo * (0.75 + Math.random() * 0.5); }
+        for (const o of ogg) {
+          o.y += o.v * dt;
+          if (o.scatto && !o.scattata && o.y > 24) { o.scattata = true; o.v += o.scatto; }
+        }
+        for (let k = ogg.length - 1; k >= 0; k--) {
+          if (ogg[k].y <= TERRA - 3) continue;
+          // una banana buona caduta a terra interrompe la serie
+          if (ogg[k].tipo <= 1 && combo) { combo = 0; scriviLivello(); }
+          ogg.splice(k, 1);
+        }
+      }
       for (let k = lampi.length - 1; k >= 0; k--) { lampi[k].t += dt; if (lampi[k].t > 0.35) lampi.splice(k, 1); }
+      for (let k = scritte.length - 1; k >= 0; k--) { scritte[k].t += dt; if (scritte[k].t > 0.7) scritte.splice(k, 1); }
       disegna(ora);
     };
-    disegna(0);
+    // dimostrazione prima di iniziare: il cursore tocca una banana (+1) e una dorata (+5) e lascia cadere quella marcia
+    const CICLO = 7.8, riposo = { x: 46, y: 58 }, A = { x: 13, y: 19 }, B = { x: 43, y: 19 };
+    let fermata = false, rafDemo = 0;
+    const t0 = performance.now();
+    const frameDemo = ora => {
+      if (fermata || R.mg !== st) return;
+      const tt = ((ora - t0) / 1000) % CICLO;
+      const f = (a, b) => Math.max(0, Math.min(1, (tt - a) / (b - a)));
+      const verso = (p, q, k) => ({ x: p.x + (q.x - p.x) * k, y: p.y + (q.y - p.y) * k });
+      ogg = []; lampi = []; scritte = [];
+      if (tt < 1.4) ogg.push({ x: 10, vx: 10, y: -5 + 16 * tt, tipo: 0 });
+      if (tt >= 1.6 && tt < 3.0) ogg.push({ x: 40, vx: 40, y: -5 + 16 * (tt - 1.6), tipo: 1 });
+      if (tt >= 3.2 && tt < 7.4) ogg.push({ x: 24, vx: 24, y: Math.min(TERRA - 3, -5 + 18 * (tt - 3.2)), tipo: 2 });
+      if (tt >= 1.4 && tt < 1.75) lampi.push({ x: A.x, y: A.y, t: tt - 1.4, p: 1 });
+      if (tt >= 3.0 && tt < 3.35) lampi.push({ x: B.x, y: B.y, t: tt - 3.0, p: 5 });
+      if (tt >= 1.4 && tt < 2.1) scritte.push({ testo: "+1", x: A.x - 4, y: A.y - 7, t: tt - 1.4, colore: "#ffffff" });
+      if (tt >= 3.0 && tt < 3.7) scritte.push({ testo: "+5", x: B.x - 4, y: B.y - 7, t: tt - 3.0, colore: "#ffd23f" });
+      let c = riposo;
+      if (tt >= 0.6 && tt < 1.4) c = verso(riposo, A, f(0.6, 1.4));
+      else if (tt >= 1.4 && tt < 2.2) c = A;
+      else if (tt >= 2.2 && tt < 3.0) c = verso(A, B, f(2.2, 3.0));
+      else if (tt >= 3.0 && tt < 3.8) c = B;
+      else if (tt >= 3.8 && tt < 4.6) c = verso(B, riposo, f(3.8, 4.6));
+      const premuto = (tt >= 1.4 && tt < 1.6) || (tt >= 3.0 && tt < 3.2);
+      disegna(ora, () => {
+        // sopra la banana marcia una X rossa che lampeggia: questa non si tocca
+        const marcia = ogg.find(o => o.tipo === 2);
+        if (marcia && Math.floor(ora / 250) % 2) scrittaPixel(ctx, "x", marcia.x + 2, Math.round(marcia.y) - 7, "#ff5e5e");
+        sprite(ctx, CURSORE, Math.round(c.x) + (premuto ? 1 : 0), Math.round(c.y) + (premuto ? 1 : 0), null, null);
+      });
+      rafDemo = requestAnimationFrame(frameDemo);
+    };
+    st.fermaDemo = () => { fermata = true; cancelAnimationFrame(rafDemo); ogg = []; lampi = []; scritte = []; };
+    scriviLivello();
+    rafDemo = requestAnimationFrame(frameDemo);
   }
 
   // --- 2. Gara di battitura: scrivi più parole che puoi ---
@@ -10756,7 +11154,7 @@
     const lista = [...set];
     return lista.length >= 30 ? lista : lista.concat((PAROLE_RISERVA[lingua] || PAROLE_RISERVA.en).split(" "));
   }
-  function giocoBattitura(area) {
+  function giocoBattitura(area, st) {
     const parole = paroleMini();
     area.innerHTML = `<div class="mg-parola"></div><input class="mg-input" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="next">`;
     const el = area.querySelector(".mg-parola"), inp = area.querySelector(".mg-input");
@@ -10772,19 +11170,69 @@
       el.append(m, document.createTextNode(attuale.slice(k)));
       inp.classList.toggle("errore", v.length > k);
     };
-    const nuova = () => { attuale = parole[Math.floor(Math.random() * parole.length)]; inp.value = ""; scrivi(); };
-    nuova();
+    const nuova = () => { attuale = parole[Math.floor(Math.random() * parole.length)]; inp.value = ""; el.classList.remove("fatta"); scrivi(); };
     inp.addEventListener("input", () => {
-      if (!R.mg || !R.mg.attivo) return;
+      if (R.mg !== st || !st.attivo) return;
       scrivi();
-      if (semplice(inp.value) === semplice(attuale)) { R.mg.punti += [...attuale].length; Suono.moneta(); nuova(); }
+      if (semplice(inp.value) === semplice(attuale)) { st.punti += [...attuale].length; Suono.moneta(); nuova(); }
     });
-    R.mg.allAvvio = () => { inp.disabled = false; inp.focus(); };
-    R.mg.allaFine = () => { inp.disabled = true; inp.blur(); };
+    st.allAvvio = () => { inp.disabled = false; inp.readOnly = false; inp.value = ""; scrivi(); try { inp.focus(); } catch (e) {} };
+    st.allaFine = () => { inp.disabled = true; inp.blur(); };
+    // dimostrazione: una parola corta si scrive da sola, lettera per lettera, e diventa verde con i suoi punti
+    const corte = parole.filter(w => [...w].length <= 6);
+    let passoDemo = 0, demo = "";
+    const nuovaDemo = () => { demo = (corte.length ? corte : parole)[Math.floor(Math.random() * (corte.length || parole.length))]; passoDemo = 0; };
+    nuovaDemo();
+    const timerDemo = setInterval(() => {
+      if (R.mg !== st || st.attivo) return;
+      const lettere = [...demo];
+      passoDemo++;
+      attuale = demo;
+      if (passoDemo <= lettere.length) { inp.value = lettere.slice(0, passoDemo).join(""); el.classList.remove("fatta"); scrivi(); }
+      else if (passoDemo === lettere.length + 1) {
+        el.classList.add("fatta");
+        const piu = document.createElement("span"); piu.className = "mg-piu"; piu.textContent = "+" + lettere.length;
+        el.appendChild(piu);
+      } else if (passoDemo > lettere.length + 4) { nuovaDemo(); inp.value = ""; el.classList.remove("fatta"); attuale = demo; scrivi(); }
+    }, 260);
+    st.fermaDemo = () => { clearInterval(timerDemo); };
+    // la tastiera del telefono si apre subito al tocco su «Inizia» (dopo non si potrebbe): si scrive dal «Via!»
+    st.prepara = () => { nuova(); inp.disabled = false; inp.readOnly = true; try { inp.focus(); } catch (e) {} };
+    attuale = demo; scrivi();
   }
 
   // --- 3. Memoria delle scimmie: trova le coppie ---
-  function giocoMemoria(area) {
+  function cartaMemoria(id) {
+    const b = document.createElement("button");
+    b.className = "mg-carta";
+    b.dataset.id = id;
+    const dorso = document.createElement("span"); dorso.className = "dorso"; dorso.textContent = "🐒";
+    const av = document.createElement("span"); av.className = "avatar-pg"; mostraAvatar(av, id);
+    b.append(dorso, av);
+    return b;
+  }
+  function giocoMemoria(area, st) {
+    // dimostrazione: 4 carte; due diverse si girano e tornano coperte, poi due coppie giuste restano scoperte
+    const tutti = ESTETICI.filter(x => x.t === "a").map(x => x.id);
+    const [da, db] = tutti.slice().sort(() => Math.random() - 0.5);
+    const demo = document.createElement("div");
+    demo.className = "mg-griglia demo";
+    const dc = [da, db, db, da].map(cartaMemoria);
+    dc.forEach(c => { c.tabIndex = -1; demo.appendChild(c); });
+    area.appendChild(demo);
+    const mosse = [[], [0], [0, 1], [], [0], [0, 3, "p"], [1], [1, 2, "p"], [], [], "reset"];
+    let k = 0, prese = new Set();
+    const timerDemo = setInterval(() => {
+      if (R.mg !== st || st.attivo) return;
+      const m = mosse[k++ % mosse.length];
+      if (m === "reset") { prese = new Set(); dc.forEach(c => c.classList.remove("girata", "presa")); return; }
+      dc.forEach((c, i) => { if (!prese.has(i)) c.classList.toggle("girata", m.includes(i)); });
+      if (m[2] === "p") { prese.add(m[0]); prese.add(m[1]); dc[m[0]].classList.replace("girata", "presa"); dc[m[1]].classList.replace("girata", "presa"); }
+    }, 700);
+    st.fermaDemo = () => { clearInterval(timerDemo); };
+    st.prepara = () => { area.innerHTML = ""; grigliaMemoria(area, st); };
+  }
+  function grigliaMemoria(area, st) {
     const avatar = ESTETICI.filter(x => x.t === "a").map(x => x.id).sort(() => Math.random() - 0.5).slice(0, 8);
     const carte = [...avatar, ...avatar].sort(() => Math.random() - 0.5);
     const gr = document.createElement("div");
@@ -10792,24 +11240,19 @@
     area.appendChild(gr);
     let prima = null, blocco = false, coppie = 0;
     carte.forEach(id => {
-      const b = document.createElement("button");
-      b.className = "mg-carta";
-      b.dataset.id = id;
-      const dorso = document.createElement("span"); dorso.className = "dorso"; dorso.textContent = "🐒";
-      const av = document.createElement("span"); av.className = "avatar-pg"; mostraAvatar(av, id);
-      b.append(dorso, av);
+      const b = cartaMemoria(id);
       b.onclick = () => {
-        if (!R.mg || !R.mg.attivo || blocco || b.classList.contains("girata") || b.classList.contains("presa")) return;
+        if (R.mg !== st || !st.attivo || blocco || b.classList.contains("girata") || b.classList.contains("presa")) return;
         b.classList.add("girata");
         Suono.clic();
         if (!prima) { prima = b; return; }
         if (prima.dataset.id === id) {
           prima.classList.replace("girata", "presa"); b.classList.replace("girata", "presa");
           prima = null; coppie++;
-          R.mg.punti = coppie * 10;
+          st.punti = coppie * 10;
           Suono.moneta();
           // tutte le coppie: i secondi che avanzano diventano punti
-          if (coppie === avatar.length) { R.mg.punti += Math.max(0, Math.ceil((R.mg.fine - performance.now()) / 1000)); fineMini(); }
+          if (coppie === avatar.length) { st.punti += Math.max(0, Math.ceil((st.fine - performance.now()) / 1000)); fineMini(); }
         } else {
           blocco = true;
           const a = prima; prima = null;
@@ -10919,33 +11362,54 @@
   }
 
   // k = valore da controllare, n = soglia; dk = testo della condizione se diverso da k
+  // in ordine di difficoltà vera (misurata con la simulazione), dalla più facile alla più esclusiva.
+  // r = rarità: 0 comune, 1 rara, 2 epica, 3 leggendaria, 4 mitica, 5 esclusiva
   const TARGHETTE = [
-    { id: "apprendista", ico: "🐣", k: "frasi", n: 1, dk: "frasi1" },
-    { id: "scrittore", ico: "✍️", k: "frasi", n: 5 },
-    { id: "bibliotecario", ico: "📚", k: "frasi", n: 15 },
-    { id: "poeta", ico: "🎩", k: "lunga", n: 15 },
-    { id: "classico", ico: "🏛️", k: "lunga", n: 25 },
-    { id: "leggenda", ico: "🌌", k: "lunga", n: 40 },
-    { id: "domatore", ico: "🐒", k: "scimmie", n: 1e4 },
-    { id: "re", ico: "🦍", k: "scimmie", n: 1e8 },
-    { id: "martello", ico: "⌨️", k: "tasti", n: 1e12 },
-    { id: "infinito", ico: "♾️", k: "tasti", n: 1e30 },
-    { id: "rinato", ico: "🔁", k: "rinascite", n: 1, dk: "rinascite1" },
-    { id: "fenice", ico: "🔥", k: "rinascite", n: 10 },
-    { id: "collezionista", ico: "🎨", k: "collezione", n: 40 },
-    { id: "cacciatore", ico: "🏆", k: "traguardi", n: 40 },
-    { id: "duellante", ico: "⚔️", k: "vittorie", n: 1, dk: "vittorie1" },
-    { id: "gladiatore", ico: "🛡️", k: "vittorie", n: 10 },
-    { id: "giocoliere", ico: "🎮", k: "minigiochi", n: 25 },
-    { id: "veterano", ico: "⏳", k: "ore", n: 24 },
-    { id: "parolaio", ico: "🔤", k: "parola", n: 7 },
-    { id: "campione", ico: "🥇", k: "campione", n: 1 }
+    { id: "apprendista", ico: "🐣", k: "frasi", n: 1, dk: "frasi1", r: 0 },
+    { id: "domatore", ico: "🐒", k: "scimmie", n: 1e4, r: 0 },
+    { id: "rinato", ico: "🔁", k: "rinascite", n: 1, dk: "rinascite1", r: 0 },
+    { id: "scrittore", ico: "✍️", k: "frasi", n: 10, r: 1 },
+    { id: "giocoliere", ico: "🎮", k: "minigiochi", n: 20, r: 1 },
+    { id: "duellante", ico: "⚔️", k: "vittorie", n: 1, dk: "vittorie1", r: 1 },
+    { id: "cacciatore", ico: "🏆", k: "traguardi", n: 50, r: 2 },
+    { id: "bibliotecario", ico: "📚", k: "frasi", n: 25, r: 2 },
+    { id: "martello", ico: "⌨️", k: "tasti", n: 1e30, r: 2 },
+    { id: "poeta", ico: "🎩", k: "lunga", n: 25, r: 2 },
+    { id: "parolaio", ico: "🔤", k: "parola", n: 10, r: 3 },
+    { id: "re", ico: "🦍", k: "scimmie", n: 1e15, r: 3 },
+    { id: "gladiatore", ico: "🛡️", k: "vittorie", n: 10, r: 3 },
+    { id: "collezionista", ico: "🎨", k: "collezione", n: 50, r: 3 },
+    { id: "classico", ico: "🏛️", k: "lunga", n: 40, r: 3 },
+    { id: "fenice", ico: "🔥", k: "rinascite", n: 15, r: 4 },
+    { id: "veterano", ico: "⏳", k: "ore", n: 24, r: 4 },
+    { id: "leggenda", ico: "🌌", k: "lunga", n: 70, r: 4 },
+    { id: "infinito", ico: "♾️", k: "tasti", n: 1e100, r: 4 },
+    { id: "campione", ico: "🥇", k: "campione", n: 1, r: 5 },
+    { id: "immortale", ico: "🌠", k: "lunga", n: 100, r: 5 },
+    { id: "primo", ico: "👑", k: "primo", n: 1, r: 5 }
   ];
+  // con la versione 53 alcune targhette sono diventate più difficili: chi le aveva senza i requisiti nuovi le perde
+  const TARGHETTE_PIU_DIFFICILI = ["scrittore", "bibliotecario", "poeta", "classico", "leggenda", "re", "martello", "infinito", "fenice", "collezionista", "cacciatore", "parolaio"];
+  function rivediTarghette() {
+    if (G.targhe53) return;
+    G.targhe53 = true;
+    const v = valoriTarghette();
+    G.targhette = (G.targhette || []).filter(id => {
+      const tg = TARGHETTE.find(x => x.id === id);
+      return tg && (!TARGHETTE_PIU_DIFFICILI.includes(id) || v[tg.k] >= tg.n);
+    });
+    if (G.targhetta && !G.targhette.includes(G.targhetta)) {
+      // al posto di quella persa, la più esclusiva rimasta
+      const migliore = TARGHETTE.filter(x => G.targhette.includes(x.id)).pop();
+      G.targhetta = migliore ? migliore.id : "";
+    }
+    salva();
+  }
   const targhetta = id => TARGHETTE.find(x => x.id === id);
   const descTarghetta = tg => t("tgd_" + (tg.dk || tg.k), { n: fmt(tg.n) });
   function mostraTarghetta(el, id) {
     const tg = id && targhetta(id);
-    el.className = "tg-pill";
+    el.className = "tg-pill" + (tg ? " tg-r" + (tg.r || 0) : "");
     el.hidden = !tg;
     el.textContent = tg ? tg.ico + " " + t("tg_" + tg.id) : "";
   }
@@ -10957,11 +11421,13 @@
       frasi, lunga, scimmie: numScimmie(), tasti: G.tasti || 0, rinascite: G.pubblicazioni || 0,
       collezione: (G.collezione || []).length, traguardi: numTraguardi(), vittorie: G.vittorie || 0,
       minigiochi: G.partiteMini || 0, ore: (G.tempo || 0) / 3600, parola: (G.parolaMax && G.parolaMax.l) || 0,
-      campione: Object.values(G.premiMese || {}).filter(x => x && x.vinto).length
+      campione: Object.values(G.premiMese || {}).filter(x => x && x.vinto).length,
+      primo: Object.values(G.premiMese || {}).filter(x => x && (x.pos || []).some(p => p && p.k === 0)).length
     };
   }
   function controllaTarghette() {
     if (!G || R.nelMenu) return;
+    rivediTarghette();
     const v = valoriTarghette();
     const prese = new Set(G.targhette || []);
     for (const tg of TARGHETTE) {
@@ -12297,6 +12763,9 @@
       { sel: '.menu button[data-vista="bottega"]', testo: "tour5_2" },
       { sel: '.menu button[data-vista="negozio"]', testo: "tour5_3" },
       { sel: "#bAmici", testo: "tour5_4" }
+    ] },
+    { v: 53, voci: 3, chiave: "nov6_", passi: [
+      { sel: "#bSalaGiochi", testo: "tour6_1", vista: "opera" }
     ] }
   ];
   const VERSIONE_NOVITA = GRUPPI_NOVITA[GRUPPI_NOVITA.length - 1].v;
