@@ -323,17 +323,20 @@
   }
   .rarc-5 { background: linear-gradient(90deg, #fff6c9, #ffd23f, #7dd3fc, #fff6c9); background-size: 300% 100%;
     -webkit-background-clip: text; background-clip: text; color: transparent !important; animation: e-scorri 2.5s linear infinite; }
-  .e_leggenda { background-image: linear-gradient(90deg, #ffd23f, #ffffff, #7dd3fc, #ffffff, #ffd23f); background-size: 300% 100%;
-    -webkit-background-clip: text; background-clip: text; color: transparent !important;
-    animation: e-scorri 2s linear infinite, e-leggenda 1.2s ease-in-out infinite; }
-  @keyframes e-leggenda { 50% { filter: drop-shadow(0 0 10px rgba(255, 210, 63, .95)); } }
+  /* Leggenda: oro, con un luccichio bianco che attraversa le lettere una dopo l'altra */
+  .e_leggenda { animation: e-leggenda 1.2s ease-in-out infinite; }
+  @keyframes e-leggenda { 0%, 100% { filter: drop-shadow(0 0 4px rgba(255, 210, 63, .6)); } 50% { filter: drop-shadow(0 0 10px rgba(255, 210, 63, .95)); } }
+  .e_leggenda .lt { color: #ffe680; animation: fx-luccica 2.2s linear infinite; animation-delay: calc(var(--i) * .1s - 20s); }
+  @keyframes fx-luccica { 0%, 25%, 100% { color: #ffe680; text-shadow: 0 0 6px rgba(255, 210, 63, .55); }
+    8% { color: #ffffff; text-shadow: 0 0 10px #ffffff, 0 0 18px #ffd23f; } 14% { color: #7dd3fc; text-shadow: 0 0 10px #7dd3fc, 0 0 22px #38bdf8; } }
   @keyframes anello-mitico {
     from { box-shadow: 0 0 0 2px #ff4fd8, 0 0 14px rgba(255, 79, 216, .7); }
     to { box-shadow: 0 0 0 2px #00f5d4, 0 0 18px rgba(0, 245, 212, .7); }
   }
-  .e_infinito { background-image: linear-gradient(90deg, #00f5d4, #9b5de5, #f15bb5, #fee440, #00f5d4); background-size: 300% 100%;
-    -webkit-background-clip: text; background-clip: text; color: transparent !important;
-    animation: e-scorri 3s linear infinite, e-mitico 1.8s ease-in-out infinite; }
+  /* Infinito: i colori corrono di lettera in lettera, senza fine */
+  .e_infinito { animation: e-mitico 1.8s ease-in-out infinite; }
+  .e_infinito .lt { animation: fx-ciclo 2.4s linear infinite; animation-delay: calc(var(--i) * .18s - 24s); }
+  @keyframes fx-ciclo { 0%, 100% { color: #00f5d4; } 25% { color: #9b5de5; } 50% { color: #f15bb5; } 75% { color: #fee440; } }
   @keyframes e-mitico { 50% { filter: drop-shadow(0 0 8px rgba(241, 91, 181, .9)); } }
   /* avatar e nomi */
   canvas.pixel { width: 100%; height: 100%; image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
@@ -353,14 +356,17 @@
   .griglia-avatar button { background: none; border: 0; padding: 4px; border-radius: 14px; display: grid; place-items: center; gap: 4px; }
   .griglia-avatar button .avatar-pg { width: 52px; height: 52px; font-size: 28px; }
   .griglia-avatar button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--banana); }
-  .griglia-avatar button.bloccato .avatar-pg, .griglia-stili button.bloccato { opacity: .3; filter: grayscale(1); }
+  .griglia-avatar button.bloccato .avatar-pg { opacity: .3; filter: grayscale(1); }
+  .griglia-stili button.bloccato { opacity: .6; }
   .griglia-stili { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; margin: 6px 0 14px; }
   .griglia-stili button { background: var(--foglia-2); border: 1px solid var(--bordo); border-radius: 12px; padding: 10px 6px; font-weight: 800; font-size: 14px; }
   .griglia-stili button[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--banana); }
   .anteprima-nome { display: flex; align-items: center; gap: 10px; background: var(--foglia-2); border-radius: 14px; padding: 10px 12px; margin: 4px 0 12px; font-size: 17px; }
   .schede-pz { margin: 0 0 12px; }
   .nome-pg { font-weight: 800; }
-  .ns-grad, .e_brillio, .e_arcobaleno, .e_fuoco, .e_galassia, .e_orofuso { -webkit-background-clip: text; background-clip: text; color: transparent !important; }
+  .ns-grad, .e_brillio, .e_arcobaleno, .e_fuoco, .e_galassia, .e_orofuso, .c_tramonto, .c_glaciale, .c_aurora, .c_nebulosa, .c_platino {
+    -webkit-background-clip: text; background-clip: text; color: transparent !important; }
+  .nome-pg .lt { display: inline-block; white-space: pre; }
   .ns-grad { background-image: var(--g); }
   .e_bagliore { animation: e-bagliore 2s ease-in-out infinite; }
   @keyframes e-bagliore { 50% { text-shadow: 0 0 10px currentColor, 0 0 18px currentColor; } }
@@ -369,11 +375,61 @@
   .e_neon { color: var(--c); text-shadow: 0 0 4px var(--c), 0 0 12px var(--c); animation: e-neon 3s infinite; }
   @keyframes e-neon { 0%, 18%, 22%, 58%, 62%, 100% { opacity: 1; } 20%, 60% { opacity: .45; } }
   .e_arcobaleno { background-image: linear-gradient(90deg, #ff5e5e, #ffd23f, #4ade80, #38bdf8, #a78bfa, #ff5e5e); background-size: 300% 100%; animation: e-scorri 4s linear infinite; }
-  .e_galassia { background-image: linear-gradient(90deg, #8b5cf6, #38bdf8, #f0abfc, #8b5cf6); background-size: 300% 100%; animation: e-scorri 6s linear infinite; filter: drop-shadow(0 0 6px rgba(167, 139, 250, .6)); }
+  .e_galassia { background-image: linear-gradient(90deg, #7c3aed, #2563eb, #c4b5fd, #7c3aed); background-size: 300% 100%; animation: e-scorri 6s linear infinite; filter: drop-shadow(0 0 6px rgba(167, 139, 250, .6)); }
   .e_orofuso { background-image: linear-gradient(110deg, #b8860b, #ffd700, #fff4b0, #ffd700, #b8860b); background-size: 250% 100%; animation: e-scorri 3s linear infinite; }
   @keyframes e-scorri { to { background-position: 300% 0; } }
   .e_fuoco { background-image: linear-gradient(0deg, #ff3d00, #ff9100, #ffd23f, #ff9100, #ff3d00); background-size: 100% 300%; animation: e-fuoco 1.6s ease-in-out infinite alternate; filter: drop-shadow(0 0 6px rgba(255, 120, 0, .6)); }
   @keyframes e-fuoco { to { background-position: 0 100%; } }
+  /* --- le scritte animate nate dai vecchi colori sfumati: ognuna si muove in un modo diverso --- */
+  /* Tramonto: l'orizzonte scende piano tra arancio e viola */
+  .c_tramonto { background-image: linear-gradient(180deg, #ffc15e 0 47%, #ff6b6b 47% 53%, #b14aed 53% 100%); background-size: 100% 300%;
+    animation: fx-orizzonte 5s ease-in-out infinite alternate; }
+  @keyframes fx-orizzonte { from { background-position: 0 0; } to { background-position: 0 100%; } }
+  /* Oceano: le lettere fanno l'onda */
+  .c_oceano .lt { animation: fx-onda 1.5s ease-in-out infinite; animation-delay: calc(var(--i) * .13s - 15s); }
+  @keyframes fx-onda { 0%, 100% { transform: translateY(1px); } 50% { transform: translateY(-3px); } }
+  /* Glaciale: ghiaccio dal bianco al blu, e ogni tanto un brivido */
+  .c_glaciale { display: inline-block; background-image: linear-gradient(180deg, #ffffff, #bae6fd 45%, #60a5fa);
+    filter: drop-shadow(0 0 4px rgba(125, 211, 252, .75)); animation: fx-brivido 3s linear infinite; }
+  @keyframes fx-brivido { 0%, 78%, 90%, 100% { transform: none; } 80%, 84%, 88% { transform: translateX(-1px); } 82%, 86% { transform: translateX(1px); } }
+  /* Battito: il nome pulsa come un cuore */
+  .c_fiamma { display: inline-block; color: #ff4d6d !important; animation: fx-battito 1.3s ease-in-out infinite; }
+  @keyframes fx-battito { 0%, 45%, 100% { transform: scale(1); text-shadow: none; } 12% { transform: scale(1.13); text-shadow: 0 0 10px rgba(255, 77, 109, .85); }
+    24% { transform: scale(1); } 34% { transform: scale(1.07); text-shadow: 0 0 6px rgba(255, 77, 109, .6); } }
+  /* Vaporwave: glitch rosa e azzurro */
+  .c_vaporwave { color: #f5e9ff !important; text-shadow: 2px 0 #ff4fd8, -2px 0 #22d3ee; animation: fx-glitch 2.4s steps(1) infinite; }
+  @keyframes fx-glitch { 0%, 100% { text-shadow: 2px 0 #ff4fd8, -2px 0 #22d3ee; } 44% { text-shadow: -3px 1px #ff4fd8, 3px -1px #22d3ee; }
+    47% { text-shadow: 5px -1px #ff4fd8, -5px 1px #22d3ee; } 50% { text-shadow: 2px 0 #ff4fd8, -2px 0 #22d3ee; } 88% { text-shadow: 0 0 #ff4fd8, 0 0 #22d3ee; } 90% { text-shadow: 2px 0 #ff4fd8, -2px 0 #22d3ee; } }
+  /* Foresta: le lettere si piegano come foglie al vento */
+  .c_foresta .lt { transform-origin: 50% 100%; animation: fx-foglie 2.2s ease-in-out infinite; animation-delay: calc(var(--i) * .2s - 20s); }
+  @keyframes fx-foglie { 0%, 100% { transform: rotate(-9deg); } 50% { transform: rotate(9deg); } }
+  /* Crepuscolo: un'eco di ombre azzurre e rosa che si allunga e torna */
+  .c_crepuscolo { color: #ddd6fe !important; animation: fx-eco 2.6s ease-in-out infinite; }
+  @keyframes fx-eco { 0%, 100% { text-shadow: 0 0 0 rgba(96, 165, 250, 0), 0 0 0 rgba(244, 114, 182, 0); }
+    50% { text-shadow: 2px 1px 0 rgba(96, 165, 250, .7), 4px 2px 0 rgba(244, 114, 182, .45); } }
+  /* Prisma: tutto il nome cambia colore, con un riflesso del colore opposto */
+  .c_prisma { animation: fx-prisma 4s linear infinite; }
+  @keyframes fx-prisma { 0%, 100% { color: #ff5e5e; text-shadow: 1px 1px 0 rgba(56, 189, 248, .8); } 17% { color: #ff9f43; text-shadow: 1px 1px 0 rgba(167, 139, 250, .8); }
+    33% { color: #ffd23f; text-shadow: 1px 1px 0 rgba(255, 94, 94, .8); } 50% { color: #4ade80; text-shadow: 1px 1px 0 rgba(255, 79, 216, .8); }
+    67% { color: #38bdf8; text-shadow: 1px 1px 0 rgba(255, 210, 63, .8); } 83% { color: #a78bfa; text-shadow: 1px 1px 0 rgba(74, 222, 128, .8); } }
+  /* Lava: lettere che ribollono, dal giallo al rosso */
+  .c_lava .lt { animation: fx-bolle var(--d) ease-in-out infinite; animation-delay: calc(var(--i) * .37s - 20s); text-shadow: 0 0 6px rgba(251, 86, 7, .75); }
+  @keyframes fx-bolle { 0%, 100% { transform: translateY(1px) scale(1); } 50% { transform: translateY(-3px) scale(1.08); } }
+  /* Aurora: verde, azzurro e viola che fluttuano in diagonale */
+  .c_aurora { display: inline-block; background-image: linear-gradient(120deg, #4ade80, #22d3ee, #a78bfa, #22d3ee, #4ade80); background-size: 300% 300%;
+    filter: drop-shadow(0 0 6px rgba(34, 211, 238, .55)); animation: fx-aurora 7s ease-in-out infinite alternate, fx-fluttua 3s ease-in-out infinite alternate; }
+  @keyframes fx-aurora { from { background-position: 0 0; } to { background-position: 100% 100%; } }
+  @keyframes fx-fluttua { from { transform: translateY(1px); } to { transform: translateY(-2px); } }
+  /* Nebulosa: una nuvola rosa che si sfoca e torna nitida */
+  .c_nebulosa { background-image: linear-gradient(90deg, #fdf4ff, #f0abfc, #ff4fd8, #f0abfc, #fdf4ff); background-size: 300% 100%;
+    animation: e-scorri 7s linear infinite, fx-nebbia 3s ease-in-out infinite; }
+  @keyframes fx-nebbia { 0%, 100% { filter: blur(0) drop-shadow(0 0 4px rgba(255, 79, 216, .5)); } 50% { filter: blur(1.3px) drop-shadow(0 0 10px rgba(255, 79, 216, .9)); } }
+  /* Platino: cromato, con un riflesso che passa */
+  .c_platino { background-image: linear-gradient(110deg, transparent 40%, rgba(255, 255, 255, .95) 50%, transparent 60%),
+      linear-gradient(180deg, #ffffff, #e2e8f0 38%, #64748b 52%, #e2e8f0 66%, #ffffff);
+    background-size: 250% 100%, 100% 100%; background-repeat: no-repeat; animation: fx-riflesso 2.6s linear infinite;
+    filter: drop-shadow(0 1px 0 #334155) drop-shadow(0 0 6px rgba(226, 232, 240, .55)); }
+  @keyframes fx-riflesso { from { background-position: 150% 0, 0 0; } to { background-position: -150% 0, 0 0; } }
   .classifica li { cursor: pointer; }
   .classifica .rec { color: var(--spento); font-weight: 700; }
   #veloAnteprima .pa-testo { max-height: 45vh; }
@@ -460,6 +516,11 @@
   .cesto.paracadute { animation: paracadute 2.4s ease-out both, cesto-salta 1s ease-in-out 2.4s infinite; }
   @keyframes paracadute { from { transform: translateY(-70vh) rotate(-8deg); } 70% { transform: translateY(6px) rotate(4deg); } to { transform: none; } }
   .coriandolo.emoji { width: auto; height: auto; background: none !important; font-size: 26px; }
+  .pixel-fx { width: var(--w); height: auto; background: none !important; border-radius: 0; image-rendering: pixelated; image-rendering: crisp-edges;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .35)); }
+  .passa.pixel-fx { left: -70px; }
+  .vignetta-verde { position: absolute; inset: 0; animation: vignetta-verde 1.4s ease-in-out infinite alternate; }
+  @keyframes vignetta-verde { from { box-shadow: inset 0 0 50px 4px rgba(74, 222, 128, .2); } to { box-shadow: inset 0 0 110px 16px rgba(74, 222, 128, .45); } }
   .vignetta-oro { position: absolute; inset: 0; animation: vignetta-oro 1.2s ease-in-out infinite alternate; }
   @keyframes vignetta-oro { from { box-shadow: inset 0 0 60px 6px rgba(255, 210, 63, .3); } to { box-shadow: inset 0 0 140px 24px rgba(255, 210, 63, .6); } }
   .cielo-cosmico { position: absolute; inset: 0; background: radial-gradient(circle at 50% 40%, rgba(124, 58, 237, .25), rgba(10, 6, 40, .55) 70%);
@@ -1379,7 +1440,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 53</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 54</p>
   </div>
 </div>
 
@@ -2475,7 +2536,11 @@
       nov6_1: "🍌 Banane al volo ora è a livelli: ogni livello ha 20 secondi e un obiettivo, e arrivano banane dorate, marce, vento e noci di cocco",
       nov6_2: "🎮 Prima di ogni minigioco vedi come si gioca, poi un conto alla rovescia; il timer è grande e diventa rosso negli ultimi secondi",
       nov6_3: "🏷️ Le targhette sono in ordine di difficoltà, con la loro rarità e il loro colore; le ultime sono davvero esclusive",
-      tour6_1: "🍌 Prova Banane al volo: ora ha i livelli, e prima di iniziare ti mostra come si gioca."
+      tour6_1: "🍌 Prova Banane al volo: ora ha i livelli, e prima di iniziare ti mostra come si gioca.",
+      nov7_1: "🎉 Gli eventi hanno di nuovo i loro effetti sullo schermo (coriandoli, note, buio, il direttore che passa, pioggia di banane…), ora in pixel art",
+      nov7_2: "📦 Nuovi prezzi delle casse: legno 300, argento 700, oro 1500, diamante 2500 Pagine d'oro; i doppioni rimborsano di più",
+      nov7_3: "🎨 Nei Colori ci sono solo tinte unite, tutte diverse; i colori sfumati sono diventati Scritte animate, ognuna con un movimento suo",
+      tour7_1: "📦 Le casse hanno prezzi nuovi, e in Personalizza → Nome trovi i colori separati dalle scritte animate."
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -3177,7 +3242,11 @@
       nov6_1: "🍌 Banana catch now has levels: each one has 20 seconds and a target, with golden and rotten bananas, wind and coconuts",
       nov6_2: "🎮 Before each mini-game you see how to play, then a countdown; the timer is big and turns red in the last seconds",
       nov6_3: "🏷️ Badges are ordered by difficulty, each with its rarity and colour; the last ones are truly exclusive",
-      tour6_1: "🍌 Try Banana catch: it now has levels, and before you start it shows you how to play."
+      tour6_1: "🍌 Try Banana catch: it now has levels, and before you start it shows you how to play.",
+      nov7_1: "🎉 Events have their on-screen effects back (confetti, notes, darkness, the boss walking by, banana rain…), now in pixel art",
+      nov7_2: "📦 New crate prices: wood 300, silver 700, gold 1500, diamond 2500 Golden Pages; duplicates refund more",
+      nov7_3: "🎨 Colours are now plain colours, all different; the gradient ones became Animated names, each with its own motion",
+      tour7_1: "📦 Crates have new prices, and in Customise → Name colours are now separate from animated names."
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -3879,7 +3948,11 @@
       nov6_1: "🍌 Plátanos al vuelo ahora tiene niveles: cada uno con 20 segundos y un objetivo, con plátanos dorados y podridos, viento y cocos",
       nov6_2: "🎮 Antes de cada minijuego ves cómo se juega y luego una cuenta atrás; el temporizador es grande y se pone rojo al final",
       nov6_3: "🏷️ Las placas están ordenadas por dificultad, con su rareza y su color; las últimas son de verdad exclusivas",
-      tour6_1: "🍌 Prueba Plátanos al vuelo: ahora tiene niveles y antes de empezar te enseña cómo se juega."
+      tour6_1: "🍌 Prueba Plátanos al vuelo: ahora tiene niveles y antes de empezar te enseña cómo se juega.",
+      nov7_1: "🎉 Los eventos vuelven a tener sus efectos en pantalla (confeti, notas, oscuridad, el director que pasa, lluvia de plátanos…), ahora en pixel art",
+      nov7_2: "📦 Nuevos precios de las cajas: madera 300, plata 700, oro 1500, diamante 2500 Páginas de oro; los duplicados devuelven más",
+      nov7_3: "🎨 En Colores solo hay colores lisos, todos distintos; los degradados son ahora Letras animadas, cada una con su movimiento",
+      tour7_1: "📦 Las cajas tienen precios nuevos, y en Personalizar → Nombre los colores están separados de las letras animadas."
     },
 
     // ------------------------------------------------------------- 中文
@@ -4581,7 +4654,11 @@
       nov6_1: "🍌 接香蕉现在分关卡：每关 20 秒、有目标，还会有金香蕉、烂香蕉、大风和椰子",
       nov6_2: "🎮 每个小游戏开始前会演示玩法，然后倒计时；计时器更大，最后几秒会变红",
       nov6_3: "🏷️ 称号按难度排序，各有稀有度和颜色；最后几个真正稀有",
-      tour6_1: "🍌 试试接香蕉：现在有关卡了，开始前还会演示玩法。"
+      tour6_1: "🍌 试试接香蕉：现在有关卡了，开始前还会演示玩法。",
+      nov7_1: "🎉 活动重新有了屏幕特效（彩纸、音符、停电、路过的老板、香蕉雨……），现在是像素风",
+      nov7_2: "📦 箱子新价格：木箱 300、银箱 700、金箱 1500、钻石箱 2500 金页；重复物品返还更多",
+      nov7_3: "🎨 颜色里只有纯色，而且各不相同；渐变色变成了动态字，每种动法都不一样",
+      tour7_1: "📦 箱子价格更新了；在 个性化 → 名字 中，颜色和动态字分开了。"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -5283,7 +5360,11 @@
       nov6_1: "🍌 Bananes au vol a maintenant des niveaux : chacun avec 20 secondes et un objectif, des bananes dorées et pourries, du vent et des noix de coco",
       nov6_2: "🎮 Avant chaque mini-jeu, tu vois comment jouer, puis un compte à rebours ; le chrono est grand et devient rouge à la fin",
       nov6_3: "🏷️ Les badges sont classés par difficulté, avec leur rareté et leur couleur ; les derniers sont vraiment exclusifs",
-      tour6_1: "🍌 Essaie Bananes au vol : il a maintenant des niveaux et te montre comment jouer avant de commencer."
+      tour6_1: "🍌 Essaie Bananes au vol : il a maintenant des niveaux et te montre comment jouer avant de commencer.",
+      nov7_1: "🎉 Les événements retrouvent leurs effets à l'écran (confettis, notes, obscurité, le directeur qui passe, pluie de bananes…), désormais en pixel art",
+      nov7_2: "📦 Nouveaux prix des coffres : bois 300, argent 700, or 1500, diamant 2500 Pages d'or ; les doublons remboursent plus",
+      nov7_3: "🎨 Les Couleurs sont maintenant unies et toutes différentes ; les dégradés sont devenus des Noms animés, chacun avec son mouvement",
+      tour7_1: "📦 Les coffres ont de nouveaux prix, et dans Personnaliser → Nom les couleurs sont séparées des noms animés."
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -5986,7 +6067,11 @@
       nov6_1: "🍌 «Лови бананы» теперь с уровнями: у каждого 20 секунд и цель, а ещё золотые и гнилые бананы, ветер и кокосы",
       nov6_2: "🎮 Перед каждой мини-игрой видно, как играть, потом обратный отсчёт; таймер крупный и краснеет в последние секунды",
       nov6_3: "🏷️ Значки упорядочены по сложности, у каждого своя редкость и цвет; последние — по-настоящему эксклюзивные",
-      tour6_1: "🍌 Попробуй «Лови бананы»: теперь там уровни, а перед началом показано, как играть."
+      tour6_1: "🍌 Попробуй «Лови бананы»: теперь там уровни, а перед началом показано, как играть.",
+      nov7_1: "🎉 У событий вернулись эффекты на экране (конфетти, ноты, темнота, проходящий директор, банановый дождь…), теперь в пиксель-арте",
+      nov7_2: "📦 Новые цены сундуков: деревянный 300, серебряный 700, золотой 1500, алмазный 2500 Золотых страниц; за дубликаты возвращается больше",
+      nov7_3: "🎨 В «Цветах» теперь только однотонные цвета, все разные; градиентные стали анимированными надписями, у каждой своё движение",
+      tour7_1: "📦 У сундуков новые цены, а в «Оформление → Имя» цвета теперь отдельно от анимированных надписей."
     }
   };
 
@@ -9994,16 +10079,16 @@
   // =====================================================================
   //  PERSONALIZZAZIONE E NEGOZIO: avatar, colori del nome, scritte animate (solo estetica)
   // =====================================================================
-  const ESTETICI = [{"id": "a_scimmia", "t": "a", "v": "🐒", "r": 0, "g": true}, {"id": "a_nonvedo", "t": "a", "v": "🙈", "r": 0, "g": true}, {"id": "a_banana", "t": "a", "v": "🍌", "r": 0, "g": true}, {"id": "a_nonsento", "t": "a", "v": "🙉", "r": 0, "g": false}, {"id": "a_nonparlo", "t": "a", "v": "🙊", "r": 0, "g": false}, {"id": "a_muso", "t": "a", "v": "🐵", "r": 0, "g": false}, {"id": "a_gorilla", "t": "a", "v": "🦍", "r": 0, "g": false}, {"id": "a_orango", "t": "a", "v": "🦧", "r": 0, "g": false}, {"id": "a_palma", "t": "a", "v": "🌴", "r": 0, "g": false}, {"id": "a_pergamena", "t": "a", "v": "📜", "r": 1, "g": false}, {"id": "a_penna", "t": "a", "v": "✍️", "r": 1, "g": false}, {"id": "a_tastiera", "t": "a", "v": "⌨️", "r": 1, "g": false}, {"id": "a_cilindro", "t": "a", "v": "🎩", "r": 1, "g": false}, {"id": "a_occhiali", "t": "a", "v": "🕶️", "r": 1, "g": false}, {"id": "a_cuffie", "t": "a", "v": "🎧", "r": 1, "g": false}, {"id": "a_ananas", "t": "a", "v": "🍍", "r": 1, "g": false}, {"id": "a_corona", "t": "a", "v": "👑", "r": 2, "g": false}, {"id": "a_robot", "t": "a", "v": "🤖", "r": 2, "g": false}, {"id": "a_alieno", "t": "a", "v": "👽", "r": 2, "g": false}, {"id": "a_unicorno", "t": "a", "v": "🦄", "r": 2, "g": false}, {"id": "a_drago", "t": "a", "v": "🐉", "r": 2, "g": false}, {"id": "a_mago", "t": "a", "v": "🧙", "r": 2, "g": false}, {"id": "a_galassia", "t": "a", "v": "🌌", "r": 3, "g": false}, {"id": "a_diamante", "t": "a", "v": "💎", "r": 3, "g": false}, {"id": "a_fuoco", "t": "a", "v": "🔥", "r": 3, "g": false}, {"id": "a_arcobaleno", "t": "a", "v": "🌈", "r": 3, "g": false}, {"id": "c_bianco", "t": "c", "v": "", "r": 0, "g": true}, {"id": "c_banana", "t": "c", "v": "#ffd23f", "r": 0, "g": true}, {"id": "c_menta", "t": "c", "v": "#74d394", "r": 0, "g": true}, {"id": "c_cielo", "t": "c", "v": "#7ec4ff", "r": 0, "g": false}, {"id": "c_rosa", "t": "c", "v": "#ff8ab3", "r": 0, "g": false}, {"id": "c_arancio", "t": "c", "v": "#ff9f43", "r": 0, "g": false}, {"id": "c_lavanda", "t": "c", "v": "#b98cff", "r": 1, "g": false}, {"id": "c_corallo", "t": "c", "v": "#ff7f66", "r": 1, "g": false}, {"id": "c_oro", "t": "c", "v": "#f2c14e", "r": 1, "g": false}, {"id": "c_smeraldo", "t": "c", "v": "#2ee59d", "r": 1, "g": false}, {"id": "c_tramonto", "t": "c", "v": "linear-gradient(90deg,#ff8a5c,#ff2a6d)", "r": 2, "g": false}, {"id": "c_oceano", "t": "c", "v": "linear-gradient(90deg,#3ee0d0,#2f7de1)", "r": 2, "g": false}, {"id": "e_nessuno", "t": "e", "v": "", "r": 0, "g": true}, {"id": "e_bagliore", "t": "e", "v": "", "r": 1, "g": false}, {"id": "e_brillio", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_neon", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_arcobaleno", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_fuoco", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_galassia", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_orofuso", "t": "e", "v": "", "r": 3, "g": false}, {"id": "a_infinita", "t": "a", "v": "♾️", "r": 4, "g": false}, {"id": "a_bardo", "t": "a", "v": "🎭", "r": 4, "g": false}, {"id": "c_aurora", "t": "c", "v": "linear-gradient(90deg,#00f5d4,#9b5de5,#f15bb5,#fee440)", "r": 4, "g": false}, {"id": "e_infinito", "t": "e", "v": "", "r": 4, "g": false}, {"id": "a_cappuccino", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_mandrillo", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_neve", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_poeta", "t": "a", "v": "🖋️", "r": 1, "g": false}, {"id": "a_dj", "t": "a", "v": "🎧", "r": 1, "g": false}, {"id": "a_esploratore", "t": "a", "v": "🌴", "r": 1, "g": false}, {"id": "a_re_nero", "t": "a", "v": "👑", "r": 2, "g": false}, {"id": "a_cyborg", "t": "a", "v": "🤖", "r": 2, "g": false}, {"id": "c_lime", "t": "c", "v": "#a3e635", "r": 0, "g": false}, {"id": "c_cremisi", "t": "c", "v": "#dc2626", "r": 1, "g": false}, {"id": "c_glaciale", "t": "c", "v": "linear-gradient(90deg,#e0f2fe,#7dd3fc,#a5b4fc)", "r": 2, "g": false}, {"id": "a_scimmia_oro", "t": "a", "v": "🥇", "r": 5, "g": false}, {"id": "a_primo", "t": "a", "v": "✒️", "r": 5, "g": false}, {"id": "c_platino", "t": "c", "v": "linear-gradient(90deg,#f8fafc,#cbd5e1,#ffffff,#94a3b8)", "r": 5, "g": false}, {"id": "e_leggenda", "t": "e", "v": "", "r": 5, "g": false}, {"id": "c_turchese", "t": "c", "v": "#2dd4bf", "r": 0, "g": false}, {"id": "c_pesca", "t": "c", "v": "#fdba74", "r": 0, "g": false}, {"id": "c_ghiaccio", "t": "c", "v": "#bae6fd", "r": 0, "g": false}, {"id": "c_ciliegia", "t": "c", "v": "#fb7185", "r": 1, "g": false}, {"id": "c_ambra", "t": "c", "v": "#f59e0b", "r": 1, "g": false}, {"id": "c_viola", "t": "c", "v": "#a78bfa", "r": 1, "g": false}, {"id": "c_azzurro", "t": "c", "v": "#38bdf8", "r": 1, "g": false}, {"id": "c_fiamma", "t": "c", "v": "linear-gradient(90deg,#f97316,#facc15)", "r": 2, "g": false}, {"id": "c_vaporwave", "t": "c", "v": "linear-gradient(90deg,#f472b6,#818cf8,#22d3ee)", "r": 2, "g": false}, {"id": "c_foresta", "t": "c", "v": "linear-gradient(90deg,#34d399,#a3e635)", "r": 2, "g": false}, {"id": "c_crepuscolo", "t": "c", "v": "linear-gradient(90deg,#60a5fa,#a855f7,#f472b6)", "r": 3, "g": false}, {"id": "c_prisma", "t": "c", "v": "linear-gradient(90deg,#ef4444,#f59e0b,#eab308,#22c55e,#3b82f6,#a855f7)", "r": 3, "g": false}, {"id": "c_lava", "t": "c", "v": "linear-gradient(90deg,#fbbf24,#ef4444,#f97316)", "r": 3, "g": false}, {"id": "c_nebulosa", "t": "c", "v": "linear-gradient(90deg,#f0abfc,#c084fc,#67e8f9,#f0abfc)", "r": 4, "g": false}];
-  const NOMI_ESTETICI = {"c_bianco": {"it": "Bianco", "en": "White", "es": "Blanco", "zh": "白色", "fr": "Blanc", "ru": "Белый"}, "c_banana": {"it": "Banana", "en": "Banana", "es": "Plátano", "zh": "香蕉黄", "fr": "Banane", "ru": "Банановый"}, "c_menta": {"it": "Menta", "en": "Mint", "es": "Menta", "zh": "薄荷绿", "fr": "Menthe", "ru": "Мятный"}, "c_cielo": {"it": "Cielo", "en": "Sky", "es": "Cielo", "zh": "天蓝", "fr": "Ciel", "ru": "Небесный"}, "c_rosa": {"it": "Rosa", "en": "Pink", "es": "Rosa", "zh": "粉红", "fr": "Rose", "ru": "Розовый"}, "c_arancio": {"it": "Arancio", "en": "Orange", "es": "Naranja", "zh": "橙色", "fr": "Orange", "ru": "Оранжевый"}, "c_lavanda": {"it": "Lavanda", "en": "Lavender", "es": "Lavanda", "zh": "薰衣草紫", "fr": "Lavande", "ru": "Лавандовый"}, "c_corallo": {"it": "Corallo", "en": "Coral", "es": "Coral", "zh": "珊瑚红", "fr": "Corail", "ru": "Коралловый"}, "c_oro": {"it": "Oro", "en": "Gold", "es": "Oro", "zh": "金色", "fr": "Or", "ru": "Золотой"}, "c_smeraldo": {"it": "Smeraldo", "en": "Emerald", "es": "Esmeralda", "zh": "翡翠绿", "fr": "Émeraude", "ru": "Изумрудный"}, "c_tramonto": {"it": "Tramonto", "en": "Sunset", "es": "Atardecer", "zh": "日落", "fr": "Coucher de soleil", "ru": "Закат"}, "c_oceano": {"it": "Oceano", "en": "Ocean", "es": "Océano", "zh": "海洋", "fr": "Océan", "ru": "Океан"}, "e_nessuno": {"it": "Nessuna", "en": "None", "es": "Ninguno", "zh": "无", "fr": "Aucun", "ru": "Нет"}, "e_bagliore": {"it": "Bagliore", "en": "Glow", "es": "Brillo", "zh": "光晕", "fr": "Lueur", "ru": "Сияние"}, "e_brillio": {"it": "Scintillio", "en": "Shimmer", "es": "Destello", "zh": "闪光", "fr": "Scintillement", "ru": "Мерцание"}, "e_neon": {"it": "Neon", "en": "Neon", "es": "Neón", "zh": "霓虹", "fr": "Néon", "ru": "Неон"}, "e_arcobaleno": {"it": "Arcobaleno", "en": "Rainbow", "es": "Arcoíris", "zh": "彩虹", "fr": "Arc-en-ciel", "ru": "Радуга"}, "e_fuoco": {"it": "Fuoco", "en": "Fire", "es": "Fuego", "zh": "火焰", "fr": "Feu", "ru": "Огонь"}, "e_galassia": {"it": "Galassia", "en": "Galaxy", "es": "Galaxia", "zh": "星系", "fr": "Galaxie", "ru": "Галактика"}, "e_orofuso": {"it": "Oro fuso", "en": "Molten gold", "es": "Oro fundido", "zh": "熔金", "fr": "Or fondu", "ru": "Расплавленное золото"}, "c_aurora": {"it": "Aurora", "en": "Aurora", "es": "Aurora", "zh": "极光", "fr": "Aurore", "ru": "Сияние зари"}, "e_infinito": {"it": "Infinito", "en": "Infinite", "es": "Infinito", "zh": "无限", "fr": "Infini", "ru": "Бесконечность"}, "a_infinita": {"it": "La Scimmia Infinita", "en": "The Infinite Monkey", "es": "El Mono Infinito", "zh": "无限猴子", "fr": "Le Singe Infini", "ru": "Бесконечная Обезьяна"}, "a_bardo": {"it": "Il Bardo", "en": "The Bard", "es": "El Bardo", "zh": "吟游诗人", "fr": "Le Barde", "ru": "Бард"}, "c_lime": {"it": "Lime", "en": "Lime", "es": "Lima", "zh": "青柠", "fr": "Citron vert", "ru": "Лайм"}, "c_cremisi": {"it": "Cremisi", "en": "Crimson", "es": "Carmesí", "zh": "深红", "fr": "Cramoisi", "ru": "Багровый"}, "c_glaciale": {"it": "Glaciale", "en": "Glacier", "es": "Glacial", "zh": "冰川", "fr": "Glacier", "ru": "Ледяной"}, "c_platino": {"it": "Platino", "en": "Platinum", "es": "Platino", "zh": "铂金", "fr": "Platine", "ru": "Платина"}, "e_leggenda": {"it": "Leggenda", "en": "Legend", "es": "Leyenda", "zh": "传奇", "fr": "Légende", "ru": "Легенда"}, "a_scimmia_oro": {"it": "La Scimmia d'oro", "en": "The Golden Monkey", "es": "El Mono de oro", "zh": "黄金猴子", "fr": "Le Singe d'or", "ru": "Золотая обезьяна"}, "a_primo": {"it": "Il Primo Scrittore", "en": "The First Writer", "es": "El Primer Escritor", "zh": "第一位作家", "fr": "Le Premier Écrivain", "ru": "Первый писатель"}, "c_turchese": {"it": "Turchese", "en": "Turquoise", "es": "Turquesa", "zh": "绿松石", "fr": "Turquoise", "ru": "Бирюзовый"}, "c_pesca": {"it": "Pesca", "en": "Peach", "es": "Melocotón", "zh": "蜜桃", "fr": "Pêche", "ru": "Персиковый"}, "c_ghiaccio": {"it": "Ghiaccio", "en": "Ice", "es": "Hielo", "zh": "冰蓝", "fr": "Glace", "ru": "Голубой лёд"}, "c_ciliegia": {"it": "Ciliegia", "en": "Cherry", "es": "Cereza", "zh": "樱桃红", "fr": "Cerise", "ru": "Вишнёвый"}, "c_ambra": {"it": "Ambra", "en": "Amber", "es": "Ámbar", "zh": "琥珀", "fr": "Ambre", "ru": "Янтарный"}, "c_viola": {"it": "Viola", "en": "Violet", "es": "Violeta", "zh": "紫罗兰", "fr": "Violet", "ru": "Фиолетовый"}, "c_azzurro": {"it": "Azzurro", "en": "Azure", "es": "Azur", "zh": "天青", "fr": "Azur", "ru": "Лазурный"}, "c_fiamma": {"it": "Fiamma", "en": "Flame", "es": "Llama", "zh": "火焰橙", "fr": "Flamme", "ru": "Пламя"}, "c_vaporwave": {"it": "Vaporwave", "en": "Vaporwave", "es": "Vaporwave", "zh": "蒸汽波", "fr": "Vaporwave", "ru": "Вейпорвейв"}, "c_foresta": {"it": "Foresta", "en": "Forest", "es": "Bosque", "zh": "森林", "fr": "Forêt", "ru": "Лес"}, "c_crepuscolo": {"it": "Crepuscolo", "en": "Twilight", "es": "Crepúsculo", "zh": "暮光", "fr": "Crépuscule", "ru": "Сумерки"}, "c_prisma": {"it": "Prisma", "en": "Prism", "es": "Prisma", "zh": "棱镜", "fr": "Prisme", "ru": "Призма"}, "c_lava": {"it": "Lava", "en": "Lava", "es": "Lava", "zh": "熔岩", "fr": "Lave", "ru": "Лава"}, "c_nebulosa": {"it": "Nebulosa", "en": "Nebula", "es": "Nebulosa", "zh": "星云", "fr": "Nébuleuse", "ru": "Туманность"}};
+  const ESTETICI = [{"id": "a_scimmia", "t": "a", "v": "🐒", "r": 0, "g": true}, {"id": "a_nonvedo", "t": "a", "v": "🙈", "r": 0, "g": true}, {"id": "a_banana", "t": "a", "v": "🍌", "r": 0, "g": true}, {"id": "a_nonsento", "t": "a", "v": "🙉", "r": 0, "g": false}, {"id": "a_nonparlo", "t": "a", "v": "🙊", "r": 0, "g": false}, {"id": "a_muso", "t": "a", "v": "🐵", "r": 0, "g": false}, {"id": "a_gorilla", "t": "a", "v": "🦍", "r": 0, "g": false}, {"id": "a_orango", "t": "a", "v": "🦧", "r": 0, "g": false}, {"id": "a_palma", "t": "a", "v": "🌴", "r": 0, "g": false}, {"id": "a_pergamena", "t": "a", "v": "📜", "r": 1, "g": false}, {"id": "a_penna", "t": "a", "v": "✍️", "r": 1, "g": false}, {"id": "a_tastiera", "t": "a", "v": "⌨️", "r": 1, "g": false}, {"id": "a_cilindro", "t": "a", "v": "🎩", "r": 1, "g": false}, {"id": "a_occhiali", "t": "a", "v": "🕶️", "r": 1, "g": false}, {"id": "a_cuffie", "t": "a", "v": "🎧", "r": 1, "g": false}, {"id": "a_ananas", "t": "a", "v": "🍍", "r": 1, "g": false}, {"id": "a_corona", "t": "a", "v": "👑", "r": 2, "g": false}, {"id": "a_robot", "t": "a", "v": "🤖", "r": 2, "g": false}, {"id": "a_alieno", "t": "a", "v": "👽", "r": 2, "g": false}, {"id": "a_unicorno", "t": "a", "v": "🦄", "r": 2, "g": false}, {"id": "a_drago", "t": "a", "v": "🐉", "r": 2, "g": false}, {"id": "a_mago", "t": "a", "v": "🧙", "r": 2, "g": false}, {"id": "a_galassia", "t": "a", "v": "🌌", "r": 3, "g": false}, {"id": "a_diamante", "t": "a", "v": "💎", "r": 3, "g": false}, {"id": "a_fuoco", "t": "a", "v": "🔥", "r": 3, "g": false}, {"id": "a_arcobaleno", "t": "a", "v": "🌈", "r": 3, "g": false}, {"id": "c_bianco", "t": "c", "v": "", "r": 0, "g": true}, {"id": "c_banana", "t": "c", "v": "#ffd23f", "r": 0, "g": true}, {"id": "c_menta", "t": "c", "v": "#b5f5c9", "r": 0, "g": true}, {"id": "c_cielo", "t": "c", "v": "#5cc8ff", "r": 0, "g": false}, {"id": "c_rosa", "t": "c", "v": "#ff9ec4", "r": 0, "g": false}, {"id": "c_arancio", "t": "c", "v": "#ff8a1f", "r": 0, "g": false}, {"id": "c_lavanda", "t": "c", "v": "#d8b4fe", "r": 1, "g": false}, {"id": "c_corallo", "t": "c", "v": "#ff6f61", "r": 1, "g": false}, {"id": "c_oro", "t": "c", "v": "#c9a227", "r": 1, "g": false}, {"id": "c_smeraldo", "t": "c", "v": "#22c55e", "r": 1, "g": false}, {"id": "c_tramonto", "t": "e", "v": "", "r": 2, "g": false}, {"id": "c_oceano", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_nessuno", "t": "e", "v": "", "r": 0, "g": true}, {"id": "e_bagliore", "t": "e", "v": "", "r": 1, "g": false}, {"id": "e_brillio", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_neon", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_arcobaleno", "t": "e", "v": "", "r": 2, "g": false}, {"id": "e_fuoco", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_galassia", "t": "e", "v": "", "r": 3, "g": false}, {"id": "e_orofuso", "t": "e", "v": "", "r": 3, "g": false}, {"id": "a_infinita", "t": "a", "v": "♾️", "r": 4, "g": false}, {"id": "a_bardo", "t": "a", "v": "🎭", "r": 4, "g": false}, {"id": "c_aurora", "t": "e", "v": "", "r": 4, "g": false}, {"id": "e_infinito", "t": "e", "v": "", "r": 4, "g": false}, {"id": "a_cappuccino", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_mandrillo", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_neve", "t": "a", "v": "🐒", "r": 0, "g": false}, {"id": "a_poeta", "t": "a", "v": "🖋️", "r": 1, "g": false}, {"id": "a_dj", "t": "a", "v": "🎧", "r": 1, "g": false}, {"id": "a_esploratore", "t": "a", "v": "🌴", "r": 1, "g": false}, {"id": "a_re_nero", "t": "a", "v": "👑", "r": 2, "g": false}, {"id": "a_cyborg", "t": "a", "v": "🤖", "r": 2, "g": false}, {"id": "c_lime", "t": "c", "v": "#a3e635", "r": 0, "g": false}, {"id": "c_cremisi", "t": "c", "v": "#d61f3a", "r": 1, "g": false}, {"id": "c_glaciale", "t": "e", "v": "", "r": 2, "g": false}, {"id": "a_scimmia_oro", "t": "a", "v": "🥇", "r": 5, "g": false}, {"id": "a_primo", "t": "a", "v": "✒️", "r": 5, "g": false}, {"id": "c_platino", "t": "e", "v": "", "r": 5, "g": false}, {"id": "e_leggenda", "t": "e", "v": "", "r": 5, "g": false}, {"id": "c_turchese", "t": "c", "v": "#2dd4bf", "r": 0, "g": false}, {"id": "c_pesca", "t": "c", "v": "#ffc8a2", "r": 0, "g": false}, {"id": "c_ghiaccio", "t": "c", "v": "#d6f3ff", "r": 0, "g": false}, {"id": "c_ciliegia", "t": "c", "v": "#c2185b", "r": 1, "g": false}, {"id": "c_ambra", "t": "c", "v": "#b45f1c", "r": 1, "g": false}, {"id": "c_viola", "t": "c", "v": "#8b5cf6", "r": 1, "g": false}, {"id": "c_azzurro", "t": "c", "v": "#4f7dff", "r": 1, "g": false}, {"id": "c_fiamma", "t": "e", "v": "", "r": 2, "g": false}, {"id": "c_vaporwave", "t": "e", "v": "", "r": 2, "g": false}, {"id": "c_foresta", "t": "e", "v": "", "r": 2, "g": false}, {"id": "c_crepuscolo", "t": "e", "v": "", "r": 3, "g": false}, {"id": "c_prisma", "t": "e", "v": "", "r": 3, "g": false}, {"id": "c_lava", "t": "e", "v": "", "r": 3, "g": false}, {"id": "c_nebulosa", "t": "e", "v": "", "r": 4, "g": false}];
+  const NOMI_ESTETICI = {"c_bianco": {"it": "Bianco", "en": "White", "es": "Blanco", "zh": "白色", "fr": "Blanc", "ru": "Белый"}, "c_banana": {"it": "Banana", "en": "Banana", "es": "Plátano", "zh": "香蕉黄", "fr": "Banane", "ru": "Банановый"}, "c_menta": {"it": "Menta", "en": "Mint", "es": "Menta", "zh": "薄荷绿", "fr": "Menthe", "ru": "Мятный"}, "c_cielo": {"it": "Cielo", "en": "Sky", "es": "Cielo", "zh": "天蓝", "fr": "Ciel", "ru": "Небесный"}, "c_rosa": {"it": "Rosa", "en": "Pink", "es": "Rosa", "zh": "粉红", "fr": "Rose", "ru": "Розовый"}, "c_arancio": {"it": "Arancio", "en": "Orange", "es": "Naranja", "zh": "橙色", "fr": "Orange", "ru": "Оранжевый"}, "c_lavanda": {"it": "Lavanda", "en": "Lavender", "es": "Lavanda", "zh": "薰衣草紫", "fr": "Lavande", "ru": "Лавандовый"}, "c_corallo": {"it": "Corallo", "en": "Coral", "es": "Coral", "zh": "珊瑚红", "fr": "Corail", "ru": "Коралловый"}, "c_oro": {"it": "Oro", "en": "Gold", "es": "Oro", "zh": "金色", "fr": "Or", "ru": "Золотой"}, "c_smeraldo": {"it": "Smeraldo", "en": "Emerald", "es": "Esmeralda", "zh": "翡翠绿", "fr": "Émeraude", "ru": "Изумрудный"}, "c_tramonto": {"it": "Tramonto", "en": "Sunset", "es": "Atardecer", "zh": "日落", "fr": "Coucher de soleil", "ru": "Закат"}, "c_oceano": {"it": "Oceano", "en": "Ocean", "es": "Océano", "zh": "海洋", "fr": "Océan", "ru": "Океан"}, "e_nessuno": {"it": "Nessuna", "en": "None", "es": "Ninguno", "zh": "无", "fr": "Aucun", "ru": "Нет"}, "e_bagliore": {"it": "Bagliore", "en": "Glow", "es": "Brillo", "zh": "光晕", "fr": "Lueur", "ru": "Сияние"}, "e_brillio": {"it": "Scintillio", "en": "Shimmer", "es": "Destello", "zh": "闪光", "fr": "Scintillement", "ru": "Мерцание"}, "e_neon": {"it": "Neon", "en": "Neon", "es": "Neón", "zh": "霓虹", "fr": "Néon", "ru": "Неон"}, "e_arcobaleno": {"it": "Arcobaleno", "en": "Rainbow", "es": "Arcoíris", "zh": "彩虹", "fr": "Arc-en-ciel", "ru": "Радуга"}, "e_fuoco": {"it": "Fuoco", "en": "Fire", "es": "Fuego", "zh": "火焰", "fr": "Feu", "ru": "Огонь"}, "e_galassia": {"it": "Galassia", "en": "Galaxy", "es": "Galaxia", "zh": "星系", "fr": "Galaxie", "ru": "Галактика"}, "e_orofuso": {"it": "Oro fuso", "en": "Molten gold", "es": "Oro fundido", "zh": "熔金", "fr": "Or fondu", "ru": "Расплавленное золото"}, "c_aurora": {"it": "Aurora", "en": "Aurora", "es": "Aurora", "zh": "极光", "fr": "Aurore", "ru": "Сияние зари"}, "e_infinito": {"it": "Infinito", "en": "Infinite", "es": "Infinito", "zh": "无限", "fr": "Infini", "ru": "Бесконечность"}, "a_infinita": {"it": "La Scimmia Infinita", "en": "The Infinite Monkey", "es": "El Mono Infinito", "zh": "无限猴子", "fr": "Le Singe Infini", "ru": "Бесконечная Обезьяна"}, "a_bardo": {"it": "Il Bardo", "en": "The Bard", "es": "El Bardo", "zh": "吟游诗人", "fr": "Le Barde", "ru": "Бард"}, "c_lime": {"it": "Lime", "en": "Lime", "es": "Lima", "zh": "青柠", "fr": "Citron vert", "ru": "Лайм"}, "c_cremisi": {"it": "Cremisi", "en": "Crimson", "es": "Carmesí", "zh": "深红", "fr": "Cramoisi", "ru": "Багровый"}, "c_glaciale": {"it": "Glaciale", "en": "Glacier", "es": "Glacial", "zh": "冰川", "fr": "Glacier", "ru": "Ледяной"}, "c_platino": {"it": "Platino", "en": "Platinum", "es": "Platino", "zh": "铂金", "fr": "Platine", "ru": "Платина"}, "e_leggenda": {"it": "Leggenda", "en": "Legend", "es": "Leyenda", "zh": "传奇", "fr": "Légende", "ru": "Легенда"}, "a_scimmia_oro": {"it": "La Scimmia d'oro", "en": "The Golden Monkey", "es": "El Mono de oro", "zh": "黄金猴子", "fr": "Le Singe d'or", "ru": "Золотая обезьяна"}, "a_primo": {"it": "Il Primo Scrittore", "en": "The First Writer", "es": "El Primer Escritor", "zh": "第一位作家", "fr": "Le Premier Écrivain", "ru": "Первый писатель"}, "c_turchese": {"it": "Turchese", "en": "Turquoise", "es": "Turquesa", "zh": "绿松石", "fr": "Turquoise", "ru": "Бирюзовый"}, "c_pesca": {"it": "Pesca", "en": "Peach", "es": "Melocotón", "zh": "蜜桃", "fr": "Pêche", "ru": "Персиковый"}, "c_ghiaccio": {"it": "Ghiaccio", "en": "Ice", "es": "Hielo", "zh": "冰蓝", "fr": "Glace", "ru": "Голубой лёд"}, "c_ciliegia": {"it": "Ciliegia", "en": "Cherry", "es": "Cereza", "zh": "樱桃红", "fr": "Cerise", "ru": "Вишнёвый"}, "c_ambra": {"it": "Ambra", "en": "Amber", "es": "Ámbar", "zh": "琥珀", "fr": "Ambre", "ru": "Янтарный"}, "c_viola": {"it": "Viola", "en": "Violet", "es": "Violeta", "zh": "紫罗兰", "fr": "Violet", "ru": "Фиолетовый"}, "c_azzurro": {"it": "Azzurro", "en": "Azure", "es": "Azur", "zh": "天青", "fr": "Azur", "ru": "Лазурный"}, "c_fiamma": {"it": "Battito", "en": "Heartbeat", "es": "Latido", "zh": "心跳", "fr": "Battement", "ru": "Сердцебиение"}, "c_vaporwave": {"it": "Vaporwave", "en": "Vaporwave", "es": "Vaporwave", "zh": "蒸汽波", "fr": "Vaporwave", "ru": "Вейпорвейв"}, "c_foresta": {"it": "Foresta", "en": "Forest", "es": "Bosque", "zh": "森林", "fr": "Forêt", "ru": "Лес"}, "c_crepuscolo": {"it": "Crepuscolo", "en": "Twilight", "es": "Crepúsculo", "zh": "暮光", "fr": "Crépuscule", "ru": "Сумерки"}, "c_prisma": {"it": "Prisma", "en": "Prism", "es": "Prisma", "zh": "棱镜", "fr": "Prisme", "ru": "Призма"}, "c_lava": {"it": "Lava", "en": "Lava", "es": "Lava", "zh": "熔岩", "fr": "Lave", "ru": "Лава"}, "c_nebulosa": {"it": "Nebulosa", "en": "Nebula", "es": "Nebulosa", "zh": "星云", "fr": "Nébuleuse", "ru": "Туманность"}};
   // probabilità per rarità: comune, raro, epico, leggendario, mitico
   // bonus: probabilità (%) che esca un bonus per lo zaino invece di un oggetto; zaino: pesi dei bonus
   const CASSE = [
-    { id: "legno", ico: "📦", costo: 60, bonus: 60, prob: [80, 18, 2, 0, 0, 0], zaino: { vel5: 35, sc2: 30, ban3: 20, salto1: 15 } },
-    { id: "argento", ico: "🎁", costo: 200, bonus: 50, prob: [40, 45, 13, 2, 0, 0], zaino: { vel5: 20, sc2: 30, ban3: 20, salto3: 30 } },
-    { id: "oro", ico: "👑", costo: 700, bonus: 40, prob: [0, 42, 44, 13, 1, 0], zaino: { sc2: 20, ban3: 15, salto3: 35, sc5: 30 } },
+    { id: "legno", ico: "📦", costo: 300, bonus: 60, prob: [80, 18, 2, 0, 0, 0], zaino: { vel5: 35, sc2: 30, ban3: 20, salto1: 15 } },
+    { id: "argento", ico: "🎁", costo: 700, bonus: 50, prob: [40, 45, 13, 2, 0, 0], zaino: { vel5: 20, sc2: 30, ban3: 20, salto3: 30 } },
+    { id: "oro", ico: "👑", costo: 1500, bonus: 40, prob: [0, 42, 44, 13, 1, 0], zaino: { sc2: 20, ban3: 15, salto3: 35, sc5: 30 } },
     // la cassa più rara: l'unica dove possono uscire gli Esclusivi
-    { id: "diamante", ico: "💎", costo: 4000, bonus: 30, prob: [0, 0, 52, 40, 7.8, 0.2], zaino: { sc5: 40, salto3: 20, salto12: 40 } }
+    { id: "diamante", ico: "💎", costo: 2500, bonus: 30, prob: [0, 0, 52, 40, 7.8, 0.2], zaino: { sc5: 40, salto3: 20, salto12: 40 } }
   ];
   // bonus temporanei: si tengono nello zaino e si usano quando si vuole
   const BONUS = {
@@ -10016,7 +10101,7 @@
     salto12: { ico: "⏭️", ore: 12 }
   };
   // Pagine d'oro restituite per un doppione, secondo la rarità
-  const RIMBORSO_DOPPIONE = [5, 15, 40, 120, 400, 1000];
+  const RIMBORSO_DOPPIONE = [20, 50, 120, 300, 600, 1000];
   const nomeBonus = id => { const b = BONUS[id]; return b.ore ? t(b.ore === 1 ? "bo_salto1" : "bo_salto", { n: b.ore }) : t("bo_" + b.tipo, { x: b.molt }); };
   const descBonus = id => { const b = BONUS[id]; return b.ore ? t("bod_salto", { t: fmtBreve(b.ore * 3600) }) : t("bod_" + b.tipo, { t: fmtBreve(b.min * 60), x: b.molt }); };
   const RARITA = [0, 1, 2, 3, 4, 5];
@@ -10462,9 +10547,39 @@
     el.className = el.className.replace(/\brar-\d\b/g, "").trim() + " rar-" + a.r;
   }
   // scrive un nome con il colore e la scritta animata scelti
+  // scritte animate lettera per lettera: i colori delle lettere vanno dal primo all'ultimo della lista
+  const FX_LETTERE = {
+    c_oceano: ["#5eead4", "#38bdf8", "#4f7dff"],
+    c_foresta: ["#d9f99d", "#a3e635", "#4ade80", "#34d399"],
+    c_lava: ["#ffd166", "#ff9f1c", "#fb5607", "#ef233c"],
+    e_infinito: [], e_leggenda: []
+  };
+  function mescolaColori(a, b, k) {
+    const pa = parseInt(a.slice(1), 16), pb = parseInt(b.slice(1), 16);
+    const c = sh => Math.round(((pa >> sh) & 255) * (1 - k) + ((pb >> sh) & 255) * k);
+    return "rgb(" + c(16) + "," + c(8) + "," + c(0) + ")";
+  }
+  function coloreScala(pal, k) {
+    if (pal.length === 1) return pal[0];
+    const x = k * (pal.length - 1), i = Math.min(pal.length - 2, Math.floor(x));
+    return mescolaColori(pal[i], pal[i + 1], x - i);
+  }
+  // i vecchi colori sfumati ora sono scritte animate: chi li aveva come colore li ritrova come scritta
+  function sistemaAspetto() {
+    const a = G && G.aspetto;
+    if (!a) return;
+    const c = estetico(a.colore);
+    if (c && c.t === "e") {
+      if (!a.effetto || a.effetto === "e_nessuno") a.effetto = a.colore;
+      a.colore = "c_bianco";
+    }
+  }
   function mostraNome(el, testo, colore, effetto) {
-    const c = estetico(colore) && estetico(colore).t === "c" ? estetico(colore) : estetico("c_bianco");
-    const e = estetico(effetto) && estetico(effetto).t === "e" ? estetico(effetto) : estetico("e_nessuno");
+    let c = estetico(colore), e = estetico(effetto);
+    // un giocatore con una versione vecchia può avere ancora una scritta animata come colore
+    if (c && c.t === "e" && (!e || e.id === "e_nessuno")) e = c;
+    if (!c || c.t !== "c") c = estetico("c_bianco");
+    if (!e || e.t !== "e") e = estetico("e_nessuno");
     el.textContent = testo;
     el.className = "nome-pg";
     el.style.color = ""; el.style.removeProperty("--g"); el.style.removeProperty("--c");
@@ -10473,6 +10588,19 @@
     if (c.v.startsWith("linear")) { el.classList.add("ns-grad"); el.style.setProperty("--g", c.v); }
     else if (solido) el.style.color = solido;
     if (e.id !== "e_nessuno") el.classList.add(e.id);
+    const pal = FX_LETTERE[e.id];
+    if (!pal) return;
+    el.textContent = "";
+    const lettere = [...String(testo)];
+    lettere.forEach((ch, i) => {
+      const sp = document.createElement("span");
+      sp.className = "lt";
+      sp.textContent = ch;
+      sp.style.setProperty("--i", i);
+      sp.style.setProperty("--d", (1.4 + ((i * 37) % 9) / 10) + "s");
+      if (pal.length) sp.style.color = coloreScala(pal, lettere.length > 1 ? i / (lettere.length - 1) : 0);
+      el.appendChild(sp);
+    });
   }
   function equipaggia(id) {
     const o = estetico(id);
@@ -10558,11 +10686,15 @@
     }
     for (const [box, tipo] of [[$("gColori"), "c"], [$("gEffetti"), "e"]]) {
       box.innerHTML = "";
-      for (const o of ESTETICI.filter(x => x.t === tipo)) {
+      // prima "Bianco" / "Nessuna", poi dal più comune al più raro
+      const lista = ESTETICI.filter(x => x.t === tipo).sort((a, b) => (b.g && b.r === 0 && /bianco|nessuno/.test(b.id)) - (a.g && a.r === 0 && /bianco|nessuno/.test(a.id)) || a.r - b.r);
+      // le scritte che usano il colore del nome si vedono meglio su un colore che sul bianco
+      const coloreProva = sc.colore && sc.colore !== "c_bianco" && (estetico(sc.colore) || {}).t === "c" ? sc.colore : "c_cielo";
+      for (const o of lista) {
         box.appendChild(bottoneEstetico(o, b => {
           const sp = document.createElement("span");
           mostraNome(sp, (possiede(o.id) ? "" : "🔒 ") + nomeEstetico(o.id),
-            tipo === "c" ? o.id : sc.colore, tipo === "e" ? o.id : "e_nessuno");
+            tipo === "c" ? o.id : coloreProva, tipo === "e" ? o.id : "e_nessuno");
           b.appendChild(sp);
         }));
       }
@@ -12175,20 +12307,117 @@
     }
     apri("veloEventi");
   }
-  // l'evento si vede nell'ufficio (pixel art sulle scrivanie) e nella striscia sopra l'ufficio;
-  // sullo schermo resta solo un lampo leggero all'inizio degli eventi rari, e il cesto da toccare
+  // immagini in pixel art per gli effetti a schermo (al posto delle emoji): banane, stelle, scintille, lampadine, il direttore
+  const SPRITE_FX = {
+    banana: [BANANA, null],
+    oro: [BANANA, { y: "#fff3a0", Y: "#d4a017" }],
+    stella: [["..y..", "..y..", "yyyyy", ".yyy.", ".y.y."], { y: "#fff6c9" }],
+    scintilla: [["...w...", "...w...", "..www..", "wwwwwww", "..www..", "...w...", "...w..."], { w: "#ffffff" }],
+    lampadina: [[".yyy.", "yyyyy", "yywyy", "yyyyy", ".yyy.", ".ggg.", ".ggg."], { y: "#ffd23f", w: "#fff6c9", g: "#9aa0a6" }],
+    direttore: [["..hhhhh.....", "..fffff.....", "..fkfkf.....", "..fffff.....", "..fmmmf.....", "ssscccsss...", "sssctcsss...", "sssctcsss...",
+      "sssctcsss...", "sssstsssbbb.", "sssssssssbbb", "sssssssssbbb", "sssssssss...", "sssssssss...", "..ll.ll.....", "..ll.ll.....", "..ll.ll.....",
+      "..ll.ll.....", "..ll.ll.....", ".lll.lll...."],
+      { h: "#3a2a20", f: "#e8c49a", k: "#1c1a16", m: "#8a4a3a", s: "#2c3e50", c: "#efe8d4", t: "#c0392b", b: "#6b4423", l: "#1c2833" }]
+  };
+  const IMG_FX = {};
+  function immaginePixel(nome) {
+    if (IMG_FX[nome] !== undefined) return IMG_FX[nome];
+    let url = "";
+    try {
+      const [righe, colori] = SPRITE_FX[nome], k = 4;
+      const cv = document.createElement("canvas");
+      cv.width = righe[0].length * k; cv.height = righe.length * k;
+      const c = cv.getContext("2d");
+      righe.forEach((r, y) => [...r].forEach((ch, x) => {
+        if (ch === ".") return;
+        c.fillStyle = (colori && colori[ch]) || PAL[ch] || "#fff";
+        c.fillRect(x * k, y * k, k, k);
+      }));
+      url = cv.toDataURL("image/png");
+    } catch (e) {}
+    return (IMG_FX[nome] = url);
+  }
+  // effetti a schermo a tema con l'evento (all'inizio e poi ogni secondo finché dura), più la scena sulle scrivanie
   function effettiEvento(id, inizio) {
-    if (!inizio) return;
-    if (id === "cesto" || id === "consegna") $("cesto").classList.add("brilla");
-    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const colore = { ispirazione: "rgba(255,240,170,.45)", cosmico: "rgba(167,139,250,.45)", pioggia: "rgba(255,210,63,.4)", stagisti: "rgba(74,222,128,.35)" }[id];
-    if (!colore) return;
     const box = $("effetti");
-    box.innerHTML = "";
-    const l = document.createElement("div"); l.className = "lampo";
-    l.style.background = `radial-gradient(circle, ${colore}, transparent 70%)`;
-    box.appendChild(l);
-    setTimeout(() => l.remove(), 900);
+    if (inizio && (id === "cesto" || id === "consegna")) $("cesto").classList.add("brilla");
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const largo = window.innerWidth || 400;
+    const aggiungi = (el, durata) => { box.appendChild(el); if (durata) setTimeout(() => el.remove(), durata); };
+    const caso = (a, b) => a + Math.random() * (b - a);
+    const div = classe => { const d = document.createElement("div"); d.className = classe; return d; };
+    const lampo = sfondo => { const l = div("lampo"); l.style.background = sfondo; aggiungi(l, 900); };
+    const pixel = (nome, w, classe) => {
+      const im = document.createElement("img");
+      im.className = classe + " pixel-fx";
+      im.alt = "";
+      im.src = immaginePixel(nome);
+      im.style.setProperty("--w", Math.round(w) + "px");
+      return im;
+    };
+    // cose che cadono dall'alto (coriandoli, banane, stelle)
+    const cade = (el, t1, t2, rot) => {
+      el.style.left = caso(-20, largo) + "px";
+      el.style.setProperty("--t", Math.round(caso(t1, t2)) + "ms");
+      el.style.setProperty("--x", Math.round(caso(-50, 50)) + "px");
+      el.style.setProperty("--g", Math.round(caso(-rot, rot)) + "deg");
+      el.style.animationDelay = Math.round(caso(0, 900)) + "ms";
+      aggiungi(el, t2 + 1000);
+    };
+    if (inizio) {
+      box.innerHTML = "";
+      if (id === "festa") lampo("radial-gradient(circle, rgba(255,94,94,.6), rgba(167,139,250,.4), transparent 70%)");
+      if (id === "direttore") {
+        aggiungi(div("vignetta"));
+        const p = pixel("direttore", 52, "passa"); p.style.bottom = "120px"; aggiungi(p, 4600);
+      }
+      if (id === "blackout") aggiungi(div("buio"));
+      if (id === "cesto") {
+        for (let k = 0; k < 14; k++) {
+          const sc = pixel(k % 3 ? "scintilla" : "banana", caso(18, 30), "scintilla");
+          sc.style.left = caso(0, largo - 30) + "px"; sc.style.top = caso(15, 85) + "vh";
+          sc.style.animationDelay = Math.round(caso(0, 600)) + "ms";
+          aggiungi(sc, 2200);
+        }
+      }
+      if (id === "consegna") lampo("radial-gradient(circle, rgba(200,150,79,.45), transparent 70%)");
+      if (id === "stagisti") { aggiungi(div("vignetta-verde")); lampo("radial-gradient(circle, rgba(74,222,128,.35), transparent 70%)"); }
+      if (id === "pioggia") { aggiungi(div("vignetta-oro")); lampo("radial-gradient(circle, rgba(255,210,63,.4), transparent 70%)"); }
+      if (id === "ispirazione") { aggiungi(div("vignetta-oro")); lampo("radial-gradient(circle, rgba(255,240,170,.75), transparent 70%)"); }
+      if (id === "cosmico") {
+        const c = div("cielo-cosmico");
+        for (let k = 0; k < 40; k++) {
+          const st = document.createElement("i"); st.className = "stella";
+          st.style.left = caso(0, 100) + "vw"; st.style.top = caso(0, 100) + "vh"; st.style.animationDelay = Math.round(caso(0, 2000)) + "ms";
+          c.appendChild(st);
+        }
+        aggiungi(c);
+      }
+    }
+    // ogni secondo, finché dura l'evento (non nel menu)
+    if (R.nelMenu) return;
+    if (id === "pioggia") for (let k = 0; k < 7; k++) cade(pixel(k % 3 === 2 ? "oro" : "banana", caso(24, 36), "coriandolo"), 2200, 3600, 360);
+    if (id === "ispirazione") for (let k = 0; k < 4; k++) cade(pixel(["scintilla", "lampadina", "stella"][k % 3], caso(18, 28), "coriandolo"), 2400, 3800, 120);
+    if (id === "cosmico") for (let k = 0; k < 4; k++) cade(pixel(k % 2 ? "stella" : "scintilla", caso(14, 24), "coriandolo"), 2400, 3800, 180);
+    if (id === "festa") {
+      const colori = ["#ff5e5e", "#ffd23f", "#4ade80", "#38bdf8", "#a78bfa", "#ff8ab3"];
+      for (let k = 0; k < 16; k++) {
+        const c = document.createElement("span"); c.className = "coriandolo";
+        c.style.background = colori[k % colori.length];
+        cade(c, 1800, 3200, 720);
+      }
+    }
+    if (id === "musica") {
+      const note = ["♪", "♫", "♬", "♩"], colori = ["#ffd23f", "#a78bfa", "#38bdf8", "#ff8ab3"];
+      for (let k = 0; k < 3; k++) {
+        const n = document.createElement("span"); n.className = "nota"; n.textContent = note[Math.floor(Math.random() * note.length)];
+        n.style.left = caso(0, largo - 30) + "px"; n.style.setProperty("--c", colori[Math.floor(Math.random() * colori.length)]);
+        n.style.setProperty("--d", Math.round(caso(24, 44)) + "px"); n.style.setProperty("--t", Math.round(caso(3500, 5500)) + "ms");
+        n.style.setProperty("--x1", Math.round(caso(-40, 40)) + "px"); n.style.setProperty("--x2", Math.round(caso(-60, 60)) + "px");
+        n.style.animationDelay = Math.round(caso(0, 800)) + "ms";
+        aggiungi(n, 6500);
+      }
+    }
   }
   function fermaEffetti() {
     $("effetti").innerHTML = "";
@@ -12199,7 +12428,7 @@
     if (!R.prossimoEvento) R.prossimoEvento = prossimoEvento();
     if (!R.evento) {
       $("cesto").hidden = true;
-      if ($("effetti").querySelector(".vignetta, .buio")) fermaEffetti();   // effetti rimasti da un evento interrotto
+      if ($("effetti").querySelector(".vignetta, .buio, .vignetta-oro, .vignetta-verde, .cielo-cosmico")) fermaEffetti();   // effetti rimasti da un evento interrotto
     }
     if (R.evento) {
       const resto = Math.ceil((R.evento.fine - ora) / 1000);
@@ -12766,6 +12995,9 @@
     ] },
     { v: 53, voci: 3, chiave: "nov6_", passi: [
       { sel: "#bSalaGiochi", testo: "tour6_1", vista: "opera" }
+    ] },
+    { v: 54, voci: 3, chiave: "nov7_", passi: [
+      { sel: '.menu button[data-vista="bottega"]', testo: "tour7_1" }
     ] }
   ];
   const VERSIONE_NOVITA = GRUPPI_NOVITA[GRUPPI_NOVITA.length - 1].v;
@@ -13132,6 +13364,7 @@
 
   function avvia(stato) {
     G = stato;
+    sistemaAspetto();
     const nelMenu = R ? R.nelMenu : true;
     R = {
       cam: [], capo: { id: 1, k: 0, resto: 0 }, target: "", codici: null, fail: null,
