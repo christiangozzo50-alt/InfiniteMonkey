@@ -206,6 +206,26 @@
     border-radius: 16px; border: 1px solid var(--bordo); background: linear-gradient(120deg, rgba(167, 139, 250, .2), rgba(56, 189, 248, .12));
     color: var(--testo); font: inherit; text-align: left; cursor: pointer; }
   .sala-giochi.pronto { border-color: var(--banana); animation: bonus-pulsa 2.4s ease-in-out infinite; }
+  /* Primi passi: un obiettivo alla volta, con il suo premio */
+  .primi-passi { margin: 0 0 14px; padding: 11px 14px 12px; border-radius: 16px; border: 1px solid rgba(255, 210, 63, .3);
+    background: linear-gradient(120deg, rgba(255, 210, 63, .13), rgba(255, 138, 31, .07)); }
+  .primi-passi[hidden] { display: none; }
+  .primi-passi.pronto { border-color: var(--banana); animation: bonus-pulsa 2.4s ease-in-out infinite; }
+  .primi-passi.passato { animation: pp-avanti .5s ease-out; }
+  @keyframes pp-avanti { from { transform: scale(.97); opacity: .4; } to { transform: none; opacity: 1; } }
+  .pp-testa { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+  .pp-testa b { font-family: var(--pixel); font-size: 15px; color: var(--banana); letter-spacing: .3px; }
+  .pp-testa small { font-size: 12px; font-weight: 800; color: var(--spento); font-variant-numeric: tabular-nums; }
+  .pp-riga { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; }
+  .pp-riga .ico { font-size: 24px; line-height: 1; }
+  .pp-testo { font-size: 14px; font-weight: 700; line-height: 1.3; color: var(--testo); }
+  .pp-testo small { display: block; font-size: 12px; font-weight: 600; color: var(--spento); margin-top: 2px; }
+  .pp-testo small:empty { display: none; }
+  #ppBottone { white-space: nowrap; padding-left: 14px; padding-right: 14px; }
+  #ppBottone[hidden] { display: none; }
+  .pp-barra { height: 6px; border-radius: 99px; background: rgba(255, 255, 255, .08); margin-top: 9px; overflow: hidden; }
+  .pp-barra i { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--banana); transition: width .4s; }
+
   .sala-giochi:active { transform: scale(.98); }
   .sg-ico { font-size: 30px; line-height: 1; }
   .sg-testo b { display: block; font-size: 16px; }
@@ -1777,6 +1797,15 @@
       </div>
     </div>
 
+    <div class="primi-passi" id="primiPassi" hidden>
+      <div class="pp-testa"><b data-t="pp_tit"></b><small id="ppConta"></small></div>
+      <div class="pp-riga">
+        <span class="ico" id="ppIco" aria-hidden="true"></span>
+        <span class="pp-testo"><span id="ppTesto"></span><small id="ppSotto"></small></span>
+        <button class="pulsante piccolo" id="ppBottone"></button>
+      </div>
+      <div class="pp-barra"><i id="ppBarra"></i></div>
+    </div>
     <div class="tessere">
       <div class="tessera"><span class="ico">🐒</span><strong id="oScimmie">0</strong><small data-t="tl_scimmie"></small></div>
       <div class="tessera"><span class="ico">⚡</span><strong id="oVel">0</strong><small data-t="tl_vel"></small></div>
@@ -2001,12 +2030,13 @@
       <button class="pulsante secondario" id="bTrasferisci">🔄 <span data-t="trasf_tit"></span></button>
       <button class="pulsante secondario" id="bInstalla" hidden>📲 <span data-t="imp_home"></span></button>
       <button class="pulsante secondario" id="bGuide">🧭 <span data-t="gd_tit"></span></button>
+      <button class="pulsante secondario" id="bNovitaImp">📰 <span data-t="imp_novita"></span></button>
       <button class="pulsante secondario" id="bMenuPrincipale">🏠 <span data-t="menu_principale"></span></button>
       <button class="pulsante secondario" id="bChiudiImpostazioni" data-t="chiudi"></button>
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 72</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 73</p>
   </div>
 </div>
 
@@ -3773,7 +3803,27 @@
       tema_evento_nota: "🎨 Il gioco ora ha il tema {ev}: puoi cambiarlo quando vuoi da ⚙️ Impostazioni › 🎨 Personalizzazione. A fine stagione tornerai al tuo tema ({tema}).",
       nov21_1: "🎡 La ruota ha nuove icone in pixel art: ogni premio ha il suo disegno (banane, Pagine d'oro, casse, bonus…), così lo riconosci al volo",
       tour21_1: "🎡 La ruota ha nuove icone in pixel art: ogni premio ha il suo disegno, così lo riconosci al volo!",
-      nov21_2: "🐒 Ora si muovono anche le foto profilo epiche: il robot lampeggia, il drago sbuffa, il pipistrello batte le ali, la zucca tremola come una candela…"
+      nov21_2: "🐒 Ora si muovono anche le foto profilo epiche: il robot lampeggia, il drago sbuffa, il pipistrello batte le ali, la zucca tremola come una candela…",
+      pp_tit: "Primi passi",
+      pp_vai: "Vai",
+      pp_ritira: "Ritira +{p}",
+      pp_sc1: "Compra la tua prima scimmia",
+      pp_sc: "Arriva a {n} scimmie",
+      pp_vel: "Fai battere le scimmie più veloci: compra un potenziamento di velocità",
+      pp_ruota: "Gira la ruota della fortuna",
+      pp_mini: "Gioca una partita nella {sala}",
+      pp_trag: "Ritira il premio di un traguardo",
+      pp_cassa: "Apri una cassa nel {neg}",
+      pp_rec: "Una scimmia deve scrivere {n} lettere giuste di fila",
+      pp_rec_sotto: "più scimmie e più veloci, prima succede",
+      pp_frase: "Completa la tua prima frase",
+      pp_finale: "Premio finale: anche una {cassa}!",
+      pp_fine: "🎉 Primi passi completati! Da qui in poi le tue scimmie se la cavano da sole.",
+      imp_novita: "Novità del gioco",
+      nov_sotto2: "Le ultime cose cambiate nel gioco:",
+      nov22_1: "🎯 Primi passi: chi inizia trova sempre il prossimo obiettivo sotto la frase, con un premio per ognuno e un pulsante che porta dove serve",
+      nov22_2: "🔕 Dopo un aggiornamento non si apre più la finestra delle novità: le trovi quando vuoi in ⚙️ Impostazioni › 📰 Novità del gioco",
+      nov22_3: "🧘 Al primo avvio la serie di accessi non si apre più sopra la guida: niente finestre una sopra l'altra"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -5027,7 +5077,27 @@
       tema_evento_nota: "🎨 The game now has the {ev} theme: you can change it whenever you like from ⚙️ Settings › 🎨 Customisation. At the end of the season you'll go back to your theme ({tema}).",
       nov21_1: "🎡 The wheel has new pixel-art icons: every prize has its own drawing (bananas, Golden Pages, crates, boosts…), so you can spot it at a glance",
       tour21_1: "🎡 The wheel has new pixel-art icons: every prize has its own drawing, so you can spot it at a glance!",
-      nov21_2: "🐒 Epic profile pictures move too now: the robot blinks, the dragon puffs smoke, the bat flaps its wings, the pumpkin flickers like a candle…"
+      nov21_2: "🐒 Epic profile pictures move too now: the robot blinks, the dragon puffs smoke, the bat flaps its wings, the pumpkin flickers like a candle…",
+      pp_tit: "First steps",
+      pp_vai: "Go",
+      pp_ritira: "Claim +{p}",
+      pp_sc1: "Buy your first monkey",
+      pp_sc: "Reach {n} monkeys",
+      pp_vel: "Make the monkeys type faster: buy a speed upgrade",
+      pp_ruota: "Spin the wheel of fortune",
+      pp_mini: "Play a game in the {sala}",
+      pp_trag: "Claim an achievement prize",
+      pp_cassa: "Open a crate in the {neg}",
+      pp_rec: "A monkey has to type {n} correct letters in a row",
+      pp_rec_sotto: "more and faster monkeys make it happen sooner",
+      pp_frase: "Complete your first phrase",
+      pp_finale: "Final prize: a {cassa} too!",
+      pp_fine: "🎉 First steps done! From here on your monkeys can manage on their own.",
+      imp_novita: "What's new",
+      nov_sotto2: "The latest changes to the game:",
+      nov22_1: "🎯 First steps: new players always find the next goal under the phrase, with a prize for each one and a button that takes you where you need to go",
+      nov22_2: "🔕 The what's-new window no longer pops up after an update: find it whenever you like in ⚙️ Settings › 📰 What's new",
+      nov22_3: "🧘 On the first launch the login streak no longer opens on top of the guide: no more windows stacked on each other"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -6281,7 +6351,27 @@
       tema_evento_nota: "🎨 El juego ahora tiene el tema {ev}: puedes cambiarlo cuando quieras en ⚙️ Ajustes › 🎨 Personalización. Al final de la temporada volverás a tu tema ({tema}).",
       nov21_1: "🎡 La rueda tiene nuevos iconos en pixel art: cada premio tiene su propio dibujo (plátanos, Páginas de oro, cajas, bonus…), para reconocerlo de un vistazo",
       tour21_1: "🎡 La rueda tiene nuevos iconos en pixel art: cada premio tiene su propio dibujo, ¡para reconocerlo de un vistazo!",
-      nov21_2: "🐒 Ahora también se mueven las fotos de perfil épicas: el robot parpadea, el dragón echa humo, el murciélago bate las alas, la calabaza titila como una vela…"
+      nov21_2: "🐒 Ahora también se mueven las fotos de perfil épicas: el robot parpadea, el dragón echa humo, el murciélago bate las alas, la calabaza titila como una vela…",
+      pp_tit: "Primeros pasos",
+      pp_vai: "Ir",
+      pp_ritira: "Recoger +{p}",
+      pp_sc1: "Compra tu primer mono",
+      pp_sc: "Llega a {n} monos",
+      pp_vel: "Haz que los monos escriban más rápido: compra una mejora de velocidad",
+      pp_ruota: "Gira la rueda de la fortuna",
+      pp_mini: "Juega una partida en la {sala}",
+      pp_trag: "Recoge el premio de un logro",
+      pp_cassa: "Abre una caja en la {neg}",
+      pp_rec: "Un mono tiene que escribir {n} letras correctas seguidas",
+      pp_rec_sotto: "más monos y más rápidos, antes ocurre",
+      pp_frase: "Completa tu primera frase",
+      pp_finale: "Premio final: ¡también una {cassa}!",
+      pp_fine: "🎉 ¡Primeros pasos completados! A partir de aquí tus monos se las arreglan solos.",
+      imp_novita: "Novedades del juego",
+      nov_sotto2: "Los últimos cambios del juego:",
+      nov22_1: "🎯 Primeros pasos: quien empieza siempre encuentra el próximo objetivo bajo la frase, con un premio para cada uno y un botón que te lleva adonde hace falta",
+      nov22_2: "🔕 Tras una actualización ya no se abre la ventana de novedades: la encuentras cuando quieras en ⚙️ Ajustes › 📰 Novedades del juego",
+      nov22_3: "🧘 En el primer inicio la racha de accesos ya no se abre encima de la guía: nada de ventanas unas sobre otras"
     },
 
     // ------------------------------------------------------------- 中文
@@ -7535,7 +7625,27 @@
       tema_evento_nota: "🎨 游戏现在使用{ev}主题：随时可以在 ⚙️ 设置 › 🎨 个性化 里更换。赛季结束后会换回你的主题（{tema}）。",
       nov21_1: "🎡 转盘换上了新的像素图标：每种奖励都有自己的图案（香蕉、金页、箱子、加成……），一眼就能认出来",
       tour21_1: "🎡 转盘换上了新的像素图标：每种奖励都有自己的图案，一眼就能认出来！",
-      nov21_2: "🐒 史诗头像现在也会动了：机器人会闪灯，龙会喷烟，蝙蝠会扇翅膀，南瓜会像烛光一样闪烁……"
+      nov21_2: "🐒 史诗头像现在也会动了：机器人会闪灯，龙会喷烟，蝙蝠会扇翅膀，南瓜会像烛光一样闪烁……",
+      pp_tit: "新手之路",
+      pp_vai: "前往",
+      pp_ritira: "领取 +{p}",
+      pp_sc1: "买下你的第一只猴子",
+      pp_sc: "拥有 {n} 只猴子",
+      pp_vel: "让猴子打字更快：购买一个速度升级",
+      pp_ruota: "转动幸运转盘",
+      pp_mini: "在{sala}玩一局",
+      pp_trag: "领取一个成就的奖励",
+      pp_cassa: "在{neg}打开一个箱子",
+      pp_rec: "让一只猴子连续打对 {n} 个字母",
+      pp_rec_sotto: "猴子越多越快，就越早实现",
+      pp_frase: "完成你的第一句话",
+      pp_finale: "最终奖励：还有一个{cassa}！",
+      pp_fine: "🎉 新手之路完成！接下来你的猴子们可以自己搞定了。",
+      imp_novita: "游戏更新内容",
+      nov_sotto2: "游戏最近的变化：",
+      nov22_1: "🎯 新手之路：新玩家总能在句子下方看到下一个目标，每个都有奖励，还有一个按钮带你去该去的地方",
+      nov22_2: "🔕 更新后不再弹出更新内容窗口：随时可以在 ⚙️ 设置 › 📰 游戏更新内容 中查看",
+      nov22_3: "🧘 第一次启动时，连续登录窗口不再叠在引导上面：不会再有窗口叠在一起"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -8789,7 +8899,27 @@
       tema_evento_nota: "🎨 Le jeu a maintenant le thème {ev} : tu peux le changer quand tu veux dans ⚙️ Paramètres › 🎨 Personnalisation. À la fin de la saison tu retrouveras ton thème ({tema}).",
       nov21_1: "🎡 La roue a de nouvelles icônes en pixel art : chaque prix a son propre dessin (bananes, Pages d'or, coffres, bonus…), pour le reconnaître d'un coup d'œil",
       tour21_1: "🎡 La roue a de nouvelles icônes en pixel art : chaque prix a son propre dessin, pour le reconnaître d'un coup d'œil !",
-      nov21_2: "🐒 Les photos de profil épiques bougent aussi maintenant : le robot clignote, le dragon souffle de la fumée, la chauve-souris bat des ailes, la citrouille vacille comme une bougie…"
+      nov21_2: "🐒 Les photos de profil épiques bougent aussi maintenant : le robot clignote, le dragon souffle de la fumée, la chauve-souris bat des ailes, la citrouille vacille comme une bougie…",
+      pp_tit: "Premiers pas",
+      pp_vai: "Y aller",
+      pp_ritira: "Récupérer +{p}",
+      pp_sc1: "Achète ton premier singe",
+      pp_sc: "Atteins {n} singes",
+      pp_vel: "Fais taper les singes plus vite : achète une amélioration de vitesse",
+      pp_ruota: "Fais tourner la roue de la fortune",
+      pp_mini: "Joue une partie dans la {sala}",
+      pp_trag: "Récupère le prix d'un succès",
+      pp_cassa: "Ouvre un coffre dans la {neg}",
+      pp_rec: "Un singe doit taper {n} lettres justes d'affilée",
+      pp_rec_sotto: "plus de singes et plus rapides, plus vite ça arrive",
+      pp_frase: "Termine ta première phrase",
+      pp_finale: "Prix final : un {cassa} en plus !",
+      pp_fine: "🎉 Premiers pas terminés ! Désormais tes singes se débrouillent tout seuls.",
+      imp_novita: "Nouveautés du jeu",
+      nov_sotto2: "Les derniers changements du jeu :",
+      nov22_1: "🎯 Premiers pas : les nouveaux joueurs trouvent toujours le prochain objectif sous la phrase, avec un prix pour chacun et un bouton qui mène où il faut",
+      nov22_2: "🔕 Après une mise à jour, la fenêtre des nouveautés ne s'ouvre plus : retrouve-la quand tu veux dans ⚙️ Réglages › 📰 Nouveautés du jeu",
+      nov22_3: "🧘 Au premier lancement, la série de connexions ne s'ouvre plus par-dessus le guide : plus de fenêtres empilées"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -10044,7 +10174,27 @@
       tema_evento_nota: "🎨 Теперь в игре тема «{ev}»: её можно сменить когда угодно в ⚙️ Настройки › 🎨 Оформление. В конце сезона вернётся твоя тема («{tema}»).",
       nov21_1: "🎡 У колеса новые иконки в пиксель-арте: у каждого приза свой рисунок (бананы, Золотые страницы, сундуки, бонусы…), чтобы узнавать его с первого взгляда",
       tour21_1: "🎡 У колеса новые иконки в пиксель-арте: у каждого приза свой рисунок, чтобы узнавать его с первого взгляда!",
-      nov21_2: "🐒 Теперь двигаются и эпические аватары: робот мигает, дракон пускает дым, летучая мышь машет крыльями, тыква мерцает, как свеча…"
+      nov21_2: "🐒 Теперь двигаются и эпические аватары: робот мигает, дракон пускает дым, летучая мышь машет крыльями, тыква мерцает, как свеча…",
+      pp_tit: "Первые шаги",
+      pp_vai: "Перейти",
+      pp_ritira: "Забрать +{p}",
+      pp_sc1: "Купи свою первую обезьяну",
+      pp_sc: "Набери {n} обезьян",
+      pp_vel: "Пусть обезьяны печатают быстрее: купи улучшение скорости",
+      pp_ruota: "Крутани колесо фортуны",
+      pp_mini: "Сыграй партию: {sala}",
+      pp_trag: "Забери награду за достижение",
+      pp_cassa: "Открой сундук: {neg}",
+      pp_rec: "Обезьяна должна напечатать {n} верных букв подряд",
+      pp_rec_sotto: "чем больше и быстрее обезьяны, тем скорее",
+      pp_frase: "Заверши свою первую фразу",
+      pp_finale: "Главный приз: ещё и {cassa}!",
+      pp_fine: "🎉 Первые шаги пройдены! Дальше твои обезьяны справятся сами.",
+      imp_novita: "Что нового",
+      nov_sotto2: "Последние изменения в игре:",
+      nov22_1: "🎯 Первые шаги: новички всегда видят следующую цель под фразой, с наградой за каждую и кнопкой, которая ведёт куда нужно",
+      nov22_2: "🔕 После обновления окно с новостями больше не появляется: его можно открыть в ⚙️ Настройки › 📰 Что нового",
+      nov22_3: "🧘 При первом запуске серия входов больше не открывается поверх подсказок: никаких окон друг на друге"
     }
   };
 
@@ -19412,6 +19562,85 @@
   })();
 
   // =====================================================================
+  //  PRIMI PASSI: chi comincia trova sempre il prossimo obiettivo sotto la frase, con un premio.
+  //  Niente finestre: una riga con la barra, un pulsante "Vai" che porta dove serve e "Ritira" quando è fatto.
+  //  premio = [banane minime, secondi di produzione]: vale di più quando le scimmie producono di più
+  // =====================================================================
+  const scimmieOra = () => Math.floor(numScimmie() + 1e-9);
+  const PRIMI_PASSI = [
+    { id: "sc1", ico: "🐒", obj: 1, val: scimmieOra, vista: "negozio", premio: [50, 30] },
+    { id: "sc", ico: "🐒", obj: 5, val: scimmieOra, vista: "negozio", premio: [120, 60] },
+    { id: "vel", ico: "🤸", obj: 1, val: () => (G.liv.stretch || 0) + (G.liv.o0 || 0), vista: "negozio", premio: [200, 90] },
+    { id: "ruota", ico: "🎡", obj: 1, val: () => G.ruoteGirate || 0, vai: () => apriRuota(), premio: [300, 90] },
+    { id: "mini", ico: "🎮", obj: 1, val: () => G.partiteMini || 0, vai: () => apriGiochi(), premio: [500, 120] },
+    { id: "sc", ico: "🐒", obj: 25, val: scimmieOra, vista: "negozio", premio: [1000, 150] },
+    { id: "trag", ico: "🏆", obj: 1, val: () => Object.values(G.traguardi || {}).filter(x => x && x.r).length, vista: "traguardi", premio: [1500, 180] },
+    { id: "cassa", ico: "📦", obj: 1, val: () => G.casseAperte || 0, vista: "bottega", premio: [2500, 240] },
+    { id: "rec", ico: "⭐", obj: 3, val: () => recordMassimo(), premio: [4000, 300] },
+    { id: "sc", ico: "🐒", obj: 100, val: scimmieOra, vista: "negozio", premio: [10000, 360] },
+    { id: "rec", ico: "⭐", obj: 5, val: () => recordMassimo(), premio: [25000, 480] },
+    { id: "frase", ico: "📜", obj: 1, val: () => G.completate || 0, premio: [60000, 600], cassa: "argento" }
+  ];
+  const premioPasso = p => Math.round(Math.max(p.premio[0], produzioneBase() * p.premio[1]));
+  // il percorso parte per chi è all'inizio; chi ha già completato due frasi (o ha pubblicato) non lo vede
+  function statoPrimiPassi() {
+    if (!G) return null;
+    if (!G.primi) G.primi = (G.completate || 0) >= 2 || (G.pubblicazioni || 0) > 0 ? { fine: true } : { i: 0 };
+    return G.primi.fine ? null : PRIMI_PASSI[G.primi.i] || null;
+  }
+  function testoPasso(p) {
+    if (p.id === "sc1") return t("pp_sc1");
+    if (p.id === "sc") return t("pp_sc", { n: fmt(p.obj) });
+    if (p.id === "rec") return t("pp_rec", { n: p.obj });
+    if (p.id === "mini") return t("pp_mini", { sala: t("mg_carta") });
+    if (p.id === "cassa") return t("pp_cassa", { neg: t("m_bottega") });
+    return t("pp_" + p.id);
+  }
+  function scriviPrimiPassi(adesso) {
+    const box = $("primiPassi");
+    if (!box) return;
+    const p = R && !R.nelMenu ? statoPrimiPassi() : null;
+    box.hidden = !p;
+    if (!p) return;
+    const v = Math.min(p.obj, Math.max(0, p.val() || 0)), fatto = v >= p.obj;
+    const chiave = [G.primi.i, v, fatto, L].join("|");
+    if (!adesso && box.dataset.k === chiave && !fatto) return;
+    box.dataset.k = chiave;
+    $("ppConta").textContent = (G.primi.i + 1) + "/" + PRIMI_PASSI.length;
+    if ($("ppIco").dataset.ico !== p.ico) { $("ppIco").dataset.ico = p.ico; $("ppIco").textContent = p.ico; }
+    $("ppTesto").textContent = testoPasso(p);
+    $("ppSotto").textContent = fatto ? (p.cassa ? t("pp_finale", { cassa: t("cassa_" + p.cassa) }) : "")
+      : p.obj > 1 ? fmt(v) + " / " + fmt(p.obj) + (p.id === "rec" ? " · " + t("pp_rec_sotto") : "") : p.id === "frase" ? t("pp_rec_sotto") : "";
+    $("ppBarra").style.width = (100 * v / p.obj).toFixed(1) + "%";
+    box.classList.toggle("pronto", fatto);
+    const b = $("ppBottone");
+    b.hidden = !fatto && !p.vai && !p.vista;
+    b.textContent = fatto ? t("pp_ritira", { p: fmtB(premioPasso(p)) + " 🍌" }) : t("pp_vai");
+    b.classList.toggle("secondario", !fatto);
+  }
+  function azionePrimoPasso() {
+    const p = statoPrimiPassi();
+    if (!p) return;
+    if ((p.val() || 0) < p.obj) {
+      if (p.vai) p.vai();
+      else if (p.vista) { mostraVista(p.vista); window.scrollTo({ top: 0, behavior: "smooth" }); }
+      return;
+    }
+    const n = premioPasso(p);
+    G.banane += n;
+    if (p.cassa) cambiaCasseGratis(p.cassa, 1);
+    G.primi.i++;
+    if (G.primi.i >= PRIMI_PASSI.length) { G.primi.fine = true; avviso(t("pp_fine"), "oro"); }
+    Suono.traguardo();
+    salva();
+    const box = $("primiPassi");
+    box.classList.remove("passato"); void box.offsetWidth; box.classList.add("passato");
+    scriviPrimiPassi(true);
+    disegnaTutto(true);
+  }
+  $("ppBottone").onclick = azionePrimoPasso;
+
+  // =====================================================================
   //  RUOTA DELLA FORTUNA: si gira una volta al giorno; 12 spicchi uguali, ognuno con la stessa probabilità
   // =====================================================================
   const oggi = () => { const d = new Date(); return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); };
@@ -19767,12 +19996,13 @@
   }
   // l'introduzione, il sipario o una guida sono ancora sullo schermo: le finestre automatiche aspettano
   function schermataOccupata() {
-    return (!!$("intro") && !$("intro").hidden) || (!!$("sipario") && !$("sipario").classList.contains("via")) || (!!$("tutorial") && !$("tutorial").hidden);
+    return (R && Date.now() < (R.guidaInArrivo || 0)) || (!!$("intro") && !$("intro").hidden) || (!!$("sipario") && !$("sipario").classList.contains("via")) || (!!$("tutorial") && !$("tutorial").hidden);
   }
   // una volta al giorno, appena si entra a giocare (non sopra altre finestre o il tutorial)
   function proponiSerie() {
     if (!G || !G.tutorialFatto || R.nelMenu || passoTut >= 0 || document.querySelector(".velo.aperto") || !$("intro").hidden || ($("sipario") && !$("sipario").classList.contains("via"))) return;
     if ($("tutorial") && !$("tutorial").hidden) return;
+    if (R.primaSessione) return;
     if (statoSerie().presoOggi || G.serieProposta === oggi()) return;
     G.serieProposta = oggi();
     apriSerie();
@@ -20344,6 +20574,8 @@
     }
   }
   $("bBenvenuto").onclick = () => {
+    R.primaSessione = true;
+    R.guidaInArrivo = Date.now() + 1500;
     chiudi("veloBenvenuto");
     mostraVista("opera");
     dopoTutorial();
@@ -22443,6 +22675,7 @@
   // la prima volta che apri una funzione parte la sua guida (non durante il tutorial, il menu o un'altra guida)
   function guidaSeNuova(id, ritardo = 380) {
     if (!G || !R || !G.tutorialFatto || (G.guideViste || {})[id] || passoTut >= 0 || R.nelMenu) return;
+    R.guidaInArrivo = Math.max(R.guidaInArrivo || 0, Date.now() + ritardo + 400);
     setTimeout(() => avviaGuida(id), ritardo);
   }
   function avviaGuida(id) {
@@ -22688,23 +22921,30 @@
     ] },
     { v: 72, voci: 2, chiave: "nov21_", passi: [
       { sel: "#bRuota", testo: "tour21_1", vista: "opera" }
-    ] }
+    ] },
+    { v: 73, voci: 3, chiave: "nov22_", passi: [] }
   ];
   const VERSIONE_NOVITA = GRUPPI_NOVITA[GRUPPI_NOVITA.length - 1].v;
   let PASSI_TOUR = [];
   const gruppiNuovi = () => GRUPPI_NOVITA.filter(gr => (G.versioneVista || 0) < gr.v);
+  // dopo un aggiornamento non si apre più nessuna finestra: le novità si leggono quando si vuole dalle Impostazioni
   function mostraNovita() {
-    if (!G.tutorialFatto || (G.versioneVista || 0) >= VERSIONE_NOVITA) return false;
+    if (G.tutorialFatto && (G.versioneVista || 0) < VERSIONE_NOVITA) { G.versioneVista = VERSIONE_NOVITA; salva(); }
+    return false;
+  }
+  function apriNovitaImp() {
     $("listaNovita").innerHTML = "";
-    for (const gr of gruppiNuovi().slice().reverse()) {      // prima le più recenti
+    for (const gr of GRUPPI_NOVITA.slice(-3).reverse()) {      // le ultime tre versioni, prima la più recente
       for (let k = 1; k <= gr.voci; k++) {
         const li = document.createElement("li");
         li.textContent = t(gr.chiave + k);
         $("listaNovita").appendChild(li);
       }
     }
+    $("veloNovita").querySelector(".sotto").textContent = t("nov_sotto2");
+    $("bNovTour").hidden = true;
+    $("bNovDopo").textContent = t("chiudi");
     apri("veloNovita");
-    return true;
   }
   function chiudiNovita(tour) {
     PASSI_TOUR = [{ sel: null, testo: "tour_1", vista: "opera" }];
@@ -22977,6 +23217,7 @@
     $("intro").onclick = chiudiIntro;
     $("bTutAvanti").onclick = avanzaTut;
     $("bGuide").onclick = () => { chiudi("veloImpostazioni"); apriGuide(); };
+    $("bNovitaImp").onclick = () => { chiudi("veloImpostazioni"); apriNovitaImp(); };
     $("bGuideChiudi").onclick = () => chiudi("veloGuide");
     $("veloGuide").onclick = e => { if (e.target.id === "veloGuide") chiudi("veloGuide"); };
     window.addEventListener("resize", posizionaTut);
@@ -23157,6 +23398,7 @@
       if (vistaAttiva("opera")) scriviSalaGiochi();
       if ((R.giroMese = (R.giroMese || 0) + 1) % 30 === 5) Mensile.controlla();
       scriviRuota();
+      scriviPrimiPassi();
       controllaTemaEvento();
       if (G.tutorialFatto && !R.nelMenu) {
         if (R.raccoltoMis) { missione("banane", R.raccoltoMis); R.raccoltoMis = 0; }
