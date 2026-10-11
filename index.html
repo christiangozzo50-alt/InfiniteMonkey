@@ -15137,14 +15137,31 @@
   }
   // scintille che girano sui più preziosi
   function scintille(A, n, col = "#ffffff") {
-    const { B, f, S } = A;
+    const { B, f, S, liv } = A;
     for (let i = 0; i < n; i++) {
       const fase = (f + i * 7) % 18;
       if (fase > 5) continue;
       const x = Math.floor(casoFisso(i * 7 + Math.floor((f + i * 7) / 18) * 3) * (S - 4)) + 2, y = Math.floor(casoFisso(i * 13 + Math.floor((f + i * 7) / 18) * 5) * (S - 4)) + 2;
       const r = fase < 3 ? fase : 5 - fase;
+      // mai sopra la figura (sulla faccia sembrerebbero macchie): solo nello sfondo intorno
+      if (liv && liv[y * S + x]) continue;
       B.reale(x, y, col);
       for (let d = 1; d <= r; d++) { const a = d === r ? "rgba(255,255,255,.55)" : col; B.reale(x - d, y, a); B.reale(x + d, y, a); B.reale(x, y - d, a); B.reale(x, y + d, a); }
+    }
+  }
+  // particelle che salgono ai lati della figura (anime, fuochi fatui, polvere di stelle): nascono in basso,
+  // ondeggiano, lasciano una scia e svaniscono in alto. Non passano mai davanti alla faccia.
+  function salgonoAiLati(A, n, colori, o = {}) {
+    const { B, f } = A, lati = o.lati || [[1.5, 6.5], [25.5, 30.5]], da = o.da ?? 31, a = o.a ?? 2, giro = o.giro || 30, coda = o.coda ?? 3;
+    for (let i = 0; i < n; i++) {
+      const [x0, x1] = lati[i % lati.length], fase = casoFisso(i * 3.7 + 1) * 6.3;
+      const pos = t => [x0 + (x1 - x0) * (0.5 + 0.5 * Math.sin(t * 5 + fase)), da - t * (da - a)];
+      const t = (((f + casoFisso(i * 5.3) * giro) % giro) + giro) % giro / giro, vita = Math.sin(Math.PI * t);
+      if (vita < 0.12) continue;
+      const [r, g, b] = colori[i % colori.length], [x, y] = pos(t);
+      for (let k = coda; k >= 1; k--) { const [cx, cy] = pos(Math.max(0, t - k * 0.025)); B.px(cx, cy, "rgba(" + r + "," + g + "," + b + "," + (0.55 * vita * (1 - k / (coda + 1))).toFixed(2) + ")"); }
+      if (o.r) B.cerchio(x, y, o.r, "rgba(" + r + "," + g + "," + b + "," + (0.9 * vita).toFixed(2) + ")");
+      B.px(x, y, o.cuore ? "rgba(255,255,255," + (0.9 * vita).toFixed(2) + ")" : "rgba(" + r + "," + g + "," + b + "," + vita.toFixed(2) + ")");
     }
   }
   // ---------- più è rara, più dettagli ----------
@@ -15182,7 +15199,7 @@
     const B = pennello(S, (x, y, c) => { if (c) { ctx.fillStyle = c; ctx.fillRect(x, y, 1, 1); } });
     const liv = new Array(S * S).fill(null);
     const C = pennello(S, (x, y, c) => { liv[y * S + x] = c; });
-    const A = { o, st, S, f, anima, B, C, k: S / 32, ctx, batti: anima && (f + seme) % 31 === 0 };
+    const A = { o, st, S, f, anima, B, C, k: S / 32, ctx, liv, batti: anima && (f + seme) % 31 === 0 };
     // un oggetto con il suo contorno, che si stacca dalla scimmia (mani, banane, pergamene...)
     A.staccato = (disegno, bordo) => {
       const tmp = new Array(S * S).fill(null);
@@ -15609,6 +15626,9 @@
         B.reale(x, y, r < 0.5 && braccio > 0.55 - r ? (r < 0.12 ? "#ffd9ff" : braccio > 0.9 ? "#7a4fd6" : "#45288f") : "#120a2e");
       }
       stelline(A, 22, 3, ["#ffffff", "#b9a8ff", "#4b3a8a"], 1);
+      // il pianeta con l'anello che passa dietro la scimmia
+      const a = f * 0.12, px = 16 + Math.cos(a) * 12.5, py = 9 + Math.sin(a) * 3.2;
+      B.cerchio(px, py, 1.9, "#ffb38a"); B.px(px - 0.7, py - 0.7, "#ffe3c8"); B.rett(px - 3, py, 6, 0.6, "rgba(255,227,200,.85)");
     },
     cristalli(A) {
       const { B, f, S } = A;
@@ -16290,11 +16310,6 @@
         const { C, f } = A;
         for (let i = 0; i < 14; i++) { const a = casoFisso(i + 3) * Math.PI * 2, r = 3 + casoFisso(i + 9) * 6; const x = 16 + Math.cos(a) * r, y = 14.6 + Math.sin(a) * r * 0.9; if ((Math.sin(f * 0.8 + i) + 1) / 2 > 0.4 && (Math.abs(x - 16) > 5 || y < 9)) C.px(x, y, i % 3 ? "#ffffff" : "#ffd9ff"); }
         for (let i = 0; i < 8; i++) C.px(8 + i * 2.2, 28 + casoFisso(i) * 3, (i + f) % 3 ? "#e0d4ff" : "#7df9ff");
-      },
-      luce(A) {
-        const { B, f } = A, a = f * 0.22;
-        const x = 16 + Math.cos(a) * 13, y = 14 + Math.sin(a) * 4.4;
-        if (Math.sin(a) < 0 || Math.abs(x - 16) > 10) { B.cerchio(x, y, 1.8, "#ffb38a"); B.px(x - 0.6, y - 0.6, "#ffe3c8"); B.rett(x - 2.6, y, 5.2, 0.6, "rgba(255,227,200,.8)"); }
       }
     },
     // cristallo: sfaccettature e un lampo di luce che lo attraversa
@@ -16354,7 +16369,7 @@
         for (let i = 0; i < 8; i++) { const [x, y] = punti[(f * 5 + i) % punti.length]; C.px(x, y, "#fff6c9"); }
         for (const x of [11, 19]) { C.rett(x, 12, 2, 3, "#7df9ff"); C.px(x, 12, "#ffffff"); }
       },
-      luce(A) { const { B, f } = A; for (let i = 0; i < 4; i++) { const a = f * 0.3 + i * Math.PI / 2; B.cerchio(16 + Math.cos(a) * 14, 16 + Math.sin(a) * 12, 0.8, i % 2 ? "#ff4fd8" : "#00f5d4"); } }
+      luce(A) { salgonoAiLati(A, 6, [[0, 245, 212], [255, 79, 216], [200, 190, 255]], { coda: 2, giro: 26, cuore: true }); }
     },
     // il Bardo: gorgiera, giubba, baffi e pizzetto, la penna e il teschio in mano ("essere o non essere")
     bardo: {
@@ -16385,11 +16400,8 @@
       },
       luce(A) {
         const { B, f } = A;
-        for (let i = 0; i < 5; i++) {
-          const a = f * 0.2 + i * Math.PI * 2 / 5, x = 16 + Math.cos(a) * 14, y = 18 + Math.sin(a) * 9.4;
-          B.cerchio(x, y, 1.15, "rgba(187,247,208,.9)"); B.px(x, y, "#ffffff");
-          for (let k = 1; k <= 3; k++) B.px(x - Math.cos(a + Math.PI / 2) * k, y - Math.sin(a + Math.PI / 2) * k, "rgba(134,239,172," + (0.65 - k * 0.17).toFixed(2) + ")");
-        }
+        // le anime escono dalle lapidi e salgono ondeggiando, poi svaniscono
+        salgonoAiLati(A, 4, [[187, 247, 208], [134, 239, 172]], { lati: [[1, 5.5], [26.5, 31]], da: 22, a: 1, giro: 34, coda: 4, r: 1, cuore: true });
         // gli occhi lasciano una scia verde
         const p = (Math.sin(f * 0.5) + 1) / 2;
         for (const x of [12, 18.4]) B.rett(x - 0.8, 12.6 - A.su, 3.4, 3.4, "rgba(74,222,128," + (0.14 + 0.24 * p).toFixed(2) + ")");
@@ -16482,11 +16494,8 @@
         B.cerchio(5.8, 7.4, 4.2 + p, "rgba(74,222,128," + (0.1 + 0.14 * p).toFixed(2) + ")");
         B.px(4.7, 7.4, p > 0.4 ? "#bbf7d0" : "#22c55e"); B.px(6.9, 7.4, p > 0.4 ? "#bbf7d0" : "#22c55e");
         for (const x of [11, 19]) B.rett(x - 0.6, 11.4, 3.2, 4.2, "rgba(74,222,128," + (0.12 + 0.18 * p).toFixed(2) + ")");
-        for (let i = 0; i < 4; i++) {
-          const a = f * 0.2 + i * Math.PI / 2, x = 16 + Math.cos(a) * 13.4, y = 17 + Math.sin(a) * 9;
-          B.cerchio(x, y, 1.1, "rgba(187,247,208,.9)");
-          for (let k = 1; k <= 3; k++) B.px(x - Math.cos(a + Math.PI / 2) * k * 0.9, y - Math.sin(a + Math.PI / 2) * k * 0.9, "rgba(134,239,172," + (0.6 - k * 0.15).toFixed(2) + ")");
-        }
+        salgonoAiLati(A, 4, [[187, 247, 208], [74, 222, 128]], { lati: [[24.5, 31], [24.5, 31]], da: 31, a: 3, giro: 30, coda: 4, r: 0.9, cuore: true });
+        salgonoAiLati(A, 2, [[134, 239, 172]], { lati: [[3.5, 8.5]], da: 6, a: 0, giro: 18, coda: 2 });
       }
     },
     // Scimmiastein: pelle verde, capelli a spazzola, cicatrici cucite e i bulloni nel collo che fanno scintille
