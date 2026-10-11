@@ -19393,6 +19393,12 @@
   const BORDO_FASCIA_HW = { comune: "#9a6ad0", nonComune: "#ff8a1f", raro: "#6dff7a", leggendario: "#fbbf24" };
   function disegnaRuota() {
     const fette = premiDelGiorno(), sp = spicchiRuota(fette), r = 96, c = 110;
+    if (!R.ruotaGira) {
+      const giro = R.ruotaGiro || 0, giri = giro - ((giro % 360) + 360) % 360;
+      const sotto = ((360 - giro) % 360 + 360) % 360;          // il punto della ruota sotto la freccia (in gradi)
+      const i = sp.findIndex(x => sotto >= x.da && sotto < x.a);
+      if (i < 0 || Math.min(sotto - sp[i].da, sp[i].a - sotto) < sp[i].ampio * 0.12) R.ruotaGiro = giri + (360 - sp[Math.max(0, i)].centro) % 360;
+    }
     const punto = (a, rr = r) => [c + rr * Math.sin(a * Math.PI / 180), c - rr * Math.cos(a * Math.PI / 180)].map(v => v.toFixed(2)).join(",");
     const larghezza = (rr, ampio) => 2 * Math.PI * rr * ampio / 360;   // spazio orizzontale disponibile a quella distanza dal centro
     const conta = {}, hw = atmosferaEvento() === "halloween";
@@ -19423,13 +19429,14 @@
       svg += `<g transform="rotate(${g.centro.toFixed(2)} ${c} ${c})">${testo}</g>`;
     });
     svg += `<circle cx="${c}" cy="${c}" r="${r}" fill="url(#ombraRuota)" pointer-events="none"/>`;
-    for (let k = 0; k < 24; k++) {
-      const [px, py] = punto(k * 15, r + 6).split(",");
+    // un piolo su ogni confine tra due spicchi (come sulle ruote vere): la freccia si ferma sempre dentro uno spicchio
+    for (const g of sp) {
+      const [px, py] = punto(g.da, r + 6).split(",");
       if (hw) {
         // pioli a zucchina, con il picciolo verso fuori
-        const [sx, sy] = punto(k * 15, r + 8.6).split(",");
-        svg += `<circle cx="${px}" cy="${py}" r="2.5" fill="#ff8a1f" stroke="#7a3500" stroke-width=".8"/><circle cx="${sx}" cy="${sy}" r=".9" fill="#5fae3a"/>`;
-      } else svg += `<circle cx="${px}" cy="${py}" r="2.1" fill="#efe8d4" stroke="#c99a12" stroke-width=".8"/>`;
+        const [sx, sy] = punto(g.da, r + 9.4).split(",");
+        svg += `<circle cx="${px}" cy="${py}" r="3" fill="#ff8a1f" stroke="#7a3500" stroke-width=".9"/><circle cx="${sx}" cy="${sy}" r="1" fill="#5fae3a"/>`;
+      } else svg += `<circle cx="${px}" cy="${py}" r="2.6" fill="#efe8d4" stroke="#c99a12" stroke-width=".9"/>`;
     }
     svg += hw ? `<circle cx="${c}" cy="${c}" r="19" fill="#1a0f22" stroke="#ff8a1f" stroke-width="3"/><circle cx="${c}" cy="${c}" r="14" fill="none" stroke="#a855f7" stroke-opacity=".45" stroke-width="1"/></svg>`
       : `<circle cx="${c}" cy="${c}" r="19" fill="#efe8d4" stroke="#c99a12" stroke-width="3"/><circle cx="${c}" cy="${c}" r="14" fill="none" stroke="#1c1a16" stroke-opacity=".15" stroke-width="1"/></svg>`;
@@ -19525,7 +19532,7 @@
     $("ruotaEsito").textContent = "";
     $("ruotaEsito").classList.remove("vinto");
     const prima = R.ruotaGiro || 0;
-    const fermo = (360 - sp[i].centro) % 360 + (Math.random() - 0.5) * sp[i].ampio * 0.6;
+    const fermo = (360 - sp[i].centro) % 360 + (Math.random() - 0.5) * sp[i].ampio * 0.4;
     R.ruotaGiro = prima - (((prima % 360) + 360) % 360) + 360 * 6 + fermo;
     scriviRuota();
     Suono.clic();
