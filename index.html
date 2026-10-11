@@ -1990,7 +1990,6 @@
     <div class="azioni">
       <button class="pulsante secondario" id="bTrasferisci">🔄 <span data-t="trasf_tit"></span></button>
       <button class="pulsante secondario" id="bInstalla" hidden>📲 <span data-t="imp_home"></span></button>
-      <button class="pulsante secondario" id="bTutorial">📖 <span data-t="tut_rivedi"></span></button>
       <button class="pulsante secondario" id="bGuide">🧭 <span data-t="gd_tit"></span></button>
       <button class="pulsante secondario" id="bMenuPrincipale">🏠 <span data-t="menu_principale"></span></button>
       <button class="pulsante secondario" id="bChiudiImpostazioni" data-t="chiudi"></button>
@@ -2863,7 +2862,7 @@
       nov_tour: "🧭 Fai il tour",
       nov_dopo: "Più tardi",
       tour_fine: "Fine",
-      tour_1: "🧭 Ecco un giro veloce tra le novità. Puoi rifarlo quando vuoi dalle Impostazioni con «Rivedi il tutorial».",
+      tour_1: "🧭 Ecco un giro veloce tra le novità. Le spiegazioni di ogni schermata le ritrovi quando vuoi in ⚙️ Impostazioni › «Guide delle funzioni».",
       tour_2: "🛍️ Questo è il Negozio: con le Pagine d'oro apri casse di legno, d'argento, d'oro e di diamante. Dentro trovi avatar, colori, scritte animate o bonus per lo zaino. La prima cassa è un regalo!",
       tour_3: "⚙️ Nelle Impostazioni, in «Personalizzazione», scegli tema, avatar, colore e scritta animata del nome. Qui trovi anche nome, notifiche ed esportazione della partita.",
       tour_4: "🏆 Nel Diario ora ci sono tre classifiche, una per difficoltà. Tocca un giocatore per vedere le sue statistiche.",
@@ -3742,7 +3741,7 @@
       tema_lim_tag: "⏳ Tempo limitato",
       tema_evento_avviso: "⏳ Tema a tempo limitato: a fine stagione tornerai al tema {tema}",
       tema_evento_tit: "Tema {tema}",
-      tema_evento_testo: "Durante l'evento il gioco ha i suoi colori. È un tema a tempo limitato: puoi cambiarlo quando vuoi in Personalizzazione › Temi, e a fine stagione tornerai al tuo tema ({tema}).",
+      tema_evento_testo: "Durante l'evento il gioco usa il tema {ev}. È a tempo limitato: puoi cambiarlo quando vuoi da ⚙️ Impostazioni › 🎨 Personalizzazione, e a fine stagione tornerai al tuo tema ({tema}).",
       tema_evento_finito: "🎨 Il tema dell'evento è finito: sei tornato al tema {tema}",
       nov19_1: "🐒 Tutte le foto profilo rifatte: più dettagliate e ognuna con la sua idea; dalle epiche in su si muovono. Chi le aveva ha già quelle nuove",
       nov19_2: "🎃 Un premio di stagione per ogni lega raggiunta: dal colore Fuoco fatuo in Bronzo fino al Mietitore animato in Diamante",
@@ -3756,8 +3755,12 @@
       nov20_3: "🎃 In ufficio le scimmie si travestono per Halloween (fantasmi, mummie, zucche, streghe, vampiri e diavoletti) e sulle scrivanie spuntano zucche, candele, teschi e ragnatele",
       nov20_4: "🎨 Se scegli un altro tema, musica, luna, pipistrelli e nebbia di Halloween si spengono; gli oggetti e i premi di stagione restano",
       nov20_5: "🦇 Pipistrelli rifatti in pixel art e sistemata la finestra di Halloween che sugli schermi bassi non faceva andare avanti",
+      tour20_1: "🎡 Nella ruota ora vedi com'è il premio leggendario del giorno e che tipo di premio è. Ad Halloween anche la ruota è a tema!",
+      nov20_8: "👑 Nuove foto di Halloween leggendarie e mitiche nelle casse e nella ruota: Re delle Zucche, Negromante, Scimmiastein, Cavaliere senza testa e Demone delle fiamme. E i premi di stagione ora sono tutti animati",
       nov20_6: "🎭 La scimmia del menu ha un travestimento diverso ogni volta che apri il gioco",
-      nov20_7: "🏅 Tolta la gara della settimana (e le notifiche): resta la lega, con i suoi premi e quelli di stagione"
+      nov20_7: "🏅 Tolta la gara della settimana (e le notifiche): resta la lega, con i suoi premi e quelli di stagione",
+      carico_partita: "⏳ Recupero la tua partita…",
+      tema_evento_nota: "🎨 Il gioco ora ha il tema {ev}: puoi cambiarlo quando vuoi da ⚙️ Impostazioni › 🎨 Personalizzazione. A fine stagione tornerai al tuo tema ({tema})."
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -4110,7 +4113,7 @@
       nov_tour: "🧭 Take the tour",
       nov_dopo: "Later",
       tour_fine: "Done",
-      tour_1: "🧭 Here's a quick tour of what's new. You can take it again any time from Settings with “Replay the tutorial”.",
+      tour_1: "🧭 Here's a quick tour of what's new. You'll find the explanation of every screen whenever you like in ⚙️ Settings › “Feature guides”.",
       tour_2: "🛍️ This is the Shop: with Golden Pages you open wooden, silver, golden and diamond crates with avatars, colours, animated names or backpack boosts. The first crate is a gift!",
       tour_3: "⚙️ In Settings, under “Customisation”, choose your theme, avatar, name colour and animated name. You'll also find your name, notifications and game export there.",
       tour_4: "🏆 The Journal now has three leaderboards, one per difficulty. Tap a player to see their statistics.",
@@ -4989,7 +4992,7 @@
       tema_lim_tag: "⏳ Limited time",
       tema_evento_avviso: "⏳ Limited-time theme: at the end of the season you'll go back to {tema}",
       tema_evento_tit: "{tema} theme",
-      tema_evento_testo: "During the event the game wears its colours. It's a limited-time theme: change it whenever you like in Customisation › Themes, and at the end of the season you'll go back to your theme ({tema}).",
+      tema_evento_testo: "During the event the game uses the {ev} theme. It's for a limited time: you can change it whenever you like from ⚙️ Settings › 🎨 Customisation, and at the end of the season you'll go back to your theme ({tema}).",
       tema_evento_finito: "🎨 The event theme is over: you're back to {tema}",
       nov19_1: "🐒 Every profile picture redrawn: more detailed, each with its own idea; from epic up they move. If you had one, you already have the new look",
       nov19_2: "🎃 A season prize for every league you reach: from the Will-o'-the-wisp colour in Bronze up to the animated Reaper in Diamond",
@@ -5003,8 +5006,12 @@
       nov20_3: "🎃 In the office the monkeys dress up for Halloween (ghosts, mummies, pumpkins, witches, vampires and little devils) and pumpkins, candles, skulls and cobwebs appear on the desks",
       nov20_4: "🎨 If you pick another theme, Halloween's music, moon, bats and fog switch off; items and season prizes stay",
       nov20_5: "🦇 Bats redrawn in pixel art, and fixed the Halloween window that wouldn't let you continue on short screens",
+      tour20_1: "🎡 The wheel now shows what the legendary prize of the day looks like and what kind of prize it is. At Halloween the wheel is themed too!",
+      nov20_8: "👑 New legendary and mythic Halloween pictures in crates and the wheel: Pumpkin King, Necromancer, Monkenstein, Headless Horseman and Flame Demon. And every season prize is now animated",
       nov20_6: "🎭 The monkey on the menu wears a different costume every time you open the game",
-      nov20_7: "🏅 The weekly race (and notifications) have been removed: the league stays, with its prizes and the season ones"
+      nov20_7: "🏅 The weekly race (and notifications) have been removed: the league stays, with its prizes and the season ones",
+      carico_partita: "⏳ Loading your game…",
+      tema_evento_nota: "🎨 The game now has the {ev} theme: you can change it whenever you like from ⚙️ Settings › 🎨 Customisation. At the end of the season you'll go back to your theme ({tema})."
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -5357,7 +5364,7 @@
       nov_tour: "🧭 Hacer el recorrido",
       nov_dopo: "Más tarde",
       tour_fine: "Fin",
-      tour_1: "🧭 Aquí tienes un recorrido rápido por las novedades. Puedes repetirlo cuando quieras desde Ajustes con «Ver el tutorial».",
+      tour_1: "🧭 Aquí tienes un recorrido rápido por las novedades. Las explicaciones de cada pantalla están cuando quieras en ⚙️ Ajustes › «Guías de funciones».",
       tour_2: "🛍️ Esta es la Tienda: con las Páginas de oro abres cajas de madera, plata, oro y diamante con avatares, colores, letras animadas o bonus para la mochila. ¡La primera caja es un regalo!",
       tour_3: "⚙️ En Ajustes, en «Personalización», eliges tema, avatar, color y letras animadas del nombre. Ahí también están el nombre, las notificaciones y la exportación de la partida.",
       tour_4: "🏆 El Diario tiene ahora tres clasificaciones, una por dificultad. Toca a un jugador para ver sus estadísticas.",
@@ -6236,7 +6243,7 @@
       tema_lim_tag: "⏳ Tiempo limitado",
       tema_evento_avviso: "⏳ Tema por tiempo limitado: al final de la temporada volverás al tema {tema}",
       tema_evento_tit: "Tema {tema}",
-      tema_evento_testo: "Durante el evento el juego lleva sus colores. Es un tema por tiempo limitado: cámbialo cuando quieras en Personalización › Temas, y al final de la temporada volverás a tu tema ({tema}).",
+      tema_evento_testo: "Durante el evento el juego usa el tema {ev}. Es por tiempo limitado: puedes cambiarlo cuando quieras en ⚙️ Ajustes › 🎨 Personalización, y al final de la temporada volverás a tu tema ({tema}).",
       tema_evento_finito: "🎨 El tema del evento terminó: vuelves al tema {tema}",
       nov19_1: "🐒 Todas las fotos de perfil rehechas: más detalladas y cada una con su idea; desde las épicas se mueven. Quien las tenía ya tiene las nuevas",
       nov19_2: "🎃 Un premio de temporada por cada liga alcanzada: desde el color Fuego fatuo en Bronce hasta la Parca animada en Diamante",
@@ -6250,8 +6257,12 @@
       nov20_3: "🎃 En la oficina los monos se disfrazan para Halloween (fantasmas, momias, calabazas, brujas, vampiros y diablillos) y en los escritorios aparecen calabazas, velas, calaveras y telarañas",
       nov20_4: "🎨 Si eliges otro tema, la música, la luna, los murciélagos y la niebla de Halloween se apagan; los objetos y los premios de temporada se quedan",
       nov20_5: "🦇 Murciélagos rehechos en pixel art y arreglada la ventana de Halloween que en pantallas bajas no dejaba continuar",
+      tour20_1: "🎡 En la rueda ahora ves cómo es el premio legendario del día y qué tipo de premio es. ¡En Halloween la rueda también tiene tema!",
+      nov20_8: "👑 Nuevas fotos de Halloween legendarias y míticas en las cajas y la rueda: Rey Calabaza, Nigromante, Monostein, Jinete sin cabeza y Demonio de llamas. Y todos los premios de temporada ahora están animados",
       nov20_6: "🎭 El mono del menú lleva un disfraz distinto cada vez que abres el juego",
-      nov20_7: "🏅 Se quitó la carrera semanal (y las notificaciones): queda la liga, con sus premios y los de temporada"
+      nov20_7: "🏅 Se quitó la carrera semanal (y las notificaciones): queda la liga, con sus premios y los de temporada",
+      carico_partita: "⏳ Recuperando tu partida…",
+      tema_evento_nota: "🎨 El juego ahora tiene el tema {ev}: puedes cambiarlo cuando quieras en ⚙️ Ajustes › 🎨 Personalización. Al final de la temporada volverás a tu tema ({tema})."
     },
 
     // ------------------------------------------------------------- 中文
@@ -6604,7 +6615,7 @@
       nov_tour: "🧭 开始导览",
       nov_dopo: "稍后",
       tour_fine: "完成",
-      tour_1: "🧭 带你快速看看新内容。之后随时可以在设置里用“重看教程”再看一遍。",
+      tour_1: "🧭 带你快速看看新内容。每个界面的说明随时都能在 ⚙️ 设置 › “功能指南”里找到。",
       tour_2: "🛍️ 这是商店：用金页打开木箱、银箱、金箱和钻石箱，里面有头像、名字颜色、动态字或背包加成。第一个箱子是送你的！",
       tour_3: "⚙️ 在设置的“个性化”里可以选择主题、头像、名字颜色和动态字。名字、通知和导出存档也在这里。",
       tour_4: "🏆 日志里现在有三个排行榜，每个难度一个。点一位玩家就能看他的统计。",
@@ -7483,7 +7494,7 @@
       tema_lim_tag: "⏳ 限时",
       tema_evento_avviso: "⏳ 限时主题：赛季结束后会换回{tema}主题",
       tema_evento_tit: "{tema}主题",
-      tema_evento_testo: "活动期间游戏换上了它的配色。这是限时主题：随时可以在 个性化 › 主题 里更换，赛季结束后会换回你的主题（{tema}）。",
+      tema_evento_testo: "活动期间游戏使用{ev}主题。这是限时主题：随时可以在 ⚙️ 设置 › 🎨 个性化 里更换，赛季结束后会换回你的主题（{tema}）。",
       tema_evento_finito: "🎨 活动主题已结束：已换回{tema}主题",
       nov19_1: "🐒 所有头像全部重画：更精细，每个都有自己的主题；史诗及以上会动。已拥有的会直接变成新样子",
       nov19_2: "🎃 每达到一个联赛都有赛季奖励：从青铜的鬼火颜色到钻石的动态死神",
@@ -7497,8 +7508,12 @@
       nov20_3: "🎃 办公室里的猴子们穿上了万圣节装扮（幽灵、木乃伊、南瓜、女巫、吸血鬼和小恶魔），桌上还有南瓜、蜡烛、骷髅和蜘蛛网",
       nov20_4: "🎨 如果你换成别的主题，万圣节的音乐、月亮、蝙蝠和雾气都会关闭；物品和赛季奖励会保留",
       nov20_5: "🦇 蝙蝠以像素画重做，并修复了万圣节窗口在矮屏幕上无法继续的问题",
+      tour20_1: "🎡 转盘现在会显示今日传说奖励的样子和类型。万圣节期间转盘也换上了节日主题！",
+      nov20_8: "👑 箱子和转盘里新增万圣节传说和神话头像：南瓜王、死灵法师、科学怪猴、无头骑士和烈焰恶魔。赛季奖励现在也全部会动",
       nov20_6: "🎭 每次打开游戏，菜单上的猴子都会换一身不同的装扮",
-      nov20_7: "🏅 每周竞赛（以及通知）已移除：联赛保留，奖励和赛季奖励都还在"
+      nov20_7: "🏅 每周竞赛（以及通知）已移除：联赛保留，奖励和赛季奖励都还在",
+      carico_partita: "⏳ 正在载入你的存档…",
+      tema_evento_nota: "🎨 游戏现在使用{ev}主题：随时可以在 ⚙️ 设置 › 🎨 个性化 里更换。赛季结束后会换回你的主题（{tema}）。"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -7851,7 +7866,7 @@
       nov_tour: "🧭 Faire la visite",
       nov_dopo: "Plus tard",
       tour_fine: "Terminer",
-      tour_1: "🧭 Voici une visite rapide des nouveautés. Tu peux la refaire quand tu veux depuis les Réglages avec « Revoir le tutoriel ».",
+      tour_1: "🧭 Voici une visite rapide des nouveautés. Les explications de chaque écran sont là quand tu veux dans ⚙️ Paramètres › « Guides des fonctions ».",
       tour_2: "🛍️ Voici la Boutique : avec les Pages d'or, tu ouvres des coffres en bois, en argent, en or et en diamant, avec des avatars, des couleurs, des noms animés ou des bonus pour le sac. Le premier coffre est offert !",
       tour_3: "⚙️ Dans les Réglages, sous « Personnalisation », choisis ton thème, ton avatar, la couleur et l'animation de ton nom. Tu y trouves aussi ton nom, les notifications et l'export de la partie.",
       tour_4: "🏆 Le Journal a maintenant trois classements, un par difficulté. Touche un joueur pour voir ses statistiques.",
@@ -8730,7 +8745,7 @@
       tema_lim_tag: "⏳ Durée limitée",
       tema_evento_avviso: "⏳ Thème à durée limitée : à la fin de la saison tu reviendras au thème {tema}",
       tema_evento_tit: "Thème {tema}",
-      tema_evento_testo: "Pendant l'événement le jeu prend ses couleurs. C'est un thème à durée limitée : change-le quand tu veux dans Personnalisation › Thèmes, et à la fin de la saison tu retrouveras ton thème ({tema}).",
+      tema_evento_testo: "Pendant l'événement le jeu utilise le thème {ev}. Il est à durée limitée : tu peux le changer quand tu veux dans ⚙️ Paramètres › 🎨 Personnalisation, et à la fin de la saison tu retrouveras ton thème ({tema}).",
       tema_evento_finito: "🎨 Le thème de l'événement est terminé : retour au thème {tema}",
       nov19_1: "🐒 Toutes les photos de profil refaites : plus détaillées, chacune avec son idée ; à partir des épiques elles bougent. Si tu les avais, tu as déjà les nouvelles",
       nov19_2: "🎃 Un prix de saison pour chaque ligue atteinte : de la couleur Feu follet en Bronze jusqu'à la Faucheuse animée en Diamant",
@@ -8744,8 +8759,12 @@
       nov20_3: "🎃 Au bureau les singes se déguisent pour Halloween (fantômes, momies, citrouilles, sorcières, vampires et petits diables) et des citrouilles, bougies, crânes et toiles d'araignée apparaissent sur les bureaux",
       nov20_4: "🎨 Si tu choisis un autre thème, la musique, la lune, les chauves-souris et le brouillard d'Halloween s'éteignent ; les objets et les prix de saison restent",
       nov20_5: "🦇 Chauves-souris refaites en pixel art, et correction de la fenêtre d'Halloween qui bloquait sur les écrans bas",
+      tour20_1: "🎡 La roue montre maintenant à quoi ressemble le prix légendaire du jour et de quel type il s'agit. À Halloween la roue est aussi à thème !",
+      nov20_8: "👑 Nouvelles photos d'Halloween légendaires et mythiques dans les coffres et la roue : Roi Citrouille, Nécromancien, Singestein, Cavalier sans tête et Démon des flammes. Et tous les prix de saison sont maintenant animés",
       nov20_6: "🎭 Le singe du menu porte un déguisement différent à chaque ouverture du jeu",
-      nov20_7: "🏅 La course de la semaine (et les notifications) ont été retirées : la ligue reste, avec ses prix et ceux de la saison"
+      nov20_7: "🏅 La course de la semaine (et les notifications) ont été retirées : la ligue reste, avec ses prix et ceux de la saison",
+      carico_partita: "⏳ Je récupère ta partie…",
+      tema_evento_nota: "🎨 Le jeu a maintenant le thème {ev} : tu peux le changer quand tu veux dans ⚙️ Paramètres › 🎨 Personnalisation. À la fin de la saison tu retrouveras ton thème ({tema})."
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -9099,7 +9118,7 @@
       nov_tour: "🧭 Пройти обзор",
       nov_dopo: "Позже",
       tour_fine: "Готово",
-      tour_1: "🧭 Вот короткий обзор новинок. Его можно пройти снова в любой момент в Настройках через «Обучение заново».",
+      tour_1: "🧭 Вот короткий обзор новинок. Объяснения каждого экрана всегда есть в ⚙️ Настройки › «Гиды по функциям».",
       tour_2: "🛍️ Это Магазин: за Золотые страницы открывай деревянные, серебряные, золотые и алмазные сундуки с аватарами, цветами, анимированными именами или бонусами для рюкзака. Первый сундук — подарок!",
       tour_3: "⚙️ В Настройках, в разделе «Оформление», выбирай тему, аватар, цвет и анимацию имени. Там же имя, уведомления и экспорт игры.",
       tour_4: "🏆 В Дневнике теперь три рейтинга, по одному на сложность. Нажми на игрока, чтобы увидеть его статистику.",
@@ -9978,7 +9997,7 @@
       tema_lim_tag: "⏳ Ограниченное время",
       tema_evento_avviso: "⏳ Тема на ограниченное время: в конце сезона вернётся тема «{tema}»",
       tema_evento_tit: "Тема «{tema}»",
-      tema_evento_testo: "Во время события у игры его цвета. Это тема на ограниченное время: её можно сменить в Оформление › Темы, а в конце сезона вернётся твоя тема («{tema}»).",
+      tema_evento_testo: "Во время события в игре тема «{ev}». Она на ограниченное время: её можно сменить когда угодно в ⚙️ Настройки › 🎨 Оформление, а в конце сезона вернётся твоя тема («{tema}»).",
       tema_evento_finito: "🎨 Тема события закончилась: вернулась тема «{tema}»",
       nov19_1: "🐒 Все аватары перерисованы: больше деталей, у каждого своя идея; начиная с эпических они двигаются. У кого они были — уже новые",
       nov19_2: "🎃 Награда сезона за каждую достигнутую лигу: от цвета «Блуждающий огонёк» в Бронзе до анимированного Жнеца в Алмазе",
@@ -9992,8 +10011,12 @@
       nov20_3: "🎃 В офисе обезьяны наряжаются на Хэллоуин (призраки, мумии, тыквы, ведьмы, вампиры и чертята), а на столах появляются тыквы, свечи, черепа и паутина",
       nov20_4: "🎨 Если выбрать другую тему, музыка, луна, летучие мыши и туман Хэллоуина выключаются; предметы и награды сезона остаются",
       nov20_5: "🦇 Летучие мыши перерисованы в пиксель-арте, и исправлено окно Хэллоуина, которое не давало продолжить на невысоких экранах",
+      tour20_1: "🎡 Колесо теперь показывает, как выглядит легендарный приз дня и что это за приз. На Хэллоуин колесо тоже в тематике!",
+      nov20_8: "👑 Новые легендарные и мифические аватары Хэллоуина в сундуках и колесе: Тыквенный король, Некромант, Обезьянштейн, Всадник без головы и Огненный демон. А все награды сезона теперь анимированы",
       nov20_6: "🎭 Обезьяна в меню каждый раз, когда открываешь игру, в новом костюме",
-      nov20_7: "🏅 Гонка недели (и уведомления) убраны: лига осталась, с её наградами и наградами сезона"
+      nov20_7: "🏅 Гонка недели (и уведомления) убраны: лига осталась, с её наградами и наградами сезона",
+      carico_partita: "⏳ Загружаю твою игру…",
+      tema_evento_nota: "🎨 Теперь в игре тема «{ev}»: её можно сменить когда угодно в ⚙️ Настройки › 🎨 Оформление. В конце сезона вернётся твоя тема («{tema}»)."
     }
   };
 
@@ -13826,10 +13849,17 @@
     try { localStorage.setItem(CHIAVE_SALVATAGGIO, JSON.stringify(G)); } catch (e) {}
   }
   function carica() {
+    let raw = null;
     try {
-      const raw = localStorage.getItem(CHIAVE_SALVATAGGIO);
-      return raw ? prepara(JSON.parse(raw)) : null;
-    } catch (e) { return null; }
+      raw = localStorage.getItem(CHIAVE_SALVATAGGIO);
+      const g = raw ? prepara(JSON.parse(raw)) : null;
+      if (raw && !g) throw new Error("salvataggio illeggibile");
+      return g;
+    } catch (e) {
+      // se il salvataggio c'era ma non si legge, una copia resta da parte (non viene sovrascritta dalla partita nuova)
+      try { if (raw && !localStorage.getItem(CHIAVE_SALVATAGGIO + "-copia")) localStorage.setItem(CHIAVE_SALVATAGGIO + "-copia", raw); } catch (e2) {}
+      return null;
+    }
   }
   // completa e aggiorna un salvataggio (locale o online) alla versione attuale del gioco
   function prepara(dati) {
@@ -14170,6 +14200,11 @@
   }
   // un tema a tempo limitato si può usare solo durante il suo evento, fino a fine stagione
   const temaEventoAttivo = tm => !!tm && !!tm.evento && temaAttivo() === tm.evento && Date.now() < tm.fine;
+  // "71": con la versione 71 il tema dell'evento si rimette a tutti una volta (con la 70 l'avviso poteva bloccarsi)
+  const chiaveTemaEvento = tm => tm.id + tm.fine + "-71";
+  const annoEvento = tema => new Date().getFullYear() - (new Date().getMonth() < 6 && tema === "natale" ? 1 : 0);
+  // gli annunci già mostrati in questa sessione non tornano, anche se nel frattempo arriva una partita salvata più vecchia
+  const annunciVisti = new Set();
   const temaNormale = id => TEMI.find(x => x.id === id && !x.evento) || TEMI.find(x => x.id === "giungla");
   function applicaTema() {
     let tm = TEMI.find(x => x.id === G.imp.tema) || temaNormale("giungla");
@@ -14208,18 +14243,27 @@
       return;
     }
     if (!evento) return;
-    const chiave = evento.id + evento.fine;
+    const chiave = chiaveTemaEvento(evento);
     if (G.temaEventoMesso !== chiave) {
       G.temaEventoMesso = chiave;
       if (!(ora && ora.evento)) G.imp.temaPrima = G.imp.tema;
       G.imp.tema = evento.id;
       applicaTema(); salva();
     }
+    if (G.temaEventoAvvisato !== chiave && annunciVisti.has(chiave)) { G.temaEventoAvvisato = chiave; salva(); }
     if (G.temaEventoAvvisato !== chiave && G.tutorialFatto && !R.nelMenu && passoTut < 0 && !document.querySelector(".velo.aperto") && !schermataOccupata()) {
+      const ev = evento.evento, annuncio = ev + annoEvento(ev);
+      // chi non ha ancora visto l'annuncio dell'evento riceve una finestra sola: l'evento e, sotto, il tema che si può cambiare
+      const tutto = EVENTI_TEMA[ev] && G.temaVisto !== annuncio && !annunciVisti.has(annuncio);
       G.temaEventoAvvisato = chiave;
+      annunciVisti.add(chiave);
+      if (EVENTI_TEMA[ev]) { G.temaVisto = annuncio; annunciVisti.add(annuncio); }
       salva();
-      mostraPremio({ ico: EVENTI_TEMA[evento.evento] ? EVENTI_TEMA[evento.evento].ico : "🎨", etichetta: t("tema_lim_tag"), titolo: t("tema_evento_tit", { tema: nomeTema(evento) }),
-        testo: t("tema_evento_testo", { tema: nomeTema(temaNormale(G.imp.temaPrima)) }), classe: "rp-raro" });
+      Online.salvaOnline();
+      if (tutto) mostraPremio({ ico: EVENTI_TEMA[ev].ico, etichetta: t("cart_" + ev), titolo: t("tema_" + ev + "_tit"), classe: "rp-leggendario",
+        testo: t("tema_" + ev + "_testo", { fino: "" }) + "\n\n" + t("tema_evento_nota", { ev: nomeTema(evento), tema: nomeTema(temaNormale(G.imp.temaPrima)) }) });
+      else mostraPremio({ ico: EVENTI_TEMA[ev] ? EVENTI_TEMA[ev].ico : "🎨", etichetta: t("tema_lim_tag"), titolo: t("tema_evento_tit", { tema: nomeTema(evento) }),
+        testo: t("tema_evento_testo", { ev: nomeTema(evento), tema: nomeTema(temaNormale(G.imp.temaPrima)) }), classe: "rp-raro" });
     }
   }
   function apriTemi() {
@@ -14318,8 +14362,23 @@
       mostraTrasferito();
     },
 
+    // finché non arriva la partita salvata online (solo dentro Claude e senza salvataggio nel browser) non si entra a giocare
+    attesaPartita: false,
+    finitaAttesa() {
+      if (!this.attesaPartita) return;
+      this.attesaPartita = false;
+      if (R && R.nelMenu) scriviMenuIniziale();
+      const dopo = giocaInAttesa;
+      giocaInAttesa = "";
+      if (dopo === "menu" && R.nelMenu) mostraPaginaMenu("miScelta");
+      else if (dopo === "gioca" && R.nelMenu) gioca();
+    },
     async collega() {
       try {
+        if (window.claude && typeof window.claude.use === "function" && !R.haSalvataggio) {
+          this.attesaPartita = true;
+          setTimeout(() => this.finitaAttesa(), 8000);
+        }
         if (!window.claude || typeof window.claude.use !== "function") {
           // sul sito (GitHub Pages) la classifica usa Firebase, se è stato configurato in classifica-config.js
           if (window.CLASSIFICA_FIREBASE) return this.collegaFirebase(window.CLASSIFICA_FIREBASE);
@@ -14327,7 +14386,7 @@
         }
         const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
         this.db = db; this.user = user;
-        if (!db || !user) { this.nonDisponibile(); return; }
+        if (!db || !user) { this.finitaAttesa(); this.nonDisponibile(); return; }
         this.id = await user.id();
         this.disponibile = true;
         // il salvataggio online vince se è più recente, o se su questo dispositivo non c'era nulla
@@ -14338,6 +14397,7 @@
             if (remoto && (!R.haSalvataggio || (remoto.ts || 0) > (G.ts || 0))) this.usaRemoto(remoto);
           } catch (e) {}
         }
+        this.finitaAttesa();
         this.pronto = true;
         this.ascolta(db);
         Sfide.avvia();
@@ -14345,7 +14405,7 @@
         ComandiAdmin.avvia();
         this.salvaOnline();
         this.pubblicaRiga();
-      } catch (e) { this.nonDisponibile(); }
+      } catch (e) { this.finitaAttesa(); this.nonDisponibile(); }
     },
     // classifica del sito: Firebase con accesso anonimo (ogni giocatore scrive solo la sua riga)
     async collegaFirebase(cfg) {
@@ -14380,6 +14440,11 @@
       const nelMenu = R.nelMenu, gruppo = R.gruppo;
       avvia(g);
       R.nelMenu = nelMenu; R.gruppo = gruppo; R.haSalvataggio = true;
+      if (G.tutorialFatto) {
+        if (aperto("veloBenvenuto")) chiudi("veloBenvenuto");
+        if (aperto("veloNome") && (G.nick || "").trim()) chiudi("veloNome");
+        if (passoTut >= 0 && !R.guida) { passoTut = -1; $("tutorial").hidden = true; }
+      }
       salva();
       if (nelMenu) scriviMenuIniziale();
       else if (R.fermo) apri("veloFine");
@@ -14681,11 +14746,18 @@
     const modo = modoCorrente();
     const script = R && R.target ? scrittura(R.target) : (L === "ru" ? "cir" : "lat");
     $("miLingua").textContent = LINGUE[L].bandiera + " " + LINGUE[L].nome;
-    $("miSalvato").textContent = R.haSalvataggio ? t("salvataggio", { n: fmtB(G.banane) }) : "";
+    $("miSalvato").textContent = Online.attesaPartita && giocaInAttesa ? t("carico_partita") : R.haSalvataggio ? t("salvataggio", { n: fmtB(G.banane) }) : "";
     $("bMenuPrincipale").hidden = R.nelMenu;
+  }
+  let giocaInAttesa = "";
+  function aspettaPartita(cosa) {
+    giocaInAttesa = cosa;
+    $("miSalvato").textContent = t("carico_partita");
+    avviso(t("carico_partita"));
   }
   function gioca() {
     Suono.sblocca();
+    if (Online.attesaPartita) { aspettaPartita("gioca"); return; }
     // chi non ha ancora un nome lo sceglie adesso (i nuovi giocatori subito, gli altri al prossimo accesso)
     if (!(G.nick || "").trim() || G.nomeDaCambiare) { chiediNome(gioca); if (G.nomeDaCambiare) $("statoNome").textContent = t("nome_cambia"); return; }
     $("menuIniziale").hidden = true;
@@ -14792,6 +14864,9 @@
   ESTETICI.push(...[{"id": "a_zucca", "t": "a", "v": "🎃", "r": 2, "g": false, "tema": "halloween"}, {"id": "a_fantasma", "t": "a", "v": "👻", "r": 2, "g": false, "tema": "halloween"}, {"id": "a_pipistrello", "t": "a", "v": "🦇", "r": 3, "g": false, "tema": "halloween"}, {"id": "e_stregato", "t": "e", "v": "", "r": 3, "g": false, "tema": "halloween"}, {"id": "a_babbo", "t": "a", "v": "🎅", "r": 2, "g": false, "tema": "natale"}, {"id": "a_pupazzo", "t": "a", "v": "⛄", "r": 2, "g": false, "tema": "natale"}, {"id": "a_albero", "t": "a", "v": "🎄", "r": 3, "g": false, "tema": "natale"}, {"id": "c_natale", "t": "e", "v": "", "r": 3, "g": false, "tema": "natale"}]);
   ESTETICI.push(...[{"id": "a_caramella", "t": "a", "v": "🍬", "r": 0, "g": false, "tema": "halloween"}, {"id": "c_zucca", "t": "c", "v": "#ff7a1a", "r": 0, "g": false, "tema": "halloween"}, {"id": "c_strega", "t": "c", "v": "#a36bff", "r": 0, "g": false, "tema": "halloween"}, {"id": "c_veleno", "t": "c", "v": "#7dff5a", "r": 0, "g": false, "tema": "halloween"}, {"id": "a_scheletro", "t": "a", "v": "💀", "r": 1, "g": false, "tema": "halloween"}, {"id": "a_strega", "t": "a", "v": "🧙", "r": 1, "g": false, "tema": "halloween"}, {"id": "c_sangue", "t": "c", "v": "#e0213c", "r": 1, "g": false, "tema": "halloween"}, {"id": "e_nebbia", "t": "e", "v": "", "r": 1, "g": false, "tema": "halloween"}, {"id": "e_candela", "t": "e", "v": "", "r": 2, "g": false, "tema": "halloween"}, {"id": "a_vampiro", "t": "a", "v": "🧛", "r": 3, "g": false, "tema": "halloween"}, {"id": "a_mietitore", "t": "a", "v": "💀", "r": 4, "g": false, "tema": "halloween"}, {"id": "e_maledetto", "t": "e", "v": "", "r": 4, "g": false, "tema": "halloween"}]);
   Object.assign(NOMI_ESTETICI, {"a_caramella": {"it": "Dolcetto", "en": "Treat", "es": "Golosina", "zh": "糖果", "fr": "Friandise", "ru": "Сладость"}, "c_zucca": {"it": "Zucca", "en": "Pumpkin", "es": "Calabaza", "zh": "南瓜橙", "fr": "Citrouille", "ru": "Тыквенный"}, "c_strega": {"it": "Strega", "en": "Witch", "es": "Bruja", "zh": "女巫紫", "fr": "Sorcière", "ru": "Ведьмин"}, "c_veleno": {"it": "Veleno", "en": "Poison", "es": "Veneno", "zh": "毒药绿", "fr": "Poison", "ru": "Ядовитый"}, "a_scheletro": {"it": "Scheletro", "en": "Skeleton", "es": "Esqueleto", "zh": "骷髅", "fr": "Squelette", "ru": "Скелет"}, "a_strega": {"it": "Scimmia strega", "en": "Witch monkey", "es": "Mono bruja", "zh": "女巫猴", "fr": "Singe sorcière", "ru": "Обезьяна-ведьма"}, "c_sangue": {"it": "Sangue", "en": "Blood", "es": "Sangre", "zh": "血红", "fr": "Sang", "ru": "Кровавый"}, "e_nebbia": {"it": "Nebbia", "en": "Fog", "es": "Niebla", "zh": "迷雾", "fr": "Brouillard", "ru": "Туман"}, "e_candela": {"it": "Candela", "en": "Candle", "es": "Vela", "zh": "烛光", "fr": "Bougie", "ru": "Свеча"}, "a_vampiro": {"it": "Vampiro", "en": "Vampire", "es": "Vampiro", "zh": "吸血鬼", "fr": "Vampire", "ru": "Вампир"}, "a_mietitore": {"it": "Il Mietitore", "en": "The Reaper", "es": "La Parca", "zh": "死神", "fr": "La Faucheuse", "ru": "Жнец"}, "e_maledetto": {"it": "Maledetto", "en": "Cursed", "es": "Maldito", "zh": "诅咒", "fr": "Maudit", "ru": "Проклятый"}});
+  // Halloween (71): leggendari e mitici che escono da casse e ruota durante l'evento (i premi di stagione restano i più rari)
+  ESTETICI.push(...[{"id": "a_re_zucche", "t": "a", "v": "👑", "r": 3, "g": false, "tema": "halloween"}, {"id": "a_negromante", "t": "a", "v": "💀", "r": 3, "g": false, "tema": "halloween"}, {"id": "a_scimmiastein", "t": "a", "v": "⚡", "r": 3, "g": false, "tema": "halloween"}, {"id": "a_cavaliere", "t": "a", "v": "🎃", "r": 4, "g": false, "tema": "halloween"}, {"id": "a_demone", "t": "a", "v": "😈", "r": 4, "g": false, "tema": "halloween"}]);
+  Object.assign(NOMI_ESTETICI, {"a_re_zucche": {"it": "Re delle Zucche", "en": "Pumpkin King", "es": "Rey Calabaza", "zh": "南瓜王", "fr": "Roi Citrouille", "ru": "Тыквенный король"}, "a_negromante": {"it": "Negromante", "en": "Necromancer", "es": "Nigromante", "zh": "死灵法师", "fr": "Nécromancien", "ru": "Некромант"}, "a_scimmiastein": {"it": "Scimmiastein", "en": "Monkenstein", "es": "Monostein", "zh": "科学怪猴", "fr": "Singestein", "ru": "Обезьянштейн"}, "a_cavaliere": {"it": "Cavaliere senza testa", "en": "Headless Horseman", "es": "Jinete sin cabeza", "zh": "无头骑士", "fr": "Cavalier sans tête", "ru": "Всадник без головы"}, "a_demone": {"it": "Demone delle fiamme", "en": "Flame Demon", "es": "Demonio de llamas", "zh": "烈焰恶魔", "fr": "Démon des flammes", "ru": "Огненный демон"}});
   Object.assign(NOMI_ESTETICI, {"a_zucca": {"it": "Zucca", "en": "Pumpkin", "es": "Calabaza", "zh": "南瓜", "fr": "Citrouille", "ru": "Тыква"}, "a_fantasma": {"it": "Fantasma", "en": "Ghost", "es": "Fantasma", "zh": "幽灵", "fr": "Fantôme", "ru": "Призрак"}, "a_pipistrello": {"it": "Pipistrello", "en": "Bat", "es": "Murciélago", "zh": "蝙蝠", "fr": "Chauve-souris", "ru": "Летучая мышь"}, "e_stregato": {"it": "Stregato", "en": "Haunted", "es": "Embrujado", "zh": "闹鬼", "fr": "Hanté", "ru": "Колдовской"}, "a_babbo": {"it": "Babbo Natale", "en": "Santa", "es": "Papá Noel", "zh": "圣诞老人", "fr": "Père Noël", "ru": "Санта-Клаус"}, "a_pupazzo": {"it": "Pupazzo di neve", "en": "Snowman", "es": "Muñeco de nieve", "zh": "雪人", "fr": "Bonhomme de neige", "ru": "Снеговик"}, "a_albero": {"it": "Albero di Natale", "en": "Christmas tree", "es": "Árbol de Navidad", "zh": "圣诞树", "fr": "Sapin de Noël", "ru": "Ёлка"}, "c_natale": {"it": "Natalizio", "en": "Festive", "es": "Navideño", "zh": "节日彩条", "fr": "Festif", "ru": "Праздничный"}});
   // altri oggetti di Halloween (69)
   ESTETICI.push(...[{"id": "a_gatto", "t": "a", "v": "🐈‍⬛", "r": 0, "g": false, "tema": "halloween"}, {"id": "c_mummia", "t": "c", "v": "#e9dcc0", "r": 0, "g": false, "tema": "halloween"}, {"id": "c_notte", "t": "c", "v": "#8f7dff", "r": 0, "g": false, "tema": "halloween"}, {"id": "a_zombie", "t": "a", "v": "🧟", "r": 1, "g": false, "tema": "halloween"}, {"id": "a_ragno", "t": "a", "v": "🕷️", "r": 1, "g": false, "tema": "halloween"}, {"id": "e_ragnatela", "t": "e", "v": "", "r": 1, "g": false, "tema": "halloween"}, {"id": "a_lupo", "t": "a", "v": "🐺", "r": 2, "g": false, "tema": "halloween"}, {"id": "a_calderone", "t": "a", "v": "🧪", "r": 2, "g": false, "tema": "halloween"}, {"id": "e_pozione", "t": "e", "v": "", "r": 2, "g": false, "tema": "halloween"}]);
@@ -14880,7 +14955,8 @@
   //  alone, scintille, riflessi). Dal leggendario in su si muovono.
   // =====================================================================
   const AV_DIM = [32, 32, 32, 32, 32, 32];
-  const avatarAnimato = o => !!o && o.r >= 3;
+  // si muovono dal leggendario in su, e tutti i premi di stagione (anche i più comuni)
+  const avatarAnimato = o => !!o && o.t === "a" && (o.r >= 3 || !!o.stagione);
   const tinta = (hex, f) => {
     const n = parseInt(hex.slice(1), 16);
     const c = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map(v => Math.max(0, Math.min(255, Math.round(f >= 1 ? v + (255 - v) * (f - 1) : v * f))));
@@ -15042,7 +15118,7 @@
       if (st.petto !== false) C.ell(16, 32.6, 5.4, 4.8, st.petto || tinta(muso, 0.96));
     }
     if (st.orecchie !== false) for (const ox of [5.6, 26.4]) { C.cerchio(ox, 15.6, 3.7, ox < 16 ? pelo : scuro); C.cerchio(ox, 15.6, 2, orecchia); }
-    C.cerchio(16, 14.6, 9.7, (dx, dy) => (dx + dy > 0.95 ? scuro : dx + dy < -1.05 ? chiaro : pelo));
+    if (st.testa !== false) C.cerchio(16, 14.6, 9.7, (dx, dy) => (dx + dy > 0.95 ? scuro : dx + dy < -1.05 ? chiaro : pelo));
     if (st.ciuffo !== false) { C.px(16, 3.6, pelo); C.rett(14.6, 4.4, 2, 1, pelo); C.px(17, 4.4, chiaro); }
     if (st.maschera !== false) {
       C.cerchio(12, 12.8, 4, muso); C.cerchio(20, 12.8, 4, muso);
@@ -15127,6 +15203,9 @@
     if (o.r >= 1 && st.ciocche !== false) ciocche(liv, S, st, o.r);
     if (o.r >= 2) luceBordo(liv, S);
     contorna(liv, S, st.bordo || "#1a110c");
+    // chi fluttua sale e scende di un pixel (la riga in fondo si allunga, così non resta un buco)
+    const su = anima && st.galleggia && Math.sin(f * 0.4) > 0.2 ? 1 : 0;
+    A.su = su;
     // dal leggendario: un alone del colore del personaggio intorno alla figura, che pulsa (due pixel che sfumano)
     if (o.r >= 3) {
       const a = (o.r >= 4 ? 0.5 : 0.4) + 0.16 * Math.sin(f * 0.45), col = st.alone || ALONE_AV[o.r];
@@ -15134,9 +15213,13 @@
       for (let y = 0; y < S; y++) for (let x = 0; x < S; x++) if (!liv[y * S + x] && [[1, 0], [-1, 0], [0, 1], [0, -1]].some(([dx, dy]) => { const X = x + dx, Y = y + dy; return X >= 0 && Y >= 0 && X < S && Y < S && liv[Y * S + X]; })) anello.add(y * S + x);
       const secondo = new Set();
       for (const i of anello) { const x = i % S, y = Math.floor(i / S); for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const X = x + dx, Y = y + dy, j = Y * S + X; if (X >= 0 && Y >= 0 && X < S && Y < S && !liv[j] && !anello.has(j)) secondo.add(j); } }
-      for (const [giro, al] of [[anello, a], [secondo, a * 0.4]]) { ctx.fillStyle = "rgba(" + col + "," + al.toFixed(2) + ")"; for (const i of giro) ctx.fillRect(i % S, Math.floor(i / S), 1, 1); }
+      for (const [giro, al] of [[anello, a], [secondo, a * 0.4]]) { ctx.fillStyle = "rgba(" + col + "," + al.toFixed(2) + ")"; for (const i of giro) ctx.fillRect(i % S, Math.floor(i / S) - su, 1, 1); }
     }
-    for (let i = 0; i < S * S; i++) if (liv[i]) { ctx.fillStyle = liv[i]; ctx.fillRect(i % S, Math.floor(i / S), 1, 1); }
+    for (let i = 0; i < S * S; i++) if (liv[i]) {
+      const x = i % S, y = Math.floor(i / S);
+      ctx.fillStyle = liv[i]; ctx.fillRect(x, y - su, 1, 1);
+      if (su && y === S - 1) ctx.fillRect(x, y, 1, 1);
+    }
     // 5. luci, fiamme e scintille sopra a tutto (senza contorno)
     fase("luce");
     // esclusivi: un riflesso di luce che attraversa la figura
@@ -15500,12 +15583,15 @@
     },
     // il campo di grano al tramonto, con la luna arancione
     campo(A) {
-      const { B } = A;
+      const { B, f } = A;
       sfumato(A, ["#3a1f4a", "#7a3550", "#c25a3e", "#e88a3a"], 0, 32, 0, 22);
       pxLuna(B, 26, 6, 4.4, "#ffb347", "#e8902a", null);
       sfumato(A, ["#c9902a", "#a8741e", "#8a5c18"], 0, 32, 20, 32);
       for (let x = 0; x < 32; x += 1.5) { const h = 3 + casoFisso(x) * 3; B.rett(x, 21 - h, 1, h, "#d9a43a"); B.px(x, 20.6 - h, "#f2c35a"); }
-      for (const [x, y] of [[6, 4], [9, 6], [12, 3.5]]) { B.px(x, y, "#140a14"); B.px(x - 1, y - 1, "#140a14"); B.px(x + 1, y - 1, "#140a14"); }
+      for (const [x0, y0, i] of [[6, 4, 0], [9, 6, 1], [12, 3.5, 2]]) {
+        const x = A.anima ? ((x0 + f * (0.3 + i * 0.08)) % 36) - 2 : x0, y = y0 + (A.anima ? Math.sin(f * 0.5 + i) * 0.6 : 0), su = A.anima ? (f + i) % 2 : 1;
+        B.px(x, y, "#140a14"); B.px(x - 1, y - su, "#140a14"); B.px(x + 1, y - su, "#140a14");
+      }
     },
     // neve di notte
     neve(A) {
@@ -15552,10 +15638,19 @@
     castello(A) {
       const { B, f, S } = A;
       sfumato(A, ["#2a0610", "#3a0a16", "#4a0d1c", "#5a1022"]);
+      B.cerchio(8, 8, 8, "rgba(255,40,60," + (A.anima ? (0.14 + 0.1 * Math.sin(f * 0.35)).toFixed(2) : "0.18") + ")");
       B.cerchio(8, 8, 5.4, "#c2182c"); B.cerchio(8, 8, 4.6, "#ff4a3a"); B.cerchio(6.6, 6.6, 1.2, "#ff7a6a");
       const torri = [[0, 17], [3, 13], [6, 19], [24, 12], [27, 16], [30, 20]];
       for (const [x, y] of torri) { B.rett(x, y, 2.6, 32 - y, "#0a0306"); B.px(x, y - 1, "#0a0306"); B.px(x + 2, y - 1, "#0a0306"); }
-      B.px(25, 15, "#ffd23f");
+      B.px(25, 15, A.anima && f % 9 === 0 ? "#7a5a10" : "#ffd23f");
+      if (A.anima) for (let x = 0; x < 32; x++) { const h = 1.6 + Math.sin(x * 0.5 + f * 0.35) * 1; B.rett(x, 32 - h, 1, h, "rgba(255,200,210,.12)"); }
+      // ogni tanto uno stormo di pipistrelli attraversa il cielo dietro al vampiro
+      const g = A.anima ? f % 46 : 99;
+      if (g < 16) for (let i = 0; i < 6; i++) {
+        const x = -4 + (g - i * 0.8) * 2.6, y = 3 + (i % 3) * 3.2 + Math.sin(g * 0.7 + i) * 0.8, su = (g + i) % 2;
+        if (x < -3 || x > 35) continue;
+        B.rett(x - 0.5, y, 1.6, 1.2, "#0a0306"); B.px(x - 1.6, y - su, "#0a0306"); B.px(x + 1.6, y - su, "#0a0306"); B.px(x - 2.5, y + 0.6 - su * 1.6, "#0a0306"); B.px(x + 2.5, y + 0.6 - su * 1.6, "#0a0306");
+      }
       for (let i = 0; i < 3; i++) { const x = ((casoFisso(i + 3) * 32 + f * (0.6 + i * 0.2)) % 36) - 2, y = 3 + i * 4 + Math.sin(f * 0.6 + i) ; B.px(x, y, "#0a0306"); B.px(x - 1, y - (f % 2), "#0a0306"); B.px(x + 1, y - (f % 2), "#0a0306"); }
     },
     cosmo(A) {
@@ -15598,6 +15693,91 @@
       for (let x = 1; x < S; x += 3) {
         const v = 1 + Math.floor(casoFisso(x * 7) * 3), y0 = (f * v + Math.floor(casoFisso(x * 13) * S * 2)) % (S + 12) - 6;
         for (let k = 0; k < 6; k++) B.reale(x, y0 - k, k === 0 ? "#fff6c9" : k < 3 ? "#ffd23f" : "#6b5410");
+      }
+    },
+    // ---------- Halloween: leggendari e mitici (si muovono, e più sono rari più sono vivi) ----------
+    // il Re delle Zucche: luna del raccolto, colline e zucche accese, lucciole che salgono
+    zuccheReali(A) {
+      const { B, f, anima } = A;
+      sfumato(A, ["#140a24", "#211036", "#33174a", "#4a2050", "#6a2a3a"]);
+      const p = anima ? (Math.sin(f * 0.3) + 1) / 2 : 0.5;
+      B.cerchio(25, 7, 7.4, "rgba(255,150,60," + (0.12 + 0.1 * p).toFixed(2) + ")");
+      pxLuna(B, 25, 7, 5, "#ffb347", "#e8902a", null);
+      stelline(A, 8, 61, ["#ffffff", "#ffcf9a"], 0.45);
+      B.ell(5, 31, 12, 5, "#140a1c"); B.ell(27, 32, 12, 5.4, "#140a1c");
+      const zucca = (x, y, r, i) => {
+        B.ell(x, y, r * 1.3, r, "#c75a10"); B.ell(x - r * 0.35, y, r * 0.55, r * 0.9, "#e8761a");
+        B.rett(x - 0.5, y - r - 1, 1, 1.2, "#3f6b2a");
+        const l = anima && (f + i * 5) % 11 < 2 ? "#ff9a1a" : "#ffd23f";
+        B.px(x - r * 0.5, y - r * 0.2, l); B.px(x + r * 0.3, y - r * 0.2, l); B.rett(x - r * 0.55, y + r * 0.3, r * 1.1, 0.6, l);
+      };
+      zucca(3.4, 27.4, 2.6, 0); zucca(28.6, 26.8, 2.8, 1); zucca(1.6, 31, 1.8, 2); zucca(30.4, 31, 1.8, 3);
+      for (let i = 0; i < 7; i++) {
+        const x = casoFisso(i * 5 + 2) * 30 + 1 + (anima ? Math.sin(f * 0.3 + i) * 1.2 : 0), y = 26 - (((anima ? f * 0.45 : 0) + casoFisso(i * 9) * 26) % 24);
+        if (!anima || (f + i) % 5) B.px(x, y, i % 2 ? "#ffe066" : "#ffb347");
+      }
+    },
+    // il Negromante: la cripta di mattoni, due torce di fuoco verde e la nebbia che scorre
+    cripta(A) {
+      const { B, f, anima } = A;
+      B.rett(0, 0, 32, 32, "#11131b");
+      for (let y = 0; y < 32; y += 3) for (let x = (y / 3) % 2 ? -2.5 : 0; x < 32; x += 5) { B.rett(x, y, 4.4, 2.4, "#1b1f2e"); B.rett(x, y, 4.4, 0.6, "#252a3c"); }
+      for (const [x, i] of [[3, 0], [29, 1]]) {
+        const h = anima ? [3.4, 4.6, 3.8, 5][(f + i * 2) % 4] : 4.2;
+        B.cerchio(x, 9.4, 5.4, "rgba(74,222,128," + (anima ? (0.1 + 0.06 * Math.sin(f * 0.9 + i)).toFixed(2) : "0.12") + ")");
+        B.rett(x - 0.6, 12, 1.2, 6, "#5a3a22"); B.rett(x - 1.3, 11.3, 2.6, 1.1, "#3a3a46");
+        B.poli([[x - 1.5, 11.4], [x + (anima ? Math.sin(f * 0.8 + i) * 0.5 : 0), 11.4 - h], [x + 1.5, 11.4]], "#22c55e");
+        B.poli([[x - 0.8, 11.4], [x, 11.4 - h * 0.6], [x + 0.8, 11.4]], "#bbf7d0");
+      }
+      for (let x = 0; x < 32; x++) { const h = 2.6 + Math.sin(x * 0.45 + (anima ? f * 0.3 : 0)) * 1.3 + Math.sin(x * 0.17 - (anima ? f * 0.2 : 0)) * 0.8; B.rett(x, 32 - h, 1, h, "rgba(110,240,150,.2)"); }
+    },
+    // Scimmiastein: il laboratorio, la finestra con i lampi e le bobine che sputano scintille
+    laboratorio(A) {
+      const { B, f, anima } = A;
+      sfumato(A, ["#0c141f", "#11202f", "#16293d", "#1b324a"]);
+      const lampo = anima && (f % 23 === 0 || f % 23 === 2);
+      B.rett(10.4, 0, 11.2, 6.4, "#0a0f1a"); B.rett(11, 0, 10, 5.8, lampo ? "#eef4ff" : "#1a2644");
+      if (!lampo) for (let i = 0; i < 4; i++) B.px(12 + i * 2.6, 1 + (i % 2) * 2, "#3a4a7a");
+      B.rett(15.6, 0, 0.8, 6, "#0a0f1a"); B.rett(11, 2.8, 10, 0.6, "#0a0f1a");
+      if (lampo) B.rett(0, 0, 32, 32, "rgba(220,235,255,.18)");
+      for (const [x, i] of [[3.2, 0], [28.8, 1]]) {
+        B.rett(x - 1.3, 15, 2.6, 17, "#2c313c");
+        for (let y = 15.6; y < 31; y += 1.4) B.rett(x - 1.7, y, 3.4, 0.7, "#b87333");
+        B.cerchio(x, 13.6, 2.4, "#9aa4b2"); B.px(x - 0.8, 12.8, "#e6ecf2");
+        if (anima && (f + i * 3) % 5 < 3) {
+          // un fulmine a zig-zag che parte dalla sfera
+          let px = x, py = 13.6;
+          for (let k = 0; k < 4; k++) { const nx = px + (i ? -1 : 1) * (0.6 + casoFisso(k + f * 3 + i) * 1.4), ny = py - 1.2 - casoFisso(k * 7 + f + i) * 1.6; B.linea(px, py, nx, ny, "#a5f3fc", 0.6); px = nx; py = ny; }
+          B.cerchio(x, 13.6, 3.4, "rgba(165,243,252,.18)");
+        }
+      }
+      B.rett(0, 30, 32, 2, "#0a0e16");
+    },
+    // il Cavaliere senza testa: la tempesta, il fulmine, l'albero storto e la pioggia
+    tempesta(A) {
+      const { B, f, anima } = A;
+      const lampo = anima && f % 26 < 2;
+      sfumato(A, lampo ? ["#c8d0f0", "#9aa4d0", "#6a74a8", "#3a4270"] : ["#090b16", "#111426", "#191d36", "#232848"]);
+      if (!lampo) { B.cerchio(7, 6, 3.4, "#d8dcf0"); B.cerchio(8.2, 5.4, 3, "#111426"); }
+      for (let i = 0; i < 3; i++) { const x = ((casoFisso(i * 7) * 40 + (anima ? f * (0.25 + i * 0.12) : 0)) % 46) - 8; B.ell(x, 2.6 + i * 3.4, 6.4, 1.6, lampo ? "#f2f4ff" : "#2a3052"); B.ell(x + 3, 2 + i * 3.4, 3.6, 1.4, lampo ? "#ffffff" : "#323a60"); }
+      if (lampo) { let x = 5; for (let y = 0; y < 20; y += 2) { const nx = x + (casoFisso(y + Math.floor(f / 26)) - 0.4) * 4; B.linea(x, y, nx, y + 2, "#ffffff", 1); x = nx; } }
+      B.ell(16, 35, 21, 7, "#06070d");
+      B.linea(28.4, 32, 27.4, 17, "#06070d", 1.6); B.linea(27.4, 21, 31.6, 16, "#06070d", 0.8); B.linea(27.6, 18.6, 24, 13.6, "#06070d", 0.8); B.linea(24.6, 14.6, 22.6, 14.4, "#06070d", 0.6); B.linea(30, 17.4, 31.4, 14.6, "#06070d", 0.6);
+      if (anima) for (let i = 0; i < 16; i++) { const x = ((casoFisso(i * 5) * 34 + f * 0.7) % 34) - 1, y = ((casoFisso(i * 11) * 34 + f * 3.2) % 36) - 2; B.linea(x, y, x - 0.7, y + 1.8, "rgba(170,190,255,.42)", 0.5); }
+    },
+    // il Demone: le fiamme dell'inferno che si alzano, le braci e un cerchio di rune che pulsa
+    inferno(A) {
+      const { B, f, S, anima } = A;
+      sfumato(A, ["#160306", "#260509", "#3a080e", "#540c12"]);
+      const p = anima ? (Math.sin(f * 0.4) + 1) / 2 : 0.5;
+      B.anello(16, 14, 14, 0.9, (a) => ((Math.floor((a + Math.PI) * 4 + (anima ? f * 0.3 : 0)) % 3) === 0 ? null : "rgba(255,70,40," + (0.2 + 0.25 * p).toFixed(2) + ")"));
+      for (let x = 0; x < S; x++) {
+        const h = S * (0.2 + 0.14 * casoFisso(x * 5 + (anima ? Math.floor(f / 2) : 0)) + 0.07 * Math.sin((anima ? f * 0.8 : 0) + x * 0.55));
+        for (let y = S - 1; y > S - h; y--) { const q = (S - y) / h; B.reale(x, y, q < 0.38 ? "#ffc030" : q < 0.72 ? "#ff5a00" : "#9a0e06"); }
+      }
+      for (let i = 0; i < 12; i++) {
+        const y = 30 - (((anima ? f * (1 + (i % 3) * 0.6) : 0) + casoFisso(i * 9) * 32) % 32), x = casoFisso(i * 4) * 32 + Math.sin((anima ? f * 0.45 : 0) + i) * 1.4;
+        B.px(x, y, i % 3 ? "#ffb347" : "#fff1a8");
       }
     }
   };
@@ -16051,8 +16231,18 @@
         C.rett(19, 2.6, 2.6, 2, "#5a7a9a");
         for (const x of [11, 19]) { C.cerchio(x + 1, 13.2, 1.7, "#2a1a10"); C.px(x + 0.6, 12.8, "#6a5040"); C.px(x + 1.4, 13.6, "#6a5040"); }
         C.rett(12.4, 20, 7.2, 0.8, "#3a2416"); for (let x = 13; x < 19.4; x += 1.6) C.rett(x, 19.2, 0.6, 2.4, "#3a2416");
-        // il corvo sul cappello
-        C.ell(24.6, 1.6, 2.4, 1.6, "#15121a"); C.cerchio(26.8, 0.4, 1.2, "#15121a"); C.px(28.2, 0.6, "#ffb347"); C.px(26.8, 0, "#ffffff"); C.poli([[22.4, 1.6], [20.4, 0.6], [21, 2.6]], "#15121a");
+        // il corvo sul cappello: ogni tanto sbatte le ali e gracchia
+        const { f, anima } = A, ali = anima && f % 20 < 4, becco = anima && f % 20 >= 6 && f % 20 < 9;
+        C.ell(24.6, 1.6, 2.4, 1.6, "#15121a"); C.cerchio(26.8, 0.4, 1.2, "#15121a"); C.poli([[22.4, 1.6], [20.4, 0.6], [21, 2.6]], "#15121a");
+        C.px(28.2, becco ? 0 : 0.6, "#ffb347"); if (becco) C.px(28.2, 1.2, "#ffb347"); C.px(26.8, 0, "#ffffff");
+        if (ali) { C.poli([[23.4, 1.2], [21.6 - (f % 2), -1.4], [25.4, 0.6]], "#15121a"); C.poli([[25, 1.2], [26.4, -1.4 + (f % 2)], [26, 1.4]], "#2a2430"); }
+      },
+      luce(A) {
+        const { B, f, anima } = A;
+        if (!anima) return;
+        // fili di paglia che si muovono al vento
+        for (const [x, y, a] of [[6, 25.4, -2.4], [26, 25.4, -0.7]]) { const v = Math.sin(f * 0.5 + x) * 0.25; B.linea(x, y, x + Math.cos(a + v) * 3.4, y + Math.sin(a + v) * 3.4, "#f2c35a", 0.5); }
+        if (f % 20 >= 6 && f % 20 < 9) { B.px(30, 0.4, "#ffffff"); B.px(31, 1.2, "#ffffff"); }
       }
     },
     // babbo natale
@@ -16135,7 +16325,9 @@
     vampiro: {
       dietro(A) {
         const { C } = A;
-        C.poli([[3, 33], [5.6, 12], [9.6, 21], [16, 25], [22.4, 21], [26.4, 12], [29, 33]], "#8b1222"); C.poli([[5.6, 12], [8.4, 20], [10, 21.6]], "#5a0d18"); C.poli([[26.4, 12], [23.6, 20], [22, 21.6]], "#5a0d18");
+        const { f, anima } = A, o = anima ? Math.sin(f * 0.45) * 1.2 : 0;
+        C.poli([[3 - o, 33], [5.6, 12], [9.6, 21], [16, 25], [22.4, 21], [26.4, 12], [29 + o, 33]], "#8b1222"); C.poli([[5.6, 12], [8.4, 20], [10, 21.6]], "#5a0d18"); C.poli([[26.4, 12], [23.6, 20], [22, 21.6]], "#5a0d18");
+        C.poli([[3 - o, 33], [1.6 - o, 30], [4.4, 24]], "#6a0e1c"); C.poli([[29 + o, 33], [30.4 + o, 30], [27.6, 24]], "#6a0e1c");
       },
       su(A) {
         const { C, f } = A;
@@ -16144,6 +16336,12 @@
         const rosso = f % 14 < 12 ? "#ff2a3a" : "#7a0a12";
         for (const x of [11, 19]) C.rett(x, 12, 2, 3, rosso);
         C.poli([[14.2, 20.4], [15.2, 20.4], [14.7, 22.2]], "#ffffff"); C.poli([[16.8, 20.4], [17.8, 20.4], [17.3, 22.2]], "#ffffff");
+      },
+      luce(A) {
+        const { B, f } = A, p = (Math.sin(f * 0.5) + 1) / 2;
+        for (const x of [11, 19]) B.rett(x - 0.6, 11.4, 3.2, 4.2, "rgba(255,42,58," + (0.1 + 0.22 * p).toFixed(2) + ")");
+        // la gemma rossa del colletto che luccica
+        if (f % 12 < 2) B.px(15.4, 25.6, "#ffb3bc");
       }
     },
     // la Scimmia Infinita: il simbolo d'oro con la luce che lo percorre e le particelle che girano
@@ -16187,7 +16385,14 @@
       },
       luce(A) {
         const { B, f } = A;
-        for (let i = 0; i < 3; i++) { const a = f * 0.18 + i * 2.1, x = 16 + Math.cos(a) * 14, y = 18 + Math.sin(a) * 9; B.cerchio(x, y, 1.1, "rgba(134,239,172,.85)"); B.px(x - Math.cos(a + 0.6) * 1.6, y - Math.sin(a + 0.6) * 1.6, "rgba(134,239,172,.4)"); }
+        for (let i = 0; i < 5; i++) {
+          const a = f * 0.2 + i * Math.PI * 2 / 5, x = 16 + Math.cos(a) * 14, y = 18 + Math.sin(a) * 9.4;
+          B.cerchio(x, y, 1.15, "rgba(187,247,208,.9)"); B.px(x, y, "#ffffff");
+          for (let k = 1; k <= 3; k++) B.px(x - Math.cos(a + Math.PI / 2) * k, y - Math.sin(a + Math.PI / 2) * k, "rgba(134,239,172," + (0.65 - k * 0.17).toFixed(2) + ")");
+        }
+        // gli occhi lasciano una scia verde
+        const p = (Math.sin(f * 0.5) + 1) / 2;
+        for (const x of [12, 18.4]) B.rett(x - 0.8, 12.6 - A.su, 3.4, 3.4, "rgba(74,222,128," + (0.14 + 0.24 * p).toFixed(2) + ")");
         const lam = (f * 2) % 40; if (lam < 8) B.px(32 + Math.cos(Math.PI * (1.05 + lam / 8 * 0.75)) * 10, 4 + Math.sin(Math.PI * (1.05 + lam / 8 * 0.75)) * 4.6, "#ffffff");
       }
     },
@@ -16212,6 +16417,170 @@
         for (let i = 0; i < 18; i++) { const t = i / 17, x = 30.4 - t * 8, y = 4 + t * 17; C.px(x, y, "#ffd23f"); if (t < 0.7) { C.px(x + 1, y, "#fff6c9"); C.px(x + 2, y - 1, "#e6b422"); } }
         C.px(22.2, 22, "#1a1a3a");
         const g = f % 8; if (g < 6) C.px(22.2, 22.8 + g * 0.9, "#1e3a8a");
+      }
+    },
+    // ---------- Halloween: leggendari e mitici ----------
+    // il Re delle Zucche: testa a zucca lucida con la corona, mantello regale e scettro; la luce dentro tremola
+    reZucche: {
+      dietro(A) {
+        const { C, f, anima } = A, o = anima ? Math.sin(f * 0.4) * 0.8 : 0;
+        C.poli([[1.6, 33], [4.6 - o, 19.6], [10, 23.6], [16, 24.6], [22, 23.6], [27.4 + o, 19.6], [30.4, 33]], "#4a1d6e");
+        C.poli([[1.6, 33], [4.6 - o, 19.6], [6.4, 26], [7.4, 33]], "#35124f"); C.poli([[30.4, 33], [27.4 + o, 19.6], [25.6, 26], [24.6, 33]], "#35124f");
+      },
+      su(A) {
+        const { C } = A;
+        C.ell(16, 31.6, 11.6, 6.9, (dx, dy, i) => (Math.abs(i + 0.5 - 16) < 0.8 ? "#e6b422" : dx > 0.4 ? "#3a1458" : "#5a2a86"));
+        for (let i = 0; i < 9; i++) pxFoglia(C, 9.4 + i * 1.65, 23.4, 2.6, Math.PI / 2 + (i - 4) * 0.22, 1, ["#c2410c", "#ea580c", "#b45309"][i % 3], null);
+        C.ell(16, 14.8, 11.2, 9.4, (dx, dy) => (dx + dy > 1 ? "#c75a10" : dx + dy < -1.1 ? "#ffb04a" : "#ff8a1f"));
+        for (const dx of [-5.6, 0, 5.6]) C.ell(16 + dx, 14.8, 1, 8.6, (a) => (Math.abs(a) > 0.5 ? null : "#d9650a"));
+        C.poli([[8.8, 15], [14.4, 15], [12.8, 10.2]], "#2a0c02"); C.poli([[17.6, 15], [23.2, 15], [19.2, 10.2]], "#2a0c02");
+        C.poli([[15, 17.8], [17, 17.8], [16, 16]], "#2a0c02");
+        C.poli([[8.2, 18.4], [23.8, 18.4], [22.6, 23.2], [20.6, 21.4], [18.4, 23.4], [16, 21.6], [13.6, 23.4], [11.4, 21.4], [9.4, 23.2]], "#2a0c02");
+        C.poli([[8.4, 7.2], [9, 1.6], [12, 4.4], [16, 0.2], [20, 4.4], [23, 1.6], [23.6, 7.2]], "#ffd23f");
+        C.rett(8.4, 5.6, 15.2, 1.8, "#e6b422"); C.rett(8.4, 5.6, 15.2, 0.6, "#fff1a0");
+        C.cerchio(16, 3.6, 1.1, "#7c3aed"); C.px(9.4, 3.4, "#ef4444"); C.px(22.6, 3.4, "#ef4444");
+        C.linea(27.2, 32, 28, 13.6, "#e6b422", 1.2);
+        C.ell(28.2, 11.8, 2.6, 2, "#ff8a1f"); C.rett(27.8, 9.2, 0.8, 1.1, "#3f6b2a");
+        pxMano(A, 24.6, 20.4, "pugno");
+      },
+      luce(A) {
+        const { B, f } = A;
+        const fl = [1, 0.7, 0.95, 0.55, 1, 0.85, 0.65][f % 7];
+        const l = "rgba(255," + Math.round(190 + 50 * fl) + "," + Math.round(40 + 60 * fl) + "," + (0.6 + 0.4 * fl).toFixed(2) + ")";
+        B.poli([[10, 14.4], [13.4, 14.4], [12.4, 11.6]], l); B.poli([[18.6, 14.4], [22, 14.4], [19.6, 11.6]], l);
+        B.px(15.6, 16.8, l); B.px(16.4, 16.8, l);
+        B.poli([[9.6, 19.2], [22.4, 19.2], [21.8, 21.8], [20.6, 20.4], [18.4, 22.2], [16, 20.6], [13.6, 22.2], [11.4, 20.4], [10.2, 21.8]], l);
+        B.cerchio(16, 15, 13, "rgba(255,150,40," + (0.05 + 0.07 * fl).toFixed(2) + ")");
+        for (let i = 0; i < 5; i++) { const y = 6.4 - ((f * 0.7 + i * 4) % 7.4), x = 9.6 + i * 3.2 + Math.sin(f * 0.5 + i) * 0.8; B.px(x, y, i % 2 ? "#ffd23f" : "#ff7a00"); }
+        B.cerchio(28.2, 11.8, 3.6, "rgba(255,170,60," + (0.12 + 0.14 * Math.sin(f * 0.6)).toFixed(2) + ")");
+        B.px(27.4, 11.4, fl > 0.8 ? "#ffd23f" : "#ffae2a");
+      }
+    },
+    // il Negromante: cappuccio viola col bordo d'oro, viso pallido, occhi verdi, bastone col teschio e anime che girano
+    negromante: {
+      dietro(A) { const { C } = A; C.linea(5.2, 33, 5.8, 9.4, "#4a3220", 1.3); C.linea(5.6, 33, 6.2, 9.4, "#6b4a2b", 0.4); },
+      su(A) {
+        const { C } = A;
+        C.ell(16, 31.6, 12, 7.2, (dx, dy, i) => (Math.abs(i + 0.5 - 16) < 0.7 ? "#c9a227" : dx > 0.4 ? "#24113c" : "#33185a"));
+        for (let y = 26; y < 32; y += 2) C.px(16 + (y % 4 ? 2 : -2), y, "#4ade80");
+        C.cerchio(16, 13.6, 11.6, (dx, dy, i, j) => {
+          const ex = (i + 0.5 - 16) / 7, ey = (j + 0.5 - 15.6) / 8.2, d = ex * ex + ey * ey;
+          if (d < 1 && j > 6) return null;
+          if (d < 1.32 && j > 5) return "#c9a227";
+          return dx + dy > 0.9 ? "#24113c" : dx + dy < -1 ? "#5a2e8a" : "#3e1f66";
+        });
+        C.poli([[16, 1.6], [12.6, 3.4], [19.4, 3.4]], "#3e1f66");
+        for (const x of [11, 19]) { C.rett(x, 12, 2, 3, "#14532d"); C.rett(x, 12.6, 2, 2, "#4ade80"); C.px(x, 12.6, "#dcfce7"); }
+        C.rett(10, 10.8, 3, 0.8, "#2a3a2a"); C.rett(19, 10.8, 3, 0.8, "#2a3a2a");
+        C.ell(5.8, 7.4, 2.8, 2.5, "#e8e4d4"); C.rett(4.6, 9.2, 2.4, 1.6, "#e8e4d4");
+        C.px(4.7, 7.4, "#14141c"); C.px(6.9, 7.4, "#14141c"); C.px(5.8, 8.6, "#14141c");
+        for (const x of [4.8, 5.8, 6.8]) C.px(x, 10.4, "#9a9484");
+        pxMano(A, 2.6, 17.4, "pugno");
+      },
+      luce(A) {
+        const { B, f } = A, p = (Math.sin(f * 0.5) + 1) / 2;
+        B.cerchio(5.8, 7.4, 4.2 + p, "rgba(74,222,128," + (0.1 + 0.14 * p).toFixed(2) + ")");
+        B.px(4.7, 7.4, p > 0.4 ? "#bbf7d0" : "#22c55e"); B.px(6.9, 7.4, p > 0.4 ? "#bbf7d0" : "#22c55e");
+        for (const x of [11, 19]) B.rett(x - 0.6, 11.4, 3.2, 4.2, "rgba(74,222,128," + (0.12 + 0.18 * p).toFixed(2) + ")");
+        for (let i = 0; i < 4; i++) {
+          const a = f * 0.2 + i * Math.PI / 2, x = 16 + Math.cos(a) * 13.4, y = 17 + Math.sin(a) * 9;
+          B.cerchio(x, y, 1.1, "rgba(187,247,208,.9)");
+          for (let k = 1; k <= 3; k++) B.px(x - Math.cos(a + Math.PI / 2) * k * 0.9, y - Math.sin(a + Math.PI / 2) * k * 0.9, "rgba(134,239,172," + (0.6 - k * 0.15).toFixed(2) + ")");
+        }
+      }
+    },
+    // Scimmiastein: pelle verde, capelli a spazzola, cicatrici cucite e i bulloni nel collo che fanno scintille
+    scimmiastein: {
+      su(A) {
+        const { C } = A;
+        C.ell(16, 31.6, 11.6, 6.9, (dx, dy, i) => (Math.abs(i + 0.5 - 16) < 2.2 ? (Math.abs(i + 0.5 - 16) < 0.6 ? "#1a1a20" : "#6b7280") : dx > 0.4 ? "#1c1c24" : "#2a2a34"));
+        for (const l of [-1, 1]) { C.rett(16 + l * 9.4 - 1.4, 21.6, 2.8, 2, "#9aa4b2"); C.rett(16 + l * 9.4 - 1.4, 21.6, 2.8, 0.6, "#e6ecf2"); C.rett(16 + l * 10.8 - 0.6, 22, 1.2, 1.2, "#5a6270"); }
+        C.rett(6.6, 4.4, 18.8, 4.4, "#15151c");
+        for (let x = 6.6; x < 25.4; x += 1.6) C.poli([[x, 8.6], [x + 0.8, 10.2], [x + 1.6, 8.6]], "#15151c");
+        C.rett(6.6, 4.4, 18.8, 0.8, "#2a2a36");
+        C.linea(9.4, 11, 15, 10.4, "#3a4a32", 0.5); for (let x = 10; x < 15; x += 1.4) C.linea(x, 9.8, x + 0.3, 11.2, "#3a4a32", 0.4);
+        C.linea(20.4, 15.4, 22.6, 19.4, "#3a4a32", 0.5); C.px(21, 16.6, "#3a4a32"); C.px(22.2, 17.6, "#3a4a32");
+        for (const x of [11, 19]) { C.rett(x, 12, 2, 3, "#f4f1b0"); C.rett(x, 12, 2, 1.2, "#5f7f4f"); C.px(x + 1, 13.6, "#1b1310"); C.px(x, 14.4, "#1b1310"); }
+        C.rett(13, 20, 6, 0.8, "#2a2a1a"); for (let x = 13.6; x < 18.6; x += 1.4) C.rett(x, 19.4, 0.5, 2, "#2a2a1a");
+      },
+      luce(A) {
+        const { B, f } = A;
+        for (const [l, i] of [[-1, 0], [1, 1]]) {
+          if ((f + i * 4) % 7 > 2) continue;
+          let x = 16 + l * 10.8, y = 22.6;
+          for (let k = 0; k < 3; k++) { const nx = x + l * (0.8 + casoFisso(k + f * 5 + i) * 1.2), ny = y + (casoFisso(k * 3 + f + i) - 0.6) * 2.4; B.linea(x, y, nx, ny, "#a5f3fc", 0.6); x = nx; y = ny; }
+          B.cerchio(16 + l * 10.8, 22.6, 2.2, "rgba(165,243,252,.25)");
+        }
+        if (f % 23 === 1) for (let x = 7; x < 25; x += 3) B.px(x, 3.8, "#e0f2fe");
+      }
+    },
+    // il Cavaliere senza testa: al posto della testa fiamme spettrali; la sua testa è una zucca accesa che tiene in mano
+    cavaliere: {
+      dietro(A) {
+        const { C, f, anima } = A, o = anima ? Math.sin(f * 0.5) * 1.4 : 0, o2 = anima ? Math.sin(f * 0.5 + 1.2) * 1 : 0;
+        C.poli([[1, 33], [2.4 + o, 23], [7, 17.6], [25, 17.6], [29.6 - o2, 23], [31, 33]], "#3a0f1e");
+        C.poli([[1, 33], [-0.6 + o, 28], [2.4 + o, 23], [5, 27]], "#24070f"); C.poli([[31, 33], [32.6 - o2, 28], [29.6 - o2, 23], [27, 27]], "#24070f");
+      },
+      su(A) {
+        const { C } = A;
+        C.ell(16, 31.6, 11.6, 8.6, (dx, dy, i, j) => (Math.abs(i + 0.5 - 16) < 0.6 ? "#08080c" : (Math.abs(i + 0.5 - 17.6) < 0.5 && j % 3 === 0) ? "#c9a227" : dx > 0.45 ? "#14141c" : "#22222e"));
+        C.poli([[8.6, 25], [10.8, 17.4], [14.2, 22.8]], "#4a1424"); C.poli([[23.4, 25], [21.2, 17.4], [17.8, 22.8]], "#4a1424");
+        C.poli([[9.4, 24], [10.8, 18.6], [13, 22.4]], "#6a1a30"); C.poli([[22.6, 24], [21.2, 18.6], [19, 22.4]], "#6a1a30");
+        C.ell(16, 22.6, 3.6, 1.3, "#2a0408"); C.ell(16, 22.4, 2.4, 0.7, "#5a0a14");
+        C.linea(26.6, 32, 24.4, 24.4, "#22222e", 3.2);
+        pxMano(A, 21.4, 21.4, "su");
+        C.ell(24.6, 16.4, 5.4, 4.6, (dx, dy) => (dx + dy > 0.9 ? "#b84a0a" : dx + dy < -1 ? "#ffa040" : "#f07a18"));
+        for (const dx of [-2.4, 2.4]) C.ell(24.6 + dx, 16.4, 0.7, 4.2, (a) => (Math.abs(a) > 0.5 ? null : "#d9650a"));
+        C.rett(24.2, 11.2, 1, 1.4, "#3f6b2a"); C.linea(25, 11.6, 26.6, 10.6, "#4f8a35", 0.6);
+        C.poli([[21.4, 16], [23.6, 16], [22.8, 14.2]], "#2a0c02"); C.poli([[25.8, 16], [28, 16], [26.4, 14.2]], "#2a0c02");
+        C.poli([[21, 18], [28.2, 18], [27.2, 20.2], [26, 19], [24.6, 20.4], [23.2, 19], [22, 20.2]], "#2a0c02");
+      },
+      luce(A) {
+        const { B, f } = A;
+        B.ell(16, 16, 6.4, 8, "rgba(80,200,255,.12)");
+        for (let i = 0; i < 7; i++) {
+          const x = 12.2 + i * 1.27, h = 7 + casoFisso(i * 3 + f) * 6 + Math.sin(f * 0.8 + i) * 1.8 - Math.abs(i - 3) * 0.7;
+          B.poli([[x - 1, 22.6], [x + Math.sin(f * 0.6 + i) * 0.9, 22.6 - h], [x + 1, 22.6]], i % 2 ? "rgba(120,255,220,.85)" : "rgba(70,170,255,.85)");
+          if (i % 2 === 0) B.poli([[x - 0.4, 22.6], [x, 22.6 - h * 0.5], [x + 0.4, 22.6]], "rgba(230,255,255,.9)");
+        }
+        for (let i = 0; i < 3; i++) { const y = 12 - ((f * 0.9 + i * 4) % 12); B.px(14 + i * 2 + Math.sin(f * 0.5 + i), y, "rgba(150,240,255,.8)"); }
+        const fl = [1, 0.7, 0.9, 0.55, 1, 0.8][f % 6], l = "rgba(255," + Math.round(190 + 50 * fl) + ",60," + (0.65 + 0.35 * fl).toFixed(2) + ")";
+        B.poli([[21.9, 15.8], [23.2, 15.8], [22.8, 14.8]], l); B.poli([[26.2, 15.8], [27.5, 15.8], [26.6, 14.8]], l);
+        B.rett(21.8, 18.6, 6, 0.8, l);
+        B.cerchio(24.6, 16.4, 7.4, "rgba(255,150,40," + (0.06 + 0.08 * fl).toFixed(2) + ")");
+      }
+    },
+    // il Demone delle fiamme: corna, ali che battono, occhi di brace, zanne e la runa sul petto
+    demone: {
+      dietro(A) {
+        const { C, f, anima } = A, b = anima ? Math.sin(f * 0.6) * 2.4 : 0, m = "#5a0c18", s = "#2a0408";
+        for (const l of [-1, 1]) {
+          const x = 16 + l * 7;
+          C.poli([[x, 17], [x + l * 9.4, 3 + b], [x + l * 10.6, 10 + b * 0.6], [x + l * 8.8, 13 + b * 0.4], [x + l * 9.8, 19 + b * 0.25], [x + l * 6.2, 19.4], [x + l * 4.6, 24.6]], m);
+          for (const [a, c] of [[9.4, 3 + b], [8.8, 13 + b * 0.4], [6.2, 19.4]]) C.linea(x, 17, x + l * a, c, s, 0.7);
+          C.px(x + l * 9.4, 3 + b - 0.8, "#1a0204");
+        }
+      },
+      su(A) {
+        const { C } = A;
+        for (const l of [-1, 1]) {
+          C.poli([[16 + l * 3.8, 7], [16 + l * 7, 2.6], [16 + l * 9, 2.4], [16 + l * 8.4, 4], [16 + l * 7.2, 8]], "#2a1a14");
+          C.linea(16 + l * 4.6, 6.4, 16 + l * 7.6, 3, "#5a3a2a", 0.5);
+        }
+        for (const x of [11, 19]) { C.rett(x - 0.4, 12, 2.8, 2.4, "#ffd23f"); C.rett(x + 0.6, 12, 0.8, 2.4, "#7a0a00"); }
+        C.poli([[9.6, 10.2], [13.8, 11.6], [13.8, 10.6]], "#3a0606"); C.poli([[22.4, 10.2], [18.2, 11.6], [18.2, 10.6]], "#3a0606");
+        C.poli([[12.2, 19], [19.8, 19], [18.8, 21.4], [13.2, 21.4]], "#2a0404");
+        C.poli([[13.2, 19], [14.6, 19], [13.9, 21]], "#fff4e0"); C.poli([[17.4, 19], [18.8, 19], [18.1, 21]], "#fff4e0");
+        C.ell(16, 31.6, 11.6, 6.9, (dx, dy, i, j) => ((i + j) % 6 === 0 ? "#3a0808" : dx > 0.4 ? "#2a0606" : "#4a0c0c"));
+        for (const l of [-1, 1]) C.ell(16 + l * 7.4, 26.4, 3, 1.6, "#5a1010");
+        C.poli([[14.4, 27.6], [16, 25.4], [17.6, 27.6], [16, 29.8]], "#ff5a00");
+      },
+      luce(A) {
+        const { B, f } = A, p = (Math.sin(f * 0.6) + 1) / 2;
+        for (const l of [-1, 1]) { const x = 16 + l * 8.8, h = 1.6 + Math.abs(Math.sin(f * 0.9 + l)) * 1.4; B.poli([[x - 0.9, 2.6], [x + Math.sin(f + l) * 0.4, 2.6 - h], [x + 0.9, 2.6]], "#ff9a1a"); B.px(x, 2, "#fff1a8"); }
+        for (const x of [11, 19]) B.rett(x - 1, 11.4, 4.8, 3.6, "rgba(255,180,40," + (0.12 + 0.22 * p).toFixed(2) + ")");
+        B.cerchio(16, 27.6, 3.2, "rgba(255,90,0," + (0.2 + 0.3 * p).toFixed(2) + ")");
+        for (let i = 0; i < 2; i++) { const y = 24 - ((f * 0.8 + i * 6) % 12); B.px(14.6 + i * 2.8 + Math.sin(f * 0.6 + i) * 0.6, y, "rgba(200,200,200,.5)"); }
       }
     }
   };
@@ -16274,7 +16643,14 @@
     // mitici
     a_infinita: { alone: "120,240,255", pelo: "#2b1b5e", muso: "#c9b8ff", sf: "cosmo", occhi: "nessuno", bocca: "sorriso", guance: false, ciuffo: false, acc: ["infinito"] },
     a_bardo: { alone: "255,214,120", pelo: "#6b4a2b", muso: "#f0d2b0", sf: "palco", occhi: "giu", bocca: "nessuna", ciuffo: false, acc: ["bardo"] },
-    a_mietitore: { alone: "110,240,150", pelo: "#16161f", muso: "#16161f", sf: "nebbiaverde", orecchie: false, maschera: false, faccia: false, ciuffo: false, corpo: false, bordo: "#050508", acc: ["mietitore"] },
+    a_mietitore: { alone: "110,240,150", pelo: "#16161f", muso: "#16161f", sf: "nebbiaverde", orecchie: false, maschera: false, faccia: false, ciuffo: false, corpo: false, bordo: "#050508", galleggia: true, acc: ["mietitore"] },
+    // Halloween dalle casse e dalla ruota: leggendari
+    a_re_zucche: { alone: "255,150,40", pelo: "#5a3a1f", muso: "#e8c39e", sf: "zuccheReali", maschera: false, faccia: false, ciuffo: false, orecchie: false, scintillaColore: "#ffd23f", acc: ["reZucche"] },
+    a_negromante: { alone: "74,222,128", pelo: "#4a4a56", muso: "#c6d4b4", sf: "cripta", occhi: "nessuno", bocca: "dritta", guance: false, ciuffo: false, orecchie: false, scintillaColore: "#bbf7d0", acc: ["negromante"] },
+    a_scimmiastein: { alone: "165,243,252", pelo: "#3d5a36", muso: "#93c47d", sf: "laboratorio", occhi: "nessuno", bocca: "nessuna", guance: false, ciuffo: false, scintillaColore: "#a5f3fc", acc: ["scimmiastein"] },
+    // Halloween dalle casse: mitici
+    a_cavaliere: { alone: "90,200,255", pelo: "#22222e", muso: "#22222e", sf: "tempesta", testa: false, orecchie: false, maschera: false, faccia: false, ciuffo: false, corpo: false, bordo: "#050508", scintillaColore: "#bdf4ff", acc: ["cavaliere"] },
+    a_demone: { alone: "255,90,30", pelo: "#8a1a1a", muso: "#e0705a", sf: "inferno", occhi: "nessuno", bocca: "nessuna", guance: false, ciuffo: false, bordo: "#1a0204", scintillaColore: "#ffd23f", acc: ["demone"] },
     // esclusivi
     a_scimmia_oro: { alone: "255,236,150", pelo: "#e6b422", muso: "#fff1b8", sf: "lingotto", bocca: "sorriso", bordo: "#6b4a0a", ciuffo: false, acc: ["oro"] },
     a_primo: { alone: "255,226,120", pelo: "#e8e8ee", muso: "#f7e7c6", sf: "pioggiaoro", occhi: "nessuno", bocca: "sorriso", ciuffo: false, acc: ["primo"] }
@@ -19644,10 +20020,15 @@
       return;
     }
     if (!tema) return;
-    const anno = new Date().getFullYear() - (new Date().getMonth() < 6 && tema === "natale" ? 1 : 0);
-    if (libero && G.tutorialFatto && G.temaVisto !== tema + anno) {
+    const anno = annoEvento(tema);
+    // se c'è il tema dell'evento ancora da annunciare, l'annuncio arriva insieme a quello (una finestra sola)
+    const temaDaAvvisare = TEMI.find(x => x.evento === tema && temaEventoAttivo(x) && G.temaEventoAvvisato !== chiaveTemaEvento(x));
+    if (G.temaVisto !== tema + anno && annunciVisti.has(tema + anno)) { G.temaVisto = tema + anno; salva(); }
+    if (libero && G.tutorialFatto && G.temaVisto !== tema + anno && !temaDaAvvisare) {
       G.temaVisto = tema + anno;
+      annunciVisti.add(tema + anno);
       salva();
+      Online.salvaOnline();
       mostraPremio({ ico: EVENTI_TEMA[tema].ico, etichetta: t("cart_" + tema), titolo: t("tema_" + tema + "_tit"), testo: t("tema_" + tema + "_testo", { fino: fineTema(tema) }), classe: "rp-leggendario" });
       return;
     }
@@ -21522,7 +21903,6 @@
       b.onclick = fn;
       box.appendChild(b);
     };
-    voce("gd_n_tutorial", G.tutorialFatto, () => { chiudi("veloGuide"); avviaTutorial(); });
     for (const id of Object.keys(GUIDE)) voce("gd_n_" + id, (G.guideViste || {})[id], () => {
       chiudi("veloGuide");
       GUIDE[id].apri();
@@ -21736,7 +22116,9 @@
     { v: 70, voci: 5, chiave: "nov19_", passi: [
       { sel: "#legaGradini", testo: "tour19_1", vista: "diario" }
     ] },
-    { v: 71, voci: 7, chiave: "nov20_", passi: [] }
+    { v: 71, voci: 8, chiave: "nov20_", passi: [
+      { sel: "#bRuota", testo: "tour20_1", vista: "opera" }
+    ] }
   ];
   const VERSIONE_NOVITA = GRUPPI_NOVITA[GRUPPI_NOVITA.length - 1].v;
   let PASSI_TOUR = [];
@@ -21820,7 +22202,6 @@
     const ripresa = cambiaSessione(modoCorrente(), modo);
     avvia(G);
     R.nelMenu = true;
-    if (G.tutorialFatto) R.chiediTutorial = "tut_chiedi_modo";
     R.haSalvataggio = ripresa;
     scriviMenuIniziale();
     salva();
@@ -21877,7 +22258,7 @@
     });
 
     // schermata iniziale
-    $("bGioca").onclick = () => mostraPaginaMenu("miScelta");
+    $("bGioca").onclick = () => { if (Online.attesaPartita) { Suono.sblocca(); aspettaPartita("menu"); return; } mostraPaginaMenu("miScelta"); };
     $("bClassica").onclick = () => mostraPaginaMenu("miModi");
     $("bSandbox").onclick = apriSandbox;
     document.querySelectorAll("[data-indietro]").forEach(b => b.onclick = () => mostraPaginaMenu(b.dataset.indietro));
@@ -22028,11 +22409,6 @@
     $("bGuide").onclick = () => { chiudi("veloImpostazioni"); apriGuide(); };
     $("bGuideChiudi").onclick = () => chiudi("veloGuide");
     $("veloGuide").onclick = e => { if (e.target.id === "veloGuide") chiudi("veloGuide"); };
-    $("bTutorial").onclick = () => {
-      chiudi("veloImpostazioni");
-      if (R.nelMenu) { Suono.sblocca(); $("menuIniziale").hidden = true; R.nelMenu = false; $("bMenuPrincipale").hidden = false; }
-      avviaTutorial();
-    };
     window.addEventListener("resize", posizionaTut);
     document.querySelectorAll(".segmenti.modi button").forEach(b => b.onclick = () => impostaModo(b.dataset.modo));
     $("bImpTema").onclick = () => { apriTemi(); mostraSchedaPz("temi"); };
