@@ -637,6 +637,14 @@
     text-align: left; border-radius: 12px; background: var(--foglia-2); border: 1px solid var(--bordo); }
   .ruota-premi[hidden] { display: none; }
   .ruota-premi b { text-align: right; font-variant-numeric: tabular-nums; }
+  /* icone in pixel art della ruota: 18 px = un pixel del disegno per ogni pixel dello schermo (×2, ×3 sui telefoni) */
+  img.pix-r { width: 18px; height: 18px; image-rendering: pixelated; image-rendering: crisp-edges; vertical-align: -4px; display: inline-block; pointer-events: none; }
+  .ruota-premi span img.pix-r { margin-right: 2px; }
+  .rl-testo small img.pix-r { width: 11px; height: 11px; vertical-align: -1px; }
+  .ruota-esito img.pix-r { width: 22px; height: 22px; vertical-align: -5px; }
+  .ruota-box img.ruota-perno { position: absolute; left: 50%; top: 50%; width: 11%; height: 11%; transform: translate(-50%, -50%); z-index: 1; image-rendering: auto; }
+  .vr-premio img.vr-pix { width: 90px; height: 90px; }
+  .vr-premio canvas.vr-cassa { width: 104px; height: 104px; image-rendering: pixelated; }
   .bottone-amici { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; font-size: 19px; }
   .bottone-amici .pallino { top: -4px; right: -4px; }
   .sfida { background: var(--foglia-2); border-radius: 14px; padding: 10px 12px; margin-bottom: 8px; }
@@ -1235,6 +1243,8 @@
     .velo.centro .finestra h2 { font-size: 23px; margin: 6px 0 6px; }
     .vr-premio { min-height: 82px; font-size: 60px; margin: 6px 0 2px; }
     .vr-premio .avatar-pg { width: 84px; height: 84px; }
+    .vr-premio img.vr-pix { width: 72px; height: 72px; }
+    .vr-premio canvas.vr-cassa { width: 80px; height: 80px; }
   }
   .velo.basso { align-items: flex-end; justify-content: center; }
   .finestra { background: var(--foglia-1); border: 1px solid var(--bordo); border-radius: 26px; padding: 22px 20px 18px; width: 100%; max-width: 420px; text-align: center; animation: sale .22s ease-out; }
@@ -1996,7 +2006,7 @@
       <button class="pulsante pericolo" id="bAzzera" data-t="ricomincia"></button>
     </div>
     <button class="pulsante secondario" id="bAdmin" hidden>🛠️ Pannello sviluppatore</button>
-    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 71</p>
+    <p class="versione-gioco" id="versioneGioco">Scimmie infinite · versione 72</p>
   </div>
 </div>
 
@@ -3382,7 +3392,7 @@
       ruota_d_scimmie: "+{n}% scimmie per sempre",
       ruota_d_ogg: "Un oggetto comune o raro a caso",
       ruota_v_banane: "Hai vinto {n} banane!",
-      ruota_v_bonus: "Hai vinto {ico} {nome}: è nello zaino!",
+      ruota_v_bonus: "Hai vinto {nome}: è nello zaino!",
       ruota_v_cassa: "Hai vinto una {nome} gratis: aprila nel Negozio!",
       ruota_v_pagine: "Hai vinto {n} Pagine d'oro!",
       ruota_v_scimmie: "Le tue scimmie crescono del {n}% per sempre!",
@@ -3749,7 +3759,7 @@
       nov19_4: "🎨 I colori di Halloween ora sono un tema a tempo limitato: puoi cambiarlo quando vuoi in Personalizzazione › Temi",
       nov19_5: "🕸️ La scritta Ragnatela è stata rifatta: il nome resta impigliato nella tela e un ragno scende dal filo",
       tour19_1: "🎃 Tocca i ranghi: sotto vedi il premio di stagione di ogni lega. A fine stagione li ricevi tutti, fino alla lega più alta che hai raggiunto!",
-      ruota_palio: "🌟 In palio oggi · {p}%",
+      ruota_palio: "In palio oggi · {p}%",
       nov20_1: "🐒 Foto profilo ridisegnate in pixel art: tutte della stessa grandezza, con più dettagli man mano che sale la rarità; dalle leggendarie in su sono animate",
       nov20_2: "🎡 Nella ruota ora vedi com'è il premio leggendario del giorno (la foto, il colore o la scritta) e che tipo di premio è; durante Halloween anche la ruota è a tema",
       nov20_3: "🎃 In ufficio le scimmie si travestono per Halloween (fantasmi, mummie, zucche, streghe, vampiri e diavoletti) e sulle scrivanie spuntano zucche, candele, teschi e ragnatele",
@@ -3760,7 +3770,9 @@
       nov20_6: "🎭 La scimmia del menu ha un travestimento diverso ogni volta che apri il gioco",
       nov20_7: "🏅 Tolta la gara della settimana (e le notifiche): resta la lega, con i suoi premi e quelli di stagione",
       carico_partita: "⏳ Recupero la tua partita…",
-      tema_evento_nota: "🎨 Il gioco ora ha il tema {ev}: puoi cambiarlo quando vuoi da ⚙️ Impostazioni › 🎨 Personalizzazione. A fine stagione tornerai al tuo tema ({tema})."
+      tema_evento_nota: "🎨 Il gioco ora ha il tema {ev}: puoi cambiarlo quando vuoi da ⚙️ Impostazioni › 🎨 Personalizzazione. A fine stagione tornerai al tuo tema ({tema}).",
+      nov21_1: "🎡 La ruota ha nuove icone in pixel art: ogni premio ha il suo disegno (banane, Pagine d'oro, casse, bonus…), così lo riconosci al volo",
+      tour21_1: "🎡 La ruota ha nuove icone in pixel art: ogni premio ha il suo disegno, così lo riconosci al volo!"
     },
 
     // ------------------------------------------------------------- ENGLISH
@@ -4633,7 +4645,7 @@
       ruota_d_scimmie: "+{n}% monkeys forever",
       ruota_d_ogg: "A random common or rare item",
       ruota_v_banane: "You won {n} bananas!",
-      ruota_v_bonus: "You won {ico} {nome}: it's in your backpack!",
+      ruota_v_bonus: "You won {nome}: it's in your backpack!",
       ruota_v_cassa: "You won a free {nome}: open it in the Shop!",
       ruota_v_pagine: "You won {n} Golden Pages!",
       ruota_v_scimmie: "Your monkeys grow by {n}% forever!",
@@ -5000,7 +5012,7 @@
       nov19_4: "🎨 The Halloween colours are now a limited-time theme: change it whenever you like in Customisation › Themes",
       nov19_5: "🕸️ The Cobweb name effect has been redone: your name is caught in the web and a spider drops down its thread",
       tour19_1: "🎃 Tap the ranks: below you see each league's season prize. At the end of the season you get them all, up to the highest league you reached!",
-      ruota_palio: "🌟 Up for grabs today · {p}%",
+      ruota_palio: "Up for grabs today · {p}%",
       nov20_1: "🐒 Profile pictures redrawn in pixel art: all the same size, with more detail the higher the rarity; from legendary up they're animated",
       nov20_2: "🎡 The wheel now shows what the legendary prize of the day looks like (the picture, colour or animated name) and what kind of prize it is; during Halloween the wheel is themed too",
       nov20_3: "🎃 In the office the monkeys dress up for Halloween (ghosts, mummies, pumpkins, witches, vampires and little devils) and pumpkins, candles, skulls and cobwebs appear on the desks",
@@ -5011,7 +5023,9 @@
       nov20_6: "🎭 The monkey on the menu wears a different costume every time you open the game",
       nov20_7: "🏅 The weekly race (and notifications) have been removed: the league stays, with its prizes and the season ones",
       carico_partita: "⏳ Loading your game…",
-      tema_evento_nota: "🎨 The game now has the {ev} theme: you can change it whenever you like from ⚙️ Settings › 🎨 Customisation. At the end of the season you'll go back to your theme ({tema})."
+      tema_evento_nota: "🎨 The game now has the {ev} theme: you can change it whenever you like from ⚙️ Settings › 🎨 Customisation. At the end of the season you'll go back to your theme ({tema}).",
+      nov21_1: "🎡 The wheel has new pixel-art icons: every prize has its own drawing (bananas, Golden Pages, crates, boosts…), so you can spot it at a glance",
+      tour21_1: "🎡 The wheel has new pixel-art icons: every prize has its own drawing, so you can spot it at a glance!"
     },
 
     // ------------------------------------------------------------- ESPAÑOL
@@ -5884,7 +5898,7 @@
       ruota_d_scimmie: "+{n}% monos para siempre",
       ruota_d_ogg: "Un objeto común o raro al azar",
       ruota_v_banane: "¡Has ganado {n} plátanos!",
-      ruota_v_bonus: "¡Has ganado {ico} {nome}: está en la mochila!",
+      ruota_v_bonus: "¡Has ganado {nome}: está en la mochila!",
       ruota_v_cassa: "¡Has ganado una {nome} gratis: ábrela en la Tienda!",
       ruota_v_pagine: "¡Has ganado {n} Páginas de oro!",
       ruota_v_scimmie: "¡Tus monos crecen un {n}% para siempre!",
@@ -6251,7 +6265,7 @@
       nov19_4: "🎨 Los colores de Halloween ahora son un tema por tiempo limitado: cámbialo cuando quieras en Personalización › Temas",
       nov19_5: "🕸️ El efecto Telaraña está rehecho: el nombre queda atrapado en la tela y una araña baja por su hilo",
       tour19_1: "🎃 Toca los rangos: debajo ves el premio de temporada de cada liga. ¡Al final de la temporada los recibes todos, hasta la liga más alta que alcanzaste!",
-      ruota_palio: "🌟 En juego hoy · {p}%",
+      ruota_palio: "En juego hoy · {p}%",
       nov20_1: "🐒 Fotos de perfil redibujadas en pixel art: todas del mismo tamaño, con más detalle cuanto mayor es la rareza; de las legendarias en adelante están animadas",
       nov20_2: "🎡 En la rueda ahora ves cómo es el premio legendario del día (la foto, el color o las letras) y qué tipo de premio es; durante Halloween la rueda también tiene tema",
       nov20_3: "🎃 En la oficina los monos se disfrazan para Halloween (fantasmas, momias, calabazas, brujas, vampiros y diablillos) y en los escritorios aparecen calabazas, velas, calaveras y telarañas",
@@ -6262,7 +6276,9 @@
       nov20_6: "🎭 El mono del menú lleva un disfraz distinto cada vez que abres el juego",
       nov20_7: "🏅 Se quitó la carrera semanal (y las notificaciones): queda la liga, con sus premios y los de temporada",
       carico_partita: "⏳ Recuperando tu partida…",
-      tema_evento_nota: "🎨 El juego ahora tiene el tema {ev}: puedes cambiarlo cuando quieras en ⚙️ Ajustes › 🎨 Personalización. Al final de la temporada volverás a tu tema ({tema})."
+      tema_evento_nota: "🎨 El juego ahora tiene el tema {ev}: puedes cambiarlo cuando quieras en ⚙️ Ajustes › 🎨 Personalización. Al final de la temporada volverás a tu tema ({tema}).",
+      nov21_1: "🎡 La rueda tiene nuevos iconos en pixel art: cada premio tiene su propio dibujo (plátanos, Páginas de oro, cajas, bonus…), para reconocerlo de un vistazo",
+      tour21_1: "🎡 La rueda tiene nuevos iconos en pixel art: cada premio tiene su propio dibujo, ¡para reconocerlo de un vistazo!"
     },
 
     // ------------------------------------------------------------- 中文
@@ -7135,7 +7151,7 @@
       ruota_d_scimmie: "猴子永久 +{n}%",
       ruota_d_ogg: "随机普通或稀有物品",
       ruota_v_banane: "你赢得了 {n} 根香蕉！",
-      ruota_v_bonus: "你赢得了 {ico} {nome}：已放进背包！",
+      ruota_v_bonus: "你赢得了 {nome}：已放进背包！",
       ruota_v_cassa: "你赢得了免费的{nome}：去商店打开！",
       ruota_v_pagine: "你赢得了 {n} 张金页！",
       ruota_v_scimmie: "你的猴子永久增加 {n}%！",
@@ -7502,7 +7518,7 @@
       nov19_4: "🎨 万圣节配色现在是限时主题：随时可以在 个性化 › 主题 里更换",
       nov19_5: "🕸️ 蛛网名字特效重做了：名字被困在网里，一只蜘蛛顺着丝垂下来",
       tour19_1: "🎃 点一下段位：下方会显示每个联赛的赛季奖励。赛季结束时，你达到的最高联赛及以下的奖励全部归你！",
-      ruota_palio: "🌟 今日大奖 · {p}%",
+      ruota_palio: "今日大奖 · {p}%",
       nov20_1: "🐒 头像全部以像素画重绘：尺寸统一，稀有度越高细节越多；传说及以上都会动",
       nov20_2: "🎡 转盘现在会显示今日传说奖励的样子（头像、颜色或动态字）以及它是什么类型；万圣节期间转盘也换上了节日主题",
       nov20_3: "🎃 办公室里的猴子们穿上了万圣节装扮（幽灵、木乃伊、南瓜、女巫、吸血鬼和小恶魔），桌上还有南瓜、蜡烛、骷髅和蜘蛛网",
@@ -7513,7 +7529,9 @@
       nov20_6: "🎭 每次打开游戏，菜单上的猴子都会换一身不同的装扮",
       nov20_7: "🏅 每周竞赛（以及通知）已移除：联赛保留，奖励和赛季奖励都还在",
       carico_partita: "⏳ 正在载入你的存档…",
-      tema_evento_nota: "🎨 游戏现在使用{ev}主题：随时可以在 ⚙️ 设置 › 🎨 个性化 里更换。赛季结束后会换回你的主题（{tema}）。"
+      tema_evento_nota: "🎨 游戏现在使用{ev}主题：随时可以在 ⚙️ 设置 › 🎨 个性化 里更换。赛季结束后会换回你的主题（{tema}）。",
+      nov21_1: "🎡 转盘换上了新的像素图标：每种奖励都有自己的图案（香蕉、金页、箱子、加成……），一眼就能认出来",
+      tour21_1: "🎡 转盘换上了新的像素图标：每种奖励都有自己的图案，一眼就能认出来！"
     },
 
     // ------------------------------------------------------------- FRANÇAIS
@@ -8386,7 +8404,7 @@
       ruota_d_scimmie: "+{n} % de singes pour toujours",
       ruota_d_ogg: "Un objet commun ou rare au hasard",
       ruota_v_banane: "Tu as gagné {n} bananes !",
-      ruota_v_bonus: "Tu as gagné {ico} {nome} : il est dans ton sac !",
+      ruota_v_bonus: "Tu as gagné {nome} : il est dans ton sac !",
       ruota_v_cassa: "Tu as gagné un {nome} gratuit : ouvre-le dans la Boutique !",
       ruota_v_pagine: "Tu as gagné {n} Pages d'or !",
       ruota_v_scimmie: "Tes singes augmentent de {n} % pour toujours !",
@@ -8753,7 +8771,7 @@
       nov19_4: "🎨 Les couleurs d'Halloween sont maintenant un thème à durée limitée : change-le quand tu veux dans Personnalisation › Thèmes",
       nov19_5: "🕸️ L'effet Toile d'araignée a été refait : ton nom reste pris dans la toile et une araignée descend de son fil",
       tour19_1: "🎃 Touche les rangs : en dessous tu vois le prix de saison de chaque ligue. À la fin de la saison tu les reçois tous, jusqu'à la ligue la plus haute atteinte !",
-      ruota_palio: "🌟 En jeu aujourd'hui · {p} %",
+      ruota_palio: "En jeu aujourd'hui · {p} %",
       nov20_1: "🐒 Photos de profil redessinées en pixel art : toutes de la même taille, avec plus de détails à mesure que la rareté monte ; à partir des légendaires elles sont animées",
       nov20_2: "🎡 La roue montre maintenant à quoi ressemble le prix légendaire du jour (la photo, la couleur ou le nom animé) et de quel type de prix il s'agit ; pendant Halloween la roue est aussi à thème",
       nov20_3: "🎃 Au bureau les singes se déguisent pour Halloween (fantômes, momies, citrouilles, sorcières, vampires et petits diables) et des citrouilles, bougies, crânes et toiles d'araignée apparaissent sur les bureaux",
@@ -8764,7 +8782,9 @@
       nov20_6: "🎭 Le singe du menu porte un déguisement différent à chaque ouverture du jeu",
       nov20_7: "🏅 La course de la semaine (et les notifications) ont été retirées : la ligue reste, avec ses prix et ceux de la saison",
       carico_partita: "⏳ Je récupère ta partie…",
-      tema_evento_nota: "🎨 Le jeu a maintenant le thème {ev} : tu peux le changer quand tu veux dans ⚙️ Paramètres › 🎨 Personnalisation. À la fin de la saison tu retrouveras ton thème ({tema})."
+      tema_evento_nota: "🎨 Le jeu a maintenant le thème {ev} : tu peux le changer quand tu veux dans ⚙️ Paramètres › 🎨 Personnalisation. À la fin de la saison tu retrouveras ton thème ({tema}).",
+      nov21_1: "🎡 La roue a de nouvelles icônes en pixel art : chaque prix a son propre dessin (bananes, Pages d'or, coffres, bonus…), pour le reconnaître d'un coup d'œil",
+      tour21_1: "🎡 La roue a de nouvelles icônes en pixel art : chaque prix a son propre dessin, pour le reconnaître d'un coup d'œil !"
     },
 
     // ------------------------------------------------------------- РУССКИЙ
@@ -9638,7 +9658,7 @@
       ruota_d_scimmie: "+{n}% обезьян навсегда",
       ruota_d_ogg: "Случайный обычный или редкий предмет",
       ruota_v_banane: "Ты выиграл {n} бананов!",
-      ruota_v_bonus: "Ты выиграл {ico} {nome}: он в рюкзаке!",
+      ruota_v_bonus: "Ты выиграл {nome}: он в рюкзаке!",
       ruota_v_cassa: "Ты выиграл бесплатный {nome}: открой его в магазине!",
       ruota_v_pagine: "Ты выиграл {n} Золотых страниц!",
       ruota_v_scimmie: "Твоих обезьян навсегда больше на {n}%!",
@@ -10005,7 +10025,7 @@
       nov19_4: "🎨 Цвета Хэллоуина теперь — тема на ограниченное время: её можно сменить в Оформление › Темы",
       nov19_5: "🕸️ Эффект «Паутина» переделан: имя запуталось в паутине, а паук спускается по нити",
       tour19_1: "🎃 Нажимай на ранги: ниже видна награда сезона каждой лиги. В конце сезона получишь все — до самой высокой лиги, которой достиг!",
-      ruota_palio: "🌟 Сегодня разыгрывается · {p}%",
+      ruota_palio: "Сегодня разыгрывается · {p}%",
       nov20_1: "🐒 Аватары перерисованы в пиксель-арте: все одного размера, чем выше редкость, тем больше деталей; начиная с легендарных они анимированы",
       nov20_2: "🎡 Колесо теперь показывает, как выглядит легендарный приз дня (аватар, цвет или анимированное имя) и что это за приз; на Хэллоуин колесо тоже в тематике",
       nov20_3: "🎃 В офисе обезьяны наряжаются на Хэллоуин (призраки, мумии, тыквы, ведьмы, вампиры и чертята), а на столах появляются тыквы, свечи, черепа и паутина",
@@ -10016,7 +10036,9 @@
       nov20_6: "🎭 Обезьяна в меню каждый раз, когда открываешь игру, в новом костюме",
       nov20_7: "🏅 Гонка недели (и уведомления) убраны: лига осталась, с её наградами и наградами сезона",
       carico_partita: "⏳ Загружаю твою игру…",
-      tema_evento_nota: "🎨 Теперь в игре тема «{ev}»: её можно сменить когда угодно в ⚙️ Настройки › 🎨 Оформление. В конце сезона вернётся твоя тема («{tema}»)."
+      tema_evento_nota: "🎨 Теперь в игре тема «{ev}»: её можно сменить когда угодно в ⚙️ Настройки › 🎨 Оформление. В конце сезона вернётся твоя тема («{tema}»).",
+      nov21_1: "🎡 У колеса новые иконки в пиксель-арте: у каждого приза свой рисунок (бананы, Золотые страницы, сундуки, бонусы…), чтобы узнавать его с первого взгляда",
+      tour21_1: "🎡 У колеса новые иконки в пиксель-арте: у каждого приза свой рисунок, чтобы узнавать его с первого взгляда!"
     }
   };
 
@@ -18867,6 +18889,404 @@
   const invitiRicevuti = () => Object.values(Scambi.inviti || {});
 
   // =====================================================================
+  //  ICONE DEI PREMI DELLA RUOTA, in pixel art come gli avatar: 16×16, ombre, luci e contorno scuro
+  // =====================================================================
+  const PIX_TAV = {
+    k: "#1c1a16", w: "#ffffff", W: "#e6ebf0",
+    h: "#fff3a0", y: "#ffd23f", Y: "#e0a01c", o: "#a8650f",
+    b: "#8b5a2b", B: "#5e3a1a", n: "#b07a45", t: "#e8c49a", T: "#c99b6b", m: "#b5545c"
+  };
+  const PIX_RUOTA = {
+    // piccola banana sdraiata, per comporre il mucchio e il cesto
+    bananina: { r: [
+      "......BB",
+      "......hY",
+      ".....hyY",
+      "....hyyY",
+      "...hyyY.",
+      "hhhyyyY.",
+      "YyyyyY..",
+      ".YYoo..."] },
+    cesto_vuoto: { r: [
+      "nnnnnnnnnnnnnn",
+      "bbbbbbbbbbbbbB",
+      "bnbBnbBnbBnbBB",
+      "BbnBbnBbnBbnBB",
+      ".bnbBnbBnbBnB.",
+      ".BbnBbnBbnBbB.",
+      "..bBnbBnbBnB..",
+      "...BBBBBBBB..."], c: { n: "#c98a4e", b: "#a86a35", B: "#5a3416" } },
+    foglio: { r: [
+      "pppppppg...",
+      "pqqqqqqgg..",
+      "pqLLLLqgPg.",
+      "pqqqqqqgggg",
+      "pqLLLLLLqqg",
+      "pqqqqqqqqqg",
+      "pqLLLLLLLqg",
+      "pqqqqqqqqqg",
+      "pqLLLLLLqqg",
+      "pqqqqqqqqqg",
+      "pqLLLLqqqqg",
+      "pqqqqqqqqqg",
+      "pgggggggggg"], c: { p: "#fff6c9", q: "#ffe27a", L: "#c99a12", g: "#d4920a", P: "#fff6c9" } },
+    orologio: { r: [
+      "....YYYYY....",
+      "..YYhhhhhYY..",
+      ".YhWWWkWWWWY.",
+      ".YWWWWWWWWWY.",
+      "YhWWWWkWWWWWY",
+      "YWWWWWkWWWWWY",
+      "YkWWWWkkkkWkY",
+      "YWWWWWWWWWWWY",
+      "YWWWWWWWWWWWY",
+      ".YWWWWWWWWWY.",
+      ".YWWWWkWWWYY.",
+      "..YYWWWWWYY..",
+      "....YYYYY...."], c: { W: "#f3efe3" } },
+    punta: { r: [
+      "h....",
+      "hh...",
+      "hhg..",
+      "hggg.",
+      "ggggG",
+      "gggG.",
+      "ggG..",
+      "gG...",
+      "G...."], c: { h: "#bbf7d0", g: "#4ade80", G: "#16a34a" } },
+    freccia: { r: [
+      "xxxx",
+      "Xxxw",
+      ".Xw."], c: { x: "#ff5e5e", X: "#b91c1c", w: "#ffb3b3" } },
+    banana: { r: [
+      "................",
+      "............BB..",
+      "............bB..",
+      "...........hyY..",
+      "...........hyY..",
+      "..........hyyY..",
+      "..........hyyY..",
+      ".........hyyyY..",
+      "........hyyyYY..",
+      "......hhyyyyY...",
+      ".B..hhyyyyyYY...",
+      ".Bhhyyyyyyyo....",
+      "..YyyyyyyYo.....",
+      "...YYYYYoo......",
+      "................",
+      "................"] },
+    fulmine: { r: [
+      "................",
+      ".......yyyyyy...",
+      "......hyyyyyY...",
+      ".....hyyyyyY....",
+      "....hyyyyyY.....",
+      "...hyyyyyY......",
+      "..hyyyyyyyyyyY..",
+      "..yyyyyyyyyyY...",
+      "......hyyyyY....",
+      ".....hyyyyY.....",
+      "....hyyyyY......",
+      "...hyyyY........",
+      "..hyyY..........",
+      "..yY............",
+      ".yY.............",
+      "................"], c: { h: "#ffffff", y: "#ffe45c", Y: "#f2a93b" } },
+    scimmia: { r: [
+      "................",
+      ".....bbbbbb.....",
+      "...bnnbbbbbbb...",
+      "..bnbbbbbbbbbB..",
+      ".bbbttttbbttttB.",
+      "tbbttttttttttbBT",
+      "tbbtkkttttkktbBT",
+      "tbbtkwttttkwtbBT",
+      ".bbbttttttttTbB.",
+      "..bbttttttttTB..",
+      "..bbttnttnttTB..",
+      "...bbttttttTB...",
+      "....bbtmmTbB....",
+      ".....BBBBBB.....",
+      "................",
+      "................"] },
+    gorilla: { r: [
+      "................",
+      ".....SSSSSS.....",
+      "...SSGGGGGGGG...",
+      "..SGGGGGGGGGGG..",
+      ".SGGGGGGGGGGGGD.",
+      ".GGEEEEEEEEEEGD.",
+      "GGFkwFFFFFFkwFGD",
+      "GGFFFFFNNFFFFFGD",
+      ".GFFFFNNNNFFFFG.",
+      ".GFFFNkNNkNFFFG.",
+      ".GGFFFNNNNFFFGD.",
+      "..GFFFFFFFFFFD..",
+      "..GFFkkkkkkFFD..",
+      "...GFFFFFFFFD...",
+      "....GGGGGGGD....",
+      "................"], c: { S: "#6a6a7a", G: "#3d3d48", D: "#24242b", F: "#8f8fa0", E: "#4a4a5a", N: "#70707f", k: "#141418", w: "#ffffff" } },
+    // sacco di juta con una banana stampata: le banane che valgono doppio
+    sacco: { r: [
+      "................",
+      ".....q.qq.q.....",
+      ".....qSSSSq.....",
+      "......sSSq......",
+      ".....rRRRRr.....",
+      "......sSSq......",
+      ".....ssSSSq.....",
+      "....sssssSSq....",
+      "...ssssssyYSq...",
+      "..sssssssyYSSq..",
+      "..sssssyyYSSSq..",
+      "..sssyyyYSSSSq..",
+      "..ssYYYSSSSSSq..",
+      "...sssssSSSSq...",
+      "....qqqqqqqq....",
+      "................"], c: { s: "#c9a063", S: "#a07a42", q: "#6b4a22", r: "#5a2d0c", R: "#b5652a", y: "#ffe45c", Y: "#f2a93b" } },
+    biberon: { r: [
+      "................",
+      ".......pp.......",
+      "......pppP......",
+      "......pppP......",
+      ".....ccccccC....",
+      ".....cCCCCCC....",
+      "....gllllllLg...",
+      "....gwwwwwwWg...",
+      "....gwwwwwwWa...",
+      "....gwwwwwwWg...",
+      "....gwwwwwwWa...",
+      "....gwwwwwwWg...",
+      "....gwwwwwwWa...",
+      "....gWwwwwwWg...",
+      ".....ggggggg....",
+      "................"], c: { p: "#f4a259", P: "#c4702a", c: "#7cc6ff", C: "#3b82f6", g: "#bfe3ff", l: "#d9f0ff", L: "#b5dcf7", w: "#fffdf5", W: "#e8e0cc", a: "#5aa8ff" } },
+    cassa_legno: { r: [
+      "................",
+      "................",
+      ".MBBBBBBBBBBBBM.",
+      ".BllnnnnnnnnnnB.",
+      ".BlllbbbbbbbbbB.",
+      ".BBlllBBBBBBBBB.",
+      ".BnnlllnnnnnnnB.",
+      ".BbbblllbbbbbbB.",
+      ".BBBBBlllBBBBBB.",
+      ".BnnnnnlllnnnnB.",
+      ".BbbbbbblllbbbB.",
+      ".BBBBBBBBlllBBB.",
+      ".BnnnnnnnnlllnB.",
+      ".BbbbbbbbbblllB.",
+      ".MBBBBBBBBBBBlM.",
+      "................"], c: { B: "#5a3416", b: "#a86a35", n: "#c98a4e", l: "#e6b37a", M: "#c4ccd6" } },
+    cassa_argento: { r: [
+      "................",
+      "......GGGG......",
+      ".....G....G.....",
+      ".....G....G.....",
+      ".hhhhhhhhhhhhhh.",
+      ".sssssssssssssS.",
+      ".sssssssssssssS.",
+      ".syysssssssyysS.",
+      ".SYYSSSSSSSYYSS.",
+      ".sssssssssssssS.",
+      ".ssssGsGsGsssSS.",
+      ".sssssGsGsGsssS.",
+      ".sssssssssssssS.",
+      ".SSSSSSSSSSSSSS.",
+      "................",
+      "................"], c: { G: "#6b7280", h: "#f4f7fb", s: "#c7ced8", S: "#8e97a3", y: "#ffd23f", Y: "#b8860b" } },
+    // oggetto a sorpresa: una cornice con il punto di domanda (blu = comune o raro, viola = epico)
+    mistero: { r: [
+      "................",
+      ".ffffffffffffff.",
+      ".fFFFFFFFFFFFFD.",
+      ".fFiiiiiiiiiiFD.",
+      ".fFiiiwwwwiiiFD.",
+      ".fFiiwwiiwwiiFD.",
+      ".fFiiiiiiwwiiFD.",
+      ".fFiiiiiwwiiiFD.",
+      ".fFiiiiwwiiiiFD.",
+      ".fFiiiiwwiiiiFD.",
+      ".fFiiiiiiiiiiFD.",
+      ".fFiiiiwwiiiiFD.",
+      ".fFiiiiiiiiiiFD.",
+      ".fFFFFFFFFFFFFD.",
+      ".DDDDDDDDDDDDDD.",
+      "................"], c: { f: "#a9d4ff", F: "#5aa8ff", D: "#2f6fbf", i: "#16243d", w: "#ffffff" } },
+    mistero_epico: { r: [
+      "..............w.",
+      ".ffffffffffffwww",
+      ".fFFFFFFFFFFFFw.",
+      ".fFiiiiiiiiiiFD.",
+      ".fFiiiwwwwiiiFD.",
+      ".fFiiwwiiwwiiFD.",
+      ".fFiiiiiiwwiiFD.",
+      ".fFiiiiiwwiiiFD.",
+      ".fFiiiiwwiiiiFD.",
+      ".fFiiiiwwiiiiFD.",
+      ".fFiiiiiiiiiiFD.",
+      ".fFiiiiwwiiiiFD.",
+      ".fFiiiiiiiiiiFD.",
+      ".fFFFFFFFFFFFFD.",
+      ".DDDDDDDDDDDDDD.",
+      "................"], c: { f: "#e9d5ff", F: "#c084fc", D: "#7e3fc0", i: "#24143a", w: "#ffffff" } },
+    // la stella del leggendario: piccola, per stare nello spicchio stretto
+    stella: { r: [
+      "....h....",
+      "....h....",
+      "...hyy...",
+      "hhhhyyyyY",
+      ".hyyyyyY.",
+      "..yyyyY..",
+      "..yyyYY..",
+      ".yyY.YYY.",
+      ".yY...YY."], c: { h: "#fff6c9", y: "#ffd23f", Y: "#e0a01c" } },
+    zucca: { r: [
+      "................",
+      ".......gG.......",
+      "........gG......",
+      "...QOOOOgOOOQ...",
+      "..QhOOOQOQOOOQ..",
+      ".QhOOOOQOQOOOOQ.",
+      ".OhyyOOQOQOyyOQ.",
+      ".OhyyyOQOQyyyOQ.",
+      ".OOOOOOQOQOOOOQ.",
+      ".OOyOyOyOyOyOOQ.",
+      ".OOyyyyyyyyyyOQ.",
+      ".QOOyyOyyOyyOQQ.",
+      "..QOOOQOQOOOQQ..",
+      "...QQQQQQQQQQ...",
+      "................",
+      "................"], c: { g: "#5fae3a", G: "#2f6b1c", O: "#ff8a1f", Q: "#c4520a", h: "#ffb867", y: "#ffe45c" } },
+    clessidra: { r: [
+      "................",
+      "..BBBBBBBBBBBB..",
+      "..nnnnnnnnnnnn..",
+      "...gyyyyyyyyg...",
+      "...gyyyyyyyyg...",
+      "....gyyyyyyg....",
+      ".....gyyyyg.....",
+      "......gyyg......",
+      "......gyyg......",
+      ".....gllylg.....",
+      "....gllllylg....",
+      "...gllllyyllg...",
+      "...gllyyyyyylg..",
+      "..nnnnnnnnnnnn..",
+      "..BBBBBBBBBBBB..",
+      "................"], c: { B: "#5a3416", n: "#a86a35", g: "#bfe3ff", l: "#e8f6ff", y: "#ffd23f" } },
+    grafico: { r: [
+      "................",
+      "................",
+      "..vv............",
+      "..vV............",
+      "..vV..aa........",
+      "..vV..aA........",
+      "..vV..aA........",
+      "..vV..aA..pp....",
+      "..vV..aA..pP....",
+      "..vV..aA..pP..ll",
+      "..vV..aA..pP..lL",
+      "..vV..aA..pP..lL",
+      ".WWWWWWWWWWWWWWW",
+      "................",
+      "................",
+      "................"], c: { v: "#6ee7a0", V: "#2f9a5a", a: "#8cc4ff", A: "#3b82f6", p: "#d8b4fe", P: "#a855f7", l: "#ffe27a", L: "#e0a01c", W: "#efe8d4" } }
+  };
+  // la ruota: spicchi colorati, cornice d'oro e la freccia in alto (disegnata, non in elenco)
+  function righeRuotaPix() {
+    const righe = [], c = { G: "#4ade80", B: "#5aa8ff", P: "#c084fc", O: "#ff8a1f", R: "#ffe27a", r: "#e0a01c", x: "#efe8d4", X: "#c99a12" };
+    for (let y = 0; y < 16; y++) {
+      let riga = "";
+      for (let x = 0; x < 16; x++) {
+        const dx = x + 0.5 - 8, dy = y + 0.5 - 9, d = Math.hypot(dx, dy);
+        if (d > 7) { riga += "."; continue; }
+        if (d > 5.6) { riga += dx + dy < -1 ? "R" : "r"; continue; }       // cornice d'oro, più chiara in alto a sinistra
+        if (d < 1.2) { riga += "x"; continue; }                            // perno
+        if (d < 2) { riga += "X"; continue; }
+        const a = (Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360;
+        riga += "GBPOGBPO"[Math.floor(a / 45)];
+      }
+      righe.push(riga);
+    }
+    return { r: righe, c };
+  }
+  PIX_RUOTA.disco = righeRuotaPix();
+  PIX_RUOTA.ruota = { dim: 16, strati: [["disco", 0, 0], ["freccia", 6, 0]] };
+  // le icone fatte di più pezzi, ognuno con il suo contorno (così si staccano uno dall'altro)
+  const FOGLIO_DIETRO = { p: "#f2d98a", q: "#e8c65a", L: "#b8860b", g: "#a87208" }, FOGLIO_IN_FONDO = { p: "#e8cc78", q: "#d9b44a", L: "#a87a08", g: "#8a5e06" };
+  const BANANA_DIETRO = { h: "#ffe27a", y: "#f2bf2c", Y: "#c98a12", o: "#8a5508" };
+  Object.assign(PIX_RUOTA, {
+    pagina: { dim: 16, strati: [["foglio", 3, 2]] },
+    pagine2: { dim: 16, strati: [["foglio", 4, 1, FOGLIO_DIETRO], ["foglio", 1, 3]] },
+    pagine3: { dim: 16, strati: [["foglio", 5, 0, FOGLIO_IN_FONDO], ["foglio", 3, 1, FOGLIO_DIETRO], ["foglio", 1, 3]] },
+    salto: { dim: 16, strati: [["orologio", 0, 0], ["punta", 5, 6], ["punta", 10, 6]] },
+    cesto: { dim: 16, strati: [["bananina", 4, 0, BANANA_DIETRO], ["bananina", 1, 2, null, true], ["bananina", 7, 2], ["cesto_vuoto", 1, 8]] },
+  });
+  const PIX_URL = {};
+  // disegna l'icona (scala = quanti pixel veri per ogni pixel del disegno) e la tiene da parte
+  function iconaPix(nome, scala = 8) {
+    const chiave = nome + "@" + scala;
+    if (PIX_URL[chiave] !== undefined) return PIX_URL[chiave];
+    let url = "";
+    try {
+      const def = PIX_RUOTA[nome];
+      const strati = def.strati || [[nome, 0, 0]];
+      const L = (def.dim || def.r[0].length) + 2, A = (def.dim || def.r.length) + 2;
+      // griglia dei colori, con un pixel di margine per il contorno; ogni pezzo porta il suo contorno
+      const g = Array.from({ length: A }, () => new Array(L).fill(null));
+      for (const [n, dx, dy, extra, specchio] of strati) {
+        const s = PIX_RUOTA[n], tav = { ...PIX_TAV, ...(s.c || {}), ...(extra || {}) }, pezzo = new Map();
+        s.r.forEach((riga, y) => [...riga].forEach((ch, x) => {
+          const X = (specchio ? riga.length - 1 - x : x) + 1 + dx, Y = y + 1 + dy;
+          if (ch !== "." && X >= 0 && Y >= 0 && X < L && Y < A) pezzo.set(Y * L + X, tav[ch] || "#ff00ff");
+        }));
+        for (const k of pezzo.keys()) {
+          const X = k % L, Y = (k - X) / L;
+          for (const [a, b] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+            const x2 = X + a, y2 = Y + b;
+            if (x2 >= 0 && y2 >= 0 && x2 < L && y2 < A && !pezzo.has(y2 * L + x2)) g[y2][x2] = "#140f0c";
+          }
+        }
+        for (const [k, col] of pezzo) g[Math.floor(k / L)][k % L] = col;
+      }
+      const cv = document.createElement("canvas");
+      cv.width = L * scala; cv.height = A * scala;
+      const ctx = cv.getContext("2d");
+      for (let y = 0; y < A; y++) for (let x = 0; x < L; x++) {
+        if (!g[y][x]) continue;
+        ctx.fillStyle = g[y][x]; ctx.fillRect(x * scala, y * scala, scala, scala);
+      }
+      url = cv.toDataURL("image/png");
+    } catch (e) { url = ""; }
+    return (PIX_URL[chiave] = url);
+  }
+
+  // l'icona di un premio della ruota (se manca il disegno resta l'emoji di prima)
+  const PIX_BONUS = { vel5: "fulmine", sc2: "scimmia", ban3: "sacco", sc5: "gorilla", salto1: "salto", salto3: "salto", salto12: "salto" };
+  function imgPix(nome, classe = "") {
+    const im = document.createElement("img");
+    im.className = ("pix-r " + classe).trim(); im.alt = ""; im.draggable = false;
+    im.setAttribute("aria-hidden", "true");
+    im.src = iconaPix(nome);
+    return im;
+  }
+  const iconaPremio = (f, classe) => f.pix && PIX_RUOTA[f.pix] ? imgPix(f.pix, classe) : document.createTextNode(f.ico);
+  // un pulsante con l'icona disegnata davanti alla scritta (si rifà solo se cambia qualcosa)
+  function pulsantePix(el, nome, testo) {
+    if (!el || el.dataset.pix === nome + "|" + testo) return;
+    el.dataset.pix = nome + "|" + testo;
+    el.textContent = "";
+    el.append(imgPix(nome), " " + testo);
+  }
+  // il pulsante tondo che apre la ruota: una ruota vera al posto della ruota panoramica
+  (() => {
+    const b = $("bRuota");
+    const em = b && [...b.childNodes].find(n => n.nodeType === 3 && n.nodeValue.trim());
+    if (em) em.replaceWith(imgPix("ruota", "pix-ico"));
+  })();
+
+  // =====================================================================
   //  RUOTA DELLA FORTUNA: si gira una volta al giorno; 12 spicchi uguali, ognuno con la stessa probabilità
   // =====================================================================
   const oggi = () => { const d = new Date(); return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate(); };
@@ -18914,15 +19334,15 @@
   const tempoRuota = sec => sec < 3600 ? t("ruota_et_min", { n: sec / 60 }) : t(sec === 3600 ? "ruota_ora" : "ruota_ore", { n: sec / 3600 });
   const tempoCorto = sec => sec < 3600 ? t("ruota_breve_min", { n: sec / 60 }) : t("ruota_breve_ore", { n: sec / 3600 });
   const maiuscolo = x => String(x).toLocaleUpperCase(loc());
-  const premioBanane = (k, sec) => ({ k, ico: "🍌", val: () => tempoCorto(sec), un: () => t("ruota_u_raccolto"),
+  const premioBanane = (k, sec) => ({ k, ico: "🍌", pix: sec >= 7200 ? "cesto" : "banana", val: () => tempoCorto(sec), un: () => t("ruota_u_raccolto"),
     desc: () => t("ruota_d_banane", { t: tempoRuota(sec) }), dai: () => vinciBanane(sec) });
   const UN_BONUS = { vel5: "ruota_u_vel", sc2: "ruota_u_sc", sc5: "ruota_u_sc", ban3: "ruota_u_ban", salto1: "ruota_u_salto", salto3: "ruota_u_salto" };
-  const premioBonus = (k, ico) => ({ k, ico, val: () => BONUS[k].ore ? tempoCorto(BONUS[k].ore * 3600) : "×" + BONUS[k].molt, un: () => t(UN_BONUS[k]),
+  const premioBonus = (k, ico) => ({ k, ico, pix: PIX_BONUS[k], val: () => BONUS[k].ore ? tempoCorto(BONUS[k].ore * 3600) : "×" + BONUS[k].molt, un: () => t(UN_BONUS[k]),
     desc: () => nomeBonus(k) + (BONUS[k].ore ? "" : " · " + fmtBreve(BONUS[k].min * 60)), dai: () => bonusRuota(k) });
-  const premioPagine = n => ({ k: "pag" + n, ico: "📃", val: () => String(n), un: () => t("ruota_u_pagine"), desc: () => t("ruota_d_pagine", { n }), dai: () => vinciPagine(n) });
-  const premioScimmie = n => ({ k: "cuc" + n, ico: "🍼", val: () => "+" + n + "%", un: () => t("ruota_u_sc"), desc: () => t("ruota_d_scimmie", { n }), dai: () => vinciScimmie(n) });
-  const premioCassa = (id, ico) => ({ k: id, ico, val: () => t("ruota_val_cassa"), un: () => t("ruota_u_" + id), desc: () => t("cassa_" + id), dai: () => vinciCassa(id) });
-  const premioOggetto = (k, ico, rarita, un, desc) => ({ k, ico, val: () => "?", un, desc,
+  const premioPagine = n => ({ k: "pag" + n, ico: "📃", pix: n >= 150 ? "pagine3" : n >= 80 ? "pagine2" : "pagina", val: () => String(n), un: () => t("ruota_u_pagine"), desc: () => t("ruota_d_pagine", { n }), dai: () => vinciPagine(n) });
+  const premioScimmie = n => ({ k: "cuc" + n, ico: "🍼", pix: "biberon", val: () => "+" + n + "%", un: () => t("ruota_u_sc"), desc: () => t("ruota_d_scimmie", { n }), dai: () => vinciScimmie(n) });
+  const premioCassa = (id, ico) => ({ k: id, ico, pix: "cassa_" + id, cassa: id, val: () => t("ruota_val_cassa"), un: () => t("ruota_u_" + id), desc: () => t("cassa_" + id), dai: () => vinciCassa(id) });
+  const premioOggetto = (k, ico, rarita, un, desc) => ({ k, ico, pix: k === "epico" ? "mistero_epico" : "mistero", val: () => "?", un, desc,
     dai: () => { const o = oggettoRuota(rarita); return t("ruota_v_ogg", { nome: nomeOggetto(o.id), rar: t("rar_" + o.r) }); } });
   // i premi possibili, divisi per rarità: più un premio è raro, più il suo spicchio è piccolo
   const PREMI_RUOTA = {
@@ -18946,7 +19366,7 @@
     for (const [fascia, quanti, peso] of FASCE_RUOTA) for (const p of mescola(PREMI_RUOTA[fascia]).slice(0, quanti)) fette.push({ ...p, fascia, peso });
     const leggendari = oggettiInPalio(3);
     const og = leggendari[Math.floor(caso() * leggendari.length)];
-    fette.push({ k: "legg", fascia: "leggendario", peso: PESO_LEGGENDARIO, ogg: og.id, ico: og.t === "a" ? og.v : "🌟", val: () => "", un: () => t("rar_3"),
+    fette.push({ k: "legg", fascia: "leggendario", peso: PESO_LEGGENDARIO, ogg: og.id, ico: og.t === "a" ? og.v : "🌟", pix: "stella", val: () => "", un: () => t("rar_3"),
       desc: () => t("ruota_d_legg", { nome: nomeOggetto(og.id), tipo: t("tipo1_" + og.t) }),
       dai: () => { aggiungiOggetto(og.id); R.ruotaOggetto = og.id; return t("ruota_v_legg", { nome: nomeOggetto(og.id) }); } });
     // in ordine sparso, ma il leggendario mai vicino a un altro premio raro
@@ -18991,7 +19411,10 @@
       svg += `<path d="M${punto(g.da + 0.8, r - 3)} A${r - 3},${r - 3} 0 0 1 ${punto(g.a - 0.8, r - 3)}" fill="none" stroke="${(hw ? BORDO_FASCIA_HW : BORDO_FASCIA)[f.fascia]}" stroke-width="3" stroke-linecap="round"/>`;
       // icona, parola e valore, dritti come su una vera ruota (la parola si rimpicciolisce per starci)
       const inchiostro = legg ? "#3a2b00" : "#efe8d4";
-      let testo = `<text x="${c}" y="${c - r * 0.8}" text-anchor="middle" dominant-baseline="central" font-size="${Math.max(9, Math.min(17, larghezza(r * 0.8, g.ampio) * 0.62)).toFixed(1)}">${f.ico}</text>`;
+      const lato = Math.max(10, Math.min(24, larghezza(r * 0.8, g.ampio) * 0.62));
+      let testo = f.pix && PIX_RUOTA[f.pix]
+        ? `<image href="${iconaPix(f.pix)}" x="${(c - lato / 2).toFixed(2)}" y="${(c - r * 0.8 - lato / 2).toFixed(2)}" width="${lato.toFixed(2)}" height="${lato.toFixed(2)}"/>`
+        : `<text x="${c}" y="${c - r * 0.8}" text-anchor="middle" dominant-baseline="central" font-size="${Math.max(9, Math.min(17, larghezza(r * 0.8, g.ampio) * 0.62)).toFixed(1)}">${f.ico}</text>`;
       const un = maiuscolo(f.un()), val = f.val();
       const fsU = Math.min(7, larghezza(r * 0.62, g.ampio) * 0.86 / Math.max(1, [...un].length * 0.64));
       if (fsU >= 4.2) testo += `<text x="${c}" y="${(c - r * 0.62).toFixed(1)}" text-anchor="middle" dominant-baseline="central" font-size="${fsU.toFixed(1)}" font-weight="700" letter-spacing=".3" fill="${inchiostro}" opacity=".85" style="font-family: var(--ui)">${un}</text>`;
@@ -19008,23 +19431,24 @@
         svg += `<circle cx="${px}" cy="${py}" r="2.5" fill="#ff8a1f" stroke="#7a3500" stroke-width=".8"/><circle cx="${sx}" cy="${sy}" r=".9" fill="#5fae3a"/>`;
       } else svg += `<circle cx="${px}" cy="${py}" r="2.1" fill="#efe8d4" stroke="#c99a12" stroke-width=".8"/>`;
     }
-    svg += hw ? `<circle cx="${c}" cy="${c}" r="19" fill="#1a0f22" stroke="#ff8a1f" stroke-width="3"/><circle cx="${c}" cy="${c}" r="14" fill="none" stroke="#a855f7" stroke-opacity=".45" stroke-width="1"/>` +
-        `<text x="${c}" y="${c + 1}" text-anchor="middle" dominant-baseline="central" font-size="18">🎃</text></svg>`
-      : `<circle cx="${c}" cy="${c}" r="19" fill="#efe8d4" stroke="#c99a12" stroke-width="3"/><circle cx="${c}" cy="${c}" r="14" fill="none" stroke="#1c1a16" stroke-opacity=".15" stroke-width="1"/>` +
-        `<text x="${c}" y="${c + 1}" text-anchor="middle" dominant-baseline="central" font-size="18">🐒</text></svg>`;
+    svg += hw ? `<circle cx="${c}" cy="${c}" r="19" fill="#1a0f22" stroke="#ff8a1f" stroke-width="3"/><circle cx="${c}" cy="${c}" r="14" fill="none" stroke="#a855f7" stroke-opacity=".45" stroke-width="1"/></svg>`
+      : `<circle cx="${c}" cy="${c}" r="19" fill="#efe8d4" stroke="#c99a12" stroke-width="3"/><circle cx="${c}" cy="${c}" r="14" fill="none" stroke="#1c1a16" stroke-opacity=".15" stroke-width="1"/></svg>`;
     $("ruotaDisco").innerHTML = svg;
+    let perno = document.querySelector(".ruota-box .ruota-perno");
+    if (!perno) { perno = imgPix(hw ? "zucca" : "scimmia", "ruota-perno"); $("ruotaDisco").after(perno); }
+    perno.src = iconaPix(hw ? "zucca" : "scimmia");
     // l'elenco dei premi di oggi con la loro probabilità, dal più facile al più raro
     const box = $("ruotaPremi");
     box.innerHTML = "";
     for (const f of fette.slice().sort((x, y) => y.peso - x.peso)) {
       const nome = document.createElement("span"), p = document.createElement("b");
       nome.className = p.className = "rp-" + f.fascia;
-      nome.textContent = f.ico + " " + f.desc();
+      nome.append(iconaPremio(f), " " + f.desc());
       p.textContent = decimale(f.peso) + "%";
       box.append(nome, p);
     }
     const aperta = !box.hidden;
-    $("bRuotaProb").textContent = "📊 " + t(aperta ? "ruota_prob_nascondi" : "ruota_prob_vedi");
+    pulsantePix($("bRuotaProb"), "grafico", t(aperta ? "ruota_prob_nascondi" : "ruota_prob_vedi"));
     $("bRuotaProb").setAttribute("aria-expanded", aperta);
     const leg = fette.find(f => f.fascia === "leggendario");
     scriviLeggRuota(leg);
@@ -19044,7 +19468,7 @@
       ant.appendChild(sp);
     }
     const tx = document.createElement("span"); tx.className = "rl-testo";
-    const sopra = document.createElement("small"); sopra.textContent = t("ruota_palio", { p: decimale(leg.peso) });
+    const sopra = document.createElement("small"); sopra.append(imgPix("stella"), " " + t("ruota_palio", { p: decimale(leg.peso) }));
     const nome = document.createElement("b"); nome.textContent = nomeOggetto(o.id);
     const sotto = document.createElement("em"); sotto.textContent = t("tipo1_" + o.t) + " · " + t("rar_" + o.r);
     tx.append(sopra, nome, sotto);
@@ -19055,7 +19479,7 @@
     $("bRuota").classList.toggle("pronta", pronta);
     if (!$("bGira")) return;
     $("bGira").disabled = !pronta || !!R.ruotaGira;
-    $("bGira").textContent = pronta ? "🎡 " + t("ruota_gira") : "⏳ " + t("ruota_domani", { t: fmtBreve(secondiADomani()) });
+    pulsantePix($("bGira"), pronta ? "ruota" : "clessidra", pronta ? t("ruota_gira") : t("ruota_domani", { t: fmtBreve(secondiADomani()) }));
   }
   function apriRuota(senzaGuida) {
     if (!R.ruotaGira) { $("ruotaEsito").textContent = ruotaPronta() ? "" : t("ruota_gia"); $("ruotaEsito").classList.remove("vinto"); }
@@ -19074,7 +19498,8 @@
     const box = $("vrPremio");
     box.innerHTML = "";
     if (R.ruotaOggetto) box.appendChild(disegnoOggetto(R.ruotaOggetto, false));
-    else box.textContent = f.ico;
+    else if (f.cassa) { const cv = document.createElement("canvas"); cv.className = "vr-cassa"; disegnaCassaPixel(cv, f.cassa); box.appendChild(cv); }
+    else box.appendChild(iconaPremio(f, "vr-pix"));
     box.style.animation = "none"; void box.offsetWidth; box.style.animation = "";
     $("vrTitolo").textContent = t(legg ? "ruota_jackpot_tit" : "ruota_vinto_tit");
     $("vrTesto").textContent = legg ? testo.replace(/^[^!！]*[!！]\s*/, "") : testo;
@@ -19107,7 +19532,8 @@
     requestAnimationFrame(() => { const sv = $("ruotaSvg"); if (sv) sv.style.transform = "rotate(" + R.ruotaGiro + "deg)"; });
     setTimeout(() => {
       R.ruotaGira = false;
-      $("ruotaEsito").textContent = (f.fascia === "leggendario" ? "🌟 " : "🎉 ") + testo;
+      $("ruotaEsito").textContent = "";
+      $("ruotaEsito").append(iconaPremio(f), " " + testo);
       $("ruotaEsito").classList.add("vinto");
       Suono.traguardo();
       mostraVintoRuota(f, testo);
@@ -22127,6 +22553,9 @@
     ] },
     { v: 71, voci: 8, chiave: "nov20_", passi: [
       { sel: "#bRuota", testo: "tour20_1", vista: "opera" }
+    ] },
+    { v: 72, voci: 1, chiave: "nov21_", passi: [
+      { sel: "#bRuota", testo: "tour21_1", vista: "opera" }
     ] }
   ];
   const VERSIONE_NOVITA = GRUPPI_NOVITA[GRUPPI_NOVITA.length - 1].v;
